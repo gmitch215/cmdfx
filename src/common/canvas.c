@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "cmdfx/canvas.h"
 
 void Canvas_setChar(int x, int y, char c) {
