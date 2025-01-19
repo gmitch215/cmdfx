@@ -17,4 +17,4 @@ endfunction()
 
 # Common
 add_test_executable(common canvas_clear)
-add_test_executable(common canvas_print)
+add_test_executable(common canvas_dimensions)
