@@ -20,8 +20,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Configure Project
         run: cmake .
-      - name: Build Project
+      - name: Build Project (Linux/MacOS)
+        if: ${{ matrix.os != 'windows-latest' }}
         run: sudo cmake --build . --config Release --target install
+      - name: Build Project (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: cmake --build . --config Release --target install
       - name: Test Project
         run: ctest -C Release -T test
   
