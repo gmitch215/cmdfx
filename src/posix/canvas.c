@@ -12,22 +12,24 @@ int _height = 0;
 int _color = COLOR_WHITE;
 
 int Canvas_getWidth() {
-    if (_width != 0) return &_width;
+    if (_width != 0) return _width;
     
     struct winsize ws;
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == 0) {
         _width = ws.ws_col;
     }
+
     return _width;
 }
 
 int Canvas_getHeight() {
-    if (_height != 0) return &_height;
+    if (_height != 0) return _height;
     
     struct winsize ws;
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == 0) {
         _height = ws.ws_col;
     }
+    
     return _height;
 }
 
