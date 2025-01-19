@@ -1,0 +1,41 @@
+name: Build Project
+
+on:
+  push:
+    branches: [ master, ver/* ]
+  pull_request:
+    branches: [ master, ver/* ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure Project
+        run: cmake .
+      - name: Build Project
+        run: sudo cmake --build . --config Release --target install
+      - name: Test Project
+        run: ctest -C Release -T test
+  
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    name: Deploy Doxygen
+    if: ${{ github.event_name != 'pull_request' && github.ref_name == 'master' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Doxygen
+        uses: ssciwr/doxygen-install@v1
+      - name: Configure Project
+        run: cmake .
+      - name: Build Docs
+        run: make docs
+      - name: Deploy Doxygen
+        run: bash doxygen.sh ${GITHUB_SHA::7}
