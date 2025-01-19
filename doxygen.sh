@@ -7,7 +7,6 @@ if [ ! -d "docs" ]; then
 fi;
 
 cp -Rfv build/docs/html/* ./docs/
-cp -Rfv docs/levelz.png ./docs/
 
 git switch -f gh-pages
 
