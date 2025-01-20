@@ -9,7 +9,6 @@
 
 int _width = 0;
 int _height = 0;
-int _color = COLOR_WHITE;
 
 int Canvas_getWidth() {
     if (_width != 0) return _width;
@@ -33,17 +32,22 @@ int Canvas_getHeight() {
     return _height;
 }
 
-int Canvas_getColor() {
-    return _color;
-}
-
-void Canvas_setColor(int color) {
-    _color = color;
-    printf("\033[38;5;%dm", color);
-}
-
 void Canvas_setCursor(int x, int y) {
+    int width = Canvas_getWidth();
+    int height = Canvas_getHeight();
+
+    if (x < 1 || x > width) return;
+    if (y < 1 || y > height) return;
+
     printf("\033[%d;%dH", y, x);
+}
+
+void Canvas_hideCursor() {
+    printf("\033[?25l");
+}
+
+void Canvas_showCursor() {
+    printf("\033[?25h");
 }
 
 void Canvas_clearScreen() {

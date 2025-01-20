@@ -4,45 +4,7 @@
 extern "C" {
 #endif
 
-#if defined(_WIN32) || defined(_WIN64)
-
-#define COLOR_BLACK           0x0000
-#define COLOR_BLUE            0x0001
-#define COLOR_GREEN           0x0002
-#define COLOR_CYAN            0x0003
-#define COLOR_RED             0x0004
-#define COLOR_MAGENTA         0x0005
-#define COLOR_BROWN           0x0006
-#define COLOR_LIGHT_GRAY      0x0007
-#define COLOR_DARK_GRAY       0x0008
-#define COLOR_LIGHT_BLUE      0x0009 
-#define COLOR_LIGHT_GREEN     0x000A
-#define COLOR_LIGHT_CYAN      0x000B
-#define COLOR_LIGHT_RED       0x000C
-#define COLOR_LIGHT_MAGENTA   0x000D
-#define COLOR_YELLOW          0x000E
-#define COLOR_WHITE           0x000F
-
-#else
-
-#define COLOR_BLACK         0
-#define COLOR_RED           1
-#define COLOR_GREEN         2
-#define COLOR_YELLOW        3
-#define COLOR_BLUE          4
-#define COLOR_MAGENTA       5
-#define COLOR_CYAN          6
-#define COLOR_WHITE         7
-#define COLOR_BRIGHT_BLACK  8
-#define COLOR_BRIGHT_RED    9
-#define COLOR_BRIGHT_GREEN  10
-#define COLOR_BRIGHT_YELLOW 11
-#define COLOR_BRIGHT_BLUE   12
-#define COLOR_BRIGHT_MAGENTA 13
-#define COLOR_BRIGHT_CYAN   14
-#define COLOR_BRIGHT_WHITE  15
-
-#endif
+// Core Functions
 
 /**
  * Gets the width of the canvas, which is the width of the terminal.
@@ -81,24 +43,145 @@ int Canvas_getCursorX();
 int Canvas_getCursorY();
 
 /**
- * Gets the color of the text.
- * @return The color of the text.
- */
-int Canvas_getColor();
-
-/**
- * Sets the color of the text.
- * @param color The color of the text.
- */
-void Canvas_setColor(int color);
-
-/**
  * Sets a character at a specific position.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param c The character to set.
  */
 void Canvas_setChar(int x, int y, char c);
+
+/**
+ * @brief Sets the ANSI code at the current cursor position.
+ * 
+ * This method sets the ANSI code at a specific position. The ANSI code is a
+ * series of semicolon-separated numbers and letters that control the terminal
+ * behavior. For example, the ANSI code "\033[31m" sets the text color to red.
+ * The prefix "\033[" and the suffix "m" are already provided for you.
+ * 
+ * @param ansi The ANSI code.
+ */
+void Canvas_setAnsiCurrent(const char* ansi);
+
+/**
+ * @brief Sets the ANSI code at a specific position.
+ * 
+ * This method sets the ANSI code at a specific position. The ANSI code is a
+ * series of semicolon-separated numbers and letters that control the terminal
+ * behavior. For example, the ANSI code "\033[31m" sets the text color to red.
+ * The prefix "\033[" and the suffix "m" are already provided for you.
+ * 
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param ansi The ANSI code.
+ */
+void Canvas_setAnsi(int x, int y, const char* ansi);
+
+// Utility Functions - ANSI
+
+/**
+ * Hides the cursor.
+ */
+void Canvas_hideCursor();
+
+/**
+ * Shows the cursor.
+ */
+void Canvas_showCursor();
+
+/**
+ * Resets all formatting at the current cursor position.
+ */
+void Canvas_resetFormat();
+
+/**
+ * Sets the foreground color at the current cursor position.
+ * @param rgb The RGB color.
+ */
+void Canvas_setForeground(int rgb);
+
+/**
+ * Sets the background color at the current cursor position.
+ * @param rgb The RGB color.
+ */
+void Canvas_setBackground(int rgb);
+
+// Utility Functions - Shapes
+
+/**
+ * Draws a horizontal line.
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param width Width of the line.
+ * @param c The character to draw the line with.
+ */
+void Canvas_hLine(int x, int y, int width, char c);
+
+/**
+ * Draws a vertical line.
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param height Height of the line.
+ * @param c The character to draw the line with.
+ */
+void Canvas_vLine(int x, int y, int height, char c);
+
+/**
+ * Draws a hollow rectangle.
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param width Width of the rectangle.
+ * @param height Height of the rectangle.
+ * @param c The character to draw the rectangle with.
+ */
+void Canvas_rect(int x, int y, int width, int height, char c);
+
+/**
+ * Fills a rectangle with a character.
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param width Width of the rectangle.
+ * @param height Height of the rectangle.
+ * @param c The character to fill the rectangle with.
+ */
+void Canvas_fillRect(int x, int y, int width, int height, char c);
+
+/**
+ * Draws a hollow circle.
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param radius Radius of the circle.
+ * @param c The character to draw the circle with.
+ */
+void Canvas_circle(int x, int y, int radius, char c);
+
+/**
+ * Fills a circle with a character.
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param radius Radius of the circle.
+ * @param c The character to fill the circle with.
+ */
+void Canvas_fillCircle(int x, int y, int radius, char c);
+
+/**
+ * Draws a hollow ellipse.
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param xradius X radius of the ellipse.
+ * @param yradius Y radius of the ellipse.
+ * @param c The character to draw the ellipse with.
+ */
+void Canvas_ellipse(int x, int y, int xradius, int yradius, char c);
+
+/**
+ * Fills an ellipse with a character.
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param xradius X radius of the ellipse.
+ * @param yradius Y radius of the ellipse.
+ * @param c The character to fill the ellipse with.
+ */
+void Canvas_fillEllipse(int x, int y, int xradius, int yradius, char c);
 
 #ifdef __cplusplus
 }

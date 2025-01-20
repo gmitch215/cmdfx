@@ -5,7 +5,6 @@
 
 int _width = 0;
 int _height = 0;
-int _color = COLOR_WHITE;
 
 int Canvas_getWidth() {
     if (_width != 0) return _width;
@@ -52,13 +51,22 @@ void Canvas_setCursor(int x, int y) {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-int Canvas_getColor() {
-    return _color;
+void Canvas_hideCursor() {
+    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO cursorInfo;
+
+    GetConsoleCursorInfo(consoleHandle, &cursorInfo);
+    cursorInfo.bVisible = FALSE;
+    SetConsoleCursorInfo(consoleHandle, &cursorInfo);
 }
 
-void Canvas_setColor(int color) {
-    _color = color;
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+void Canvas_showCursor() {
+    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO cursorInfo;
+
+    GetConsoleCursorInfo(consoleHandle, &cursorInfo);
+    cursorInfo.bVisible = TRUE;
+    SetConsoleCursorInfo(consoleHandle, &cursorInfo);
 }
 
 void Canvas_clearScreen() {
