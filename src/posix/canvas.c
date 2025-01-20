@@ -32,6 +32,28 @@ int Canvas_getHeight() {
     return _height;
 }
 
+int Canvas_getCursorX() {
+    printf("\033[6n");
+    fflush(stdout);
+
+    int x, y;
+    if (scanf("\033[%d;%dR", &y, &x) == 2)
+        return x;
+    
+    return -1;
+}
+
+int Canvas_getCursorY() {
+    printf("\033[6n");
+    fflush(stdout);
+
+    int x, y;
+    if (scanf("\033[%d;%dR", &y, &x) == 2)
+        return y;
+    
+    return -1;
+}
+
 void Canvas_setCursor(int x, int y) {
     int width = Canvas_getWidth();
     int height = Canvas_getHeight();
