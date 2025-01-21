@@ -47,7 +47,7 @@ jobs:
           path: |
             build/package/*
             !build/package/_CPack_Packages
-            build/package/_CPack_Packages/*.log
+            build/package/_CPack_Packages/**/*.log
           overwrite: true
       - name: Test Project
         run: ctest -C Debug -T test
