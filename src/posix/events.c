@@ -18,13 +18,6 @@ int _currentTimeMillis() {
 int _prevWidth = 0;
 int _prevHeight = 0;
 
-void initSignalHandlers() {
-    struct sigaction sa;
-    sa.sa_handler = posix_checkResizeEvent;
-    sa.sa_flags = SA_RESTART;
-    sigaction(SIGWINCH, &sa, NULL);
-}
-
 void posix_checkResizeEvent(int sig) {
     struct winsize ws;
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == -1) {
@@ -43,6 +36,13 @@ void posix_checkResizeEvent(int sig) {
 }
 
 // Event Loop
+
+void initSignalHandlers() {
+    struct sigaction sa;
+    sa.sa_handler = posix_checkResizeEvent;
+    sa.sa_flags = SA_RESTART;
+    sigaction(SIGWINCH, &sa, NULL);
+}
 
 int _running = 0;
 
