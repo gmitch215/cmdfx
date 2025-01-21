@@ -8,6 +8,10 @@
 #include "cmdfx/canvas.h"
 #include "cmdfx/events.h"
 
+int _currentTimeMillis() {
+    return (int) (clock() / (CLOCKS_PER_SEC / 1000));
+}
+
 // Core Events
 
 int _prevWidth = 0;
@@ -35,10 +39,6 @@ void win_checkResizeEvent() {
 // Event Loop
 
 int _running = 0;
-
-int _currentTimeMillis() {
-    return (int) (clock() / (CLOCKS_PER_SEC / 1000));
-}
 
 unsigned __stdcall _eventLoop(void* arg) {
     _running = 1;

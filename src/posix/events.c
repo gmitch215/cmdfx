@@ -4,9 +4,14 @@
 #include <unistd.h>
 #include <signal.h>
 #include <sys/ioctl.h>
+#include <time.h>
 
 #include "cmdfx/canvas.h"
 #include "cmdfx/events.h"
+
+int _currentTimeMillis() {
+    return (int) (clock() / (CLOCKS_PER_SEC / 1000));
+}
 
 // Core Events
 
@@ -15,7 +20,7 @@ int _prevHeight = 0;
 
 void initSignalHandlers() {
     struct sigaction sa;
-    sa.sa_handler = checkResizeEvent;
+    sa.sa_handler = posix_checkResizeEvent;
     sa.sa_flags = SA_RESTART;
     sigaction(SIGWINCH, &sa, NULL);
 }
