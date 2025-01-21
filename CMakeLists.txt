@@ -33,10 +33,10 @@ enable_testing()
 add_subdirectory(test)
 
 # Documentation
-option(BUILD_DOCS "Build API documentation with Doxygen" ON)
+option(DOCS_CMDFX "Build API documentation with Doxygen" ON)
 
 find_package(Doxygen)
-if (DOXYGEN_FOUND AND BUILD_DOCS)
+if (DOXYGEN_FOUND AND DOCS_CMDFX)
     set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
     set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/build/Doxyfile.in)
 
@@ -104,6 +104,7 @@ if (PACKAGE_CMDFX)
     set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
     set(CPACK_PACKAGE_INSTALL_DIRECTORY ${PROJECT_NAME})
     set(CPACK_PACKAGE_VENDOR "Gregory Mitchell")
+    set(CPACK_PACKAGE_CONTACT "Gregory Mitchell")
     set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
 
     if (WIN32)
