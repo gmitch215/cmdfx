@@ -1,6 +1,6 @@
 #include <stdio.h>
+#include <cmdfx.h>
 
-#include "cmdfx/events.h"
 #include "../test.h"
 
 int onResize(CmdFX_Event* event) {
