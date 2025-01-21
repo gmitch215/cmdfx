@@ -18,6 +18,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9'
       - name: Configure Project
         run: cmake .
       - name: Build Project (Linux/MacOS)
@@ -25,7 +28,9 @@ jobs:
         run: sudo cmake --build . --config Debug --target install package
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
-        run: cmake --build . --config Debug --target install package
+        run: |
+          dotnet tool install --global wix
+          cmake --build . --config Debug --target install package
       - name: Archive Build Artifacts
         uses: actions/upload-artifact@v4
         with:
