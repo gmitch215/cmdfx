@@ -38,14 +38,16 @@ jobs:
           name: Build-${{ runner.os }}
           path: build/bin/Debug
           overwrite: true
+          if-no-files-found: ignore
       - name: Archive Package Artifacts
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
-          path: |
+          path: >
             build/package/*
             !build/package/_CPack_Packages
+            build/package/_CPack_Packages/*.log
           overwrite: true
       - name: Test Project
         run: ctest -C Debug -T test
