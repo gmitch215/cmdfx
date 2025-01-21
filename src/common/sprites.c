@@ -68,7 +68,7 @@ void Sprite_draw(CmdFX_Sprite* sprite) {
     }
 
     // Draw Sprite
-    Sprite_draw0(old);
+    Sprite_draw0(sprite);
 
     // Add Sprite to List
     if (sprites == 0) {
@@ -90,8 +90,8 @@ void Sprite_draw(CmdFX_Sprite* sprite) {
         sprites = temp;
 
         sprite->id = ++spriteCount;
-        sprites[i] = sprite;
-        sprites[i + 1] = 0;
+        sprites[spriteCount] = sprite;
+        sprites[spriteCount + 1] = 0;
     }
 }
 
