@@ -5,6 +5,7 @@ Testing/
 .cmake/
 x64/
 Release/
+Debug/
 
 CMakeFiles
 Makefile
@@ -15,6 +16,7 @@ levelz-test-*
 CMakeDoxyfile.in
 CMakeDoxygenDefaults.cmake
 install_manifest.txt
+_CPack_Packages/
 
 *.dir/
 *.o
@@ -25,4 +27,5 @@ install_manifest.txt
 *.vcxproj*
 *.sln
 *.exp
+*.exe
 *.lib
