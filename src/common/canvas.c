@@ -52,7 +52,7 @@ void Canvas_setForeground(int rgb) {
     int g = (rgb >> 8) & 0xFF;
     int b = rgb & 0xFF;
 
-    char* ansi = malloc(7 + ((r > 9) + 1) + ((g > 9) + 1) + ((b > 9) + 1) + 1);
+    char* ansi = malloc(17);
     sprintf(ansi, "38;2;%d;%d;%d", r, g, b);
 
     Canvas_setAnsiCurrent(ansi);
@@ -64,7 +64,7 @@ void Canvas_setBackground(int rgb) {
     int g = (rgb >> 8) & 0xFF;
     int b = rgb & 0xFF;
 
-    char* ansi = malloc(7 + ((r > 9) + 1) + ((g > 9) + 1) + ((b > 9) + 1) + 1);
+    char* ansi = malloc(17);
     sprintf(ansi, "48;2;%d;%d;%d", r, g, b);
 
     Canvas_setAnsiCurrent(ansi);
