@@ -50,7 +50,7 @@ void* _eventLoop(void* arg) {
     _running = 1;
 
     while (_running) {
-
+        usleep(EVENT_TICK * 1000);
     }
 
     return 0;

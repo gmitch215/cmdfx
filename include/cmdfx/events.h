@@ -15,6 +15,19 @@ extern "C" {
 #endif
 
 /**
+ * @brief The time between event loop iterations, in milliseconds.
+ * 
+ * This value is used to determine how often the event loop should check for
+ * events. A lower value will result in more frequent event checks, but may
+ * consume more CPU resources. A higher value will result in less frequent event
+ * checks, but may cause events to be missed. This is usually set to avoid a
+ * "busy loop" that consumes too many resources.
+ * 
+ * The value used for CmdFX events is 10 milliseconds.
+ */
+#define EVENT_TICK 10
+
+/**
  * Called when the terminal is resized.
  * The data is a pointer to a `struct CmdFX_ResizeEvent`.
  */

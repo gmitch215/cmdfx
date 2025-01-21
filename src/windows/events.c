@@ -45,6 +45,7 @@ unsigned __stdcall _eventLoop(void* arg) {
 
     while (_running) {
         win_checkResizeEvent();
+        Sleep(EVENT_TICK);
     }
 
     return 0;
