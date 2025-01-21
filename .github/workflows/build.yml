@@ -19,6 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
+        if: ${{ matrix.os == 'windows-latest' }}
         with:
           dotnet-version: '9'
       - name: Configure Project
@@ -41,8 +42,10 @@ jobs:
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
-          name: cmdfx-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
-          path: build/package/*
+          name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
+          path: |
+            build/package/*
+            !build/package/_CPack_Packages
           overwrite: true
       - name: Test Project
         run: ctest -C Debug -T test
