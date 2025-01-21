@@ -38,20 +38,20 @@ option(DOCS_CMDFX "Build API documentation with Doxygen" ON)
 if (DOCS_CMDFX)
     find_package(Doxygen)
 
-    if (NOT Doxygen_FOUND)
-        message(FATAL_ERROR "Doxygen is needed to build the documentation.")
+    if (DOXYGEN_FOUND)
+        message(STATUS "Doxygen found: ${DOXYGEN_EXECUTABLE}")
+
+        set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
+        set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/build/Doxyfile.in)
+    
+        configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+    
+        add_custom_target(docs
+            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/docs
+            COMMENT "Generating API documentation with Doxygen"
+            VERBATIM)
     endif()
-
-    set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
-    set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/build/Doxyfile.in)
-
-    configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
-
-    add_custom_target(docs
-        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/docs
-        COMMENT "Generating API documentation with Doxygen"
-        VERBATIM)
 endif()
 
 # Installation
