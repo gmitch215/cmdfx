@@ -22,12 +22,25 @@ jobs:
         run: cmake .
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-latest' }}
-        run: sudo cmake --build . --config Release --target install
+        run: sudo cmake --build . --config Debug --target install package
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
-        run: cmake --build . --config Release --target install
+        run: cmake --build . --config Debug --target install package
+      - name: Archive Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build-${{ runner.os }}
+          path: build/bin/Debug
+          overwrite: true
+      - name: Archive Package Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cmdfx-${{ runner.os }}-${{ github.sha }}
+          path: |
+            build/package/*
+            !build/package/_CPack_Packages
       - name: Test Project
-        run: ctest -C Release -T test
+        run: ctest -C Debug -T test
   
   deploy:
     runs-on: ubuntu-latest
