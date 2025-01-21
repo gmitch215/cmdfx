@@ -47,8 +47,23 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
         for (int j = 0; j < sprite->width; j++) {
             char* ansi = sprite->ansi[i][j];
 
-            Canvas_setCursor(sprite->x + j, sprite->y + i);
-            Canvas_setAnsi(sprite->x + j, sprite->y + i, ansi);
+            int x = sprite->x + j;
+            int y = sprite->y + i;
+
+            // Check Z-Index Collision
+            int skip = 0;
+            for (int k = 0; k < spriteCount; k++) {
+                CmdFX_Sprite* other = sprites[k];
+                if (other->id == 0) continue;
+                if (other->id == sprite->id) continue;
+
+                if (other->z > sprite->z)
+                    if (Sprite_isColliding(sprite, other)) skip = 1;
+            }
+            if (skip) continue;
+
+            Canvas_setCursor(x, y);
+            Canvas_setAnsi(x, y, ansi);
             putchar(sprite->data[i][j]);
             Canvas_resetFormat();
         }
