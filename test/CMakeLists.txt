@@ -15,6 +15,19 @@ function(add_test_executable folder name)
     add_test(NAME ${folder}/${name} COMMAND cmdfx-test-${folder}-${name})
 endfunction()
 
+function(add_manual_test name)
+    add_executable(cmdfx-test-manual-${name} "src/manual/${name}.c" "src/test.h")
+    target_link_libraries(cmdfx-test-manual-${name} PRIVATE cmdfx)
+    target_include_directories(cmdfx-test-manual-${name} PRIVATE "${PROJECT_SOURCE_DIR}/include")
+    target_include_directories(cmdfx-test-manual-${name} PRIVATE "${PROJECT_SOURCE_DIR}/include/cmdfx")
+
+    add_dependencies(cmdfx-test-manual-${name} cmdfx)
+endfunction()
+
 # Common
 add_test_executable(common canvas_clear)
 add_test_executable(common canvas_dimensions)
+
+# Manual
+add_manual_test(events_resize)
+add_manual_test(canvas_print)
