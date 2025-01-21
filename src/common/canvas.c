@@ -962,6 +962,8 @@ char ASCII_NINE[8][5] = {
     {' ', ' ', ' ', ' ', ' '}
 };
 
+char ASCII_MAP[128][8][5];
+
 #pragma endregion
 
 void _initAsciiText() {

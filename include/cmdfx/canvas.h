@@ -538,7 +538,7 @@ extern char ASCII_NINE[8][5];
  * is the column. The ASCII art is represented as a 2D array of characters, and drawn using
  * the Canvas_drawAscii method.
  */
-char ASCII_MAP[128][8][5];
+extern char ASCII_MAP[128][8][5];
 
 #pragma endregion
 
