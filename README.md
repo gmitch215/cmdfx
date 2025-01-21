@@ -1,8 +1,8 @@
-<div style="display: flex; align-items: center; flex-direction: column;">
-    <img style="align-self: center;" src="https://cdn.gmitch215.xyz/cmdfx.png" width="30%" style="max-width: 256px" alt="" />
+<div style="display: flex; align-items: center; flex-direction: column;" align="center">
+    <img align="center"  style="align-self: center; max-width: 256px" src="https://cdn.gmitch215.xyz/cmdfx.png" width="30%" alt="" />
     <h1 style="text-align: center;">CmdFX</h1>
     <p style="text-align: center;">A lightweight game engine for your terminal.</p>
-    <div>
+    <div align="center">
         <img src="https://img.shields.io/github/v/release/gmitch215/cmdfx">
         <img src="https://img.shields.io/github/downloads/gmitch215/cmdfx/total">
         <img src="https://img.shields.io/github/license/gmitch215/cmdfx">
