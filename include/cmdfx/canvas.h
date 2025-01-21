@@ -1,3 +1,13 @@
+/**
+ * @file canvas.h
+ * @author Gregory Mitchell (me@gmitch215.xyz)
+ * @brief Canvas API for drawing shapes and text on the terminal.
+ * @version 0.1.0
+ * @date 2025-01-20
+ * 
+ * @copyright Copyright (c) 2025
+ */
+
 #pragma once
 
 #ifdef __cplusplus
@@ -77,6 +87,18 @@ void Canvas_setAnsiCurrent(const char* ansi);
 void Canvas_setAnsi(int x, int y, const char* ansi);
 
 // Utility Functions - ANSI
+
+/**
+ * @brief Gets the cursor visibility.
+ * 
+ * On POSIX, this is handled by an internal variable. On Windows, this is
+ * determined by the cursor visibility state. Therefore, this method is often
+ * less reliable on POSIX systems, since it cannot detect changes made by other
+ * programs.
+ * 
+ * @return 1 if the cursor is visible, 0 if it is hidden.
+ */
+int Canvas_isCursorVisible();
 
 /**
  * Hides the cursor.

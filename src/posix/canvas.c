@@ -64,12 +64,24 @@ void Canvas_setCursor(int x, int y) {
     printf("\033[%d;%dH", y, x);
 }
 
+int _cursorShown = 0;
+
 void Canvas_hideCursor() {
+    if (!_cursorShown) return;
+
     printf("\033[?25l");
+    _cursorShown = 0;
 }
 
 void Canvas_showCursor() {
+    if (_cursorShown) return;
+
     printf("\033[?25h");
+    _cursorShown = 1;
+}
+
+int Canvas_isCursorVisible() {
+    return _cursorShown;
 }
 
 void Canvas_clearScreen() {

@@ -69,6 +69,18 @@ void Canvas_showCursor() {
     SetConsoleCursorInfo(consoleHandle, &cursorInfo);
 }
 
+int Canvas_isCursorVisible() {
+    CONSOLE_CURSOR_INFO cursor_info;
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    if (GetConsoleCursorInfo(hConsole, &cursor_info)) {
+        return cursor_info.bVisible;
+    } else {
+        perror("Error getting cursor info");
+        return 0;
+    }
+}
+
 void Canvas_clearScreen() {
     system("cls");
 }
