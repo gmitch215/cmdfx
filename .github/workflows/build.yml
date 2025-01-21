@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.02, ubuntu-24.02-arm, windows-latest, macos-latest, macos-13]
+        os: [ubuntu-24.04, ubuntu-24.04-arm, windows-latest, macos-latest, macos-13]
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -41,7 +41,7 @@ jobs:
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
-          name: cmdfx-${{ runner.os }}-${{ github.sha }}
+          name: cmdfx-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           path: build/package/*
           overwrite: true
       - name: Test Project
