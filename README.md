@@ -1,7 +1,7 @@
 <div style="display: flex; align-items: center; flex-direction: column;">
-    <img src="https://cdn.gmitch215.xyz/cmdfx.png" width="30%" style="max-width: 256px" alt="" />
-    <h1>CmdFX</h1>
-    <p>A lightweight game engine for your terminal.</p>
+    <img style="align-self: center;" src="https://cdn.gmitch215.xyz/cmdfx.png" width="30%" style="max-width: 256px" alt="" />
+    <h1 style="text-align: center;">CmdFX</h1>
+    <p style="text-align: center;">A lightweight game engine for your terminal.</p>
     <div>
         <img src="https://img.shields.io/github/v/release/gmitch215/cmdfx">
         <img src="https://img.shields.io/github/downloads/gmitch215/cmdfx/total">
