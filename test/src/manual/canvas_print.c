@@ -21,6 +21,9 @@ int main() {
     Canvas_ellipse(x, y, 24, 12, '$');
     Canvas_resetFormat(x, y);
 
+    Canvas_drawText(x - 10, y - 1, "Hello, World!");
+    Canvas_drawAsciiText(x - 5, y + 20, '%', "ABC");
+
     Canvas_showCursor();
     r |= assert(Canvas_isCursorVisible());
 

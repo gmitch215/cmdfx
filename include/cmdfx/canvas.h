@@ -205,6 +205,364 @@ void Canvas_ellipse(int x, int y, int xradius, int yradius, char c);
  */
 void Canvas_fillEllipse(int x, int y, int xradius, int yradius, char c);
 
+// Utility Functions - Text
+
+/**
+ * Draws text at the current cursor position.
+ * @param text The text to draw.
+ */
+void Canvas_drawText(int x, int y, const char* text);
+
+#pragma region ASCII Art
+
+/**
+ * Represents empty space in ASCII art.
+ */
+extern char ASCII_EMPTY[8][5];
+
+/**
+ * An 'A' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_A[8][5];
+
+/**
+ * An 'a' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_A[8][5];
+
+/**
+ * A 'B' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_B[8][5];
+
+/**
+ * A 'b' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_B[8][5];
+
+/**
+ * A 'C' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_C[8][5];
+
+/**
+ * A 'c' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_C[8][5];
+
+/**
+ * A 'D' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_D[8][5];
+
+/**
+ * A 'd' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_D[8][5];
+
+/**
+ * An 'E' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_E[8][5];
+
+/**
+ * An 'e' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_E[8][5];
+
+/**
+ * A 'F' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_F[8][5];
+
+/**
+ * A 'f' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_F[8][5];
+
+/**
+ * A 'G' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_G[8][5];
+
+/**
+ * A 'g' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_G[8][5];
+
+/**
+ * A 'H' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_H[8][5];
+
+/**
+ * A 'h' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_H[8][5];
+
+/**
+ * An 'I' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_I[8][5];
+
+/**
+ * An 'i' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_I[8][5];
+
+/**
+ * A 'J' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_J[8][5];
+
+/**
+ * A 'j' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_J[8][5];
+
+/**
+ * A 'K' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_K[8][5];
+
+/**
+ * A 'k' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_K[8][5];
+
+/**
+ * A 'L' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_L[8][5];
+
+/**
+ * A 'l' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_L[8][5];
+
+/**
+ * A 'M' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_M[8][5];
+
+/**
+ * A 'm' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_M[8][5];
+
+/**
+ * A 'N' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_N[8][5];
+
+/**
+ * A 'n' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_N[8][5];
+
+/**
+ * An 'O' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_O[8][5];
+
+/**
+ * An 'o' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_O[8][5];
+
+/**
+ * A 'P' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_P[8][5];
+
+/**
+ * A 'p' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_P[8][5];
+
+/**
+ * A 'Q' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_Q[8][5];
+
+/**
+ * A 'q' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_Q[8][5];
+
+/**
+ * A 'R' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_R[8][5];
+
+/**
+ * A 'r' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_R[8][5];
+
+/**
+ * A 'S' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_S[8][5];
+/**
+ * A 's' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_S[8][5];
+
+/**
+ * A 'T' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_T[8][5];
+
+/**
+ * A 't' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_T[8][5];
+
+/**
+ * An 'U' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_U[8][5];
+
+/**
+ * A 'u' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_U[8][5];
+
+/**
+ * A 'V' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_V[8][5];
+
+/**
+ * A 'v' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_V[8][5];
+
+/**
+ * A 'W' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_W[8][5];
+
+/**
+ * A 'w' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_W[8][5];
+
+/**
+ * An 'X' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_X[8][5];
+
+/**
+ * A 'x' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_X[8][5];
+
+/**
+ * A 'Y' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_Y[8][5];
+
+/**
+ * A 'y' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_Y[8][5];
+
+/**
+ * A 'Z' character in ASCII art using the '#' character.
+ */
+extern char ASCII_UPPER_Z[8][5];
+
+/**
+ * A 'z' character in ASCII art using the '#' character.
+ */
+extern char ASCII_LOWER_Z[8][5];
+
+/**
+ * A '0' character in ASCII art using the '#' character.
+ */
+extern char ASCII_ZERO[8][5];
+
+/**
+ * A '1' character in ASCII art using the '#' character.
+ */
+extern char ASCII_ONE[8][5];
+
+/**
+ * A '2' character in ASCII art using the '#' character.
+ */
+extern char ASCII_TWO[8][5];
+
+/**
+ * A '3' character in ASCII art using the '#' character.
+ */
+extern char ASCII_THREE[8][5];
+
+/**
+ * A '4' character in ASCII art using the '#' character.
+ */
+extern char ASCII_FOUR[8][5];
+
+/**
+ * A '5' character in ASCII art using the '#' character.
+ */
+extern char ASCII_FIVE[8][5];
+
+/**
+ * A '6' character in ASCII art using the '#' character.
+ */
+extern char ASCII_SIX[8][5];
+/**
+ * A '7' character in ASCII art using the '#' character.
+ */
+extern char ASCII_SEVEN[8][5];
+
+/**
+ * A '8' character in ASCII art using the '#' character.
+ */
+extern char ASCII_EIGHT[8][5];
+
+/**
+ * A '9' character in ASCII art using the '#' character.
+ */
+extern char ASCII_NINE[8][5];
+
+/**
+ * @brief Represents a mapping of ASCII characters to their respective ASCII art.
+ * 
+ * This 3D array is automatically initialized when `Canvas_drawAsciiText` is called.
+ * 
+ * This 3D array is used to map ASCII characters to their respective ASCII art. The first
+ * dimension is the ASCII character, the second dimension is the row, and the third dimension
+ * is the column. The ASCII art is represented as a 2D array of characters, and drawn using
+ * the Canvas_drawAscii method.
+ */
+char ASCII_MAP[128][8][5];
+
+#pragma endregion
+
+/**
+ * Draws an ASCII character at a specific position.
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param ascii The ASCII character as a 2D array of characters.
+ */
+void Canvas_drawAscii(int x, int y, char ascii[8][5]);
+
+/**
+ * @brief Draws text at a specific position.
+ * 
+ * This method uses the Canvas_drawAscii method to draw ASCII characters. The
+ * ASCII characters are stored in pre-defined 2D arrays that are declared in this header.
+ * Characters that are not present in the header will be skipped.
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param character The character to use when drawing.
+ * @param text The text to draw.
+ */
+void Canvas_drawAsciiText(int x, int y, char character, const char* text);
+
 #ifdef __cplusplus
 }
 #endif
