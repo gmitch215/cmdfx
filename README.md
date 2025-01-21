@@ -23,6 +23,22 @@ It is written in C and is available cross-platform. It is licensed under the MIT
 - **Easy to use**: cmdfx is simple to use and easy to learn.
 - **Powerful**: cmdfx provides a powerful set of features for creating terminal-based games.
 
+### 📋 Full List
+
+- **Events API**
+  - Handle window events such as key presses and window resizing.
+  - Get the current state of the keyboard.
+- **Canvas API**
+  - Draw characters and shapes on the terminal.
+  - Set foreground and background colors.
+  - Clear the screen.
+  - Get the size of the terminal.
+  - **Sprites API**
+    - Load and draw sprites on the terminal.
+    - Set the color of a sprite.
+- **Cross-Platform Exposure**
+  - Expose platform-specific features and utilities such as setting the title of the terminal.
+
 ## 📦 Installation
 
 You can download the latest release of cmdfx from the [releases page](https://github.com/gmitch215/cmdfx/releases).
