@@ -12,7 +12,7 @@ Makefile
 CMakeCache.txt
 *.cmake
 DartConfiguration.tcl
-levelz-test-*
+cmdfx-test-*
 CMakeDoxyfile.in
 CMakeDoxygenDefaults.cmake
 install_manifest.txt
