@@ -1,5 +1,5 @@
 <div style="display: flex; align-items: center; flex-direction: column;" align="center">
-    <img align="center"  style="align-self: center; max-width: 256px" src="https://cdn.gmitch215.xyz/cmdfx.png" width="30%" alt="" />
+    <img align="center" style="align-self: center; max-width: 256px" src="https://cdn.gmitch215.xyz/cmdfx.png" width="30%" alt="" />
     <h1 style="text-align: center;">CmdFX</h1>
     <p style="text-align: center;">A lightweight game engine for your terminal.</p>
     <div align="center">
