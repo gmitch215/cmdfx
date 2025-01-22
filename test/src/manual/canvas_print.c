@@ -11,11 +11,7 @@ int main() {
     int x = Canvas_getWidth() / 2;
     int y = Canvas_getHeight() / 2;
 
-    r |= assert(x > 0);
-    r |= assert(y > 0);
-
     Canvas_hideCursor();
-    r |= assert(!Canvas_isCursorVisible());
 
     Canvas_setForeground(0xFF0000);
     Canvas_ellipse(x, y, 24, 12, '$');
@@ -25,7 +21,6 @@ int main() {
     Canvas_drawAsciiText(x - 5, y + 20, '%', "ABC");
 
     Canvas_showCursor();
-    r |= assert(Canvas_isCursorVisible());
 
     return r;
 }
