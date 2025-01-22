@@ -141,6 +141,8 @@ void Sprite_remove(CmdFX_Sprite* sprite);
  * position is specified by the X and Y coordinates, where (0, 0) is the
  * top-left corner of the sprite. If the position is out of bounds, the
  * method will return 0.
+ * 
+ * This method will also redraw the character if the sprite is currently drawn.
  * @param sprite The sprite to modify.
  * @param x The X position in the sprite.
  * @param y The Y position in the sprite.

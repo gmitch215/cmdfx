@@ -204,6 +204,11 @@ int Sprite_setChar(CmdFX_Sprite* sprite, int x, int y, char c) {
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
 
     sprite->data[y][x] = c;
+
+    // Redraw Character if Drawn
+    if (sprite->id != 0)
+        Canvas_setChar(sprite->x + x, sprite->y + y, c);
+
     return 1;
 }
 
