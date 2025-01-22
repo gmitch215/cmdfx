@@ -7,6 +7,7 @@
         <img src="https://img.shields.io/github/downloads/gmitch215/cmdfx/total">
         <img src="https://img.shields.io/github/license/gmitch215/cmdfx">
         <img src="https://img.shields.io/github/stars/gmitch215/cmdfx?style=flat">
+        <img src="https://img.shields.io/github/commit-activity/t/gmitch215/cmdfx?color=violet">
     </div>
 </div>
 
