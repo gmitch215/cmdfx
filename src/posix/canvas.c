@@ -7,29 +7,26 @@
 
 #include "cmdfx/canvas.h"
 
-int _width = 0;
-int _height = 0;
-
 int Canvas_getWidth() {
-    if (_width != 0) return _width;
-    
+    int width = 0;
+
     struct winsize ws;
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == 0) {
-        _width = ws.ws_col;
+        width = ws.ws_col;
     }
 
-    return _width;
+    return width;
 }
 
 int Canvas_getHeight() {
-    if (_height != 0) return _height;
-    
+    int height = 0;
+
     struct winsize ws;
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == 0) {
-        _height = ws.ws_col;
+        height = ws.ws_col;
     }
     
-    return _height;
+    return height;
 }
 
 int Canvas_getCursorX() {
