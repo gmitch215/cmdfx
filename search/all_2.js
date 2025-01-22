@@ -33,5 +33,7 @@ var searchData=
   ['cmdfx_5fevent_5fresize_30',['CMDFX_EVENT_RESIZE',['../db/dd2/events_8h.html#a633e456ae66e1bd3632b95ba7ccad01a',1,'events.h']]],
   ['cmdfx_5fresizeevent_31',['CmdFX_ResizeEvent',['../dc/d75/structCmdFX__ResizeEvent.html',1,'CmdFX_ResizeEvent'],['../db/dd2/events_8h.html#a5cb4290d01e9957f67bbe7a4e16568f6',1,'CmdFX_ResizeEvent:&#160;events.h']]],
   ['cmdfx_5fsprite_32',['CmdFX_Sprite',['../d7/d39/structCmdFX__Sprite.html',1,'']]],
-  ['contributing_33',['📝 Contributing',['../index.html#autotoc_md5',1,'']]]
+  ['contributing_33',['📝 Contributing',['../index.html#autotoc_md5',1,'']]],
+  ['currenttimemillis_34',['currentTimeMillis',['../d8/d3c/util_8h.html#abc0cbd0ff1743666d722d55b15b2ba4c',1,'util.h']]],
+  ['currenttimenanos_35',['currentTimeNanos',['../d8/d3c/util_8h.html#addb951d4b6eeed0141dcc3ca78bab8f7',1,'util.h']]]
 ];

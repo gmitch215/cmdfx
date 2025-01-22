@@ -26,5 +26,7 @@ var searchData=
   ['canvas_5fsetcursor_23',['Canvas_setCursor',['../d4/dcf/canvas_8h.html#ac9f2633e98717e2421b35cbd0fd57ea7',1,'canvas.h']]],
   ['canvas_5fsetforeground_24',['Canvas_setForeground',['../d4/dcf/canvas_8h.html#a6550962c06d0b2a1fc503c4a8d84f714',1,'canvas.h']]],
   ['canvas_5fshowcursor_25',['Canvas_showCursor',['../d4/dcf/canvas_8h.html#a7b5f59a3d91d2f34b16851b967780a53',1,'canvas.h']]],
-  ['canvas_5fvline_26',['Canvas_vLine',['../d4/dcf/canvas_8h.html#ae5d03cc25c245ae352f8b8e507cad8ed',1,'canvas.h']]]
+  ['canvas_5fvline_26',['Canvas_vLine',['../d4/dcf/canvas_8h.html#ae5d03cc25c245ae352f8b8e507cad8ed',1,'canvas.h']]],
+  ['currenttimemillis_27',['currentTimeMillis',['../d8/d3c/util_8h.html#abc0cbd0ff1743666d722d55b15b2ba4c',1,'util.h']]],
+  ['currenttimenanos_28',['currentTimeNanos',['../d8/d3c/util_8h.html#addb951d4b6eeed0141dcc3ca78bab8f7',1,'util.h']]]
 ];
