@@ -8,10 +8,7 @@
 
 #include "cmdfx/canvas.h"
 #include "cmdfx/events.h"
-
-int _currentTimeMillis() {
-    return (int) (clock() / (CLOCKS_PER_SEC / 1000));
-}
+#include "cmdfx/util.h"
 
 // Core Events
 
@@ -27,7 +24,7 @@ void posix_checkResizeEvent(int sig) {
 
     if (ws.ws_col != _prevWidth || ws.ws_row != _prevHeight) {
         CmdFX_ResizeEvent resize = {_prevWidth, _prevHeight, ws.ws_col, ws.ws_row};
-        CmdFX_Event event = {CMDFX_EVENT_RESIZE, _currentTimeMillis(), &resize};
+        CmdFX_Event event = {CMDFX_EVENT_RESIZE, currentTimeMillis(), &resize};
         dispatchCmdFXEvent(&event);
 
         _prevWidth = ws.ws_col;

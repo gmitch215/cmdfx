@@ -7,10 +7,7 @@
 
 #include "cmdfx/canvas.h"
 #include "cmdfx/events.h"
-
-int _currentTimeMillis() {
-    return (int) (clock() / (CLOCKS_PER_SEC / 1000));
-}
+#include "cmdfx/util.h"
 
 // Core Events
 
@@ -27,7 +24,7 @@ void win_checkResizeEvent() {
 
         if (width != _prevWidth || height != _prevHeight) {
             CmdFX_ResizeEvent resize = {_prevWidth, _prevHeight, width, height};
-            CmdFX_Event event = {CMDFX_EVENT_RESIZE, _currentTimeMillis(), &resize};
+            CmdFX_Event event = {CMDFX_EVENT_RESIZE, currentTimeMillis(), &resize};
             dispatchCmdFXEvent(&event);
 
             _prevWidth = width;
