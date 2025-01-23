@@ -17,43 +17,55 @@ extern "C" {
 // Core Functions
 
 /**
- * Gets the width of the canvas, which is the width of the terminal.
+ * @brief Gets the width of the canvas, which is the width of the terminal.
  * @return The width of the canvas.
  */
 int Canvas_getWidth();
 
 /**
- * Gets the height of the canvas, which is the height of the terminal.
+ * @brief Gets the height of the canvas, which is the height of the terminal.
  * @return The height of the canvas.
  */
 int Canvas_getHeight();
 
 /**
- * Clears the screen.
+ * @brief Clears the screen.
  */
 void Canvas_clearScreen();
 
 /**
- * Sets the cursor position.
+ * @brief Sets the cursor position.
  * @param x X coordinate.
  * @param y Y coordinate.
  */
 void Canvas_setCursor(int x, int y);
 
 /**
- * Gets the cursor position.
+ * @brief Gets the cursor position.
+ * 
+ * On POSIX, this method uses the `ESC[6n` ANSI code to get the cursor position. This can
+ * make the method more expensive than on Windows, where the cursor position is stored
+ * internally.
+ * On Windows, this method uses the `GetConsoleScreenBufferInfo` function to get
+ * the cursor position.
  * @return The cursor position.
  */
 int Canvas_getCursorX();
 
 /**
- * Gets the cursor position.
+ * @brief Gets the cursor position.
+ * 
+ * On POSIX, this method uses the `ESC[6n` ANSI code to get the cursor position. This can
+ * make the method more expensive than on Windows, where the cursor position is stored
+ * internally.
+ * On Windows, this method uses the `GetConsoleScreenBufferInfo` function to get
+ * the cursor position.
  * @return The cursor position.
  */
 int Canvas_getCursorY();
 
 /**
- * Sets a character at a specific position.
+ * @brief Sets a character at a specific position.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param c The character to set.
@@ -101,28 +113,28 @@ void Canvas_setAnsi(int x, int y, const char* ansi);
 int Canvas_isCursorVisible();
 
 /**
- * Hides the cursor.
+ * @brief Hides the cursor.
  */
 void Canvas_hideCursor();
 
 /**
- * Shows the cursor.
+ * @brief Shows the cursor.
  */
 void Canvas_showCursor();
 
 /**
- * Resets all formatting at the current cursor position.
+ * @brief Resets all formatting at the current cursor position.
  */
 void Canvas_resetFormat();
 
 /**
- * Sets the foreground color at the current cursor position.
+ * @brief Sets the foreground color at the current cursor position.
  * @param rgb The RGB color.
  */
 void Canvas_setForeground(int rgb);
 
 /**
- * Sets the background color at the current cursor position.
+ * @brief Sets the background color at the current cursor position.
  * @param rgb The RGB color.
  */
 void Canvas_setBackground(int rgb);
@@ -130,7 +142,7 @@ void Canvas_setBackground(int rgb);
 // Utility Functions - Shapes
 
 /**
- * Draws a horizontal line.
+ * @brief Draws a horizontal line.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param width Width of the line.
@@ -139,7 +151,7 @@ void Canvas_setBackground(int rgb);
 void Canvas_hLine(int x, int y, int width, char c);
 
 /**
- * Draws a vertical line.
+ * @brief Draws a vertical line.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param height Height of the line.
@@ -148,7 +160,7 @@ void Canvas_hLine(int x, int y, int width, char c);
 void Canvas_vLine(int x, int y, int height, char c);
 
 /**
- * Draws a hollow rectangle.
+ * @brief Draws a hollow rectangle.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param width Width of the rectangle.
@@ -158,7 +170,7 @@ void Canvas_vLine(int x, int y, int height, char c);
 void Canvas_rect(int x, int y, int width, int height, char c);
 
 /**
- * Fills a rectangle with a character.
+ * @brief Fills a rectangle with a character.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param width Width of the rectangle.
@@ -168,7 +180,7 @@ void Canvas_rect(int x, int y, int width, int height, char c);
 void Canvas_fillRect(int x, int y, int width, int height, char c);
 
 /**
- * Draws a hollow circle.
+ * @brief Draws a hollow circle.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param radius Radius of the circle.
@@ -177,7 +189,7 @@ void Canvas_fillRect(int x, int y, int width, int height, char c);
 void Canvas_circle(int x, int y, int radius, char c);
 
 /**
- * Fills a circle with a character.
+ * @brief Fills a circle with a character.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param radius Radius of the circle.
@@ -186,7 +198,7 @@ void Canvas_circle(int x, int y, int radius, char c);
 void Canvas_fillCircle(int x, int y, int radius, char c);
 
 /**
- * Draws a hollow ellipse.
+ * @brief Draws a hollow ellipse.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param xradius X radius of the ellipse.
@@ -196,7 +208,7 @@ void Canvas_fillCircle(int x, int y, int radius, char c);
 void Canvas_ellipse(int x, int y, int xradius, int yradius, char c);
 
 /**
- * Fills an ellipse with a character.
+ * @brief Fills an ellipse with a character.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param xradius X radius of the ellipse.
@@ -208,7 +220,7 @@ void Canvas_fillEllipse(int x, int y, int xradius, int yradius, char c);
 // Utility Functions - Text
 
 /**
- * Draws text at the current cursor position.
+ * @brief Draws text at the current cursor position.
  * @param text The text to draw.
  */
 void Canvas_drawText(int x, int y, const char* text);
@@ -216,315 +228,317 @@ void Canvas_drawText(int x, int y, const char* text);
 #pragma region ASCII Art
 
 /**
- * Represents empty space in ASCII art.
+ * @brief Represents empty space in ASCII art.
  */
 extern char ASCII_EMPTY[8][5];
 
 /**
- * An 'A' character in ASCII art using the '#' character.
+ * @brief An 'A' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_A[8][5];
 
 /**
- * An 'a' character in ASCII art using the '#' character.
+ * @brief An 'a' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_A[8][5];
 
 /**
- * A 'B' character in ASCII art using the '#' character.
+ * @brief A 'B' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_B[8][5];
 
 /**
- * A 'b' character in ASCII art using the '#' character.
+ * @brief A 'b' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_B[8][5];
 
 /**
- * A 'C' character in ASCII art using the '#' character.
+ * @brief A 'C' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_C[8][5];
 
 /**
- * A 'c' character in ASCII art using the '#' character.
+ * @brief A 'c' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_C[8][5];
 
 /**
- * A 'D' character in ASCII art using the '#' character.
+ * @brief A 'D' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_D[8][5];
 
 /**
- * A 'd' character in ASCII art using the '#' character.
+ * @brief A 'd' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_D[8][5];
 
 /**
- * An 'E' character in ASCII art using the '#' character.
+ * @brief An 'E' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_E[8][5];
 
 /**
- * An 'e' character in ASCII art using the '#' character.
+ * @brief An 'e' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_E[8][5];
 
 /**
- * A 'F' character in ASCII art using the '#' character.
+ * @brief A 'F' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_F[8][5];
 
 /**
- * A 'f' character in ASCII art using the '#' character.
+ * @brief A 'f' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_F[8][5];
 
 /**
- * A 'G' character in ASCII art using the '#' character.
+ * @brief A 'G' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_G[8][5];
 
 /**
- * A 'g' character in ASCII art using the '#' character.
+ * @brief A 'g' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_G[8][5];
 
 /**
- * A 'H' character in ASCII art using the '#' character.
+ * @brief A 'H' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_H[8][5];
 
 /**
- * A 'h' character in ASCII art using the '#' character.
+ * @brief A 'h' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_H[8][5];
 
 /**
- * An 'I' character in ASCII art using the '#' character.
+ * @brief An 'I' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_I[8][5];
 
 /**
- * An 'i' character in ASCII art using the '#' character.
+ * @brief An 'i' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_I[8][5];
 
 /**
- * A 'J' character in ASCII art using the '#' character.
+ * @brief A 'J' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_J[8][5];
 
 /**
- * A 'j' character in ASCII art using the '#' character.
+ * @brief A 'j' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_J[8][5];
 
 /**
- * A 'K' character in ASCII art using the '#' character.
+ * @brief A 'K' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_K[8][5];
 
 /**
- * A 'k' character in ASCII art using the '#' character.
+ * @brief A 'k' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_K[8][5];
 
 /**
- * A 'L' character in ASCII art using the '#' character.
+ * @brief A 'L' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_L[8][5];
 
 /**
- * A 'l' character in ASCII art using the '#' character.
+ * @brief A 'l' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_L[8][5];
 
 /**
- * A 'M' character in ASCII art using the '#' character.
+ * @brief A 'M' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_M[8][5];
 
 /**
- * A 'm' character in ASCII art using the '#' character.
+ * @brief A 'm' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_M[8][5];
 
 /**
- * A 'N' character in ASCII art using the '#' character.
+ * @brief A 'N' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_N[8][5];
 
 /**
- * A 'n' character in ASCII art using the '#' character.
+ * @brief A 'n' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_N[8][5];
 
 /**
- * An 'O' character in ASCII art using the '#' character.
+ * @brief An 'O' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_O[8][5];
 
 /**
- * An 'o' character in ASCII art using the '#' character.
+ * @brief An 'o' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_O[8][5];
 
 /**
- * A 'P' character in ASCII art using the '#' character.
+ * @brief A 'P' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_P[8][5];
 
 /**
- * A 'p' character in ASCII art using the '#' character.
+ * @brief A 'p' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_P[8][5];
 
 /**
- * A 'Q' character in ASCII art using the '#' character.
+ * @brief A 'Q' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_Q[8][5];
 
 /**
- * A 'q' character in ASCII art using the '#' character.
+ * @brief A 'q' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_Q[8][5];
 
 /**
- * A 'R' character in ASCII art using the '#' character.
+ * @brief A 'R' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_R[8][5];
 
 /**
- * A 'r' character in ASCII art using the '#' character.
+ * @brief A 'r' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_R[8][5];
 
 /**
- * A 'S' character in ASCII art using the '#' character.
+ * @brief A 'S' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_S[8][5];
+
 /**
- * A 's' character in ASCII art using the '#' character.
+ * @brief A 's' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_S[8][5];
 
 /**
- * A 'T' character in ASCII art using the '#' character.
+ * @brief A 'T' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_T[8][5];
 
 /**
- * A 't' character in ASCII art using the '#' character.
+ * @brief A 't' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_T[8][5];
 
 /**
- * An 'U' character in ASCII art using the '#' character.
+ * @brief An 'U' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_U[8][5];
 
 /**
- * A 'u' character in ASCII art using the '#' character.
+ * @brief A 'u' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_U[8][5];
 
 /**
- * A 'V' character in ASCII art using the '#' character.
+ * @brief A 'V' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_V[8][5];
 
 /**
- * A 'v' character in ASCII art using the '#' character.
+ * @brief A 'v' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_V[8][5];
 
 /**
- * A 'W' character in ASCII art using the '#' character.
+ * @brief A 'W' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_W[8][5];
 
 /**
- * A 'w' character in ASCII art using the '#' character.
+ * @brief A 'w' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_W[8][5];
 
 /**
- * An 'X' character in ASCII art using the '#' character.
+ * @brief An 'X' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_X[8][5];
 
 /**
- * A 'x' character in ASCII art using the '#' character.
+ * @brief A 'x' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_X[8][5];
 
 /**
- * A 'Y' character in ASCII art using the '#' character.
+ * @brief A 'Y' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_Y[8][5];
 
 /**
- * A 'y' character in ASCII art using the '#' character.
+ * @brief A 'y' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_Y[8][5];
 
 /**
- * A 'Z' character in ASCII art using the '#' character.
+ * @brief A 'Z' character in ASCII art using the '#' character.
  */
 extern char ASCII_UPPER_Z[8][5];
 
 /**
- * A 'z' character in ASCII art using the '#' character.
+ * @brief A 'z' character in ASCII art using the '#' character.
  */
 extern char ASCII_LOWER_Z[8][5];
 
 /**
- * A '0' character in ASCII art using the '#' character.
+ * @brief A '0' character in ASCII art using the '#' character.
  */
 extern char ASCII_ZERO[8][5];
 
 /**
- * A '1' character in ASCII art using the '#' character.
+ * @brief A '1' character in ASCII art using the '#' character.
  */
 extern char ASCII_ONE[8][5];
 
 /**
- * A '2' character in ASCII art using the '#' character.
+ * @brief A '2' character in ASCII art using the '#' character.
  */
 extern char ASCII_TWO[8][5];
 
 /**
- * A '3' character in ASCII art using the '#' character.
+ * @brief A '3' character in ASCII art using the '#' character.
  */
 extern char ASCII_THREE[8][5];
 
 /**
- * A '4' character in ASCII art using the '#' character.
+ * @brief A '4' character in ASCII art using the '#' character.
  */
 extern char ASCII_FOUR[8][5];
 
 /**
- * A '5' character in ASCII art using the '#' character.
+ * @brief A '5' character in ASCII art using the '#' character.
  */
 extern char ASCII_FIVE[8][5];
 
 /**
- * A '6' character in ASCII art using the '#' character.
+ * @brief A '6' character in ASCII art using the '#' character.
  */
 extern char ASCII_SIX[8][5];
+
 /**
- * A '7' character in ASCII art using the '#' character.
+ * @brief A '7' character in ASCII art using the '#' character.
  */
 extern char ASCII_SEVEN[8][5];
 
 /**
- * A '8' character in ASCII art using the '#' character.
+ * @brief A '8' character in ASCII art using the '#' character.
  */
 extern char ASCII_EIGHT[8][5];
 
 /**
- * A '9' character in ASCII art using the '#' character.
+ * @brief A '9' character in ASCII art using the '#' character.
  */
 extern char ASCII_NINE[8][5];
 
@@ -543,7 +557,7 @@ extern char ASCII_MAP[128][8][5];
 #pragma endregion
 
 /**
- * Draws an ASCII character at a specific position.
+ * @brief Draws an ASCII character at a specific position.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param ascii The ASCII character as a 2D array of characters.

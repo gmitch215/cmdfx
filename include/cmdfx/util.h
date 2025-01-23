@@ -17,13 +17,13 @@ extern "C" {
 // Time
 
 /**
- * Gets the current time in milliseconds.
+ * @brief Gets the current time in milliseconds.
  * @return The current time in milliseconds.
  */
 unsigned long currentTimeMillis();
 
 /**
- * Gets the current time in nanoseconds.
+ * @brief Gets the current time in nanoseconds.
  * @return The current time in nanoseconds.
  */
 unsigned long long currentTimeNanos();
@@ -31,13 +31,13 @@ unsigned long long currentTimeNanos();
 // Sleep
 
 /**
- * Pauses the program for a specified number of milliseconds.
+ * @brief Pauses the program for a specified number of milliseconds.
  * @param millis The number of milliseconds to pause.
  */
 void sleepMillis(unsigned long millis);
 
 /**
- * Pauses the program for a specified number of nanoseconds.
+ * @brief Pauses the program for a specified number of nanoseconds.
  * @param nanos The number of nanoseconds to pause.
  */
 void sleepNanos(unsigned long long nanos);

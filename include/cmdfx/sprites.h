@@ -19,19 +19,19 @@ extern "C" {
 
 typedef struct CmdFX_Sprite {
     /**
-     * The X position of the sprite.
+     * @brief The X position of the sprite.
      */
     int x;
     /**
-     * The Y position of the sprite.
+     * @brief The Y position of the sprite.
      */
     int y;
     /**
-     * The width of the sprite.
+     * @brief The width of the sprite.
      */
     int width;
     /**
-     * The height of the sprite.
+     * @brief The height of the sprite.
      */
     int height;
     /**
@@ -104,7 +104,9 @@ CmdFX_Sprite** Canvas_getDrawnSprites();
 CmdFX_Sprite* Sprite_create(char** text, char*** ansi, int z);
 
 /**
- * Frees the memory allocated for a sprite. If the sprite is currently drawn, it will be removed.
+ * @brief Frees the memory allocated for a sprite. 
+ * 
+ * If the sprite is currently drawn, it will be removed.
  * @param sprite The sprite to free.
  */
 void Sprite_free(CmdFX_Sprite* sprite);
@@ -127,7 +129,7 @@ void Sprite_free(CmdFX_Sprite* sprite);
 int Sprite_draw(int x, int y, CmdFX_Sprite* sprite);
 
 /**
- * Removes a sprite from the terminal, making it no longer visble.
+ * @brief Removes a sprite from the terminal, making it no longer visble.
  * @param sprite The sprite to remove.
  */
 void Sprite_remove(CmdFX_Sprite* sprite);
@@ -230,7 +232,7 @@ int Sprite_resizeAndCenter(CmdFX_Sprite* sprite, int width, int height);
 // Utility Methods - Movement
 
 /**
- * Moves a sprite to the given position.
+ * @brief Moves a sprite to the given position.
  * @param sprite The sprite to move.
  * @param x The new X position of the sprite.
  * @param y The new Y position of the sprite.
@@ -238,7 +240,7 @@ int Sprite_resizeAndCenter(CmdFX_Sprite* sprite, int width, int height);
 void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y);
 
 /**
- * Moves a sprite by the given amount.
+ * @brief Moves a sprite by the given amount.
  * @param sprite The sprite to move.
  * @param dx The delta X position to move the sprite by.
  * @param dy The delta Y position to move the sprite by.
@@ -248,14 +250,14 @@ void Sprite_moveBy(CmdFX_Sprite* sprite, int dx, int dy);
 // Utility Methods - Collisions
 
 /**
- * Gets the sprites that are colliding with the given sprite.
+ * @brief Gets the sprites that are colliding with the given sprite.
  * @param sprite The sprite to check for collisions.
  * @return An array of pointers to the colliding sprites.
  */
 CmdFX_Sprite** Sprite_getCollidingSprites(CmdFX_Sprite* sprite);
 
 /**
- * Checks if two sprites are colliding.
+ * @brief Checks if two sprites are colliding.
  * @param sprite1 The first sprite.
  * @param sprite2 The second sprite.
  * @return 1 if the sprites are colliding, 0 otherwise.
