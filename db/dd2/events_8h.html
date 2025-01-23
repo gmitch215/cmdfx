@@ -108,8 +108,10 @@ $(function(){ initResizable(false); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d75/structCmdFX__ResizeEvent.html">CmdFX_ResizeEvent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The payload for the <code>CMDFX_EVENT_RESIZE</code> event.  <a href="../../dc/d75/structCmdFX__ResizeEvent.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main event structure for CmdFX.  <a href="../../dc/d5b/structCmdFX__Event.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -118,30 +120,42 @@ Macros</h2></td></tr>
 <tr class="memdesc:a11c8bd88e341ec4bdaf647a94cea4119"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time between event loop iterations, in milliseconds.  <br /></td></tr>
 <tr class="separator:a11c8bd88e341ec4bdaf647a94cea4119"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a633e456ae66e1bd3632b95ba7ccad01a" id="r_a633e456ae66e1bd3632b95ba7ccad01a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a633e456ae66e1bd3632b95ba7ccad01a">CMDFX_EVENT_RESIZE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a633e456ae66e1bd3632b95ba7ccad01a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the terminal is resized.  <br /></td></tr>
 <tr class="separator:a633e456ae66e1bd3632b95ba7ccad01a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a5cb4290d01e9957f67bbe7a4e16568f6" id="r_a5cb4290d01e9957f67bbe7a4e16568f6"><td class="memItemLeft" align="right" valign="top">typedef struct CmdFX_ResizeEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5cb4290d01e9957f67bbe7a4e16568f6">CmdFX_ResizeEvent</a></td></tr>
+<tr class="memitem:a5cb4290d01e9957f67bbe7a4e16568f6" id="r_a5cb4290d01e9957f67bbe7a4e16568f6"><td class="memItemLeft" align="right" valign="top"><a id="a5cb4290d01e9957f67bbe7a4e16568f6" name="a5cb4290d01e9957f67bbe7a4e16568f6"></a>
+typedef struct CmdFX_ResizeEvent&#160;</td><td class="memItemRight" valign="bottom"><b>CmdFX_ResizeEvent</b></td></tr>
+<tr class="memdesc:a5cb4290d01e9957f67bbe7a4e16568f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The payload for the <code>CMDFX_EVENT_RESIZE</code> event. <br /></td></tr>
 <tr class="separator:a5cb4290d01e9957f67bbe7a4e16568f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbcfbfd42cc9a596e41e5aacca028a90" id="r_acbcfbfd42cc9a596e41e5aacca028a90"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbcfbfd42cc9a596e41e5aacca028a90">EventCallback</a>) (struct <a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *event)</td></tr>
+<tr class="memitem:acbcfbfd42cc9a596e41e5aacca028a90" id="r_acbcfbfd42cc9a596e41e5aacca028a90"><td class="memItemLeft" align="right" valign="top"><a id="acbcfbfd42cc9a596e41e5aacca028a90" name="acbcfbfd42cc9a596e41e5aacca028a90"></a>
+typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><b>EventCallback</b>) (struct <a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *event)</td></tr>
+<tr class="memdesc:acbcfbfd42cc9a596e41e5aacca028a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an event callback. <br /></td></tr>
 <tr class="separator:acbcfbfd42cc9a596e41e5aacca028a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad753e020a986c3524414898a23e32451" id="r_ad753e020a986c3524414898a23e32451"><td class="memItemLeft" align="right" valign="top">typedef struct CmdFX_Event&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad753e020a986c3524414898a23e32451">CmdFX_Event</a></td></tr>
+<tr class="memdesc:ad753e020a986c3524414898a23e32451"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main event structure for CmdFX.  <br /></td></tr>
 <tr class="separator:ad753e020a986c3524414898a23e32451"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af4b24a1bdd4d06c316cfb3f41f365253" id="r_af4b24a1bdd4d06c316cfb3f41f365253"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4b24a1bdd4d06c316cfb3f41f365253">addCmdFXEventListener</a> (unsigned int id, <a class="el" href="#acbcfbfd42cc9a596e41e5aacca028a90">EventCallback</a> callback)</td></tr>
+<tr class="memdesc:af4b24a1bdd4d06c316cfb3f41f365253"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an event listener.  <br /></td></tr>
 <tr class="separator:af4b24a1bdd4d06c316cfb3f41f365253"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c9db523d5c4eac0a008ce7599824d6f" id="r_a1c9db523d5c4eac0a008ce7599824d6f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#acbcfbfd42cc9a596e41e5aacca028a90">EventCallback</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c9db523d5c4eac0a008ce7599824d6f">getCmdFXEventListener</a> (unsigned int eventId, unsigned int listenerId)</td></tr>
+<tr class="memdesc:a1c9db523d5c4eac0a008ce7599824d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an event listener.  <br /></td></tr>
 <tr class="separator:a1c9db523d5c4eac0a008ce7599824d6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67cadcc13f6596823cc8c9837a7c2f86" id="r_a67cadcc13f6596823cc8c9837a7c2f86"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67cadcc13f6596823cc8c9837a7c2f86">removeCmdFXEventListener</a> (unsigned int eventId, unsigned int listenerId)</td></tr>
+<tr class="memdesc:a67cadcc13f6596823cc8c9837a7c2f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an event listener.  <br /></td></tr>
 <tr class="separator:a67cadcc13f6596823cc8c9837a7c2f86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6c7d9a15562277086e44473feca0a66" id="r_ac6c7d9a15562277086e44473feca0a66"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="#acbcfbfd42cc9a596e41e5aacca028a90">EventCallback</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6c7d9a15562277086e44473feca0a66">dispatchCmdFXEvent</a> (<a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *event)</td></tr>
+<tr class="memdesc:ac6c7d9a15562277086e44473feca0a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispatches an event.  <br /></td></tr>
 <tr class="separator:ac6c7d9a15562277086e44473feca0a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51e8fb80e4bfc3a6b2c299081936961c" id="r_a51e8fb80e4bfc3a6b2c299081936961c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51e8fb80e4bfc3a6b2c299081936961c">beginCmdFXEventLoop</a> ()</td></tr>
+<tr class="memdesc:a51e8fb80e4bfc3a6b2c299081936961c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the event loop for CmdFX.  <br /></td></tr>
 <tr class="separator:a51e8fb80e4bfc3a6b2c299081936961c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e64ad0390f5d44acf5d421150aeca89" id="r_a7e64ad0390f5d44acf5d421150aeca89"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e64ad0390f5d44acf5d421150aeca89">endCmdFXEventLoop</a> ()</td></tr>
+<tr class="memdesc:a7e64ad0390f5d44acf5d421150aeca89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ends the event loop for CmdFX.  <br /></td></tr>
 <tr class="separator:a7e64ad0390f5d44acf5d421150aeca89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -162,7 +176,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Called when the terminal is resized. The data is a pointer to a <code>struct <a class="el" href="../../dc/d75/structCmdFX__ResizeEvent.html">CmdFX_ResizeEvent</a></code>. </p>
+
+<p>Called when the terminal is resized. </p>
+<p>The data is a pointer to a <code>struct <a class="el" href="../../dc/d75/structCmdFX__ResizeEvent.html" title="The payload for the CMDFX_EVENT_RESIZE event.">CmdFX_ResizeEvent</a></code>. </p>
 
 </div>
 </div>
@@ -196,7 +212,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The main event structure for CmdFX. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>The main event structure for CmdFX. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td>The event ID. </td></tr>
     <tr><td class="paramname">time</td><td>The time the event was created, in milliseconds. </td></tr>
@@ -204,36 +222,6 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a5cb4290d01e9957f67bbe7a4e16568f6" name="a5cb4290d01e9957f67bbe7a4e16568f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cb4290d01e9957f67bbe7a4e16568f6">&#9670;&#160;</a></span>CmdFX_ResizeEvent</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct CmdFX_ResizeEvent CmdFX_ResizeEvent</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>The payload for the <code>CMDFX_EVENT_RESIZE</code> event. </p>
-
-</div>
-</div>
-<a id="acbcfbfd42cc9a596e41e5aacca028a90" name="acbcfbfd42cc9a596e41e5aacca028a90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbcfbfd42cc9a596e41e5aacca028a90">&#9670;&#160;</a></span>EventCallback</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef int(* EventCallback) (struct <a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *event)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Represents an event callback. </p>
 
 </div>
 </div>
@@ -256,7 +244,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Adds an event listener. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Adds an event listener. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td>The event ID. </td></tr>
     <tr><td class="paramname">callback</td><td>The event callback. </td></tr>
@@ -281,7 +271,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Starts the event loop for CmdFX. This method is called automatically if a listener is added. </p><dl class="section return"><dt>Returns</dt><dd>1 if the event loop was started successfully, 0 if an error occurred or the event loop is already running. </dd></dl>
+
+<p>Starts the event loop for CmdFX. </p>
+<p>This method is called automatically if a listener is added. </p><dl class="section return"><dt>Returns</dt><dd>1 if the event loop was started successfully, 0 if an error occurred or the event loop is already running. </dd></dl>
 
 </div>
 </div>
@@ -299,7 +291,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Dispatches an event. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Dispatches an event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">event</td><td>The event to dispatch. </td></tr>
   </table>
@@ -323,7 +317,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Ends the event loop for CmdFX. </p><dl class="section return"><dt>Returns</dt><dd>1 if the event loop was ended successfully, 0 if an error occurred or the event loop is not running. </dd></dl>
+
+<p>Ends the event loop for CmdFX. </p>
+<dl class="section return"><dt>Returns</dt><dd>1 if the event loop was ended successfully, 0 if an error occurred or the event loop is not running. </dd></dl>
 
 </div>
 </div>
@@ -345,7 +341,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Gets an event listener. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Gets an event listener. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">eventId</td><td>The ID of the event to remove the listener from. </td></tr>
     <tr><td class="paramname">listenerId</td><td>The ID of the event listener to retrieve. </td></tr>
@@ -374,7 +372,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Removes an event listener. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Removes an event listener. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">eventId</td><td>The ID of the event to remove the listener from. </td></tr>
     <tr><td class="paramname">listenerId</td><td>The ID of the event listener to remove. </td></tr>

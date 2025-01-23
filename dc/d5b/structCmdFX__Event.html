@@ -94,22 +94,29 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
+<p>The main event structure for CmdFX.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="../../db/dd2/events_8h_source.html">events.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a652d5ecc75171b7232a5c42b2970788e" id="r_a652d5ecc75171b7232a5c42b2970788e"><td class="memItemLeft" align="right" valign="top"><a id="a652d5ecc75171b7232a5c42b2970788e" name="a652d5ecc75171b7232a5c42b2970788e"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>id</b></td></tr>
+<tr class="memdesc:a652d5ecc75171b7232a5c42b2970788e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The event ID. <br /></td></tr>
 <tr class="separator:a652d5ecc75171b7232a5c42b2970788e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae29e140cda84032a6c51594903d94fd5" id="r_ae29e140cda84032a6c51594903d94fd5"><td class="memItemLeft" align="right" valign="top"><a id="ae29e140cda84032a6c51594903d94fd5" name="ae29e140cda84032a6c51594903d94fd5"></a>
 unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><b>time</b></td></tr>
+<tr class="memdesc:ae29e140cda84032a6c51594903d94fd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time the event was created, in milliseconds. <br /></td></tr>
 <tr class="separator:ae29e140cda84032a6c51594903d94fd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab39c464eb100ffb342a8d0b400befc03" id="r_ab39c464eb100ffb342a8d0b400befc03"><td class="memItemLeft" align="right" valign="top"><a id="ab39c464eb100ffb342a8d0b400befc03" name="ab39c464eb100ffb342a8d0b400befc03"></a>
 void *&#160;</td><td class="memItemRight" valign="bottom"><b>data</b></td></tr>
+<tr class="memdesc:ab39c464eb100ffb342a8d0b400befc03"><td class="mdescLeft">&#160;</td><td class="mdescRight">A pointer to the data associated with the event. <br /></td></tr>
 <tr class="separator:ab39c464eb100ffb342a8d0b400befc03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The main event structure for CmdFX. </p><dl class="params"><dt>Parameters</dt><dd>
+<div class="textblock"><p>The main event structure for CmdFX. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td>The event ID. </td></tr>
     <tr><td class="paramname">time</td><td>The time the event was created, in milliseconds. </td></tr>
