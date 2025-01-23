@@ -16,7 +16,7 @@ function(add_test_executable folder name)
     add_dependencies("${TEST_NAME}" cmdfx)
     add_test(NAME ${folder}/${name} COMMAND "${TEST_NAME}")
 
-    if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
         target_compile_options("${TEST_NAME}" PRIVATE --coverage)
         target_link_options("${TEST_NAME}" PRIVATE --coverage)
     endif()
