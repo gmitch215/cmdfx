@@ -28,6 +28,11 @@ set_target_properties(cmdfx PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin
 )
 
+# Libraries
+if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")
+endif()
+
 # Testing
 enable_testing()
 add_subdirectory(test)
@@ -125,7 +130,7 @@ if (PACKAGE_CMDFX)
         set(CPACK_WIX_LICENSE_RTF "${PROJECT_SOURCE_DIR}/LICENSE.rtf")
         set(CPACK_WIX_UPGRADE_GUID "42937a72-0b91-4a57-8f45-60d84df05e66")
     elseif(APPLE)
-        set(CPACK_GENERATOR "TGZ;ZIP;productbuild;Bundle")
+        set(CPACK_GENERATOR "TGZ;ZIP;productbuild;Bundle;DragNDrop")
         set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}-macOS-${ARCHITECTURE}")
         set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.icns")
         set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE.rtf")
@@ -134,7 +139,7 @@ if (PACKAGE_CMDFX)
         set(CPACK_BUNDLE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.icns")
         set(CPACK_BUNDLE_PLIST "${PROJECT_SOURCE_DIR}/Info.plist")
     elseif(UNIX)
-        set(CPACK_GENERATOR "TGZ;DEB;RPM")
+        set(CPACK_GENERATOR "TGZ;TXZ;DEB;RPM")
         set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}-linux-${ARCHITECTURE}")
         set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.png")
         set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
