@@ -1,54 +1,78 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
 #include <termios.h>
-#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 #include "cmdfx/canvas.h"
 
 int Canvas_getWidth() {
-    int width = 0;
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
-    struct winsize ws;
-    if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == 0) {
-        width = ws.ws_col;
-    }
-
-    return width;
+    return w.ws_col;
 }
 
 int Canvas_getHeight() {
-    int height = 0;
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
-    struct winsize ws;
-    if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == 0) {
-        height = ws.ws_col;
+    return w.ws_row;
+}
+
+int _Canvas_getPos(int *y, int *x) {
+    char buf[30] = {0};
+    int ret, i, pow;
+    char ch;
+
+    *y = 0; *x = 0;
+
+    struct termios term, restore;
+    tcgetattr(0, &term);
+    tcgetattr(0, &restore);
+    term.c_lflag &= ~(ICANON|ECHO);
+    tcsetattr(0, TCSANOW, &term);
+
+    write(1, "\033[6n", 4);
+
+    for (i = 0, ch = 0; ch != 'R'; i++) {
+        ret = read(0, &ch, 1);
+        if (!ret) {
+            tcsetattr(0, TCSANOW, &restore);
+            fprintf(stderr, "getpos: error reading response!\n");
+            return 1;
+        }
+
+        buf[i] = ch;
     }
-    
-    return height;
+
+    if (i < 2) {
+        tcsetattr(0, TCSANOW, &restore);
+        return 1;
+    }
+
+    for(i -= 2, pow = 1; buf[i] != ';'; i--, pow *= 10)
+        *x = *x + (buf[i] - '0') * pow;
+
+    for(i--, pow = 1; buf[i] != '['; i--, pow *= 10)
+        *y = *y + (buf[i] - '0') * pow;
+
+    tcsetattr(0, TCSANOW, &restore);
+    return 0;
 }
 
 int Canvas_getCursorX() {
-    printf("\033[6n");
-    fflush(stdout);
-
     int x, y;
-    if (scanf("\033[%d;%dR", &y, &x) == 2)
-        return x;
-    
-    return -1;
+    if (_Canvas_getPos(&y, &x)) return -1;
+
+    return x;
 }
 
 int Canvas_getCursorY() {
-    printf("\033[6n");
-    fflush(stdout);
-
     int x, y;
-    if (scanf("\033[%d;%dR", &y, &x) == 2)
-        return y;
+    if (_Canvas_getPos(&y, &x)) return -1;
     
-    return -1;
+    return y;
 }
 
 void Canvas_setCursor(int x, int y) {
@@ -61,19 +85,19 @@ void Canvas_setCursor(int x, int y) {
     printf("\033[%d;%dH", y, x);
 }
 
-int _cursorShown = 0;
+int _cursorShown = 1;
 
 void Canvas_hideCursor() {
     if (!_cursorShown) return;
-
-    printf("\033[?25l");
+    printf("\e[?25l");
+   
     _cursorShown = 0;
 }
 
 void Canvas_showCursor() {
     if (_cursorShown) return;
+    printf("\e[?25h");
 
-    printf("\033[?25h");
     _cursorShown = 1;
 }
 
