@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <termios.h>
 
 #include "cmdfx/canvas.h"
 #include "../test.h"
