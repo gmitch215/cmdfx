@@ -170,6 +170,22 @@ int Sprite_setChar(CmdFX_Sprite* sprite, int x, int y, char c);
 int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, const char* ansi);
 
 /**
+ * @brief Sets the character at all positions in the sprite.
+ * 
+ * This method sets the character at all positions in the sprite. The character
+ * will be set for every position in the sprite, starting from the top-left
+ * corner. If an error occurs, the method will return 0.
+ * 
+ * This method will also redraw the sprite if it is currently drawn.
+ * @param sprite The sprite to modify.
+ * @param c The character to set.
+ * @return 1 if the character was set, 0 if an error occurred.
+ */
+int Sprite_setAnsiAll(CmdFX_Sprite* sprite, const char* ansi);
+
+// Utility Methods - Sizing
+
+/**
  * @brief Resizes the sprite to the given dimensions.
  * 
  * This method is functionally identical to `Sprite_resizeWithPadding`, but

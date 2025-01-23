@@ -217,6 +217,16 @@ void Canvas_ellipse(int x, int y, int xradius, int yradius, char c);
  */
 void Canvas_fillEllipse(int x, int y, int xradius, int yradius, char c);
 
+/**
+ * @brief Draws a line between two points.
+ * @param x1 The x coordinate of the first point.
+ * @param y1 The y coordinate of the first point.
+ * @param x2 The x coordinate of the second point.
+ * @param y2 The y coordinate of the second point.
+ * @param c The character to draw the line with.
+ */
+void Canvas_line(int x1, int y1, int x2, int y2, char c);
+
 // Utility Functions - Text
 
 /**

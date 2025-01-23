@@ -211,9 +211,33 @@ int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, const char* ansi) {
     char* ansi0 = malloc(strlen(ansi) + 6);
     sprintf(ansi0, "\033[%sm", ansi);
 
+    if (sprite->ansi[y][x] != 0) free(sprite->ansi[y][x]);
     sprite->ansi[y][x] = ansi0;
+    
     return 1;
 }
+
+int Sprite_setAnsiAll(CmdFX_Sprite* sprite, const char* ansi) {
+    if (sprite == 0) return 0;
+    if (sprite->ansi == 0) return 0;
+
+    for (int i = 0; i < sprite->height; i++) {
+        for (int j = 0; j < sprite->width; j++) {
+            char* ansi0 = malloc(strlen(ansi) + 6);
+            sprintf(ansi0, "\033[%sm", ansi);
+
+            if (sprite->ansi[i][j] != 0) free(sprite->ansi[i][j]);
+            sprite->ansi[i][j] = ansi0;
+        }
+    }
+
+    // Redraw Sprite if Drawn
+    if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 1;
+}
+
+// Utility Methods - Sizing
 
 int Sprite_resize0(CmdFX_Sprite* sprite, int width, int height, char padding) {
     if (sprite->data == 0) {
