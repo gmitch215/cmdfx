@@ -13,12 +13,8 @@ void Canvas_setChar(int x, int y, char c) {
     if (x < 1) return;
     if (y < 1) return;
 
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     Canvas_setCursor(x, y);
     putchar(c);
-    Canvas_setCursor(oldX, oldY);
 }
 
 void Canvas_setAnsiCurrent(const char* ansi) {
@@ -33,12 +29,8 @@ void Canvas_setAnsi(int x, int y, const char* ansi) {
     if (x < 1) return;
     if (y < 1) return;
 
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     Canvas_setCursor(x, y);
     Canvas_setAnsiCurrent(ansi);
-    Canvas_setCursor(oldX, oldY);
 }
 
 // Utility Functions
@@ -74,27 +66,17 @@ void Canvas_setBackground(int rgb) {
 // Utility Functions - Shapes
 
 void Canvas_hLine(int x, int y, int width, char c) {
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     for (int i = 0; i < width; i++) {
         Canvas_setCursor(x + i, y);
         putchar(c);
     }
-
-    Canvas_setCursor(oldX, oldY);
 }
 
 void Canvas_vLine(int x, int y, int height, char c) {
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     for (int i = 0; i < height; i++) {
         Canvas_setCursor(x, y + i);
         putchar(c);
     }
-
-    Canvas_setCursor(oldX, oldY);
 }
 
 void Canvas_rect(int x, int y, int width, int height, char c) {
@@ -105,20 +87,12 @@ void Canvas_rect(int x, int y, int width, int height, char c) {
 }
 
 void Canvas_fillRect(int x, int y, int width, int height, char c) {
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     for (int i = 0; i < height; i++) {
         Canvas_hLine(x, y + i, width, c);
     }
-
-    Canvas_setCursor(oldX, oldY);
 }
 
 void Canvas_circle(int x, int y, int radius, char c) {
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     int x1 = 0;
     int y1 = radius;
     int d = 1 - radius;
@@ -141,14 +115,9 @@ void Canvas_circle(int x, int y, int radius, char c) {
         }
         x1++;
     }
-
-    Canvas_setCursor(oldX, oldY);
 }
 
 void Canvas_fillCircle(int x, int y, int radius, char c) {
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     int radiusSq = radius * radius;
 
     for (int y1 = -radius; y1 <= radius; y1++) {
@@ -161,14 +130,9 @@ void Canvas_fillCircle(int x, int y, int radius, char c) {
             Canvas_setChar(x + x2, y + y1, c);
         }
     }
-
-    Canvas_setCursor(oldX, oldY);
 }
 
 void Canvas_ellipse(int x, int y, int xradius, int yradius, char c) {
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     int x1 = 0;
     int y1 = yradius;
     int xradiusSq = xradius * xradius;
@@ -216,14 +180,9 @@ void Canvas_ellipse(int x, int y, int xradius, int yradius, char c) {
             p += xradiusSq - py + px;
         }
     }
-
-    Canvas_setCursor(oldX, oldY);
 }
 
 void Canvas_fillEllipse(int x, int y, int xradius, int yradius, char c) {
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     for (int dx = -xradius; dx <= xradius; dx++) {
         for (int dy = -yradius; dy <= yradius; dy++) {
             double ellipseEquation = 
@@ -238,33 +197,22 @@ void Canvas_fillEllipse(int x, int y, int xradius, int yradius, char c) {
             }
         }
     }
-
-    Canvas_setCursor(oldX, oldY);
 }
 
 // Utility Functions - Text
 
 void Canvas_drawText(int x, int y, const char* text) {
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     Canvas_setCursor(x, y);
     printf("%s", text);
-    Canvas_setCursor(oldX, oldY);
 }
 
 void Canvas_drawAscii(int x, int y, char ascii[8][5]) {
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 5; j++) {
             Canvas_setCursor(x + j, y + i);
             putchar(ascii[i][j]);
         }
     }
-
-    Canvas_setCursor(oldX, oldY);
 }
 
 #pragma region ASCII Art
@@ -1044,8 +992,6 @@ void Canvas_drawAsciiText(int x, int y, char character, const char* text) {
     if (strlen(text) == 0) return;
 
     _initAsciiText();
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
 
     for (int i = 0; i < strlen(text); i++) {
         char c = text[i];
@@ -1066,6 +1012,4 @@ void Canvas_drawAsciiText(int x, int y, char character, const char* text) {
 
         Canvas_drawAscii(x + (i * 5), y, ascii);
     }
-
-    Canvas_setCursor(oldX, oldY);
 }

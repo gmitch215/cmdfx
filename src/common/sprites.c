@@ -73,9 +73,6 @@ void Sprite_free(CmdFX_Sprite* sprite) {
 void Sprite_draw0(CmdFX_Sprite* sprite) {
     if (sprite->data == 0) return;
 
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     for (int i = 0; i < sprite->height; i++) {
         char* line = sprite->data[i];
         if (line == 0) continue;
@@ -110,7 +107,6 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
         }
     }
 
-    Canvas_setCursor(oldX, oldY);
 }
 
 int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
@@ -161,9 +157,6 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
 }
 
 void Sprite_remove0(CmdFX_Sprite* sprite) {
-    int oldX = Canvas_getCursorX();
-    int oldY = Canvas_getCursorY();
-
     for (int i = 0; i < sprite->height; i++) {
         for (int j = 0; j < sprite->width; j++) {
             Canvas_setCursor(sprite->x + j, sprite->y + i);
@@ -171,8 +164,6 @@ void Sprite_remove0(CmdFX_Sprite* sprite) {
             putchar(' ');
         }
     }
-
-    Canvas_setCursor(oldX, oldY);
 }
 
 void Sprite_remove(CmdFX_Sprite* sprite) {
