@@ -316,7 +316,7 @@ char*** AnsiBuilder_create(int width, int height);
  * @param c The ANSI code to set.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_setAnsi(char*** array, int x, int y, const char* c);
+int AnsiBuilder_setAnsi(char*** array, int x, int y, char* c);
 
 /**
  * @brief Draws a horizontal line in a 2D String Array.
@@ -331,7 +331,7 @@ int AnsiBuilder_setAnsi(char*** array, int x, int y, const char* c);
  * @param c The ANSI code to draw the line with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_hLine(char*** array, int x, int y, int width, const char* c);
+int AnsiBuilder_hLine(char*** array, int x, int y, int width, char* c);
 
 /**
  * @brief Draws a vertical line in a 2D String Array.
@@ -346,7 +346,7 @@ int AnsiBuilder_hLine(char*** array, int x, int y, int width, const char* c);
  * @param c The ANSI to draw the line with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_vLine(char*** array, int x, int y, int height, const char* c);
+int AnsiBuilder_vLine(char*** array, int x, int y, int height, char* c);
 
 /**
  * @brief Draws a rectangle in a 2D String Array.
@@ -362,7 +362,7 @@ int AnsiBuilder_vLine(char*** array, int x, int y, int height, const char* c);
  * @param c The ANSI code to draw the rectangle with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_rect(char*** array, int x, int y, int width, int height, const char* c);
+int AnsiBuilder_rect(char*** array, int x, int y, int width, int height, char* c);
 
 /**
  * @brief Fills a rectangle in a 2D String Array.
@@ -378,7 +378,7 @@ int AnsiBuilder_rect(char*** array, int x, int y, int width, int height, const c
  * @param c The ANSI code to fill the rectangle with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_fillRect(char*** array, int x, int y, int width, int height, const char* c);
+int AnsiBuilder_fillRect(char*** array, int x, int y, int width, int height, char* c);
 
 /**
  * @brief Draws a circle in a 2D String Array.
@@ -393,7 +393,7 @@ int AnsiBuilder_fillRect(char*** array, int x, int y, int width, int height, con
  * @param c The ANSI code to draw the circle with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_circle(char*** array, int x, int y, int radius, const char* c);
+int AnsiBuilder_circle(char*** array, int x, int y, int radius, char* c);
 
 /**
  * @brief Fills a circle in a 2D String Array.
@@ -408,7 +408,7 @@ int AnsiBuilder_circle(char*** array, int x, int y, int radius, const char* c);
  * @param c The ANSI code to fill the circle with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_fillCircle(char*** array, int x, int y, int radius, const char* c);
+int AnsiBuilder_fillCircle(char*** array, int x, int y, int radius, char* c);
 
 /**
  * @brief Draws an ellipse in a 2D String Array.
@@ -424,7 +424,7 @@ int AnsiBuilder_fillCircle(char*** array, int x, int y, int radius, const char* 
  * @param c The ANSI code to draw the ellipse with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, const char* c);
+int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, char* c);
 
 /**
  * @brief Fills an ellipse in a 2D String Array.
@@ -440,7 +440,7 @@ int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, c
  * @param c The ANSI code to fill the ellipse with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradius, const char* c);
+int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradius, char* c);
 
 /**
  * @brief Draws a line in a 2D String Array.
@@ -456,7 +456,7 @@ int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradiu
  * @param c The ANSI code to draw the line with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, const char* c);
+int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c);
 
 #pragma endregion
 

@@ -489,7 +489,7 @@ char*** AnsiBuilder_create(int width, int height) {
     return array;
 }
 
-int AnsiBuilder_setAnsi(char*** array, int x, int y, const char* c) {
+int AnsiBuilder_setAnsi(char*** array, int x, int y, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -502,7 +502,7 @@ int AnsiBuilder_setAnsi(char*** array, int x, int y, const char* c) {
     return 0;
 }
 
-int AnsiBuilder_hLine(char*** array, int x, int y, int width, const char* c) {
+int AnsiBuilder_hLine(char*** array, int x, int y, int width, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -518,7 +518,7 @@ int AnsiBuilder_hLine(char*** array, int x, int y, int width, const char* c) {
     return 0;
 }
 
-int AnsiBuilder_vLine(char*** array, int x, int y, int height, const char* c) {
+int AnsiBuilder_vLine(char*** array, int x, int y, int height, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -534,7 +534,7 @@ int AnsiBuilder_vLine(char*** array, int x, int y, int height, const char* c) {
     return 0;
 }
 
-int AnsiBuilder_rect(char*** array, int x, int y, int width, int height, const char* c) {
+int AnsiBuilder_rect(char*** array, int x, int y, int width, int height, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -558,7 +558,7 @@ int AnsiBuilder_rect(char*** array, int x, int y, int width, int height, const c
     return 0;
 }
 
-int AnsiBuilder_fillRect(char*** array, int x, int y, int width, int height, const char* c) {
+int AnsiBuilder_fillRect(char*** array, int x, int y, int width, int height, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -578,7 +578,7 @@ int AnsiBuilder_fillRect(char*** array, int x, int y, int width, int height, con
     return 0;
 }
 
-int AnsiBuilder_circle(char*** array, int x, int y, int radius, const char* c) {
+int AnsiBuilder_circle(char*** array, int x, int y, int radius, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -616,7 +616,7 @@ int AnsiBuilder_circle(char*** array, int x, int y, int radius, const char* c) {
     return 0;
 }
 
-int AnsiBuilder_fillCircle(char*** array, int x, int y, int radius, const char* c) {
+int AnsiBuilder_fillCircle(char*** array, int x, int y, int radius, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -645,7 +645,7 @@ int AnsiBuilder_fillCircle(char*** array, int x, int y, int radius, const char* 
     return 0;
 }
 
-int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, const char* c) {
+int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -706,7 +706,7 @@ int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, c
     }
 }
 
-int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradius, const char* c) {
+int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradius, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -735,7 +735,7 @@ int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradiu
     }
 }
 
-int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, const char* c) {
+int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c) {
     if (array == 0) return -1;
     if (x1 < 0 || y1 < 0) return -1;
 
