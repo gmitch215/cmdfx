@@ -138,6 +138,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ab72fee6bd56a5398d4e04e74144b5034" id="r_ab72fee6bd56a5398d4e04e74144b5034"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab72fee6bd56a5398d4e04e74144b5034">Sprite_setAnsi</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, const char *ansi)</td></tr>
 <tr class="memdesc:ab72fee6bd56a5398d4e04e74144b5034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the ANSI code at the given position in the sprite.  <br /></td></tr>
 <tr class="separator:ab72fee6bd56a5398d4e04e74144b5034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7bd0743c98a92742882fc37b68b0c3b" id="r_ac7bd0743c98a92742882fc37b68b0c3b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7bd0743c98a92742882fc37b68b0c3b">Sprite_setAnsiAll</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, const char *ansi)</td></tr>
+<tr class="memdesc:ac7bd0743c98a92742882fc37b68b0c3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the character at all positions in the sprite.  <br /></td></tr>
+<tr class="separator:ac7bd0743c98a92742882fc37b68b0c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac78620393967e4c46bbb92b99d7d2e80" id="r_ac78620393967e4c46bbb92b99d7d2e80"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac78620393967e4c46bbb92b99d7d2e80">Sprite_resize</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int width, int height)</td></tr>
 <tr class="memdesc:ac78620393967e4c46bbb92b99d7d2e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes the sprite to the given dimensions.  <br /></td></tr>
 <tr class="separator:ac78620393967e4c46bbb92b99d7d2e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -633,6 +636,38 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the ANSI code was set, 0 if the position is out of bounds or an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="ac7bd0743c98a92742882fc37b68b0c3b" name="ac7bd0743c98a92742882fc37b68b0c3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7bd0743c98a92742882fc37b68b0c3b">&#9670;&#160;</a></span>Sprite_setAnsiAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_setAnsiAll </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>ansi</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the character at all positions in the sprite. </p>
+<p>This method sets the character at all positions in the sprite. The character will be set for every position in the sprite, starting from the top-left corner. If an error occurs, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the character was set, 0 if an error occurred. </dd></dl>
 
 </div>
 </div>

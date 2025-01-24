@@ -116,6 +116,24 @@ Functions</h2></td></tr>
 <tr class="memitem:ace438f14791860dfbb6e4f21239d52e6" id="r_ace438f14791860dfbb6e4f21239d52e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace438f14791860dfbb6e4f21239d52e6">sleepNanos</a> (unsigned long long nanos)</td></tr>
 <tr class="memdesc:ace438f14791860dfbb6e4f21239d52e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pauses the program for a specified number of nanoseconds.  <br /></td></tr>
 <tr class="separator:ace438f14791860dfbb6e4f21239d52e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf123cb577b9efc5785eb107d2e0e88a" id="r_acf123cb577b9efc5785eb107d2e0e88a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf123cb577b9efc5785eb107d2e0e88a">clamp_d</a> (double value, double min, double max)</td></tr>
+<tr class="memdesc:acf123cb577b9efc5785eb107d2e0e88a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamps a value between a minimum and maximum.  <br /></td></tr>
+<tr class="separator:acf123cb577b9efc5785eb107d2e0e88a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9533dbec279736fe76ba2cec60fb3a5a" id="r_a9533dbec279736fe76ba2cec60fb3a5a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9533dbec279736fe76ba2cec60fb3a5a">clamp_f</a> (float value, float min, float max)</td></tr>
+<tr class="memdesc:a9533dbec279736fe76ba2cec60fb3a5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamps a value between a minimum and maximum.  <br /></td></tr>
+<tr class="separator:a9533dbec279736fe76ba2cec60fb3a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accada49284cb0c9250deec8be5a8ccde" id="r_accada49284cb0c9250deec8be5a8ccde"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accada49284cb0c9250deec8be5a8ccde">clamp_i</a> (int value, int min, int max)</td></tr>
+<tr class="memdesc:accada49284cb0c9250deec8be5a8ccde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamps a value between a minimum and maximum.  <br /></td></tr>
+<tr class="separator:accada49284cb0c9250deec8be5a8ccde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18d16a8ef46f573baed36580831f8116" id="r_a18d16a8ef46f573baed36580831f8116"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18d16a8ef46f573baed36580831f8116">lerp_d</a> (double a, double b, double t)</td></tr>
+<tr class="memdesc:a18d16a8ef46f573baed36580831f8116"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolates between two values.  <br /></td></tr>
+<tr class="separator:a18d16a8ef46f573baed36580831f8116"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ecdb834ed07525e99a75cb506920d6b" id="r_a4ecdb834ed07525e99a75cb506920d6b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ecdb834ed07525e99a75cb506920d6b">lerp_f</a> (float a, float b, float t)</td></tr>
+<tr class="memdesc:a4ecdb834ed07525e99a75cb506920d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolates between two values.  <br /></td></tr>
+<tr class="separator:a4ecdb834ed07525e99a75cb506920d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47c308c2d9efd7d596ac65a1c0b42f9a" id="r_a47c308c2d9efd7d596ac65a1c0b42f9a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47c308c2d9efd7d596ac65a1c0b42f9a">lerp_i</a> (int a, int b, double t)</td></tr>
+<tr class="memdesc:a47c308c2d9efd7d596ac65a1c0b42f9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolates between two values.  <br /></td></tr>
+<tr class="separator:a47c308c2d9efd7d596ac65a1c0b42f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Cross-Platform Utilities for CmdFX. </p>
@@ -124,6 +142,117 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2025-01-21</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="acf123cb577b9efc5785eb107d2e0e88a" name="acf123cb577b9efc5785eb107d2e0e88a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf123cb577b9efc5785eb107d2e0e88a">&#9670;&#160;</a></span>clamp_d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double clamp_d </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>min</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>max</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clamps a value between a minimum and maximum. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to clamp. </td></tr>
+    <tr><td class="paramname">min</td><td>The minimum value. </td></tr>
+    <tr><td class="paramname">max</td><td>The maximum value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The clamped value. </dd></dl>
+
+</div>
+</div>
+<a id="a9533dbec279736fe76ba2cec60fb3a5a" name="a9533dbec279736fe76ba2cec60fb3a5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9533dbec279736fe76ba2cec60fb3a5a">&#9670;&#160;</a></span>clamp_f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float clamp_f </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>min</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>max</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clamps a value between a minimum and maximum. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to clamp. </td></tr>
+    <tr><td class="paramname">min</td><td>The minimum value. </td></tr>
+    <tr><td class="paramname">max</td><td>The maximum value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The clamped value. </dd></dl>
+
+</div>
+</div>
+<a id="accada49284cb0c9250deec8be5a8ccde" name="accada49284cb0c9250deec8be5a8ccde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accada49284cb0c9250deec8be5a8ccde">&#9670;&#160;</a></span>clamp_i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int clamp_i </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>min</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clamps a value between a minimum and maximum. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to clamp. </td></tr>
+    <tr><td class="paramname">min</td><td>The minimum value. </td></tr>
+    <tr><td class="paramname">max</td><td>The maximum value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The clamped value. </dd></dl>
+
+</div>
+</div>
 <a id="abc0cbd0ff1743666d722d55b15b2ba4c" name="abc0cbd0ff1743666d722d55b15b2ba4c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc0cbd0ff1743666d722d55b15b2ba4c">&#9670;&#160;</a></span>currentTimeMillis()</h2>
 
@@ -161,6 +290,117 @@ Functions</h2></td></tr>
 
 <p>Gets the current time in nanoseconds. </p>
 <dl class="section return"><dt>Returns</dt><dd>The current time in nanoseconds. </dd></dl>
+
+</div>
+</div>
+<a id="a18d16a8ef46f573baed36580831f8116" name="a18d16a8ef46f573baed36580831f8116"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18d16a8ef46f573baed36580831f8116">&#9670;&#160;</a></span>lerp_d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double lerp_d </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>b</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>t</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linearly interpolates between two values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first value. </td></tr>
+    <tr><td class="paramname">b</td><td>The second value. </td></tr>
+    <tr><td class="paramname">t</td><td>The interpolation factor. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The interpolated value. </dd></dl>
+
+</div>
+</div>
+<a id="a4ecdb834ed07525e99a75cb506920d6b" name="a4ecdb834ed07525e99a75cb506920d6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ecdb834ed07525e99a75cb506920d6b">&#9670;&#160;</a></span>lerp_f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float lerp_f </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>b</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>t</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linearly interpolates between two values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first value. </td></tr>
+    <tr><td class="paramname">b</td><td>The second value. </td></tr>
+    <tr><td class="paramname">t</td><td>The interpolation factor. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The interpolated value. </dd></dl>
+
+</div>
+</div>
+<a id="a47c308c2d9efd7d596ac65a1c0b42f9a" name="a47c308c2d9efd7d596ac65a1c0b42f9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47c308c2d9efd7d596ac65a1c0b42f9a">&#9670;&#160;</a></span>lerp_i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int lerp_i </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>b</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>t</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linearly interpolates between two values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first value. </td></tr>
+    <tr><td class="paramname">b</td><td>The second value. </td></tr>
+    <tr><td class="paramname">t</td><td>The interpolation factor. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The interpolated value. </dd></dl>
 
 </div>
 </div>

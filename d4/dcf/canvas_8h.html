@@ -178,6 +178,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Canvas_resetFormat</b
 <tr class="memitem:acc58cee24267ea1016719162d3a9463b" id="r_acc58cee24267ea1016719162d3a9463b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc58cee24267ea1016719162d3a9463b">Canvas_fillEllipse</a> (int x, int y, int xradius, int yradius, char c)</td></tr>
 <tr class="memdesc:acc58cee24267ea1016719162d3a9463b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills an ellipse with a character.  <br /></td></tr>
 <tr class="separator:acc58cee24267ea1016719162d3a9463b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a800a9d7199f3c020c8f36be338885590" id="r_a800a9d7199f3c020c8f36be338885590"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a800a9d7199f3c020c8f36be338885590">Canvas_line</a> (int x1, int y1, int x2, int y2, char c)</td></tr>
+<tr class="memdesc:a800a9d7199f3c020c8f36be338885590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a line between two points.  <br /></td></tr>
+<tr class="separator:a800a9d7199f3c020c8f36be338885590"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8baa1ce20d8a2db0f1b3b919bad7b614" id="r_a8baa1ce20d8a2db0f1b3b919bad7b614"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8baa1ce20d8a2db0f1b3b919bad7b614">Canvas_drawText</a> (int x, int y, const char *text)</td></tr>
 <tr class="memdesc:a8baa1ce20d8a2db0f1b3b919bad7b614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws text at the current cursor position.  <br /></td></tr>
 <tr class="separator:a8baa1ce20d8a2db0f1b3b919bad7b614"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -933,6 +936,54 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>ASCII_NINE</b> [8][5]
 <p>Gets the cursor visibility. </p>
 <p>On POSIX, this is handled by an internal variable. On Windows, this is determined by the cursor visibility state. Therefore, this method is often less reliable on POSIX systems, since it cannot detect changes made by other programs.</p>
 <dl class="section return"><dt>Returns</dt><dd>1 if the cursor is visible, 0 if it is hidden. </dd></dl>
+
+</div>
+</div>
+<a id="a800a9d7199f3c020c8f36be338885590" name="a800a9d7199f3c020c8f36be338885590"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a800a9d7199f3c020c8f36be338885590">&#9670;&#160;</a></span>Canvas_line()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Canvas_line </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draws a line between two points. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x1</td><td>The x coordinate of the first point. </td></tr>
+    <tr><td class="paramname">y1</td><td>The y coordinate of the first point. </td></tr>
+    <tr><td class="paramname">x2</td><td>The x coordinate of the second point. </td></tr>
+    <tr><td class="paramname">y2</td><td>The y coordinate of the second point. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to draw the line with. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
