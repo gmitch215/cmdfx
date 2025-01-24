@@ -16,9 +16,15 @@ if (WIN32)
     file(GLOB PLATFORM_SRC ${PROJECT_SOURCE_DIR}/src/windows/*.c)
 else()
     file(GLOB PLATFORM_SRC ${PROJECT_SOURCE_DIR}/src/posix/*.c)
+
+    if (APPLE)
+        file(GLOB OS_SRC ${PROJECT_SOURCE_DIR}/src/macos/*.c)
+    elseif (LINUX)
+        file(GLOB OS_SRC ${PROJECT_SOURCE_DIR}/src/linux/*.c)
+    endif()
 endif()
 
-add_library(cmdfx SHARED ${COMMON_SRC} ${PLATFORM_SRC})
+add_library(cmdfx SHARED ${COMMON_SRC} ${PLATFORM_SRC} ${OS_SRC})
 target_include_directories(cmdfx PUBLIC
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
