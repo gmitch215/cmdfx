@@ -18,11 +18,7 @@ void Canvas_setChar(int x, int y, char c) {
 }
 
 void Canvas_setAnsiCurrent(const char* ansi) {
-    char* format = malloc(5 + strlen(ansi) + 1);
-    sprintf(format, "\033[%sm", ansi);
-
-    printf("%s", format);
-    free(format);
+    printf("%s", ansi);
 }
 
 void Canvas_setAnsi(int x, int y, const char* ansi) {
@@ -44,8 +40,8 @@ void Canvas_setForeground(int rgb) {
     int g = (rgb >> 8) & 0xFF;
     int b = rgb & 0xFF;
 
-    char* ansi = malloc(17);
-    sprintf(ansi, "38;2;%d;%d;%d", r, g, b);
+    char* ansi = malloc(22);
+    sprintf(ansi, "\033[38;2;%d;%d;%dm", r, g, b);
 
     Canvas_setAnsiCurrent(ansi);
     free(ansi);
@@ -56,11 +52,105 @@ void Canvas_setBackground(int rgb) {
     int g = (rgb >> 8) & 0xFF;
     int b = rgb & 0xFF;
 
-    char* ansi = malloc(17);
-    sprintf(ansi, "48;2;%d;%d;%d", r, g, b);
+    char* ansi = malloc(22);
+    sprintf(ansi, "\033[48;2;%d;%d;%dm", r, g, b);
 
     Canvas_setAnsiCurrent(ansi);
     free(ansi);
+}
+
+void Canvas_setColor8(int color) {
+    if (color < 30 || color > 107) return;
+
+    char* ansi = malloc(9);
+    sprintf(ansi, "\033[%dm", color);
+
+    Canvas_setAnsiCurrent(ansi);
+    free(ansi);
+}
+
+void Canvas_setForeground256(int color) {
+    if (color < 0 || color > 255) return;
+
+    char* ansi = malloc(14);
+    sprintf(ansi, "\033[38;5;%dm", color);
+
+    Canvas_setAnsiCurrent(ansi);
+    free(ansi);
+}
+
+void Canvas_setBackground256(int color) {
+    if (color < 0 || color > 255) return;
+
+    char* ansi = malloc(14);
+    sprintf(ansi, "\033[48;5;%dm", color);
+
+    Canvas_setAnsiCurrent(ansi);
+    free(ansi);
+}
+
+void Canvas_enableBold() {
+    printf("\033[1m");
+}
+
+void Canvas_disableBold() {
+    printf("\033[22m");
+}
+
+void Canvas_enableDim() {
+    printf("\033[2m");
+}
+
+void Canvas_disableDim() {
+    printf("\033[22m");
+}
+
+void Canvas_enableItalic() {
+    printf("\033[3m");
+}
+
+void Canvas_disableItalic() {
+    printf("\033[23m");
+}
+
+void Canvas_enableUnderline() {
+    printf("\033[4m");
+}
+
+void Canvas_disableUnderline() {
+    printf("\033[24m");
+}
+
+void Canvas_enableBlink() {
+    printf("\033[5m");
+}
+
+void Canvas_disableBlink() {
+    printf("\033[25m");
+}
+
+void Canvas_enableInvert() {
+    printf("\033[7m");
+}
+
+void Canvas_disableInvert() {
+    printf("\033[27m");
+}
+
+void Canvas_enableHidden() {
+    printf("\033[8m");
+}
+
+void Canvas_disableHidden() {
+    printf("\033[28m");
+}
+
+void Canvas_enableStrikethrough() {
+    printf("\033[9m");
+}
+
+void Canvas_disableStrikethrough() {
+    printf("\033[29m");
 }
 
 // Utility Functions - Shapes

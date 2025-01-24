@@ -30,6 +30,8 @@ int Canvas_getHeight();
 
 /**
  * @brief Clears the screen.
+ * 
+ * This method uses a `system` call to clear the screen.
  */
 void Canvas_clearScreen();
 
@@ -78,7 +80,6 @@ void Canvas_setChar(int x, int y, char c);
  * This method sets the ANSI code at a specific position. The ANSI code is a
  * series of semicolon-separated numbers and letters that control the terminal
  * behavior. For example, the ANSI code "\033[31m" sets the text color to red.
- * The prefix "\033[" and the suffix "m" are already provided for you.
  * 
  * @param ansi The ANSI code.
  */
@@ -90,7 +91,6 @@ void Canvas_setAnsiCurrent(const char* ansi);
  * This method sets the ANSI code at a specific position. The ANSI code is a
  * series of semicolon-separated numbers and letters that control the terminal
  * behavior. For example, the ANSI code "\033[31m" sets the text color to red.
- * The prefix "\033[" and the suffix "m" are already provided for you.
  * 
  * @param x X coordinate.
  * @param y Y coordinate.
@@ -114,30 +114,210 @@ int Canvas_isCursorVisible();
 
 /**
  * @brief Hides the cursor.
+ * 
+ * On POSIX, this is a simple print of the ANSI code "\033[?25l", which hides the cursor.
+ * On Windows, this is a call to the `SetConsoleCursorInfo` function.
  */
 void Canvas_hideCursor();
 
 /**
  * @brief Shows the cursor.
+ * 
+ * On POSIX, this is a simple print of the ANSI code "\033[?25h", which shows the cursor.
+ * On Windows, this is a call to the `SetConsoleCursorInfo` function.
  */
 void Canvas_showCursor();
 
 /**
  * @brief Resets all formatting at the current cursor position.
+ * 
+ * This is a simple print of the ANSI code "\033[0m", which resets all formatting
+ * at the current cursor position.
  */
 void Canvas_resetFormat();
 
 /**
  * @brief Sets the foreground color at the current cursor position.
+ * 
+ * This uses the ANSI code "\033[38;2;r;g;bm", where r, g, and b are the red, green,
+ * and blue values of the color, respectively.
  * @param rgb The RGB color.
  */
 void Canvas_setForeground(int rgb);
 
 /**
  * @brief Sets the background color at the current cursor position.
+ * 
+ * This uses the ANSI code "\033[48;2;r;g;bm", where r, g, and b are the red, green,
+ * and blue values of the color, respectively.
  * @param rgb The RGB color.
  */
 void Canvas_setBackground(int rgb);
+
+/**
+ * @brief Sets the color at the current cursor position using the built-in
+ * 8-bit color palette.
+ * 
+ * This uses the ANSI code "\033[{ID}m", where m is the color number.
+ * @param color The color number.
+ */
+void Canvas_setColor8(int color);
+
+/**
+ * @brief Sets the foreground color at the current cursor position using the built-in
+ * 256-color palette.
+ * 
+ * This uses the ANSI code "\033[38;5;{ID}m", where {ID} is the color number.
+ * @param color The color number.
+ */
+void Canvas_setForeground256(int color);
+
+/**
+ * @brief Sets the background color at the current cursor position using the built-in
+ * 256-color palette.
+ * 
+ * This uses the ANSI code "\033[48;5;{ID}m", where {ID} is the color number.
+ * @param color The color number.
+ */
+void Canvas_setBackground256(int color);
+
+/**
+ * @brief Enables the bold text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[1m".
+ */
+void Canvas_enableBold();
+
+/**
+ * @brief Disables the bold text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[22m".
+ * 
+ * Both this and `Canvas_disableDim` share the same code, meaning it will
+ * disable both bold and dim text if both are enabled.
+ */
+void Canvas_disableBold();
+
+/**
+ * @brief Enables the dim text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[2m".
+ * 
+ * Faint is not widely supported, and is often rendered as normal text.
+ */
+void Canvas_enableDim();
+
+/**
+ * @brief Disables the dim text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[22m".
+ * 
+ * Faint is not widely supported, and is often rendered as normal text.
+ * 
+ * Both this and `Canvas_disableBold` share the same code, meaning it will
+ * disable both bold and dim text if both are enabled.
+ */
+void Canvas_disableDim();
+
+/**
+ * @brief Enables the italic text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[3m".
+ * 
+ * Italic is not widely supported, and is often rendered as normal text.
+ */
+void Canvas_enableItalic();
+
+/**
+ * @brief Disables the italic text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[23m".
+ * 
+ * Italic is not widely supported, and is often rendered as normal text.
+ */
+void Canvas_disableItalic();
+
+/**
+ * @brief Enables the underline text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[4m".
+ */
+void Canvas_enableUnderline();
+
+/**
+ * @brief Disables the underline text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[24m".
+ */
+void Canvas_disableUnderline();
+
+/**
+ * @brief Enables the blink text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[5m".
+ * 
+ * "Blinking" refers to the text blinking on and off.
+ */
+void Canvas_enableBlink();
+
+/**
+ * @brief Disables the blink text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[25m".
+ */
+void Canvas_disableBlink();
+
+/**
+ * @brief Enables the invert text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[7m".
+ * 
+ * "Invert" refers to the text and background colors being swapped.
+ */
+void Canvas_enableInvert();
+
+/**
+ * @brief Disables the invert text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[27m".
+ */
+void Canvas_disableInvert();
+
+/**
+ * @brief Enables the hidden text attribute.
+ * 
+ * Hidden is not widely supported, and is often rendered as normal text.
+ * 
+ * This is a simple print of the ANSI code "\033[8m".
+ * 
+ * "Hidden" refers to the text being hidden.
+ */
+void Canvas_enableHidden();
+
+/**
+ * @brief Disables the hidden text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[28m".
+ */
+void Canvas_disableHidden();
+
+/**
+ * @brief Enables the strikethrough text attribute.
+ * 
+ * Strikethrough is not widely supported, and is often rendered as normal text.
+ * 
+ * This is a simple print of the ANSI code "\033[9m".
+ * 
+ * "Strikethrough" refers to the text having a line through the middle.
+ */
+void Canvas_enableStrikethrough();
+
+/**
+ * @brief Disables the strikethrough text attribute.
+ * 
+ * This is a simple print of the ANSI code "\033[29m".
+ */
+void Canvas_disableStrikethrough();
 
 // Utility Functions - Shapes
 

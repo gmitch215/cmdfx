@@ -20,8 +20,15 @@ int main() {
     Canvas_ellipse(x, y, 12, 6, '$');
     Canvas_resetFormat(x, y);
 
+    Canvas_enableUnderline();
+    Canvas_enableBold();
     Canvas_drawText(x - 5, y - 1, "Hello, World!");
-    Canvas_drawAsciiText(x / 2, y + 1, '%', "ABC");
+    Canvas_disableBold();
+    Canvas_disableUnderline();
+
+    Canvas_enableDim();
+    Canvas_drawAsciiText(x / 6, y + 1, '%', "ABCDEF");
+    Canvas_disableDim();
 
     Canvas_showCursor();
     Canvas_setCursor(cx, cy);
