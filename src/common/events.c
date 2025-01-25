@@ -3,7 +3,7 @@
 
 #include "cmdfx/events.h"
 
-#define MAX_LISTENERS 256
+#define MAX_LISTENERS 1024
 
 EventCallback*** _listeners = 0;
 unsigned int* _listenerSizes = 0;

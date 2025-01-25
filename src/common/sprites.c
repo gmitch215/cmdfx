@@ -444,6 +444,7 @@ int Sprite_resizeAndCenter(CmdFX_Sprite* sprite, int width, int height) {
 void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y) {
     if (sprite->id == 0) return;
     if (x < 1 || y < 1) return;
+    if (x + sprite->width > Canvas_getWidth() || y + sprite->height > Canvas_getHeight()) return;
 
     Sprite_remove0(sprite);
     sprite->x = x;

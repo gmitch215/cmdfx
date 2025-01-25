@@ -10,6 +10,7 @@ function(add_test_executable folder name)
 
     add_executable("${TEST_NAME}" "src/${folder}/${name}.c" "src/test.h")
     target_link_libraries("${TEST_NAME}" PRIVATE cmdfx)
+    target_compile_options("${TEST_NAME}" PRIVATE -lm)
     target_include_directories("${TEST_NAME}" PRIVATE "${PROJECT_SOURCE_DIR}/include")
     target_include_directories("${TEST_NAME}" PRIVATE "${PROJECT_SOURCE_DIR}/include/cmdfx")
 
@@ -26,7 +27,7 @@ function(add_manual_test name)
     set(TEST_NAME "cmdfx-test-manual-${name}")
 
     add_executable("${TEST_NAME}" "src/manual/${name}.c" "src/test.h")
-    target_link_libraries("${TEST_NAME}" PRIVATE cmdfx)
+    target_link_libraries("${TEST_NAME}" PRIVATE cmdfx m)
     target_include_directories("${TEST_NAME}" PRIVATE "${PROJECT_SOURCE_DIR}/include")
     target_include_directories("${TEST_NAME}" PRIVATE "${PROJECT_SOURCE_DIR}/include/cmdfx")
 

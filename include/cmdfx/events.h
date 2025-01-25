@@ -27,6 +27,8 @@ extern "C" {
  */
 #define EVENT_TICK 10
 
+#pragma region Events
+
 /**
  * @brief Called when the terminal is resized.
  * 
@@ -55,6 +57,36 @@ typedef struct CmdFX_ResizeEvent {
      */
     int newHeight;
 } CmdFX_ResizeEvent;
+
+/**
+ * @brief Called when a key is pressed.
+ * 
+ * The data is a pointer to a `struct CmdFX_KeyEvent`.
+ */
+#define CMDFX_EVENT_KEY 1
+
+/**
+ * @brief The payload for the `CMDFX_EVENT_KEY` event.
+ */
+typedef struct CmdFX_KeyEvent {
+    /**
+     * @brief The key code.
+     */
+    int keyCode;
+    /**
+     * @brief The character representation of the key.
+     */
+    char keyChar;
+} CmdFX_KeyEvent;
+
+/**
+ * @brief Called when the mouse is moved or clicked.
+ * 
+ * The data is a pointer to a `struct CmdFX_MouseEvent`.
+ */
+#define CMDFX_EVENT_MOUSE 2
+
+#pragma endregion
 
 struct CmdFX_Event;
 
@@ -86,6 +118,9 @@ typedef struct CmdFX_Event {
 
 /**
  * @brief Adds an event listener.
+ * 
+ * The listener will be called when the event with the specified ID is dispatched.
+ * The library has an internal limit of 1,024 listeners across all events.
  * @param id The event ID.
  * @param callback The event callback.
  * @return A unique ID for the event listener, or -1 if an error occurred.

@@ -11,16 +11,16 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 # Sources
-file(GLOB COMMON_SRC ${PROJECT_SOURCE_DIR}/src/common/*.c)
+file(GLOB_RECURSE COMMON_SRC ${PROJECT_SOURCE_DIR}/src/common/*.c)
 if (WIN32)
-    file(GLOB PLATFORM_SRC ${PROJECT_SOURCE_DIR}/src/windows/*.c)
+    file(GLOB_RECURSE PLATFORM_SRC ${PROJECT_SOURCE_DIR}/src/windows/*.c)
 else()
-    file(GLOB PLATFORM_SRC ${PROJECT_SOURCE_DIR}/src/posix/*.c)
+    file(GLOB_RECURSE PLATFORM_SRC ${PROJECT_SOURCE_DIR}/src/posix/*.c)
 
     if (APPLE)
-        file(GLOB OS_SRC ${PROJECT_SOURCE_DIR}/src/macos/*.c)
+        file(GLOB_RECURSE OS_SRC ${PROJECT_SOURCE_DIR}/src/macos/*.c)
     elseif (LINUX)
-        file(GLOB OS_SRC ${PROJECT_SOURCE_DIR}/src/linux/*.c)
+        file(GLOB_RECURSE OS_SRC ${PROJECT_SOURCE_DIR}/src/linux/*.c)
     endif()
 endif()
 
@@ -37,6 +37,8 @@ set_target_properties(cmdfx PROPERTIES
 # Libraries
 if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")
+
+    target_link_libraries(cmdfx PRIVATE m) # Math
 endif()
 
 # Testing
@@ -99,6 +101,7 @@ if (INSTALL_CMDFX)
             DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
     )
     install(DIRECTORY
+            "${PROJECT_SOURCE_DIR}/include/cmdfx/animation"
             "${PROJECT_SOURCE_DIR}/include/cmdfx"
             "${PROJECT_SOURCE_DIR}/include/"
             DESTINATION include
