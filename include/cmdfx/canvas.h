@@ -411,6 +411,8 @@ void Canvas_line(int x1, int y1, int x2, int y2, char c);
 
 /**
  * @brief Draws text at the current cursor position.
+ * @param x X coordinate.
+ * @param y Y coordinate.
  * @param text The text to draw.
  */
 void Canvas_drawText(int x, int y, const char* text);

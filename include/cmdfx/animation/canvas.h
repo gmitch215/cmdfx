@@ -199,7 +199,8 @@ void Canvas_drawText_anim(int x, int y, const char* text, double time);
  * 
  * @param x The X position of the character.
  * @param y The Y position of the character.
- * @param ascii The ASCII character as a 2D array of characters.
+ * @param character The character to use when drawing the text.
+ * @param text The text to draw.
  * @param time The amount of time, in seconds, to draw the character.
  */
 void Canvas_drawAsciiText_anim(int x, int y, char character, const char* text, double time);

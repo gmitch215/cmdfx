@@ -17,6 +17,14 @@ extern "C" {
 
 // Core Functions
 
+/**
+ * @brief Represents a sprite that can be drawn to the terminal.
+ * 
+ * A sprite is a 2D image that can be drawn to the terminal. It consists of a
+ * 2D array of characters that represent the sprite, as well as a Z-index that
+ * determines the order in which sprites are drawn. Sprites are useful for keeping
+ * track of complex images or animations that need to be drawn to the terminal.
+ */
 typedef struct CmdFX_Sprite {
     /**
      * @brief The X position of the sprite.
