@@ -14,7 +14,7 @@ int getArrayWidth(char** array) {
 int getArrayHeight(char** array) {
     if (array == 0) return 0;
     
-    int height;
+    int height = 0;
     while (array[height] != 0) height++;
 
     return height;
@@ -260,6 +260,8 @@ int CharBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, ch
             p += xradiusSq - py + px;
         }
     }
+
+    return 0;
 }
 
 int CharBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradius, char c) {
@@ -289,6 +291,8 @@ int CharBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradius
             }
         }
     }
+
+    return 0;
 }
 
 int CharBuilder_line(char** array, int x1, int y1, int x2, int y2, char c) {
@@ -449,7 +453,7 @@ int CharBuilder_resizeAndCenter(char** array, int width, int height) {
 int getAnsiArrayWidth(char*** array) {
     if (array == 0) return 0;
 
-    int width;
+    int width = 0;
     while (array[0][width] != 0) width++;
 
     return width;
@@ -704,6 +708,8 @@ int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, c
             p += xradiusSq - py + px;
         }
     }
+
+    return 0;
 }
 
 int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradius, char* c) {
@@ -733,6 +739,8 @@ int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradiu
             }
         }
     }
+
+    return 0;
 }
 
 int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c) {

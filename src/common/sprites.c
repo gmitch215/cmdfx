@@ -326,6 +326,8 @@ int Sprite_resize0(CmdFX_Sprite* sprite, int width, int height, char padding) {
     sprite->ansi = newAnsi;
     sprite->width = width;
     sprite->height = height;
+
+    return 1;
 }
 
 int Sprite_resize(CmdFX_Sprite* sprite, int width, int height) {
@@ -414,6 +416,8 @@ int Sprite_center(CmdFX_Sprite* sprite) {
 
     // Redraw Sprite if Drawn
     if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 1;
 }
 
 int Sprite_resizeAndCenter(CmdFX_Sprite* sprite, int width, int height) {
