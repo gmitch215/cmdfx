@@ -70,6 +70,14 @@ endif()
 # Installation
 option(INSTALL_CMDFX "Install ${PROJECT_NAME}" ON)
 
+if(WIN32)
+    if(CMAKE_SIZEOF_VOID_P MATCHES "8")
+        set(CMAKE_INSTALL_PREFIX "C:/Program Files/${CMAKE_PROJECT_NAME}")
+    else()
+        set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/${CMAKE_PROJECT_NAME}")
+    endif()
+endif()
+
 if (INSTALL_CMDFX)
     include(GNUInstallDirs)
    
@@ -101,11 +109,22 @@ if (INSTALL_CMDFX)
             DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
     )
     install(DIRECTORY
-            "${PROJECT_SOURCE_DIR}/include/cmdfx/animation"
-            "${PROJECT_SOURCE_DIR}/include/cmdfx"
             "${PROJECT_SOURCE_DIR}/include/"
             DESTINATION include
     )
+    
+    if (DOCS_CMDFX)
+        install(DIRECTORY
+            "${PROJECT_SOURCE_DIR}/build/docs/html"
+            DESTINATION ${CMAKE_INSTALL_DOCDIR}
+        )
+        install(FILES
+            "${PROJECT_SOURCE_DIR}/README.md"
+            "${PROJECT_SOURCE_DIR}/LICENSE"
+            "${PROJECT_SOURCE_DIR}/CONTRIBUTING.md"
+            DESTINATION ${CMAKE_INSTALL_DOCDIR}
+        )
+    endif()
 endif()
 
 # Packaging
