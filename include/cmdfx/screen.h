@@ -45,6 +45,13 @@ void Window_setSize(int width, int height);
 // Screen API
 
 /**
+ * @brief Gets the size of the screen, and stores it in the width and height variables.
+ * @param width The pointer to the width of the screen.
+ * @param height The pointer to the height of the screen.
+ */
+void Screen_getSize(int* width, int* height);
+
+/**
  * @brief Gets the RGB value of a pixel on the screen.
  * @param x The x coordinate.
  * @param y The y coordinate.

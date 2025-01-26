@@ -1,7 +1,17 @@
 #include <stdio.h>
+
 #include <ApplicationServices/ApplicationServices.h>
+#include <CoreGraphics/CoreGraphics.h>
 
 #include "cmdfx/screen.h"
+
+// Screen API
+
+void Screen_getSize(int* width, int* height) {
+    CGDirectDisplayID display = CGMainDisplayID();
+    *width = CGDisplayPixelsWide(display);
+    *height = CGDisplayPixelsHigh(display);
+}
 
 int Screen_getRGB(int x, int y) {
     CGImageRef image = CGDisplayCreateImage(CGMainDisplayID());

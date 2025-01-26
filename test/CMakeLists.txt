@@ -11,7 +11,6 @@ function(add_test_executable folder name)
     add_executable("${TEST_NAME}" "src/${folder}/${name}.c" "src/test.h")
     target_link_libraries("${TEST_NAME}" PRIVATE cmdfx)
     target_include_directories("${TEST_NAME}" PRIVATE "${PROJECT_SOURCE_DIR}/include")
-    target_include_directories("${TEST_NAME}" PRIVATE "${PROJECT_SOURCE_DIR}/include/cmdfx")
 
     add_dependencies("${TEST_NAME}" cmdfx)
     add_test(NAME ${folder}/${name} COMMAND "${TEST_NAME}")
@@ -28,7 +27,6 @@ function(add_manual_test name)
     add_executable("${TEST_NAME}" "src/manual/${name}.c" "src/test.h")
     target_link_libraries("${TEST_NAME}" PRIVATE cmdfx)
     target_include_directories("${TEST_NAME}" PRIVATE "${PROJECT_SOURCE_DIR}/include")
-    target_include_directories("${TEST_NAME}" PRIVATE "${PROJECT_SOURCE_DIR}/include/cmdfx")
 
     add_dependencies("${TEST_NAME}" cmdfx)
 
@@ -39,6 +37,7 @@ endfunction()
 
 # Common
 add_test_executable(common util)
+add_test_executable(common screen)
 
 add_test_executable(common canvas_clear)
 add_test_executable(common canvas_dimensions)

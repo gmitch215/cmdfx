@@ -5,13 +5,14 @@
 
 // Window API
 
-static char windowTitle[256] = "Terminal";
+static char windowTitle[256] = "Command Prompt";
 
 const char* Window_getTitle() {
     HWND console = GetConsoleWindow();
     if (console) {
-        GetWindowText(console, windowTitle, sizeof(windowTitle));
+        GetConsoleTitleA(windowTitle, sizeof(windowTitle));
     }
+
     return windowTitle;
 }
 
@@ -21,7 +22,7 @@ void Window_setTitle(const char* title) {
         return;
     }
 
-    SetConsoleTitle(title);
+    SetConsoleTitleA(title);
     strncpy(windowTitle, title, sizeof(windowTitle) - 1);
 }
 
@@ -43,6 +44,11 @@ void Window_setSize(int width, int height) {
 }
 
 // Screen API
+
+void Screen_getSize(int* width, int* height) {
+    *width = GetSystemMetrics(SM_CXSCREEN);
+    *height = GetSystemMetrics(SM_CYSCREEN);
+}
 
 int Screen_getRGB(int x, int y) {
     HDC hdc = GetDC(NULL);  // Get the entire screen device context
