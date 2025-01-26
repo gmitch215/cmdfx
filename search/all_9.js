@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['lerp_5fd_0',['lerp_d',['../d8/d3c/util_8h.html#a18d16a8ef46f573baed36580831f8116',1,'util.h']]],
-  ['lerp_5ff_1',['lerp_f',['../d8/d3c/util_8h.html#a4ecdb834ed07525e99a75cb506920d6b',1,'util.h']]],
-  ['lerp_5fi_2',['lerp_i',['../d8/d3c/util_8h.html#a47c308c2d9efd7d596ac65a1c0b42f9a',1,'util.h']]],
-  ['list_3',['📋 Full List',['../index.html#autotoc_md2',1,'']]]
+  ['keychar_0',['keyChar',['../dc/d1b/structCmdFX__KeyEvent.html#a1b65fd38eb393f0e6c3dc0633c52a449',1,'CmdFX_KeyEvent']]],
+  ['keycode_1',['keyCode',['../dc/d1b/structCmdFX__KeyEvent.html#a4ed739ac79d21622f1ecb05876dfa426',1,'CmdFX_KeyEvent']]]
 ];

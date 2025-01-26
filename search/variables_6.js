@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['time_0',['time',['../dc/d5b/structCmdFX__Event.html#ae29e140cda84032a6c51594903d94fd5',1,'CmdFX_Event']]]
+  ['prevheight_0',['prevHeight',['../dc/d75/structCmdFX__ResizeEvent.html#aaf281d0b3eb946ef702d837dc4c6c864',1,'CmdFX_ResizeEvent']]],
+  ['prevwidth_1',['prevWidth',['../dc/d75/structCmdFX__ResizeEvent.html#ac3ab31031e936476161a2943f90d03c1',1,'CmdFX_ResizeEvent']]]
 ];
