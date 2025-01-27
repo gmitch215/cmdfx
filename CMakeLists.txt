@@ -113,7 +113,7 @@ if (INSTALL_CMDFX)
             DESTINATION include
     )
     
-    if (DOCS_CMDFX AND DOXYGEN_FOUND)
+    if (DOCS_CMDFX AND EXISTS "${DOXYGEN_OUT}")
         install(DIRECTORY
             "${PROJECT_SOURCE_DIR}/build/docs/html"
             DESTINATION ${CMAKE_INSTALL_DOCDIR}
