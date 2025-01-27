@@ -33,3 +33,14 @@ void Window_getSize(int* width, int* height) {
         *width = *height = 0;
     }
 }
+
+void Window_setSize(int width, int height) {
+    struct winsize w;
+    w.ws_col = width;
+    w.ws_row = height;
+    
+    if (ioctl(STDOUT_FILENO, TIOCSWINSZ, &w) == -1) {
+        perror("ioctl");
+        exit(EXIT_FAILURE);
+    }
+}
