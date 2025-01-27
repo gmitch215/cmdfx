@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 #include "cmdfx/sprites.h"
 #include "cmdfx/canvas.h"
+#include "cmdfx/util.h"
 
 CmdFX_Sprite** sprites = 0;
 int spriteCount = 0;
@@ -49,16 +54,15 @@ void Sprite_free(CmdFX_Sprite* sprite) {
 
     for (int i = 0; i < sprite->height; i++) {
         if (sprite->data[i] == 0) continue;
-
         free(sprite->data[i]);
 
         if (sprite->ansi != 0) {
             char** ansi = sprite->ansi[i];
             if (ansi == 0) continue;
 
-            char* line = ansi[0];
+            int line = 0;
             while (line != 0) {
-                free(line);
+                free(ansi[line]);
                 line++;
             }
             free(ansi);
@@ -67,12 +71,14 @@ void Sprite_free(CmdFX_Sprite* sprite) {
 
     free(sprite->data);
     if (sprite->ansi != 0) free(sprite->ansi);
+
     free(sprite);
 }
 
 void Sprite_draw0(CmdFX_Sprite* sprite) {
     if (sprite->data == 0) return;
 
+    int hasAnsi = sprite->ansi != 0;
     for (int i = 0; i < sprite->height; i++) {
         char* line = sprite->data[i];
         if (line == 0) continue;
@@ -96,11 +102,11 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
             }
             if (skip) continue;
 
-            int hasAnsi = sprite->ansi != 0;
             Canvas_setCursor(x, y);
             if (hasAnsi) {
                 char* ansi = sprite->ansi[i][j];
-                Canvas_setAnsi(x, y, ansi);
+                if (ansi != 0)
+                    Canvas_setAnsiCurrent(ansi);
             }
             putchar(c);
             if (hasAnsi) Canvas_resetFormat();
@@ -180,7 +186,7 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
     }
     sprites[spriteCount - 1] = 0;
 
-    CmdFX_Sprite** temp = realloc(sprites, sizeof(CmdFX_Sprite*) * (spriteCount - 1));
+    CmdFX_Sprite** temp = realloc(sprites, sizeof(CmdFX_Sprite*) * spriteCount);
     if (!temp) return;
     sprites = temp;
 
@@ -203,13 +209,87 @@ int Sprite_setChar(CmdFX_Sprite* sprite, int x, int y, char c) {
     return 1;
 }
 
-int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, const char* ansi) {
+int Sprite_fillChar(CmdFX_Sprite* sprite, int x, int y, char c, int width, int height) {
+    if (sprite == 0) return 0;
+    if (sprite->data == 0) return 0;
+    if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
+
+    for (int i = y; i < y + height; i++) {
+        if (i >= sprite->height) break;
+        for (int j = x; j < x + width; j++) {
+            if (j >= sprite->width) break;
+            sprite->data[i][j] = c;
+        }
+    }
+
+    // Redraw Sprite if Drawn
+    if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 1;
+}
+
+int Sprite_fillCharEmpty(CmdFX_Sprite* sprite, int x, int y, char c, int width, int height) {
+    if (sprite == 0) return 0;
+    if (sprite->data == 0) return 0;
+    if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
+
+    for (int i = y; i < y + height; i++) {
+        if (i >= sprite->height) break;
+        for (int j = x; j < x + width; j++) {
+            if (j >= sprite->width) break;
+            char data = sprite->data[i][j];
+            if (data == 0 || data == ' ') sprite->data[i][j] = c;
+        }
+    }
+
+    // Redraw Sprite if Drawn
+    if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 1;
+}
+
+int Sprite_fillCharAll(CmdFX_Sprite* sprite, char c) {
+    if (sprite == 0) return 0;
+    if (sprite->data == 0) return 0;
+
+    for (int i = 0; i < sprite->height; i++) {
+        for (int j = 0; j < sprite->width; j++) {
+            sprite->data[i][j] = c;
+        }
+    }
+
+    // Redraw Sprite if Drawn
+    if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 1;
+}
+
+int Sprite_fillCharAllEmpty(CmdFX_Sprite* sprite, char c) {
+    if (sprite == 0) return 0;
+    if (sprite->data == 0) return 0;
+
+    for (int i = 0; i < sprite->height; i++) {
+        for (int j = 0; j < sprite->width; j++) {
+            char data = sprite->data[i][j];
+            if (data == 0 || data == ' ') sprite->data[i][j] = c;
+        }
+    }
+
+    // Redraw Sprite if Drawn
+    if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 1;
+}
+
+int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
     if (sprite == 0) return 0;
     if (sprite->ansi == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
 
-    char* ansi0 = malloc(strlen(ansi) + 6);
-    sprintf(ansi0, "\033[%sm", ansi);
+    char* ansi0 = malloc(strlen(ansi) + 1);
+    if (ansi0 == 0) return 0;
+
+    strcpy(ansi0, ansi);
 
     if (sprite->ansi[y][x] != 0) free(sprite->ansi[y][x]);
     sprite->ansi[y][x] = ansi0;
@@ -217,14 +297,42 @@ int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, const char* ansi) {
     return 1;
 }
 
-int Sprite_setAnsiAll(CmdFX_Sprite* sprite, const char* ansi) {
+int Sprite_appendAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
+    if (sprite == 0) return 0;
+    if (ansi == 0) return 0;
+    if (sprite->ansi == 0) return 0;
+    if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
+
+    if (sprite->ansi[y][x] == 0) {
+        char* ansi0 = malloc(strlen(ansi) + 1);
+        if (ansi0 == 0) return 0;
+
+        strcpy(ansi0, ansi);
+
+        sprite->ansi[y][x] = ansi0;
+    } else {
+        int size = strlen(sprite->ansi[y][x]) + strlen(ansi) + 1;
+        char* ansi0 = realloc(sprite->ansi[y][x], size);
+        if (ansi0 == 0) return 0;
+
+        sprite->ansi[y][x] = ansi0;
+        strcat(sprite->ansi[y][x], ansi);
+    }
+
+    return 1;
+}
+
+int Sprite_fillAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi, int width, int height) {
     if (sprite == 0) return 0;
     if (sprite->ansi == 0) return 0;
+    if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
 
-    for (int i = 0; i < sprite->height; i++) {
-        for (int j = 0; j < sprite->width; j++) {
-            char* ansi0 = malloc(strlen(ansi) + 6);
-            sprintf(ansi0, "\033[%sm", ansi);
+    for (int i = y; i < y + height; i++) {
+        if (i >= sprite->height) break;
+        for (int j = x; j < x + width; j++) {
+            if (j >= sprite->width) break;
+            char* ansi0 = malloc(strlen(ansi) + 1);
+            sprintf(ansi0, "%s", ansi);
 
             if (sprite->ansi[i][j] != 0) free(sprite->ansi[i][j]);
             sprite->ansi[i][j] = ansi0;
@@ -235,6 +343,77 @@ int Sprite_setAnsiAll(CmdFX_Sprite* sprite, const char* ansi) {
     if (sprite->id != 0) Sprite_draw0(sprite);
 
     return 1;
+}
+
+int Sprite_setAnsiAll(CmdFX_Sprite* sprite, char* ansi) {
+    if (sprite == 0) return 0;
+    if (sprite->ansi == 0) return 0;
+
+    for (int i = 0; i < sprite->height; i++) {
+        for (int j = 0; j < sprite->width; j++) {
+            char* ansi0 = malloc(strlen(ansi) + 1);
+            sprintf(ansi0, "%s", ansi);
+
+            if (sprite->ansi[i][j] != 0) free(sprite->ansi[i][j]);
+            sprite->ansi[i][j] = ansi0;
+        }
+    }
+
+    // Redraw Sprite if Drawn
+    if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 1;
+}
+
+int Sprite_appendAnsiAll(CmdFX_Sprite* sprite, char* ansi) {
+    if (sprite == 0) return 0;
+    if (sprite->ansi == 0) return 0;
+
+    for (int i = 0; i < sprite->height; i++) {
+        for (int j = 0; j < sprite->width; j++) {
+            Sprite_appendAnsi(sprite, j, i, ansi);
+        }
+    }
+
+    // Redraw Sprite if Drawn
+    if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 1;
+}
+
+CmdFX_Sprite* Sprite_createFilled(int width, int height, char c, char* ansi, int z) {
+    if (width <= 0 || height <= 0) return 0;
+
+    char** data = malloc(sizeof(char*) * (height + 1));
+    if (data == 0) return 0;
+
+    for (int i = 0; i < height; i++) {
+        data[i] = malloc(sizeof(char) * (width + 1));
+        if (data[i] == 0) {
+            for (int j = 0; j < i; j++) free(data[j]);
+            free(data);
+            return 0;
+        }
+
+        for (int j = 0; j < width; j++) data[i][j] = c;
+        data[i][width] = 0;
+    }
+    data[height] = 0;
+
+    char*** ansiData = calloc(height + 1, sizeof(char**));
+    for (int i = 0; i < height; i++) {
+        ansiData[i] = calloc(width + 1, sizeof(char*));
+        for (int j = 0; j < width; j++) {
+            ansiData[i][j] = 0;
+        }
+    }
+
+    CmdFX_Sprite* sprite = Sprite_create(data, ansiData, z);
+    Sprite_fillCharAll(sprite, c);
+    if (ansi != 0) 
+        Sprite_setAnsiAll(sprite, ansi);
+
+    return sprite;
 }
 
 // Utility Methods - Sizing
@@ -497,6 +676,9 @@ CmdFX_Sprite** Sprite_getCollidingSprites(CmdFX_Sprite* sprite) {
 }
 
 int Sprite_isColliding(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
+    if (sprite1 == 0) return 0;
+    if (sprite2 == 0) return 0;
+
     if (sprite1->id == 0 || sprite2->id == 0) return 0;
     if (sprite1->id == sprite2->id) return 0;
 
@@ -504,4 +686,265 @@ int Sprite_isColliding(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
         sprite1->x + sprite1->width > sprite2->x &&
         sprite1->y < sprite2->y + sprite2->height &&
         sprite1->y + sprite1->height > sprite2->y;
+}
+
+// Utility Methods - Color
+
+int Sprite_setForeground(CmdFX_Sprite* sprite, int x, int y, int rgb) {
+    if (sprite == 0) return 0;
+    if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
+    if (rgb < 0 || rgb > 0xFFFFFF) return 0;
+
+    char* ansi = malloc(22);
+    sprintf(ansi, "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
+
+    return Sprite_appendAnsi(sprite, x, y, ansi);
+}
+
+int Sprite_setForeground256(CmdFX_Sprite* sprite, int x, int y, int color) {
+    if (sprite == 0) return 0;
+    if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
+    if (color < 0 || color > 255) return 0;
+
+    char* ansi = malloc(14);
+    sprintf(ansi, "\033[38;5;%dm", color);
+
+    return Sprite_appendAnsi(sprite, x, y, ansi);
+}
+
+int Sprite_setForegroundAll(CmdFX_Sprite* sprite, int rgb) {
+    if (sprite == 0) return 0;
+    if (rgb < 0 || rgb > 0xFFFFFF) return 0;
+
+    char* ansi = malloc(22);
+    sprintf(ansi, "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
+
+    return Sprite_appendAnsiAll(sprite, ansi);
+}
+
+int Sprite_setForegroundAll256(CmdFX_Sprite* sprite, int color) {
+    if (sprite == 0) return 0;
+    if (color < 0 || color > 255) return 0;
+
+    char* ansi = malloc(14);
+    sprintf(ansi, "\033[38;5;%dm", color);
+
+    return Sprite_appendAnsiAll(sprite, ansi);
+}
+
+int Sprite_setBackground(CmdFX_Sprite* sprite, int x, int y, int rgb) {
+    if (sprite == 0) return 0;
+    if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
+    if (rgb < 0 || rgb > 0xFFFFFF) return 0;
+
+    char* ansi = malloc(22);
+    sprintf(ansi, "\033[48;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
+
+    int res = Sprite_appendAnsi(sprite, x, y, ansi);
+    free(ansi);
+
+    return res;
+}
+
+int Sprite_setBackground256(CmdFX_Sprite* sprite, int x, int y, int color) {
+    if (sprite == 0) return 0;
+    if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
+    if (color < 0 || color > 255) return 0;
+
+    char* ansi = malloc(14);
+    sprintf(ansi, "\033[48;5;%dm", color);
+
+    int res = Sprite_appendAnsi(sprite, x, y, ansi);
+    free(ansi);
+
+    return res;
+}
+
+int Sprite_setBackgroundAll(CmdFX_Sprite* sprite, int rgb) {
+    if (sprite == 0) return 0;
+    if (rgb < 0 || rgb > 0xFFFFFF) return 0;
+
+    char* ansi = malloc(22);
+    sprintf(ansi, "\033[48;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
+
+    int res = Sprite_appendAnsiAll(sprite, ansi);
+    free(ansi);
+
+    return res;
+}
+
+int Sprite_setBackgroundAll256(CmdFX_Sprite* sprite, int color) {
+    if (sprite == 0) return 0;
+    if (color < 0 || color > 255) return 0;
+
+    char* ansi = malloc(14);
+    sprintf(ansi, "\033[48;5;%dm", color);
+
+    int res = Sprite_appendAnsiAll(sprite, ansi);
+    free(ansi);
+
+    return res;
+}
+
+// Utility Methods - Color Gradient
+
+int** _generateGradientGrid(const int* colors, int numColors, int width, int height, enum CmdFX_GradientDirection direction) {
+    int** grid = (int**) malloc(height * sizeof(int*));
+    for (int i = 0; i < height; i++) {
+        grid[i] = (int*) malloc(width * sizeof(int));
+    }
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            double factor = 0.0;
+
+            switch (direction) {
+                case GRADIENT_HORIZONTAL:
+                    factor = (double)x / (width - 1);
+                    break;
+                case GRADIENT_HORIZONTAL_REVERSE:
+                    factor = 1.0 - (double)x / (width - 1);
+                    break;
+                case GRADIENT_VERTICAL:
+                    factor = (double)y / (height - 1);
+                    break;
+                case GRADIENT_VERTICAL_REVERSE:
+                    factor = 1.0 - (double)y / (height - 1);
+                    break;
+                case GRADIENT_ANGLE_45:
+                    factor = ((double)x + y) / (width + height - 2);
+                    break;
+                case GRADIENT_ANGLE_135:
+                    factor = (double)(width - x - 1 + y) / (width + height - 2);
+                    break;
+                case GRADIENT_RADIAL: {
+                    double centerX = width / 2.0;
+                    double centerY = height / 2.0;
+                    double distance = sqrt(pow(x - centerX, 2) + pow(y - centerY, 2));
+                    double maxDistance = sqrt(pow(centerX, 2) + pow(centerY, 2));
+                    factor = distance / maxDistance;
+                    break;
+                }
+                case GRADIENT_CONICAL: {
+                    double angle = atan2(y - height / 2.0, x - width / 2.0);
+                    factor = (angle + M_PI) / (2 * M_PI);
+                    break;
+                }
+            }
+
+            double scaledFactor = factor * (numColors - 1);
+            int lower = (int) scaledFactor;
+            int upper = lower + 1;
+
+            if (upper >= numColors)
+                upper = numColors - 1;
+
+            grid[y][x] = lerp_color(colors[lower], colors[upper], scaledFactor - lower);
+        }
+    }
+
+    return grid;
+}
+
+char*** _toANSI(int prefix, int** grid, int width, int height) {
+    char*** ansi = (char***) malloc(height * sizeof(char**));
+    for (int i = 0; i < height; i++) {
+        ansi[i] = (char**) malloc(width * sizeof(char*));
+        for (int j = 0; j < width; j++) {
+            int rgb = grid[i][j];
+
+            int r = (rgb >> 16) & 0xFF;
+            int g = (rgb >> 8) & 0xFF;
+            int b = rgb & 0xFF;
+
+            ansi[i][j] = (char*) malloc(22);
+            sprintf(ansi[i][j], "\033[%d;5;%d;%d;%dm", prefix, r, g, b);
+        }
+    }
+
+    return ansi;
+}
+
+void _freeGrid(int** grid, int width, int height) {
+    for (int i = 0; i < height; i++) free(grid[i]);
+    free(grid);
+}
+
+void _freeANSI(char*** ansi, int width, int height) {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) free(ansi[i][j]);
+        free(ansi[i]);
+    }
+    free(ansi);
+}
+
+int Sprite_setGradient0(CmdFX_Sprite* sprite, int prefix, int x, int y, int width, int height, enum CmdFX_GradientDirection direction, int numColors, va_list args) {
+    int* colors = (int*) malloc(numColors * sizeof(int));
+    if (colors == 0) return 0;
+
+    for (int i = 0; i < numColors; i++)
+        colors[i] = va_arg(args, int);
+
+    int** grid = _generateGradientGrid(colors, numColors, width, height, direction);
+    if (grid == 0) {
+        free(colors);
+        return 0;
+    }
+
+    char*** ansi = _toANSI(prefix, grid, width, height);
+    if (ansi == 0) {
+        _freeGrid(grid, width, height);
+        return 0;
+    }
+
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            Sprite_setAnsi(sprite, x + j, y + i, ansi[i][j]);
+        }
+    }
+
+    _freeGrid(grid, width, height);
+
+    if (sprite->id != 0) {
+        Sprite_remove0(sprite);
+        Sprite_draw0(sprite);
+    }
+
+    return 1;
+}
+
+int Sprite_setForegroundGradient(CmdFX_Sprite* sprite, int x, int y, int width, int height, enum CmdFX_GradientDirection direction, int numColors, ...) {
+    va_list args;
+    va_start(args, numColors);
+    int res = Sprite_setGradient0(sprite, 38, x, y, width, height, direction, numColors, args);
+    va_end(args);
+
+    return res;
+}
+
+int Sprite_setForegroundGradientAll(CmdFX_Sprite* sprite, enum CmdFX_GradientDirection direction, int numColors, ...) {
+    va_list args;
+    va_start(args, numColors);
+    int res = Sprite_setForegroundGradient(sprite, 0, 0, sprite->width, sprite->height, direction, numColors, args);
+    va_end(args);
+
+    return res;
+}
+
+int Sprite_setBackgroundGradient(CmdFX_Sprite* sprite, int x, int y, int width, int height, enum CmdFX_GradientDirection direction, int numColors, ...) {
+    va_list args;
+    va_start(args, numColors);
+    int res = Sprite_setGradient0(sprite, 48, x, y, width, height, direction, numColors, args);
+    va_end(args);
+
+    return res;
+}
+
+int Sprite_setBackgroundGradientAll(CmdFX_Sprite* sprite, enum CmdFX_GradientDirection direction, int numColors, ...) {
+    va_list args;
+    va_start(args, numColors);
+    int res = Sprite_setBackgroundGradient(sprite, 0, 0, sprite->width, sprite->height, direction, numColors, args);
+    va_end(args);
+
+    return res;
 }
