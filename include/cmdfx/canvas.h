@@ -75,7 +75,7 @@ int Canvas_getCursorY();
 void Canvas_setChar(int x, int y, char c);
 
 /**
- * @brief Sets the ANSI code at the current cursor position.
+ * @brief Appends the ANSI code at the current cursor position.
  * 
  * This method sets the ANSI code at a specific position. The ANSI code is a
  * series of semicolon-separated numbers and letters that control the terminal
@@ -86,7 +86,7 @@ void Canvas_setChar(int x, int y, char c);
 void Canvas_setAnsiCurrent(const char* ansi);
 
 /**
- * @brief Sets the ANSI code at a specific position.
+ * @brief Appends the ANSI code at a specific position.
  * 
  * This method sets the ANSI code at a specific position. The ANSI code is a
  * series of semicolon-separated numbers and letters that control the terminal
