@@ -96,6 +96,33 @@ float lerp_f(float a, float b, float t);
  */
 int lerp_i(int a, int b, double t);
 
+/**
+ * @brief Converts an RGB color to HSV.
+ * @param rgb The RGB color.
+ * @param h The pointer to the hue.
+ * @param s The pointer to the saturation.
+ * @param v The pointer to the value.
+ */
+void rgb_to_hsv(int rgb, double* h, double* s, double* v);
+
+/**
+ * @brief Converts an HSV color to RGB.
+ * @param h The hue.
+ * @param s The saturation.
+ * @param v The value.
+ * @return The RGB color.
+ */
+int hsv_to_rgb(double h, double s, double v);
+
+/**
+ * @brief Linearly interpolates between two colors.
+ * @param rgb1 The first color in RGB format.
+ * @param rgb2 The second color in RGB format.
+ * @param t The interpolation factor.
+ * @return The interpolated color.
+ */
+int lerp_color(int rgb1, int rgb2, double t);
+
 #ifdef __cplusplus
 }
 #endif
