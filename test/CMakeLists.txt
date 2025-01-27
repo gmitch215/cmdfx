@@ -50,3 +50,4 @@ add_manual_test(canvas_animated)
 
 add_manual_test(sprites_move)
 add_manual_test(sprites_resize)
+add_manual_test(sprites_ansi)
