@@ -44,6 +44,9 @@ add_test_executable(common canvas_dimensions)
 
 # Manual
 add_manual_test(events_resize)
+
 add_manual_test(canvas_print)
+add_manual_test(canvas_animated)
+
 add_manual_test(sprites_move)
 add_manual_test(sprites_resize)
