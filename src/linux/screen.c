@@ -14,14 +14,14 @@ void Screen_getSize(int *width, int *height) {
     int fb = open("/dev/fb0", O_RDONLY);
     if (fb < 0) {
         perror("Failed to open framebuffer device");
-        return -1;
+        return;
     }
 
     struct fb_var_screeninfo screen_info;
     if (ioctl(fb, FBIOGET_VSCREENINFO, &screen_info) < 0) {
         perror("Failed to get screen information");
         close(fb);
-        return -1;
+        return;
     }
 
     *width = screen_info.xres;
