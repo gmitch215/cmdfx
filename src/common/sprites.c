@@ -50,7 +50,7 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
 
 void Sprite_free(CmdFX_Sprite* sprite) {
     if (sprite == 0) return;
-    if (sprite->id != 0) Sprite_remove(sprite);
+    if (sprite->id > 0) Sprite_remove(sprite);
 
     for (int i = 0; i < sprite->height; i++) {
         if (sprite->data[i] == 0) continue;
@@ -112,7 +112,7 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
             if (hasAnsi) Canvas_resetFormat();
         }
     }
-
+    fflush(stdout);
 }
 
 int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
@@ -137,27 +137,18 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
 
     // Add Sprite to List
     if (sprites == 0) {
-        sprites = malloc(sizeof(CmdFX_Sprite*));
-        if (!sprites) {
-            free(sprite);
-            return 0;
-        }
-
-        sprite->id = 1;
-        sprites[0] = sprite;
-        sprites[1] = 0;
+        sprites = malloc(sizeof(CmdFX_Sprite*) * 2);
+        if (!sprites) return 0;
     } else {
         CmdFX_Sprite** temp = realloc(sprites, sizeof(CmdFX_Sprite*) * (spriteCount + 2));
-        if (!temp) {
-            free(sprite);
-            return 0;
-        }
-        sprites = temp;
+        if (!temp) return 0;
 
-        sprite->id = ++spriteCount;
-        sprites[spriteCount] = sprite;
-        sprites[spriteCount + 1] = 0;
+        sprites = temp;
     }
+
+    sprites[spriteCount] = sprite;
+    sprites[spriteCount + 1] = 0;
+    sprite->id = ++spriteCount;
 
     return 1;
 }
@@ -187,8 +178,10 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
     sprites[spriteCount - 1] = 0;
 
     CmdFX_Sprite** temp = realloc(sprites, sizeof(CmdFX_Sprite*) * spriteCount);
-    if (!temp) return;
-    sprites = temp;
+    if (temp)
+        sprites = temp;
+    else
+        sprites[spriteCount] = 0;
 
     spriteCount--;
 }
@@ -788,7 +781,7 @@ int Sprite_setBackgroundAll256(CmdFX_Sprite* sprite, int color) {
 
 // Utility Methods - Color Gradient
 
-int** _generateGradientGrid(const int* colors, int numColors, int width, int height, enum CmdFX_GradientDirection direction) {
+int** _generateGradientGrid(int* colors, int numColors, int width, int height, enum CmdFX_GradientDirection direction) {
     int** grid = (int**) malloc(height * sizeof(int*));
     for (int i = 0; i < height; i++) {
         grid[i] = (int*) malloc(width * sizeof(int));
@@ -800,22 +793,22 @@ int** _generateGradientGrid(const int* colors, int numColors, int width, int hei
 
             switch (direction) {
                 case GRADIENT_HORIZONTAL:
-                    factor = (double)x / (width - 1);
+                    factor = (double) x / (width - 1);
                     break;
                 case GRADIENT_HORIZONTAL_REVERSE:
-                    factor = 1.0 - (double)x / (width - 1);
+                    factor = 1.0 - (double) x / (width - 1);
                     break;
                 case GRADIENT_VERTICAL:
-                    factor = (double)y / (height - 1);
+                    factor = (double) y / (height - 1);
                     break;
                 case GRADIENT_VERTICAL_REVERSE:
-                    factor = 1.0 - (double)y / (height - 1);
+                    factor = 1.0 - (double) y / (height - 1);
                     break;
                 case GRADIENT_ANGLE_45:
-                    factor = ((double)x + y) / (width + height - 2);
+                    factor = ((double) x + y) / (width + height - 2);
                     break;
                 case GRADIENT_ANGLE_135:
-                    factor = (double)(width - x - 1 + y) / (width + height - 2);
+                    factor = (double) (width - x - 1 + y) / (width + height - 2);
                     break;
                 case GRADIENT_RADIAL: {
                     double centerX = width / 2.0;
@@ -839,7 +832,11 @@ int** _generateGradientGrid(const int* colors, int numColors, int width, int hei
             if (upper >= numColors)
                 upper = numColors - 1;
 
-            grid[y][x] = lerp_color(colors[lower], colors[upper], scaledFactor - lower);
+            if (lower == upper) {
+                grid[y][x] = colors[lower];
+            } else {
+                grid[y][x] = lerp_color(colors[lower], colors[upper], scaledFactor - lower);
+            }
         }
     }
 
@@ -847,6 +844,8 @@ int** _generateGradientGrid(const int* colors, int numColors, int width, int hei
 }
 
 char*** _toANSI(int prefix, int** grid, int width, int height) {
+    if (grid == 0) return 0;
+
     char*** ansi = (char***) malloc(height * sizeof(char**));
     for (int i = 0; i < height; i++) {
         ansi[i] = (char**) malloc(width * sizeof(char*));
@@ -858,7 +857,7 @@ char*** _toANSI(int prefix, int** grid, int width, int height) {
             int b = rgb & 0xFF;
 
             ansi[i][j] = (char*) malloc(22);
-            sprintf(ansi[i][j], "\033[%d;5;%d;%d;%dm", prefix, r, g, b);
+            snprintf(ansi[i][j], 24, "\033[%d;2;%d;%d;%dm", prefix, r, g, b);
         }
     }
 
@@ -878,12 +877,13 @@ void _freeANSI(char*** ansi, int width, int height) {
     free(ansi);
 }
 
-int Sprite_setGradient0(CmdFX_Sprite* sprite, int prefix, int x, int y, int width, int height, enum CmdFX_GradientDirection direction, int numColors, va_list args) {
-    int* colors = (int*) malloc(numColors * sizeof(int));
+int Sprite_setGradient0(CmdFX_Sprite* sprite, int prefix, int x, int y, int width, int height, enum CmdFX_GradientDirection direction, int numColors, va_list* args) {
+    int* colors = (int*) malloc(sizeof(int) * (numColors + 1));
     if (colors == 0) return 0;
 
-    for (int i = 0; i < numColors; i++)
-        colors[i] = va_arg(args, int);
+    for (int i = 0; i < numColors; i++) {
+        colors[i] = va_arg(*args, int);
+    }
 
     int** grid = _generateGradientGrid(colors, numColors, width, height, direction);
     if (grid == 0) {
@@ -916,7 +916,7 @@ int Sprite_setGradient0(CmdFX_Sprite* sprite, int prefix, int x, int y, int widt
 int Sprite_setForegroundGradient(CmdFX_Sprite* sprite, int x, int y, int width, int height, enum CmdFX_GradientDirection direction, int numColors, ...) {
     va_list args;
     va_start(args, numColors);
-    int res = Sprite_setGradient0(sprite, 38, x, y, width, height, direction, numColors, args);
+    int res = Sprite_setGradient0(sprite, 38, x, y, width, height, direction, numColors, &args);
     va_end(args);
 
     return res;
@@ -925,7 +925,7 @@ int Sprite_setForegroundGradient(CmdFX_Sprite* sprite, int x, int y, int width, 
 int Sprite_setForegroundGradientAll(CmdFX_Sprite* sprite, enum CmdFX_GradientDirection direction, int numColors, ...) {
     va_list args;
     va_start(args, numColors);
-    int res = Sprite_setForegroundGradient(sprite, 0, 0, sprite->width, sprite->height, direction, numColors, args);
+    int res = Sprite_setGradient0(sprite, 38, 0, 0, sprite->width, sprite->height, direction, numColors, &args);
     va_end(args);
 
     return res;
@@ -934,7 +934,7 @@ int Sprite_setForegroundGradientAll(CmdFX_Sprite* sprite, enum CmdFX_GradientDir
 int Sprite_setBackgroundGradient(CmdFX_Sprite* sprite, int x, int y, int width, int height, enum CmdFX_GradientDirection direction, int numColors, ...) {
     va_list args;
     va_start(args, numColors);
-    int res = Sprite_setGradient0(sprite, 48, x, y, width, height, direction, numColors, args);
+    int res = Sprite_setGradient0(sprite, 48, x, y, width, height, direction, numColors, &args);
     va_end(args);
 
     return res;
@@ -943,7 +943,7 @@ int Sprite_setBackgroundGradient(CmdFX_Sprite* sprite, int x, int y, int width, 
 int Sprite_setBackgroundGradientAll(CmdFX_Sprite* sprite, enum CmdFX_GradientDirection direction, int numColors, ...) {
     va_list args;
     va_start(args, numColors);
-    int res = Sprite_setBackgroundGradient(sprite, 0, 0, sprite->width, sprite->height, direction, numColors, args);
+    int res = Sprite_setGradient0(sprite, 48, 0, 0, sprite->width, sprite->height, direction, numColors, &args);
     va_end(args);
 
     return res;
