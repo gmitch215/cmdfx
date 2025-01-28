@@ -17,6 +17,33 @@ CmdFX_Sprite** Canvas_getDrawnSprites() {
     return sprites;
 }
 
+CmdFX_Sprite* Canvas_getSpriteAt(int x, int y) {
+    CmdFX_Sprite** matching = malloc(sizeof(CmdFX_Sprite*) * spriteCount);
+
+    for (int i = 0; i < spriteCount; i++) {
+        CmdFX_Sprite* sprite = sprites[i];
+        if (sprite->id == 0) continue;
+
+        if (x >= sprite->x && x < sprite->x + sprite->width)
+            if (y >= sprite->y && y < sprite->y + sprite->height)
+                matching[i] = sprite;
+    }
+
+    CmdFX_Sprite* sprite = 0;
+    for (int i = 0; i < spriteCount; i++) {
+        if (matching[i] == 0) continue;
+        if (sprite == 0) {
+            sprite = matching[i];
+            continue;
+        }
+
+        if (matching[i]->z > sprite->z) sprite = matching[i];
+    }
+
+    free(matching);
+    return sprite;
+}
+
 void _getSpriteDimensions(char** data, int* width, int* height) {
     *width = 0;
     *height = 0;
@@ -91,16 +118,7 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
             int y = sprite->y + i;
 
             // Check Z-Index Collision
-            int skip = 0;
-            for (int k = 0; k < spriteCount; k++) {
-                CmdFX_Sprite* other = sprites[k];
-                if (other->id == 0) continue;
-                if (other->id == sprite->id) continue;
-
-                if (other->z > sprite->z)
-                    if (Sprite_isColliding(sprite, other)) skip = 1;
-            }
-            if (skip) continue;
+            if (!Sprite_isOnTop(sprite, x, y)) continue;
 
             Canvas_setCursor(x, y);
             if (hasAnsi) {
@@ -156,9 +174,14 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
 void Sprite_remove0(CmdFX_Sprite* sprite) {
     for (int i = 0; i < sprite->height; i++) {
         for (int j = 0; j < sprite->width; j++) {
-            Canvas_setCursor(sprite->x + j, sprite->y + i);
-            Canvas_resetFormat();
-            putchar(' ');
+            int x = sprite->x + j;
+            int y = sprite->y + i;
+
+            if (Sprite_isOnBottom(sprite, x, y)) {
+                Canvas_setCursor(x, y);
+                Canvas_resetFormat();
+                putchar(' ');
+            }
         }
     }
 }
@@ -187,6 +210,53 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
 }
 
 // Utility Methods - Sprite Builder
+
+int Sprite_setData(CmdFX_Sprite* sprite, char** data) {
+    if (sprite == 0) return 0;
+    if (data == 0) return 0;
+
+    int width = 0;
+    int height = 0;
+    _getSpriteDimensions(data, &width, &height);
+
+    if (width == 0 || height == 0) return 0;
+    int changedDimensions = width != sprite->width || height != sprite->height;
+
+    for (int i = 0; i < sprite->height; i++) {
+        if (sprite->data[i] == 0) continue;
+        free(sprite->data[i]);
+    }
+    free(sprite->data);
+
+    sprite->width = width;
+    sprite->height = height;
+    sprite->data = data;
+
+    if (sprite->ansi != 0 && changedDimensions) {
+        char*** ansi = realloc(sprite->ansi, sizeof(char**) * height);
+        if (ansi == 0) return 0;
+
+        for (int i = 0; i < height; i++) {
+            if (ansi[i] == 0) {
+                ansi[i] = calloc(width, sizeof(char*));
+                if (ansi[i] == 0) return 0;
+            } else {
+                char** ansiLine = ansi[i];
+                for (int j = 0; j < width; j++) {
+                    if (j >= sprite->width) {
+                        ansiLine[j] = 0;
+                        continue;
+                    }
+                    if (ansiLine[j] != 0) free(ansiLine[j]);
+                }
+                ansi[i] = realloc(ansiLine, sizeof(char*) * width);
+                if (ansi[i] == 0) return 0;
+            }
+        }
+    }
+
+    return 1;
+}
 
 int Sprite_setChar(CmdFX_Sprite* sprite, int x, int y, char c) {
     if (sprite == 0) return 0;
@@ -618,6 +688,7 @@ int Sprite_resizeAndCenter(CmdFX_Sprite* sprite, int width, int height) {
 // Utility Methods - Movement
 
 void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y) {
+    if (sprite == 0) return;
     if (sprite->id == 0) return;
     if (x < 1 || y < 1) return;
     if (x + sprite->width > Canvas_getWidth() || y + sprite->height > Canvas_getHeight()) return;
@@ -629,19 +700,23 @@ void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y) {
 }
 
 void Sprite_moveBy(CmdFX_Sprite* sprite, int dx, int dy) {
+    if (sprite == 0) return;
     if (sprite->id == 0) return;
+
     Sprite_moveTo(sprite, sprite->x + dx, sprite->y + dy);
 }
 
 // Utility Methods - Collisions
 
 CmdFX_Sprite** Sprite_getCollidingSprites(CmdFX_Sprite* sprite) {
+    if (sprite == 0) return 0;
     if (sprite->id == 0) return 0;
+    if (spriteCount < 2) return 0;
 
     int collidingCount = 0;
     int allocated = 4;
 
-    CmdFX_Sprite** colliding = malloc(sizeof(CmdFX_Sprite*) * allocated);
+    CmdFX_Sprite** colliding = malloc(sizeof(CmdFX_Sprite*) * (allocated + 1));
     if (!colliding) return 0;
 
     for (int i = 0; i < spriteCount; i++) {
@@ -652,7 +727,7 @@ CmdFX_Sprite** Sprite_getCollidingSprites(CmdFX_Sprite* sprite) {
         if (Sprite_isColliding(sprite, other)) {
             if (collidingCount >= allocated) {
                 allocated *= 2;
-                CmdFX_Sprite** temp = realloc(colliding, sizeof(CmdFX_Sprite*) * allocated);
+                CmdFX_Sprite** temp = realloc(colliding, sizeof(CmdFX_Sprite*) * (allocated + 1));
                 if (!temp) {
                     free(colliding);
                     return 0;
@@ -679,6 +754,52 @@ int Sprite_isColliding(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
         sprite1->x + sprite1->width > sprite2->x &&
         sprite1->y < sprite2->y + sprite2->height &&
         sprite1->y + sprite1->height > sprite2->y;
+}
+
+int Sprite_isOnTop(CmdFX_Sprite* sprite, int x, int y) {
+    if (sprite == 0) return 0;
+    if (sprite->id == 0) return 0;
+    if (x < sprite->x || y < sprite->y) return 0;
+    if (x >= sprite->x + sprite->width || y >= sprite->y + sprite->height) return 0;
+
+    CmdFX_Sprite** collisions = Sprite_getCollidingSprites(sprite);
+    if (collisions == 0) return 1;
+
+    for (int i = 0; collisions[i] != 0; i++) {
+        CmdFX_Sprite* other = collisions[i];
+        if (x < other-> x || y < other->y) continue;
+        if (x >= other->x + other->width || y >= other->y + other->height) continue;
+
+        if (other->z > sprite->z) {
+            free(collisions);
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+int Sprite_isOnBottom(CmdFX_Sprite* sprite, int x, int y) {
+    if (sprite == 0) return 0;
+    if (sprite->id == 0) return 0;
+    if (x < sprite->x || y < sprite->y) return 0;
+    if (x >= sprite->x + sprite->width || y >= sprite->y + sprite->height) return 0;
+
+    CmdFX_Sprite** collisions = Sprite_getCollidingSprites(sprite);
+    if (collisions == 0) return 1;
+
+    for (int i = 0; collisions[i] != 0; i++) {
+        CmdFX_Sprite* other = collisions[i];
+        if (x < other-> x || y < other->y) continue;
+        if (x >= other->x + other->width || y >= other->y + other->height) continue;
+
+        if (other->z < sprite->z) {
+            free(collisions);
+            return 0;
+        }
+    }
+
+    return 1;
 }
 
 // Utility Methods - Color

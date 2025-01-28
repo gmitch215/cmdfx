@@ -93,6 +93,19 @@ typedef struct CmdFX_Sprite {
 CmdFX_Sprite** Canvas_getDrawnSprites();
 
 /**
+ * @brief Gets a sprite at the given position with the highest Z-index.
+ * 
+ * This method returns the sprite that is drawn at the given position with the
+ * highest Z-index. If there is no sprite at the given position, the method will
+ * return `NULL`.
+ * 
+ * @param x The X position.
+ * @param y The Y position.
+ * @return A pointer to the sprite at the given position, or `NULL` if no sprite is found.
+ */
+CmdFX_Sprite* Canvas_getSpriteAt(int x, int y);
+
+/**
  * @brief Creates a new sprite.
  * 
  * This method allocates memory for a new sprite and initializes it with the
@@ -142,6 +155,24 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite);
 void Sprite_remove(CmdFX_Sprite* sprite);
 
 // Utility Methods - Sprite Builder
+
+/**
+ * @brief Sets the text data for the sprite.
+ * 
+ * This method sets the text data for the sprite. The text data should be a 2D
+ * array of characters. This will resize the `width` and `height` of the sprite
+ * to match the dimensions of the text data. If an error occurs, the method will
+ * return 0.
+ * 
+ * If the size is different than `ansi`, the `ansi` will be resized to match the new
+ * size. If the new size is larger, the new positions will be filled with NULL.
+ * If the new size is smaller, then `ansi` will be cropped from the top-left. 
+ * 
+ * @param sprite The sprite to modify.
+ * @param data The text data to set.
+ * @return 1 if the data was set, 0 if an error occurred.
+ */
+int Sprite_setData(CmdFX_Sprite* sprite, char** data);
 
 /**
  * @brief Sets the character at the given position in the sprite.
@@ -419,6 +450,12 @@ void Sprite_moveBy(CmdFX_Sprite* sprite, int dx, int dy);
 
 /**
  * @brief Gets the sprites that are colliding with the given sprite.
+ * 
+ * This method returns an array of pointers to the sprites that are colliding
+ * with the given sprite. The array is terminated with a `NULL` pointer.
+ * 
+ * The array must be freed by the caller when it is no longer needed.
+ * 
  * @param sprite The sprite to check for collisions.
  * @return An array of pointers to the colliding sprites.
  */
@@ -431,6 +468,26 @@ CmdFX_Sprite** Sprite_getCollidingSprites(CmdFX_Sprite* sprite);
  * @return 1 if the sprites are colliding, 0 otherwise.
  */
 int Sprite_isColliding(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2);
+
+/**
+ * @brief Gets whether the sprite is the top-most sprite at the given position.
+ * 
+ * @param sprite The sprite to check.
+ * @param x The X position.
+ * @param y The Y position.
+ * @return 1 if the sprite is on top, 0 otherwise.
+ */
+int Sprite_isOnTop(CmdFX_Sprite* sprite, int x, int y);
+
+/**
+ * @brief Gets whether the sprite is the bottom-most sprite at the given position.
+ * 
+ * @param sprite The sprite to check.
+ * @param x The X position.
+ * @param y The Y position.
+ * @return 1 if the sprite is on the bottom, 0 otherwise.
+ */
+int Sprite_isOnBottom(CmdFX_Sprite* sprite, int x, int y);
 
 // Utility Methods - Color
 
