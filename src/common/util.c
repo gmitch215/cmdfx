@@ -5,12 +5,6 @@
 
 #include "cmdfx/util.h"
 
-// Time
-
-unsigned long currentTimeMillis() {
-    return (int) (clock() / (CLOCKS_PER_SEC / 1000));
-}
-
 // Math
 
 double clamp_d(double value, double min, double max) {
@@ -38,70 +32,64 @@ int lerp_i(int a, int b, double t) {
 }
 
 void rgb_to_hsv(int rgb, double* h, double* s, double* v) {
-    int r = (rgb >> 16) & 0xFF;
-    int g = (rgb >> 8) & 0xFF;
-    int b = rgb & 0xFF;
+    double r = ((rgb >> 16) & 0xFF) / 255.0;
+    double g = ((rgb >> 8) & 0xFF) / 255.0;
+    double b = (rgb & 0xFF) / 255.0;
 
     double min = fmin(fmin(r, g), b);
     double max = fmax(fmax(r, g), b);
-    *v = max;
-
     double delta = max - min;
 
+    *v = max;
+    *s = (max > 0.0) ? (delta / max) : 0.0;
+
     if (delta < 0.00001) {
-        *s = 0;
-        *h = 0;
-        return;
-    }
-
-    if (max > 0) {
-        *s = (delta / max);
+        *h = 0.0;  // No hue
+    } else if (r == max) {
+        *h = 60.0 * fmod(((g - b) / delta), 6.0);
+    } else if (g == max) {
+        *h = 60.0 * (((b - r) / delta) + 2.0);
     } else {
-        *s = 0;
-        *h = NAN;
-        return;
+        *h = 60.0 * (((r - g) / delta) + 4.0);
     }
 
-    if (r >= max) {
-        *h = (g - b) / delta;
-    } else if (g >= max) {
-        *h = 2 + (b - r) / delta;
-    } else {
-        *h = 4 + (r - g) / delta;
-    }
-
-    *h *= 60;
-
-    if (*h < 0)
-        *h += 360;
+    if (*h < 0.0)
+        *h += 360.0;
 }
 
 int hsv_to_rgb(double h, double s, double v) {
-    if (s <= 0) {
-        int value = (int) (v * 255);
+    if (s <= 0.0) {
+        int value = (int)(v * 255);
         return (value << 16) | (value << 8) | value;
     }
 
-    double hh = h;
-    long i = (long) hh / 60;
-    double p = v * (1 - s);
-    double q = v * (1 - s * (hh / 60 - i));
-    double t = v * (1 - s * (1 - (hh / 60 - i)));
+    h = fmod(h, 360.0);
+    if (h < 0.0) h += 360.0;
 
+    double hh = h / 60.0;
+    int i = (int)floor(hh);
+    double f = hh - i;
+
+    double p = v * (1.0 - s);
+    double q = v * (1.0 - (s * f));
+    double t = v * (1.0 - (s * (1.0 - f)));
+
+    double r, g, b;
     switch (i) {
-        case 0:
-            return ((int) (v * 255) << 16) | ((int) (t * 255) << 8) | (int) (p * 255);
-        case 1:
-            return ((int) (q * 255) << 16) | ((int) (v * 255) << 8) | (int) (p * 255);
-        case 2:
-            return ((int) (p * 255) << 16) | ((int) (v * 255) << 8) | (int) (t * 255);
-        case 3:
-            return ((int) (p * 255) << 16) | ((int) (q * 255) << 8) | (int) (v * 255);
-        case 4:
-            return ((int) (t * 255) << 16) | ((int) (p * 255) << 8) | (int) (v * 255);
-        default:
-            return ((int) (v * 255) << 16) | ((int) (p * 255) << 8) | (int) (q * 255);
+        case 0: r = v; g = t; b = p; break;
+        case 1: r = q; g = v; b = p; break;
+        case 2: r = p; g = v; b = t; break;
+        case 3: r = p; g = q; b = v; break;
+        case 4: r = t; g = p; b = v; break;
+        default: r = v; g = p; b = q; break;
     }
+
+    // Convert to integer RGB
+    int ir = (int)(r * 255.0);
+    int ig = (int)(g * 255.0);
+    int ib = (int)(b * 255.0);
+
+    return (ir << 16) | (ig << 8) | ib;
 }
 
 int lerp_color(int rgb1, int rgb2, double t) {

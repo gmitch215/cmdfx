@@ -1,8 +1,17 @@
 #include <time.h>
+#include <sys/time.h>
 
 #include "cmdfx/util.h"
 
 // Time
+
+unsigned long currentTimeMillis() {
+    struct timeval tv;
+    if (gettimeofday(&tv, 0) == 0)
+        return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+    
+    return 0;
+}
 
 unsigned long long currentTimeNanos() {
     struct timespec ts;
