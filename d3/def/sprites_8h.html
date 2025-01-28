@@ -139,6 +139,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a4ed56c03d95a31b61389c99235d18638" id="r_a4ed56c03d95a31b61389c99235d18638"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ed56c03d95a31b61389c99235d18638">Canvas_getDrawnSprites</a> ()</td></tr>
 <tr class="memdesc:a4ed56c03d95a31b61389c99235d18638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the sprites that have been drawn to the terminal.  <br /></td></tr>
 <tr class="separator:a4ed56c03d95a31b61389c99235d18638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42e1d2b722539f508c873ca4f71bec0a" id="r_a42e1d2b722539f508c873ca4f71bec0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42e1d2b722539f508c873ca4f71bec0a">Canvas_getSpriteAt</a> (int x, int y)</td></tr>
+<tr class="memdesc:a42e1d2b722539f508c873ca4f71bec0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a sprite at the given position with the highest Z-index.  <br /></td></tr>
+<tr class="separator:a42e1d2b722539f508c873ca4f71bec0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1cc70662754797d0d4eb6447bc2dc26" id="r_aa1cc70662754797d0d4eb6447bc2dc26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1cc70662754797d0d4eb6447bc2dc26">Sprite_create</a> (char **text, char ***ansi, int z)</td></tr>
 <tr class="memdesc:aa1cc70662754797d0d4eb6447bc2dc26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new sprite.  <br /></td></tr>
 <tr class="separator:aa1cc70662754797d0d4eb6447bc2dc26"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,6 +154,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a195abf43dd42d60175e43cb61bbfd3a2" id="r_a195abf43dd42d60175e43cb61bbfd3a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a195abf43dd42d60175e43cb61bbfd3a2">Sprite_remove</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite)</td></tr>
 <tr class="memdesc:a195abf43dd42d60175e43cb61bbfd3a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a sprite from the terminal, making it no longer visble.  <br /></td></tr>
 <tr class="separator:a195abf43dd42d60175e43cb61bbfd3a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56cb7cf3958f4a9ebc6640469e81c02d" id="r_a56cb7cf3958f4a9ebc6640469e81c02d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56cb7cf3958f4a9ebc6640469e81c02d">Sprite_setData</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, char **data)</td></tr>
+<tr class="memdesc:a56cb7cf3958f4a9ebc6640469e81c02d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the text data for the sprite.  <br /></td></tr>
+<tr class="separator:a56cb7cf3958f4a9ebc6640469e81c02d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b09009a322f5fddbe971458df831bf5" id="r_a9b09009a322f5fddbe971458df831bf5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b09009a322f5fddbe971458df831bf5">Sprite_setChar</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, char c)</td></tr>
 <tr class="memdesc:a9b09009a322f5fddbe971458df831bf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the character at the given position in the sprite.  <br /></td></tr>
 <tr class="separator:a9b09009a322f5fddbe971458df831bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -208,6 +214,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a377add6e3b4c53e3e2c2beb8c6c9e3b1" id="r_a377add6e3b4c53e3e2c2beb8c6c9e3b1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a377add6e3b4c53e3e2c2beb8c6c9e3b1">Sprite_isColliding</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite1, <a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite2)</td></tr>
 <tr class="memdesc:a377add6e3b4c53e3e2c2beb8c6c9e3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if two sprites are colliding.  <br /></td></tr>
 <tr class="separator:a377add6e3b4c53e3e2c2beb8c6c9e3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae94c95dfe41ca2a129ddb8677f66f681" id="r_ae94c95dfe41ca2a129ddb8677f66f681"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae94c95dfe41ca2a129ddb8677f66f681">Sprite_isOnTop</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y)</td></tr>
+<tr class="memdesc:ae94c95dfe41ca2a129ddb8677f66f681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether the sprite is the top-most sprite at the given position.  <br /></td></tr>
+<tr class="separator:ae94c95dfe41ca2a129ddb8677f66f681"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a376526bc6d03ba847c551ef169ba574d" id="r_a376526bc6d03ba847c551ef169ba574d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a376526bc6d03ba847c551ef169ba574d">Sprite_isOnBottom</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y)</td></tr>
+<tr class="memdesc:a376526bc6d03ba847c551ef169ba574d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether the sprite is the bottom-most sprite at the given position.  <br /></td></tr>
+<tr class="separator:a376526bc6d03ba847c551ef169ba574d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a839a9c71812e033be8973dd32c9602b8" id="r_a839a9c71812e033be8973dd32c9602b8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a839a9c71812e033be8973dd32c9602b8">Sprite_setForeground</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, int rgb)</td></tr>
 <tr class="memdesc:a839a9c71812e033be8973dd32c9602b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the foreground color of the sprite at the given position.  <br /></td></tr>
 <tr class="separator:a839a9c71812e033be8973dd32c9602b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -317,6 +329,38 @@ Functions</h2></td></tr>
 
 <p>Gets the sprites that have been drawn to the terminal. </p>
 <p>This method returns an array of pointers to the sprites that have been drawn to the terminal. The array is terminated with a <code>NULL</code> pointer. The sprites should not be modified or freed by the caller. </p><dl class="section return"><dt>Returns</dt><dd>An array of pointers to the drawn sprites. </dd></dl>
+
+</div>
+</div>
+<a id="a42e1d2b722539f508c873ca4f71bec0a" name="a42e1d2b722539f508c873ca4f71bec0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42e1d2b722539f508c873ca4f71bec0a">&#9670;&#160;</a></span>Canvas_getSpriteAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> * Canvas_getSpriteAt </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets a sprite at the given position with the highest Z-index. </p>
+<p>This method returns the sprite that is drawn at the given position with the highest Z-index. If there is no sprite at the given position, the method will return <code>NULL</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The X position. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the sprite at the given position, or <code>NULL</code> if no sprite is found. </dd></dl>
 
 </div>
 </div>
@@ -832,6 +876,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the sprites that are colliding with the given sprite. </p>
+<p>This method returns an array of pointers to the sprites that are colliding with the given sprite. The array is terminated with a <code>NULL</code> pointer.</p>
+<p>The array must be freed by the caller when it is no longer needed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sprite</td><td>The sprite to check for collisions. </td></tr>
@@ -870,6 +916,80 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the sprites are colliding, 0 otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a376526bc6d03ba847c551ef169ba574d" name="a376526bc6d03ba847c551ef169ba574d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a376526bc6d03ba847c551ef169ba574d">&#9670;&#160;</a></span>Sprite_isOnBottom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_isOnBottom </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets whether the sprite is the bottom-most sprite at the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to check. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the sprite is on the bottom, 0 otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="ae94c95dfe41ca2a129ddb8677f66f681" name="ae94c95dfe41ca2a129ddb8677f66f681"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae94c95dfe41ca2a129ddb8677f66f681">&#9670;&#160;</a></span>Sprite_isOnTop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_isOnTop </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets whether the sprite is the top-most sprite at the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to check. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the sprite is on top, 0 otherwise. </dd></dl>
 
 </div>
 </div>
@@ -1432,6 +1552,39 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the character was set, 0 if the position is out of bounds or an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a56cb7cf3958f4a9ebc6640469e81c02d" name="a56cb7cf3958f4a9ebc6640469e81c02d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56cb7cf3958f4a9ebc6640469e81c02d">&#9670;&#160;</a></span>Sprite_setData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_setData </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>data</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the text data for the sprite. </p>
+<p>This method sets the text data for the sprite. The text data should be a 2D array of characters. This will resize the <code>width</code> and <code>height</code> of the sprite to match the dimensions of the text data. If an error occurs, the method will return 0.</p>
+<p>If the size is different than <code>ansi</code>, the <code>ansi</code> will be resized to match the new size. If the new size is larger, the new positions will be filled with NULL. If the new size is smaller, then <code>ansi</code> will be cropped from the top-left.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">data</td><td>The text data to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the data was set, 0 if an error occurred. </dd></dl>
 
 </div>
 </div>
