@@ -134,6 +134,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a47c308c2d9efd7d596ac65a1c0b42f9a" id="r_a47c308c2d9efd7d596ac65a1c0b42f9a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47c308c2d9efd7d596ac65a1c0b42f9a">lerp_i</a> (int a, int b, double t)</td></tr>
 <tr class="memdesc:a47c308c2d9efd7d596ac65a1c0b42f9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolates between two values.  <br /></td></tr>
 <tr class="separator:a47c308c2d9efd7d596ac65a1c0b42f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a299c8fc6a56432d5a8d91e1cef478ddb" id="r_a299c8fc6a56432d5a8d91e1cef478ddb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a299c8fc6a56432d5a8d91e1cef478ddb">rgb_to_hsv</a> (int rgb, double *h, double *s, double *v)</td></tr>
+<tr class="memdesc:a299c8fc6a56432d5a8d91e1cef478ddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an RGB color to HSV.  <br /></td></tr>
+<tr class="separator:a299c8fc6a56432d5a8d91e1cef478ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7de3190b24a88af4e92191edc25b8369" id="r_a7de3190b24a88af4e92191edc25b8369"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7de3190b24a88af4e92191edc25b8369">hsv_to_rgb</a> (double h, double s, double v)</td></tr>
+<tr class="memdesc:a7de3190b24a88af4e92191edc25b8369"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an HSV color to RGB.  <br /></td></tr>
+<tr class="separator:a7de3190b24a88af4e92191edc25b8369"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8774637f237a13480bffcebbf2a7daf1" id="r_a8774637f237a13480bffcebbf2a7daf1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8774637f237a13480bffcebbf2a7daf1">lerp_color</a> (int rgb1, int rgb2, double t)</td></tr>
+<tr class="memdesc:a8774637f237a13480bffcebbf2a7daf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolates between two colors.  <br /></td></tr>
+<tr class="separator:a8774637f237a13480bffcebbf2a7daf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Cross-Platform Utilities for CmdFX. </p>
@@ -293,6 +302,80 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7de3190b24a88af4e92191edc25b8369" name="a7de3190b24a88af4e92191edc25b8369"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7de3190b24a88af4e92191edc25b8369">&#9670;&#160;</a></span>hsv_to_rgb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hsv_to_rgb </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>h</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts an HSV color to RGB. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">h</td><td>The hue. </td></tr>
+    <tr><td class="paramname">s</td><td>The saturation. </td></tr>
+    <tr><td class="paramname">v</td><td>The value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The RGB color. </dd></dl>
+
+</div>
+</div>
+<a id="a8774637f237a13480bffcebbf2a7daf1" name="a8774637f237a13480bffcebbf2a7daf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8774637f237a13480bffcebbf2a7daf1">&#9670;&#160;</a></span>lerp_color()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int lerp_color </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>t</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linearly interpolates between two colors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rgb1</td><td>The first color in RGB format. </td></tr>
+    <tr><td class="paramname">rgb2</td><td>The second color in RGB format. </td></tr>
+    <tr><td class="paramname">t</td><td>The interpolation factor. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The interpolated color. </dd></dl>
+
+</div>
+</div>
 <a id="a18d16a8ef46f573baed36580831f8116" name="a18d16a8ef46f573baed36580831f8116"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a18d16a8ef46f573baed36580831f8116">&#9670;&#160;</a></span>lerp_d()</h2>
 
@@ -401,6 +484,48 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The interpolated value. </dd></dl>
+
+</div>
+</div>
+<a id="a299c8fc6a56432d5a8d91e1cef478ddb" name="a299c8fc6a56432d5a8d91e1cef478ddb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a299c8fc6a56432d5a8d91e1cef478ddb">&#9670;&#160;</a></span>rgb_to_hsv()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rgb_to_hsv </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>h</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>v</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts an RGB color to HSV. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rgb</td><td>The RGB color. </td></tr>
+    <tr><td class="paramname">h</td><td>The pointer to the hue. </td></tr>
+    <tr><td class="paramname">s</td><td>The pointer to the saturation. </td></tr>
+    <tr><td class="paramname">v</td><td>The pointer to the value. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

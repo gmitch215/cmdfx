@@ -94,6 +94,7 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">sprites.h File Reference</div></div>
 </div><!--header-->
@@ -116,6 +117,23 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:ac699ae06937cb86e997798eacfaa59bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a sprite that can be drawn to the terminal.  <br /></td></tr>
 <tr class="separator:ac699ae06937cb86e997798eacfaa59bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a183207b41c93e1d43060730ec7a1d7df" id="r_a183207b41c93e1d43060730ec7a1d7df"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> { <br />
+&#160;&#160;<a class="el" href="#a183207b41c93e1d43060730ec7a1d7dfa408c389eb020def4ad24099940714914">GRADIENT_HORIZONTAL</a>
+, <a class="el" href="#a183207b41c93e1d43060730ec7a1d7dfaf4e997cfb5b1e7de85722d8599e53b9a">GRADIENT_HORIZONTAL_REVERSE</a>
+, <a class="el" href="#a183207b41c93e1d43060730ec7a1d7dfaf2a6b598a6dc7b599e2a7e5d84f37bbf">GRADIENT_VERTICAL</a>
+, <a class="el" href="#a183207b41c93e1d43060730ec7a1d7dfa207db7b1fd266f16ec50196494a4d0ee">GRADIENT_VERTICAL_REVERSE</a>
+, <br />
+&#160;&#160;<a class="el" href="#a183207b41c93e1d43060730ec7a1d7dfa2dc8a2586ad9551a6722c403cfffd7ef">GRADIENT_ANGLE_45</a>
+, <a class="el" href="#a183207b41c93e1d43060730ec7a1d7dfa4a6996c1f0f04ed54ff039897e269a6c">GRADIENT_ANGLE_135</a>
+, <a class="el" href="#a183207b41c93e1d43060730ec7a1d7dfa57d44d66677f7fe201cb9481df8e8a21">GRADIENT_RADIAL</a>
+, <a class="el" href="#a183207b41c93e1d43060730ec7a1d7dfac1494381af902afa592e47f702c4f155">GRADIENT_CONICAL</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a183207b41c93e1d43060730ec7a1d7df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a color gradient that can be applied to a sprite.  <a href="#a183207b41c93e1d43060730ec7a1d7df">More...</a><br /></td></tr>
+<tr class="separator:a183207b41c93e1d43060730ec7a1d7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a4ed56c03d95a31b61389c99235d18638" id="r_a4ed56c03d95a31b61389c99235d18638"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ed56c03d95a31b61389c99235d18638">Canvas_getDrawnSprites</a> ()</td></tr>
@@ -136,12 +154,36 @@ Functions</h2></td></tr>
 <tr class="memitem:a9b09009a322f5fddbe971458df831bf5" id="r_a9b09009a322f5fddbe971458df831bf5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b09009a322f5fddbe971458df831bf5">Sprite_setChar</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, char c)</td></tr>
 <tr class="memdesc:a9b09009a322f5fddbe971458df831bf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the character at the given position in the sprite.  <br /></td></tr>
 <tr class="separator:a9b09009a322f5fddbe971458df831bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab72fee6bd56a5398d4e04e74144b5034" id="r_ab72fee6bd56a5398d4e04e74144b5034"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab72fee6bd56a5398d4e04e74144b5034">Sprite_setAnsi</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, const char *ansi)</td></tr>
-<tr class="memdesc:ab72fee6bd56a5398d4e04e74144b5034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the ANSI code at the given position in the sprite.  <br /></td></tr>
-<tr class="separator:ab72fee6bd56a5398d4e04e74144b5034"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7bd0743c98a92742882fc37b68b0c3b" id="r_ac7bd0743c98a92742882fc37b68b0c3b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7bd0743c98a92742882fc37b68b0c3b">Sprite_setAnsiAll</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, const char *ansi)</td></tr>
-<tr class="memdesc:ac7bd0743c98a92742882fc37b68b0c3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the character at all positions in the sprite.  <br /></td></tr>
-<tr class="separator:ac7bd0743c98a92742882fc37b68b0c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68dc0b5e83cbbc5efaeabb11460e71ab" id="r_a68dc0b5e83cbbc5efaeabb11460e71ab"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68dc0b5e83cbbc5efaeabb11460e71ab">Sprite_fillChar</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, char c, int width, int height)</td></tr>
+<tr class="memdesc:a68dc0b5e83cbbc5efaeabb11460e71ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills positions in the sprite.  <br /></td></tr>
+<tr class="separator:a68dc0b5e83cbbc5efaeabb11460e71ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a605f27ca6b80bf73922900ebf8d54e20" id="r_a605f27ca6b80bf73922900ebf8d54e20"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a605f27ca6b80bf73922900ebf8d54e20">Sprite_fillCharEmpty</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, char c, int width, int height)</td></tr>
+<tr class="memdesc:a605f27ca6b80bf73922900ebf8d54e20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills positions in the sprite where there isn't a character.  <br /></td></tr>
+<tr class="separator:a605f27ca6b80bf73922900ebf8d54e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a469eaab11a45a899d0012750070fb076" id="r_a469eaab11a45a899d0012750070fb076"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a469eaab11a45a899d0012750070fb076">Sprite_fillCharAll</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, char c)</td></tr>
+<tr class="memdesc:a469eaab11a45a899d0012750070fb076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the character at all positions in the sprite.  <br /></td></tr>
+<tr class="separator:a469eaab11a45a899d0012750070fb076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d525947c520d001cba4385dd57e361e" id="r_a1d525947c520d001cba4385dd57e361e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d525947c520d001cba4385dd57e361e">Sprite_fillCharAllEmpty</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, char c)</td></tr>
+<tr class="memdesc:a1d525947c520d001cba4385dd57e361e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the character at all positions in the sprite where there isn't a character.  <br /></td></tr>
+<tr class="separator:a1d525947c520d001cba4385dd57e361e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a6248482e2c82226e47429ff816242b" id="r_a1a6248482e2c82226e47429ff816242b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a6248482e2c82226e47429ff816242b">Sprite_setAnsi</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, char *ansi)</td></tr>
+<tr class="memdesc:a1a6248482e2c82226e47429ff816242b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the ANSI code at the given position in the sprite.  <br /></td></tr>
+<tr class="separator:a1a6248482e2c82226e47429ff816242b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab962ca4f0013eb15f504cda05507e763" id="r_ab962ca4f0013eb15f504cda05507e763"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab962ca4f0013eb15f504cda05507e763">Sprite_appendAnsi</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, char *ansi)</td></tr>
+<tr class="memdesc:ab962ca4f0013eb15f504cda05507e763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends an ANSI code to the given position in the sprite.  <br /></td></tr>
+<tr class="separator:ab962ca4f0013eb15f504cda05507e763"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a9e8c10c333f9be741ac92f8e88f001" id="r_a2a9e8c10c333f9be741ac92f8e88f001"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a9e8c10c333f9be741ac92f8e88f001">Sprite_fillAnsi</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, char *ansi, int width, int height)</td></tr>
+<tr class="memdesc:a2a9e8c10c333f9be741ac92f8e88f001"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills positions in the sprite with an ANSI code.  <br /></td></tr>
+<tr class="separator:a2a9e8c10c333f9be741ac92f8e88f001"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c836da6a7ea2c85c18074eb9ad34481" id="r_a3c836da6a7ea2c85c18074eb9ad34481"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c836da6a7ea2c85c18074eb9ad34481">Sprite_setAnsiAll</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, char *ansi)</td></tr>
+<tr class="memdesc:a3c836da6a7ea2c85c18074eb9ad34481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the character at all positions in the sprite.  <br /></td></tr>
+<tr class="separator:a3c836da6a7ea2c85c18074eb9ad34481"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c7ea5cce874a799374b923837d631c0" id="r_a6c7ea5cce874a799374b923837d631c0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c7ea5cce874a799374b923837d631c0">Sprite_appendAnsiAll</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, char *ansi)</td></tr>
+<tr class="memdesc:a6c7ea5cce874a799374b923837d631c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends an ANSI code to all positions in the sprite.  <br /></td></tr>
+<tr class="separator:a6c7ea5cce874a799374b923837d631c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbca1d16e700feea3ec902e5f39aab8f" id="r_acbca1d16e700feea3ec902e5f39aab8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbca1d16e700feea3ec902e5f39aab8f">Sprite_createFilled</a> (int width, int height, char c, char *ansi, int z)</td></tr>
+<tr class="memdesc:acbca1d16e700feea3ec902e5f39aab8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new sprite with the given dimensions.  <br /></td></tr>
+<tr class="separator:acbca1d16e700feea3ec902e5f39aab8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac78620393967e4c46bbb92b99d7d2e80" id="r_ac78620393967e4c46bbb92b99d7d2e80"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac78620393967e4c46bbb92b99d7d2e80">Sprite_resize</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int width, int height)</td></tr>
 <tr class="memdesc:ac78620393967e4c46bbb92b99d7d2e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes the sprite to the given dimensions.  <br /></td></tr>
 <tr class="separator:ac78620393967e4c46bbb92b99d7d2e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,6 +208,36 @@ Functions</h2></td></tr>
 <tr class="memitem:a377add6e3b4c53e3e2c2beb8c6c9e3b1" id="r_a377add6e3b4c53e3e2c2beb8c6c9e3b1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a377add6e3b4c53e3e2c2beb8c6c9e3b1">Sprite_isColliding</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite1, <a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite2)</td></tr>
 <tr class="memdesc:a377add6e3b4c53e3e2c2beb8c6c9e3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if two sprites are colliding.  <br /></td></tr>
 <tr class="separator:a377add6e3b4c53e3e2c2beb8c6c9e3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a839a9c71812e033be8973dd32c9602b8" id="r_a839a9c71812e033be8973dd32c9602b8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a839a9c71812e033be8973dd32c9602b8">Sprite_setForeground</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, int rgb)</td></tr>
+<tr class="memdesc:a839a9c71812e033be8973dd32c9602b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the foreground color of the sprite at the given position.  <br /></td></tr>
+<tr class="separator:a839a9c71812e033be8973dd32c9602b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee91457875bd16a9605811a2de7e4b02" id="r_aee91457875bd16a9605811a2de7e4b02"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee91457875bd16a9605811a2de7e4b02">Sprite_setForegroundAll</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int rgb)</td></tr>
+<tr class="memdesc:aee91457875bd16a9605811a2de7e4b02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the foreground color of the sprite at the given position.  <br /></td></tr>
+<tr class="separator:aee91457875bd16a9605811a2de7e4b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adafbda7eebd350efa8c7392460ce6595" id="r_adafbda7eebd350efa8c7392460ce6595"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adafbda7eebd350efa8c7392460ce6595">Sprite_setForegroundAll256</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int color)</td></tr>
+<tr class="memdesc:adafbda7eebd350efa8c7392460ce6595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the foreground color of the sprite at the given position using 256-bit color codes.  <br /></td></tr>
+<tr class="separator:adafbda7eebd350efa8c7392460ce6595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2402c4a7ff64b672a09e066e20f07dce" id="r_a2402c4a7ff64b672a09e066e20f07dce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2402c4a7ff64b672a09e066e20f07dce">Sprite_setBackground</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, int rgb)</td></tr>
+<tr class="memdesc:a2402c4a7ff64b672a09e066e20f07dce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the background color of the sprite at the given position.  <br /></td></tr>
+<tr class="separator:a2402c4a7ff64b672a09e066e20f07dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2dc73565d83352475410b81cf8ced5c" id="r_ad2dc73565d83352475410b81cf8ced5c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2dc73565d83352475410b81cf8ced5c">Sprite_setBackgroundAll</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int rgb)</td></tr>
+<tr class="memdesc:ad2dc73565d83352475410b81cf8ced5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the background color of the sprite at the given position.  <br /></td></tr>
+<tr class="separator:ad2dc73565d83352475410b81cf8ced5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeada1479603eb5852074dbeed9ec5baa" id="r_aeada1479603eb5852074dbeed9ec5baa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeada1479603eb5852074dbeed9ec5baa">Sprite_setBackgroundAll256</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int color)</td></tr>
+<tr class="memdesc:aeada1479603eb5852074dbeed9ec5baa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the background color of the sprite at the given position using 256-bit color codes.  <br /></td></tr>
+<tr class="separator:aeada1479603eb5852074dbeed9ec5baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37e6ed5537bab8ef9a0fd14feb20ae1b" id="r_a37e6ed5537bab8ef9a0fd14feb20ae1b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37e6ed5537bab8ef9a0fd14feb20ae1b">Sprite_setForegroundGradient</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, int width, int height, enum <a class="el" href="#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction, int numColors,...)</td></tr>
+<tr class="memdesc:a37e6ed5537bab8ef9a0fd14feb20ae1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a foreground gradient using RGB colors for a specified section of the sprite.  <br /></td></tr>
+<tr class="separator:a37e6ed5537bab8ef9a0fd14feb20ae1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7836145071ac1e6f494f5374777adfbf" id="r_a7836145071ac1e6f494f5374777adfbf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7836145071ac1e6f494f5374777adfbf">Sprite_setForegroundGradientAll</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, enum <a class="el" href="#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction, int numColors,...)</td></tr>
+<tr class="memdesc:a7836145071ac1e6f494f5374777adfbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a foreground gradient using RGB colors.  <br /></td></tr>
+<tr class="separator:a7836145071ac1e6f494f5374777adfbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47b2f5df4e40be636b4d858bfe83dcbb" id="r_a47b2f5df4e40be636b4d858bfe83dcbb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47b2f5df4e40be636b4d858bfe83dcbb">Sprite_setBackgroundGradient</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int x, int y, int width, int height, enum <a class="el" href="#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction, int numColors,...)</td></tr>
+<tr class="memdesc:a47b2f5df4e40be636b4d858bfe83dcbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a background gradient using RGB colors for a specified section of the sprite.  <br /></td></tr>
+<tr class="separator:a47b2f5df4e40be636b4d858bfe83dcbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae78095d8b10cda96d84de8f3430aa482" id="r_ae78095d8b10cda96d84de8f3430aa482"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae78095d8b10cda96d84de8f3430aa482">Sprite_setBackgroundGradientAll</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, enum <a class="el" href="#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction, int numColors,...)</td></tr>
+<tr class="memdesc:ae78095d8b10cda96d84de8f3430aa482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a background gradient using RGB colors.  <br /></td></tr>
+<tr class="separator:ae78095d8b10cda96d84de8f3430aa482"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sprites API for CmdFX. </p>
@@ -191,6 +263,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a183207b41c93e1d43060730ec7a1d7df" name="a183207b41c93e1d43060730ec7a1d7df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a183207b41c93e1d43060730ec7a1d7df">&#9670;&#160;</a></span>CmdFX_GradientDirection</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Represents a color gradient that can be applied to a sprite. </p>
+<p>A color gradient is a smooth transition between two or more colors. The gradient can be applied to the foreground or background of a sprite, and can be applied in different directions. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a183207b41c93e1d43060730ec7a1d7dfa408c389eb020def4ad24099940714914" name="a183207b41c93e1d43060730ec7a1d7dfa408c389eb020def4ad24099940714914"></a>GRADIENT_HORIZONTAL&#160;</td><td class="fielddoc"><p>A horizontal gradient. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a183207b41c93e1d43060730ec7a1d7dfaf4e997cfb5b1e7de85722d8599e53b9a" name="a183207b41c93e1d43060730ec7a1d7dfaf4e997cfb5b1e7de85722d8599e53b9a"></a>GRADIENT_HORIZONTAL_REVERSE&#160;</td><td class="fielddoc"><p>A horizontal gradient in reverse. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a183207b41c93e1d43060730ec7a1d7dfaf2a6b598a6dc7b599e2a7e5d84f37bbf" name="a183207b41c93e1d43060730ec7a1d7dfaf2a6b598a6dc7b599e2a7e5d84f37bbf"></a>GRADIENT_VERTICAL&#160;</td><td class="fielddoc"><p>A vertical gradient. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a183207b41c93e1d43060730ec7a1d7dfa207db7b1fd266f16ec50196494a4d0ee" name="a183207b41c93e1d43060730ec7a1d7dfa207db7b1fd266f16ec50196494a4d0ee"></a>GRADIENT_VERTICAL_REVERSE&#160;</td><td class="fielddoc"><p>A vertical gradient in reverse. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a183207b41c93e1d43060730ec7a1d7dfa2dc8a2586ad9551a6722c403cfffd7ef" name="a183207b41c93e1d43060730ec7a1d7dfa2dc8a2586ad9551a6722c403cfffd7ef"></a>GRADIENT_ANGLE_45&#160;</td><td class="fielddoc"><p>A 45-degree gradient. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a183207b41c93e1d43060730ec7a1d7dfa4a6996c1f0f04ed54ff039897e269a6c" name="a183207b41c93e1d43060730ec7a1d7dfa4a6996c1f0f04ed54ff039897e269a6c"></a>GRADIENT_ANGLE_135&#160;</td><td class="fielddoc"><p>A 135-degree gradient. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a183207b41c93e1d43060730ec7a1d7dfa57d44d66677f7fe201cb9481df8e8a21" name="a183207b41c93e1d43060730ec7a1d7dfa57d44d66677f7fe201cb9481df8e8a21"></a>GRADIENT_RADIAL&#160;</td><td class="fielddoc"><p>A radial gradient. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a183207b41c93e1d43060730ec7a1d7dfac1494381af902afa592e47f702c4f155" name="a183207b41c93e1d43060730ec7a1d7dfac1494381af902afa592e47f702c4f155"></a>GRADIENT_CONICAL&#160;</td><td class="fielddoc"><p>A conical gradient. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a4ed56c03d95a31b61389c99235d18638" name="a4ed56c03d95a31b61389c99235d18638"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4ed56c03d95a31b61389c99235d18638">&#9670;&#160;</a></span>Canvas_getDrawnSprites()</h2>
@@ -209,6 +317,83 @@ Functions</h2></td></tr>
 
 <p>Gets the sprites that have been drawn to the terminal. </p>
 <p>This method returns an array of pointers to the sprites that have been drawn to the terminal. The array is terminated with a <code>NULL</code> pointer. The sprites should not be modified or freed by the caller. </p><dl class="section return"><dt>Returns</dt><dd>An array of pointers to the drawn sprites. </dd></dl>
+
+</div>
+</div>
+<a id="ab962ca4f0013eb15f504cda05507e763" name="ab962ca4f0013eb15f504cda05507e763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab962ca4f0013eb15f504cda05507e763">&#9670;&#160;</a></span>Sprite_appendAnsi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_appendAnsi </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>ansi</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends an ANSI code to the given position in the sprite. </p>
+<p>This method appends the given ANSI code to the existing ANSI code at the given position in the sprite. The position is specified by the X and Y coordinates, where (0, 0) is the top-left corner of the sprite. If the position is out of bounds, the method will return 0.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position in the sprite. </td></tr>
+    <tr><td class="paramname">ansi</td><td>The ANSI code to append. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the ANSI code was appended, 0 if the position is out of bounds or an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a6c7ea5cce874a799374b923837d631c0" name="a6c7ea5cce874a799374b923837d631c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c7ea5cce874a799374b923837d631c0">&#9670;&#160;</a></span>Sprite_appendAnsiAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_appendAnsiAll </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>ansi</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends an ANSI code to all positions in the sprite. </p>
+<p>This method appends the given ANSI code to the existing ANSI code at all positions in the sprite. The position is specified by the X and Y coordinates, where (0, 0) is the top-left corner of the sprite. If the position is out of bounds, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">ansi</td><td>The ANSI code to append. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the ANSI code was appended, 0 if the position is out of bounds or an error occurred. </dd></dl>
 
 </div>
 </div>
@@ -278,6 +463,57 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="acbca1d16e700feea3ec902e5f39aab8f" name="acbca1d16e700feea3ec902e5f39aab8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbca1d16e700feea3ec902e5f39aab8f">&#9670;&#160;</a></span>Sprite_createFilled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> * Sprite_createFilled </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>ansi</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>z</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new sprite with the given dimensions. </p>
+<p>This method creates a new sprite with the given dimensions. The sprite will be filled with the specified character and ANSI code. The sprite should be freed with <code>Sprite_free</code> when it is no longer needed.</p>
+<p>This method does not draw the sprite to the terminal. To draw the sprite, use the <code>Sprite_draw</code> method.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The width of the sprite. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the sprite. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to fill the sprite with. </td></tr>
+    <tr><td class="paramname">ansi</td><td>The ANSI code to fill the sprite with. </td></tr>
+    <tr><td class="paramname">z</td><td>The Z-index of the sprite. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the new sprite, or 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
 <a id="aaf34956f6717fadc31c89ffd064c4a51" name="aaf34956f6717fadc31c89ffd064c4a51"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaf34956f6717fadc31c89ffd064c4a51">&#9670;&#160;</a></span>Sprite_draw()</h2>
 
@@ -313,6 +549,245 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the sprite was drawn, 0 if not or an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a2a9e8c10c333f9be741ac92f8e88f001" name="a2a9e8c10c333f9be741ac92f8e88f001"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a9e8c10c333f9be741ac92f8e88f001">&#9670;&#160;</a></span>Sprite_fillAnsi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_fillAnsi </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>ansi</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fills positions in the sprite with an ANSI code. </p>
+<p>This method sets the ANSI code at a specific rectangle in the sprite. The fill will start at the given position and fill the specified width and height. If a position is out of bounds, it will be skipped.</p>
+<p>This method will also redraw the sprite if it is currently drawn.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position in the sprite. </td></tr>
+    <tr><td class="paramname">ansi</td><td>The ANSI code to set. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the fill. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the fill. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the ANSI code was set, 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a68dc0b5e83cbbc5efaeabb11460e71ab" name="a68dc0b5e83cbbc5efaeabb11460e71ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68dc0b5e83cbbc5efaeabb11460e71ab">&#9670;&#160;</a></span>Sprite_fillChar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_fillChar </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fills positions in the sprite. </p>
+<p>This method sets the character at a specific rectangle in the sprite. The fill will start at the given position and fill the specified width and height. If a position is out of bounds, it will be skipped.</p>
+<p>This method will also redraw the sprite if it is currently drawn.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position in the sprite. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to set. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the fill. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the fill. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the character was set, 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a469eaab11a45a899d0012750070fb076" name="a469eaab11a45a899d0012750070fb076"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a469eaab11a45a899d0012750070fb076">&#9670;&#160;</a></span>Sprite_fillCharAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_fillCharAll </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the character at all positions in the sprite. </p>
+<p>This method sets the character at all positions in the sprite. The character will be set for every position in the sprite, starting from the top-left corner. If an error occurs, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the character was set, 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a1d525947c520d001cba4385dd57e361e" name="a1d525947c520d001cba4385dd57e361e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d525947c520d001cba4385dd57e361e">&#9670;&#160;</a></span>Sprite_fillCharAllEmpty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_fillCharAllEmpty </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the character at all positions in the sprite where there isn't a character. </p>
+<p>This method sets the character at all positions in the sprite. The character will be set for every position in the sprite, starting from the top-left corner. If an error occurs, the method will return 0.</p>
+<p>This method will skip any positions that are already filled with a character. Existing ANSI codes at empty positions will be preserved.</p>
+<p>This method will also redraw the sprite if it is currently drawn.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the character was set, 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a605f27ca6b80bf73922900ebf8d54e20" name="a605f27ca6b80bf73922900ebf8d54e20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a605f27ca6b80bf73922900ebf8d54e20">&#9670;&#160;</a></span>Sprite_fillCharEmpty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_fillCharEmpty </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fills positions in the sprite where there isn't a character. </p>
+<p>This method sets the character at a specific rectangle in the sprite. The fill will start at the given position and fill the specified width and height. If a position is out of bounds, it will be skipped.</p>
+<p>This method will skip any positions that are already filled with a character. Existing ANSI codes at empty positions will be preserved.</p>
+<p>This method will also redraw the sprite if it is currently drawn.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position in the sprite. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to set. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the fill. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the fill. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the character was set, 0 if an error occurred. </dd></dl>
 
 </div>
 </div>
@@ -615,8 +1090,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab72fee6bd56a5398d4e04e74144b5034" name="ab72fee6bd56a5398d4e04e74144b5034"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab72fee6bd56a5398d4e04e74144b5034">&#9670;&#160;</a></span>Sprite_setAnsi()</h2>
+<a id="a1a6248482e2c82226e47429ff816242b" name="a1a6248482e2c82226e47429ff816242b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a6248482e2c82226e47429ff816242b">&#9670;&#160;</a></span>Sprite_setAnsi()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -639,13 +1114,14 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>ansi</em></span>&#160;)</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>ansi</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Sets the ANSI code at the given position in the sprite. </p>
-<p>This method sets the ANSI code at the given position in the sprite. The position is specified by the X and Y coordinates, where (0, 0) is the top-left corner of the sprite. If the position is out of bounds, the method will return 0. The ANSI code will automatically be prefixed with "\033[" and suffixed with "m". </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This method sets the ANSI code at the given position in the sprite. The position is specified by the X and Y coordinates, where (0, 0) is the top-left corner of the sprite. If the position is out of bounds, the method will return 0.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
     <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
@@ -658,8 +1134,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac7bd0743c98a92742882fc37b68b0c3b" name="ac7bd0743c98a92742882fc37b68b0c3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7bd0743c98a92742882fc37b68b0c3b">&#9670;&#160;</a></span>Sprite_setAnsiAll()</h2>
+<a id="a3c836da6a7ea2c85c18074eb9ad34481" name="a3c836da6a7ea2c85c18074eb9ad34481"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c836da6a7ea2c85c18074eb9ad34481">&#9670;&#160;</a></span>Sprite_setAnsiAll()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -672,14 +1148,15 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>ansi</em></span>&#160;)</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>ansi</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Sets the character at all positions in the sprite. </p>
 <p>This method sets the character at all positions in the sprite. The character will be set for every position in the sprite, starting from the top-left corner. If an error occurs, the method will return 0.</p>
-<p>This method will also redraw the sprite if it is currently drawn. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This method will also redraw the sprite if it is currently drawn.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
     <tr><td class="paramname">c</td><td>The character to set. </td></tr>
@@ -687,6 +1164,230 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the character was set, 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a2402c4a7ff64b672a09e066e20f07dce" name="a2402c4a7ff64b672a09e066e20f07dce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2402c4a7ff64b672a09e066e20f07dce">&#9670;&#160;</a></span>Sprite_setBackground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_setBackground </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the background color of the sprite at the given position. </p>
+<p>This method sets the background color of the sprite at the given position. The position is specified by the X and Y coordinates, where (0, 0) is the top-left corner of the sprite. If the position is out of bounds, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position in the sprite. </td></tr>
+    <tr><td class="paramname">rgb</td><td>The RGB color to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the color was set, 0 if the position is out of bounds or an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="ad2dc73565d83352475410b81cf8ced5c" name="ad2dc73565d83352475410b81cf8ced5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2dc73565d83352475410b81cf8ced5c">&#9670;&#160;</a></span>Sprite_setBackgroundAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_setBackgroundAll </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the background color of the sprite at the given position. </p>
+<p>This method sets the background color of the sprite at the given position. The position is specified by the X and Y coordinates, where (0, 0) is the top-left corner of the sprite. If the position is out of bounds, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position in the sprite. </td></tr>
+    <tr><td class="paramname">rgb</td><td>The RGB color to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the color was set, 0 if the position is out of bounds or an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="aeada1479603eb5852074dbeed9ec5baa" name="aeada1479603eb5852074dbeed9ec5baa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeada1479603eb5852074dbeed9ec5baa">&#9670;&#160;</a></span>Sprite_setBackgroundAll256()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_setBackgroundAll256 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the background color of the sprite at the given position using 256-bit color codes. </p>
+<p>This method sets the background color of the sprite at the given position. The position is specified by the X and Y coordinates, where (0, 0) is the top-left corner of the sprite. If the position is out of bounds, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position in the sprite. </td></tr>
+    <tr><td class="paramname">color</td><td>The 256-color code to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the color was set, 0 if the position is out of bounds or an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a47b2f5df4e40be636b4d858bfe83dcbb" name="a47b2f5df4e40be636b4d858bfe83dcbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47b2f5df4e40be636b4d858bfe83dcbb">&#9670;&#160;</a></span>Sprite_setBackgroundGradient()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_setBackgroundGradient </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numColors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>...</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a background gradient using RGB colors for a specified section of the sprite. </p>
+<p>This method sets a background gradient using RGB colors between multiple colors. The gradient will be applied to the sprite starting at the given position and extending for the given width and height. The direction of the gradient will be determined by the <code>direction</code> parameter. The colors should be specified as RGB values in the format <code>0xRRGGBB</code>. Non-integer values will not be accepted.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position in the sprite. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the gradient. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the gradient. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+    <tr><td class="paramname">numColors</td><td>The number of colors in the gradient. </td></tr>
+    <tr><td class="paramname">...</td><td>A variable list of RGB colors in the gradient as an integer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the gradient was set, 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="ae78095d8b10cda96d84de8f3430aa482" name="ae78095d8b10cda96d84de8f3430aa482"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae78095d8b10cda96d84de8f3430aa482">&#9670;&#160;</a></span>Sprite_setBackgroundGradientAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_setBackgroundGradientAll </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numColors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>...</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a background gradient using RGB colors. </p>
+<p>This method sets a background gradient using RGB colors between multiple colors. The gradient will be applied to the entire sprite. The direction of the gradient will be determined by the <code>direction</code> parameter. The colors should be specified as RGB values in the format <code>0xRRGGBB</code>. Non-integer values will not be accepted.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+    <tr><td class="paramname">numColors</td><td>The number of colors in the gradient. </td></tr>
+    <tr><td class="paramname">...</td><td>A variable list of RGB colors in the gradient as an integer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the gradient was set, 0 if an error occurred. </dd></dl>
 
 </div>
 </div>
@@ -731,6 +1432,230 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the character was set, 0 if the position is out of bounds or an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a839a9c71812e033be8973dd32c9602b8" name="a839a9c71812e033be8973dd32c9602b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a839a9c71812e033be8973dd32c9602b8">&#9670;&#160;</a></span>Sprite_setForeground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_setForeground </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the foreground color of the sprite at the given position. </p>
+<p>This method sets the foreground color of the sprite at the given position. The position is specified by the X and Y coordinates, where (0, 0) is the top-left corner of the sprite. If the position is out of bounds, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position in the sprite. </td></tr>
+    <tr><td class="paramname">rgb</td><td>The RGB color to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the color was set, 0 if the position is out of bounds or an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="aee91457875bd16a9605811a2de7e4b02" name="aee91457875bd16a9605811a2de7e4b02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee91457875bd16a9605811a2de7e4b02">&#9670;&#160;</a></span>Sprite_setForegroundAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_setForegroundAll </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the foreground color of the sprite at the given position. </p>
+<p>This method sets the foreground color of the sprite at the given position. The position is specified by the X and Y coordinates, where (0, 0) is the top-left corner of the sprite. If the position is out of bounds, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position in the sprite. </td></tr>
+    <tr><td class="paramname">rgb</td><td>The RGB color to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the color was set, 0 if the position is out of bounds or an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="adafbda7eebd350efa8c7392460ce6595" name="adafbda7eebd350efa8c7392460ce6595"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adafbda7eebd350efa8c7392460ce6595">&#9670;&#160;</a></span>Sprite_setForegroundAll256()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_setForegroundAll256 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the foreground color of the sprite at the given position using 256-bit color codes. </p>
+<p>This method sets the foreground color of the sprite at the given position. The position is specified by the X and Y coordinates, where (0, 0) is the top-left corner of the sprite. If the position is out of bounds, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position in the sprite. </td></tr>
+    <tr><td class="paramname">color</td><td>The 256-color code to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the color was set, 0 if the position is out of bounds or an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a37e6ed5537bab8ef9a0fd14feb20ae1b" name="a37e6ed5537bab8ef9a0fd14feb20ae1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37e6ed5537bab8ef9a0fd14feb20ae1b">&#9670;&#160;</a></span>Sprite_setForegroundGradient()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_setForegroundGradient </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numColors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>...</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a foreground gradient using RGB colors for a specified section of the sprite. </p>
+<p>This method sets a foreground gradient using RGB colors between multiple colors. The gradient will be applied to the sprite starting at the given position and extending for the given width and height. The direction of the gradient will be determined by the <code>direction</code> parameter. The colors should be specified as RGB values in the format <code>0xRRGGBB</code>. Non-integer values will not be accepted.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">x</td><td>The X position in the sprite. </td></tr>
+    <tr><td class="paramname">y</td><td>The Y position in the sprite. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the gradient. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the gradient. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+    <tr><td class="paramname">numColors</td><td>The number of colors in the gradient. </td></tr>
+    <tr><td class="paramname">...</td><td>A variable list of RGB colors in the gradient as an integer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the gradient was set, 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a7836145071ac1e6f494f5374777adfbf" name="a7836145071ac1e6f494f5374777adfbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7836145071ac1e6f494f5374777adfbf">&#9670;&#160;</a></span>Sprite_setForegroundGradientAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_setForegroundGradientAll </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numColors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>...</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a foreground gradient using RGB colors. </p>
+<p>This method sets a foreground gradient using RGB colors between multiple colors. The gradient will be applied to the entire sprite. The direction of the gradient will be determined by the <code>direction</code> parameter. The colors should be specified as RGB values in the format <code>0xRRGGBB</code>. Non-integer values will not be accepted.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to modify. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+    <tr><td class="paramname">numColors</td><td>The number of colors in the gradient. </td></tr>
+    <tr><td class="paramname">...</td><td>A variable list of RGB colors in the gradient as an integer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the gradient was set, 0 if an error occurred. </dd></dl>
 
 </div>
 </div>

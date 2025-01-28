@@ -127,10 +127,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a37f2cf38341796fb238a6faafb61df30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a character at a specific position.  <br /></td></tr>
 <tr class="separator:a37f2cf38341796fb238a6faafb61df30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5525434276875acc2debe1c34f177c46" id="r_a5525434276875acc2debe1c34f177c46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5525434276875acc2debe1c34f177c46">Canvas_setAnsiCurrent</a> (const char *ansi)</td></tr>
-<tr class="memdesc:a5525434276875acc2debe1c34f177c46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the ANSI code at the current cursor position.  <br /></td></tr>
+<tr class="memdesc:a5525434276875acc2debe1c34f177c46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the ANSI code at the current cursor position.  <br /></td></tr>
 <tr class="separator:a5525434276875acc2debe1c34f177c46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad78131b951ee24175216c0d4c7a30656" id="r_ad78131b951ee24175216c0d4c7a30656"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad78131b951ee24175216c0d4c7a30656">Canvas_setAnsi</a> (int x, int y, const char *ansi)</td></tr>
-<tr class="memdesc:ad78131b951ee24175216c0d4c7a30656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the ANSI code at a specific position.  <br /></td></tr>
+<tr class="memdesc:ad78131b951ee24175216c0d4c7a30656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the ANSI code at a specific position.  <br /></td></tr>
 <tr class="separator:ad78131b951ee24175216c0d4c7a30656"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e524bfc1903b5e95b856ede90a9c0ae" id="r_a8e524bfc1903b5e95b856ede90a9c0ae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e524bfc1903b5e95b856ede90a9c0ae">Canvas_isCursorVisible</a> ()</td></tr>
 <tr class="memdesc:a8e524bfc1903b5e95b856ede90a9c0ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the cursor visibility.  <br /></td></tr>
@@ -1506,7 +1506,7 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>ASCII_NINE</b> [8][5]
       </table>
 </div><div class="memdoc">
 
-<p>Sets the ANSI code at a specific position. </p>
+<p>Appends the ANSI code at a specific position. </p>
 <p>This method sets the ANSI code at a specific position. The ANSI code is a series of semicolon-separated numbers and letters that control the terminal behavior. For example, the ANSI code "\033[31m" sets the text color to red.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1534,7 +1534,7 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>ASCII_NINE</b> [8][5]
       </table>
 </div><div class="memdoc">
 
-<p>Sets the ANSI code at the current cursor position. </p>
+<p>Appends the ANSI code at the current cursor position. </p>
 <p>This method sets the ANSI code at a specific position. The ANSI code is a series of semicolon-separated numbers and letters that control the terminal behavior. For example, the ANSI code "\033[31m" sets the text color to red.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
