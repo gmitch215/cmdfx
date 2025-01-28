@@ -14,6 +14,9 @@ void Screen_getSize(int *width, int *height) {
     int fb = open("/dev/fb0", O_RDONLY);
     if (fb < 0) {
         perror("Failed to open framebuffer device");
+
+        *width = 0;
+        *height = 0;
         return;
     }
 
@@ -21,6 +24,9 @@ void Screen_getSize(int *width, int *height) {
     if (ioctl(fb, FBIOGET_VSCREENINFO, &screen_info) < 0) {
         perror("Failed to get screen information");
         close(fb);
+
+        *width = 0;
+        *height = 0;
         return;
     }
 

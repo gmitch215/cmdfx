@@ -41,6 +41,5 @@ void Window_setSize(int width, int height) {
     
     if (ioctl(STDOUT_FILENO, TIOCSWINSZ, &w) == -1) {
         perror("ioctl");
-        exit(EXIT_FAILURE);
     }
 }
