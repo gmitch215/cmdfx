@@ -36,7 +36,11 @@ function(add_manual_test name)
 endfunction()
 
 # Common
-add_test_executable(common util)
+add_test_executable(common util_time)
+add_test_executable(common util_math_clamp)
+add_test_executable(common util_math_lerp)
+add_test_executable(common util_color_lerp)
+
 add_test_executable(common screen)
 
 add_test_executable(common canvas_clear)

@@ -18,5 +18,5 @@ int main() {
 
     r |= assert(end2 - start2 >= 50);
 
-    return 0;
+    return r;
 }

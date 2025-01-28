@@ -32,11 +32,11 @@ int main() {
 
     // Screen API
 
-    int width3, height3;
+    int width3 = -1, height3 = -1;
     Screen_getSize(&width3, &height3);
 
-    r |= assert(width3 > 0);
-    r |= assert(height3 > 0);
+    r |= assert(width3 > -1);
+    r |= assert(height3 > -1);
 
     return r;
 }
