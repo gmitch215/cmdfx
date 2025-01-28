@@ -113,15 +113,21 @@ if (INSTALL_CMDFX)
             DESTINATION include
     )
     
-    if (DOCS_CMDFX AND EXISTS "${DOXYGEN_OUT}")
-        install(DIRECTORY
-            "${PROJECT_SOURCE_DIR}/build/docs/html"
-            DESTINATION ${CMAKE_INSTALL_DOCDIR}
-        )
-        install(DIRECTORY
-            "${PROJECT_SOURCE_DIR}/build/docs/latex"
-            DESTINATION ${CMAKE_INSTALL_DOCDIR}
-        )
+    if (DOCS_CMDFX)
+        if (EXISTS "${DOXYGEN_OUT}/html")
+            install(DIRECTORY
+                "${PROJECT_SOURCE_DIR}/build/docs/html"
+                DESTINATION ${CMAKE_INSTALL_DOCDIR}
+            )
+        endif()
+
+        if (EXISTS "${DOXYGEN_OUT}/latex")
+            install(DIRECTORY
+                "${PROJECT_SOURCE_DIR}/build/docs/latex"
+                DESTINATION ${CMAKE_INSTALL_DOCDIR}
+            )
+        endif()
+        
         install(FILES
             "${PROJECT_SOURCE_DIR}/README.md"
             "${PROJECT_SOURCE_DIR}/LICENSE"
