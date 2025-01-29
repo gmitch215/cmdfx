@@ -13,7 +13,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, ubuntu-24.04-arm, windows-latest]
+        os: 
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+          - windows-2022
+          - macos-13
+          - macos-15
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -26,13 +31,16 @@ jobs:
         run: cmake .
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-latest' }}
-        run: sudo cmake --build . --config Debug --target install package
+        run: |
+          sudo cmake --build . --config Debug --target install package
+          sudo rm -rf build/package/_CPack_Packages/!(**/*.log)
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
           dotnet tool install --global wix
           wix extension add --global WixToolset.UI.wixext
           cmake --build . --config Debug --target install package
+          Get-ChildItem -Path build/package/_CPack_Packages -Recurse -Exclude *.log | Remove-Item -Recurse -Force
       - name: Archive Build Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -45,10 +53,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
-          path: |
-            build/package/*
-            !build/package/_CPack_Packages
-            build/package/_CPack_Packages/**/*.log
+          path: build/package/*
           overwrite: true
       - name: Test Project
         run: ctest -C Debug -T test
