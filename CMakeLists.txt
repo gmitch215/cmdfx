@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.30)
 
+set(PROJECT_VERSION "0.1.0")
 project(cmdfx 
     LANGUAGES C 
-    VERSION 0.1.0
+    VERSION ${PROJECT_VERSION}
     DESCRIPTION "Lightweight game engine for your terminal"
     HOMEPAGE_URL "https://github.com/gmitch215/cmdfx"
 )
@@ -143,7 +144,7 @@ option(PACKAGE_CMDFX "Package ${PROJECT_NAME}" ON)
 if (PACKAGE_CMDFX)
     set(ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
 
-    if (ARCHITECTURE STREQUAL "AMD64")
+    if (ARCHITECTURE STREQUAL "AMD64" OR ARCHITECTURE STREQUAL "x86_64")
         set(ARCHITECTURE "x64")
     endif()
 
@@ -177,7 +178,7 @@ if (PACKAGE_CMDFX)
         set(CPACK_BUNDLE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.icns")
         set(CPACK_BUNDLE_PLIST "${PROJECT_SOURCE_DIR}/Info.plist")
     elseif(UNIX)
-        set(CPACK_GENERATOR "TGZ;TXZ;DEB;RPM")
+        set(CPACK_GENERATOR "TGZ;TXZ;DEB;RPM;7Z")
         set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}-linux-${ARCHITECTURE}")
         set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.png")
         set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
