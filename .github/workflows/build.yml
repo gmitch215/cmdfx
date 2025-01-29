@@ -31,12 +31,13 @@ jobs:
         run: cmake .
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
-        run: >
+        run: |
           sudo cmake --build . --config Debug --target install package
-          sudo rm -rf build/package/_CPack_Packages/!(**/*.log)
+          find build/package/_CPack_Packages/ -type f ! -name '*.log' -delete
+          find build/package/_CPack_Packages/ -type d -empty -delete
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
-        run: >
+        run: |
           dotnet tool install --global wix
           wix extension add --global WixToolset.UI.wixext
           cmake --build . --config Debug --target install package
