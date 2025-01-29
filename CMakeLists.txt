@@ -176,10 +176,12 @@ if (PACKAGE_CMDFX)
         set(CPACK_WIX_LICENSE_RTF "${PROJECT_SOURCE_DIR}/LICENSE.rtf")
         set(CPACK_WIX_UPGRADE_GUID "42937a72-0b91-4a57-8f45-60d84df05e66")
     elseif(APPLE)
-        set(CPACK_GENERATOR "TGZ;ZIP;productbuild;Bundle;DragNDrop")
+        set(CPACK_GENERATOR "TGZ;ZIP;productbuild;Bundle")
         set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}-macOS-${ARCHITECTURE}")
         set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.icns")
         set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE.rtf")
+
+        set(CPACK_PRODUCTBUILD_IDENTIFIER "dev.gmitch215.${PROJECT_NAME}")
 
         set(CPACK_BUNDLE_NAME ${PROJECT_NAME})
         set(CPACK_BUNDLE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.icns")

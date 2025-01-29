@@ -33,15 +33,14 @@ jobs:
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
           sudo cmake --build . --config Debug --target install package
-          sudo find build/package/_CPack_Packages/ -type f ! -name '*.log' -delete
-          sudo find build/package/_CPack_Packages/ -type d -empty -delete
+          sudo rm -rf build/package/_CPack_Packages/
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
           dotnet tool install --global wix
           wix extension add --global WixToolset.UI.wixext
           cmake --build . --config Debug --target install package
-          Get-ChildItem -Path build/package/_CPack_Packages -Recurse -Exclude *.log | Remove-Item -Recurse -Force
+          del /s /q build/package/_CPack_Packages
       - name: Archive Build Artifacts
         uses: actions/upload-artifact@v4
         with:
