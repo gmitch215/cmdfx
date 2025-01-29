@@ -40,7 +40,7 @@ jobs:
           dotnet tool install --global wix
           wix extension add --global WixToolset.UI.wixext
           cmake --build . --config Debug --target install package
-          del /s /q build/package/_CPack_Packages
+          Get-ChildItem -Path build/package/_CPack_Packages -Recurse | Remove-Item -Recurse -Force
       - name: Archive Build Artifacts
         uses: actions/upload-artifact@v4
         with:
