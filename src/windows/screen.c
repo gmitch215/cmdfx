@@ -49,25 +49,3 @@ void Screen_getSize(int* width, int* height) {
     *width = GetSystemMetrics(SM_CXSCREEN);
     *height = GetSystemMetrics(SM_CYSCREEN);
 }
-
-int Screen_getRGB(int x, int y) {
-    HDC hdc = GetDC(NULL);  // Get the entire screen device context
-    if (!hdc) {
-        fprintf(stderr, "Failed to get device context.\n");
-        return -1;
-    }
-
-    COLORREF color = GetPixel(hdc, x, y);
-    ReleaseDC(NULL, hdc);
-
-    if (color == CLR_INVALID) {
-        fprintf(stderr, "Failed to get pixel color.\n");
-        return -1;
-    }
-
-    int red = GetRValue(color);
-    int green = GetGValue(color);
-    int blue = GetBValue(color);
-
-    return (red << 16) | (green << 8) | blue;
-}

@@ -51,14 +51,6 @@ void Window_setSize(int width, int height);
  */
 void Screen_getSize(int* width, int* height);
 
-/**
- * @brief Gets the RGB value of a pixel on the screen.
- * @param x The x coordinate.
- * @param y The y coordinate.
- * @return The RGB value of the pixel.
- */
-int Screen_getRGB(int x, int y);
-
 #ifdef __cplusplus
 }
 #endif
