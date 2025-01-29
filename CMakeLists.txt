@@ -42,6 +42,13 @@ if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
     target_link_libraries(cmdfx PRIVATE m) # Math
 endif()
 
+if (APPLE)
+    target_link_libraries(cmdfx PRIVATE
+        "-framework ApplicationServices" 
+        "-framework CoreGraphics"
+    )
+endif()
+
 # Testing
 enable_testing()
 add_subdirectory(test)
@@ -178,7 +185,7 @@ if (PACKAGE_CMDFX)
         set(CPACK_BUNDLE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.icns")
         set(CPACK_BUNDLE_PLIST "${PROJECT_SOURCE_DIR}/Info.plist")
     elseif(UNIX)
-        set(CPACK_GENERATOR "TGZ;TXZ;DEB;RPM;7Z")
+        set(CPACK_GENERATOR "TGZ;TXZ;DEB;RPM")
         set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}-linux-${ARCHITECTURE}")
         set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.png")
         set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
