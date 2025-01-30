@@ -444,6 +444,8 @@ int Sprite_appendAnsiAll(CmdFX_Sprite* sprite, char* ansi) {
     return 1;
 }
 
+// Utility Methods - Sprite Creation
+
 CmdFX_Sprite* Sprite_createFilled(int width, int height, char c, char* ansi, int z) {
     if (width <= 0 || height <= 0) return 0;
 
@@ -475,6 +477,54 @@ CmdFX_Sprite* Sprite_createFilled(int width, int height, char c, char* ansi, int
     Sprite_fillCharAll(sprite, c);
     if (ansi != 0) 
         Sprite_setAnsiAll(sprite, ansi);
+
+    return sprite;
+}
+
+CmdFX_Sprite* Sprite_loadFromFile(const char* path, int z) {
+    FILE* file = fopen(path, "r");
+    if (file == 0) return 0;
+
+    char** data = 0;
+    int width = 0, height = 0;
+
+    char line[1024];
+    while (fgets(line, sizeof(line), file)) {
+        int len = strlen(line);
+        if (len > 0 && line[len - 1] == '\n') line[len - 1] = 0;
+
+        if (data == 0) {
+            data = malloc(sizeof(char*) * 2);
+            if (data == 0) break;
+            data[0] = malloc(sizeof(char) * (strlen(line) + 1));
+            if (data[0] == 0) {
+                free(data);
+                break;
+            }
+            strcpy(data[0], line);
+            data[1] = 0;
+            width = strlen(line);
+            height = 1;
+        } else {
+            char** newData = realloc(data, sizeof(char*) * (height + 2));
+            if (newData == 0) break;
+            data = newData;
+            data[height] = malloc(sizeof(char) * (strlen(line) + 1));
+            if (data[height] == 0) break;
+            strcpy(data[height], line);
+            data[height + 1] = 0;
+            height++;
+        }
+    }
+
+    fclose(file);
+    if (data == 0) return 0;
+
+    CmdFX_Sprite* sprite = Sprite_create(data, 0, z);
+    if (sprite == 0) {
+        for (int i = 0; i < height; i++) free(data[i]);
+        free(data);
+    }
 
     return sprite;
 }

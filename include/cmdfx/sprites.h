@@ -347,6 +347,8 @@ int Sprite_setAnsiAll(CmdFX_Sprite* sprite, char* ansi);
  */
 int Sprite_appendAnsiAll(CmdFX_Sprite* sprite, char* ansi);
 
+// Utility Methods - Sprite Creation
+
 /**
  * @brief Creates a new sprite with the given dimensions.
  * 
@@ -365,6 +367,24 @@ int Sprite_appendAnsiAll(CmdFX_Sprite* sprite, char* ansi);
  * @return A pointer to the new sprite, or 0 if an error occurred.
  */
 CmdFX_Sprite* Sprite_createFilled(int width, int height, char c, char* ansi, int z);
+
+/**
+ * @brief Creates a new sprite from a file.
+ * 
+ * This method creates a new sprite from the given file. The sprite will be
+ * loaded from the file and the Z-index will be set to the given value. The data
+ * from the file will be used, keeping `ansi` empty. The file must be a readable
+ * text file. The sprite should be freed with `Sprite_free` when it is no longer 
+ * needed.
+ * 
+ * This method does not draw the sprite to the terminal. To draw the sprite, use
+ * the `Sprite_draw` method.
+ * 
+ * @param path The path to the file to load the sprite from.
+ * @param z The Z-index of the sprite.
+ * @return A pointer to the new sprite, or 0 if an error occurred.
+ */
+CmdFX_Sprite* Sprite_loadFromFile(const char* path, int z);
 
 // Utility Methods - Sizing
 
