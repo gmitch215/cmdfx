@@ -190,6 +190,9 @@ Functions</h2></td></tr>
 <tr class="memitem:acbca1d16e700feea3ec902e5f39aab8f" id="r_acbca1d16e700feea3ec902e5f39aab8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbca1d16e700feea3ec902e5f39aab8f">Sprite_createFilled</a> (int width, int height, char c, char *ansi, int z)</td></tr>
 <tr class="memdesc:acbca1d16e700feea3ec902e5f39aab8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new sprite with the given dimensions.  <br /></td></tr>
 <tr class="separator:acbca1d16e700feea3ec902e5f39aab8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a317d6b33e019135b0f10295944fee6" id="r_a7a317d6b33e019135b0f10295944fee6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a317d6b33e019135b0f10295944fee6">Sprite_loadFromFile</a> (const char *path, int z)</td></tr>
+<tr class="memdesc:a7a317d6b33e019135b0f10295944fee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new sprite from a file.  <br /></td></tr>
+<tr class="separator:a7a317d6b33e019135b0f10295944fee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac78620393967e4c46bbb92b99d7d2e80" id="r_ac78620393967e4c46bbb92b99d7d2e80"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac78620393967e4c46bbb92b99d7d2e80">Sprite_resize</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int width, int height)</td></tr>
 <tr class="memdesc:ac78620393967e4c46bbb92b99d7d2e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes the sprite to the given dimensions.  <br /></td></tr>
 <tr class="separator:ac78620393967e4c46bbb92b99d7d2e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -990,6 +993,39 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the sprite is on top, 0 otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a7a317d6b33e019135b0f10295944fee6" name="a7a317d6b33e019135b0f10295944fee6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a317d6b33e019135b0f10295944fee6">&#9670;&#160;</a></span>Sprite_loadFromFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> * Sprite_loadFromFile </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>z</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new sprite from a file. </p>
+<p>This method creates a new sprite from the given file. The sprite will be loaded from the file and the Z-index will be set to the given value. The data from the file will be used, keeping <code>ansi</code> empty. The file must be a readable text file. The sprite should be freed with <code>Sprite_free</code> when it is no longer needed.</p>
+<p>This method does not draw the sprite to the terminal. To draw the sprite, use the <code>Sprite_draw</code> method.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The path to the file to load the sprite from. </td></tr>
+    <tr><td class="paramname">z</td><td>The Z-index of the sprite. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the new sprite, or 0 if an error occurred. </dd></dl>
 
 </div>
 </div>

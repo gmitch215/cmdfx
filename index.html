@@ -103,7 +103,8 @@ $(function(){ initResizable(false); });
 <li><b>Powerful</b>: cmdfx provides a powerful set of features for creating terminal-based games.</li>
 </ul>
 <h3><a class="anchor" id="autotoc_md2"></a>
-📋 Full List</h3>
+📋 Highlighted Features</h3>
+<p>For a full method list, check out the <a href="https://gmitch215.github.io/cmdfx/">documentation</a>.</p>
 <ul>
 <li><b>Events API</b><ul>
 <li>Handle window events such as key presses and window resizing.</li>
@@ -114,10 +115,13 @@ $(function(){ initResizable(false); });
 <li>Draw characters and shapes on the terminal.</li>
 <li>Set foreground and background colors.</li>
 <li>Clear the screen.</li>
-<li>Get the size of the terminal.</li>
+<li>Get the size of the terminal and the screen.</li>
+<li>...and much more!</li>
 <li><b>Sprites API</b><ul>
 <li>Load and draw sprites on the terminal.</li>
 <li>Set the color of a sprite.</li>
+<li>Create Gradients for a sprite.</li>
+<li>...and much more!</li>
 </ul>
 </li>
 </ul>
@@ -131,7 +135,7 @@ $(function(){ initResizable(false); });
 📦 Installation</h2>
 <p>You can download the latest release of cmdfx from the <a href="https://github.com/gmitch215/cmdfx/releases">releases page</a>.</p>
 <h2><a class="anchor" id="autotoc_md4"></a>
-🚀 Example</h2>
+🚀 Examples</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;cmdfx.h&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
@@ -149,6 +153,33 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="acanvas_8h_html_a59e618b1399dfcc6283559e20af2ff32"><div class="ttname"><a href="d4/dcf/canvas_8h.html#a59e618b1399dfcc6283559e20af2ff32">Canvas_hLine</a></div><div class="ttdeci">void Canvas_hLine(int x, int y, int width, char c)</div><div class="ttdoc">Draws a horizontal line.</div></div>
 <div class="ttc" id="acanvas_8h_html_a6550962c06d0b2a1fc503c4a8d84f714"><div class="ttname"><a href="d4/dcf/canvas_8h.html#a6550962c06d0b2a1fc503c4a8d84f714">Canvas_setForeground</a></div><div class="ttdeci">void Canvas_setForeground(int rgb)</div><div class="ttdoc">Sets the foreground color at the current cursor position.</div></div>
 <div class="ttc" id="acanvas_8h_html_ad45be53b749b2938c55581ed07dd43c4"><div class="ttname"><a href="d4/dcf/canvas_8h.html#ad45be53b749b2938c55581ed07dd43c4">Canvas_fillCircle</a></div><div class="ttdeci">void Canvas_fillCircle(int x, int y, int radius, char c)</div><div class="ttdoc">Fills a circle with a character.</div></div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;cmdfx.h&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main() {</div>
+<div class="line">    <span class="comment">// (path, z-index)</span></div>
+<div class="line">    <a class="code hl_struct" href="d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a>* mySprite = <a class="code hl_function" href="d3/def/sprites_8h.html#a7a317d6b33e019135b0f10295944fee6">Sprite_loadFromFile</a>(<span class="stringliteral">&quot;sprite.txt&quot;</span>, 0);</div>
+<div class="line">    <a class="code hl_function" href="d3/def/sprites_8h.html#aee91457875bd16a9605811a2de7e4b02">Sprite_setForegroundAll</a>(mySprite, 0xFF0000); <span class="comment">// Set Color to Red</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Draw Sprite at position (5, 5)   </span></div>
+<div class="line">    <a class="code hl_function" href="d3/def/sprites_8h.html#aaf34956f6717fadc31c89ffd064c4a51">Sprite_draw</a>(mySprite, 5, 5);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Move Sprite to position (10, 10)</span></div>
+<div class="line">    <a class="code hl_function" href="d3/def/sprites_8h.html#a3d2bad9b3d7845befa1e88415620372a">Sprite_moveTo</a>(mySprite, 10, 10);</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// (width, height, char, ansi, z-index)</span></div>
+<div class="line">    <a class="code hl_struct" href="d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a>* background = <a class="code hl_function" href="d3/def/sprites_8h.html#acbca1d16e700feea3ec902e5f39aab8f">Sprite_createFilled</a>(10, 10, <span class="charliteral">&#39;#&#39;</span>, 0, 0);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Set Gradient to Foreground with Blue, Green, and Gold</span></div>
+<div class="line">    <a class="code hl_function" href="d3/def/sprites_8h.html#a7836145071ac1e6f494f5374777adfbf">Sprite_setForegroundGradientAll</a>(background, <a class="code hl_enumvalue" href="d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7dfa2dc8a2586ad9551a6722c403cfffd7ef">GRADIENT_ANGLE_45</a>, 0xFF0000, 0x00FF00, 0xFFD700);</div>
+<div class="line">}</div>
+<div class="ttc" id="asprites_8h_html_a183207b41c93e1d43060730ec7a1d7dfa2dc8a2586ad9551a6722c403cfffd7ef"><div class="ttname"><a href="d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7dfa2dc8a2586ad9551a6722c403cfffd7ef">GRADIENT_ANGLE_45</a></div><div class="ttdeci">@ GRADIENT_ANGLE_45</div><div class="ttdoc">A 45-degree gradient.</div><div class="ttdef"><b>Definition</b> sprites.h:645</div></div>
+<div class="ttc" id="asprites_8h_html_a3d2bad9b3d7845befa1e88415620372a"><div class="ttname"><a href="d3/def/sprites_8h.html#a3d2bad9b3d7845befa1e88415620372a">Sprite_moveTo</a></div><div class="ttdeci">void Sprite_moveTo(CmdFX_Sprite *sprite, int x, int y)</div><div class="ttdoc">Moves a sprite to the given position.</div></div>
+<div class="ttc" id="asprites_8h_html_a7836145071ac1e6f494f5374777adfbf"><div class="ttname"><a href="d3/def/sprites_8h.html#a7836145071ac1e6f494f5374777adfbf">Sprite_setForegroundGradientAll</a></div><div class="ttdeci">int Sprite_setForegroundGradientAll(CmdFX_Sprite *sprite, enum CmdFX_GradientDirection direction, int numColors,...)</div><div class="ttdoc">Sets a foreground gradient using RGB colors.</div></div>
+<div class="ttc" id="asprites_8h_html_a7a317d6b33e019135b0f10295944fee6"><div class="ttname"><a href="d3/def/sprites_8h.html#a7a317d6b33e019135b0f10295944fee6">Sprite_loadFromFile</a></div><div class="ttdeci">CmdFX_Sprite * Sprite_loadFromFile(const char *path, int z)</div><div class="ttdoc">Creates a new sprite from a file.</div></div>
+<div class="ttc" id="asprites_8h_html_aaf34956f6717fadc31c89ffd064c4a51"><div class="ttname"><a href="d3/def/sprites_8h.html#aaf34956f6717fadc31c89ffd064c4a51">Sprite_draw</a></div><div class="ttdeci">int Sprite_draw(int x, int y, CmdFX_Sprite *sprite)</div><div class="ttdoc">Draws a sprite to the terminal.</div></div>
+<div class="ttc" id="asprites_8h_html_acbca1d16e700feea3ec902e5f39aab8f"><div class="ttname"><a href="d3/def/sprites_8h.html#acbca1d16e700feea3ec902e5f39aab8f">Sprite_createFilled</a></div><div class="ttdeci">CmdFX_Sprite * Sprite_createFilled(int width, int height, char c, char *ansi, int z)</div><div class="ttdoc">Creates a new sprite with the given dimensions.</div></div>
+<div class="ttc" id="asprites_8h_html_aee91457875bd16a9605811a2de7e4b02"><div class="ttname"><a href="d3/def/sprites_8h.html#aee91457875bd16a9605811a2de7e4b02">Sprite_setForegroundAll</a></div><div class="ttdeci">int Sprite_setForegroundAll(CmdFX_Sprite *sprite, int rgb)</div><div class="ttdoc">Sets the foreground color of the sprite at the given position.</div></div>
+<div class="ttc" id="astructCmdFX__Sprite_html"><div class="ttname"><a href="d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a></div><div class="ttdoc">Represents a sprite that can be drawn to the terminal.</div><div class="ttdef"><b>Definition</b> sprites.h:28</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
 📝 Contributing</h2>
 <p>If you would like to contribute to cmdfx, please see the <a class="el" href="d2/dfc/md__2home_2runner_2work_2cmdfx_2cmdfx_2CONTRIBUTING.html">contributing guidelines</a>. All contributions are welcome! </p>
