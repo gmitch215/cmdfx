@@ -24,7 +24,9 @@ It is written in C and is available cross-platform. It is licensed under the MIT
 - **Easy to use**: cmdfx is simple to use and easy to learn.
 - **Powerful**: cmdfx provides a powerful set of features for creating terminal-based games.
 
-### 📋 Full List
+### 📋 Highlighted Features
+
+For a full method list, check out the [documentation](https://gmitch215.github.io/cmdfx/).
 
 - **Events API**
   - Handle window events such as key presses and window resizing.
@@ -33,10 +35,13 @@ It is written in C and is available cross-platform. It is licensed under the MIT
   - Draw characters and shapes on the terminal.
   - Set foreground and background colors.
   - Clear the screen.
-  - Get the size of the terminal.
+  - Get the size of the terminal and the screen.
+  - ...and much more!
   - **Sprites API**
     - Load and draw sprites on the terminal.
     - Set the color of a sprite.
+    - Create Gradients for a sprite.
+    - ...and much more!
 - **Cross-Platform Exposure**
   - Expose platform-specific features and utilities such as setting the title of the terminal.
 
@@ -44,7 +49,7 @@ It is written in C and is available cross-platform. It is licensed under the MIT
 
 You can download the latest release of cmdfx from the [releases page](https://github.com/gmitch215/cmdfx/releases).
 
-## 🚀 Example
+## 🚀 Examples
 
 ```c
 #include <cmdfx.h>
@@ -59,6 +64,29 @@ int main() {
     // Set Foreground to Red, then draw a line from (0, 0) to (10, 0)
     Canvas_setForeground(0xFF0000);
     Canvas_hLine(0, 0, 10);
+}
+
+```
+
+```c
+#include <cmdfx.h>
+
+int main() {
+    // (path, z-index)
+    CmdFX_Sprite* mySprite = Sprite_loadFromFile("sprite.txt", 0);
+    Sprite_setForegroundAll(mySprite, 0xFF0000); // Set Color to Red
+
+    // Draw Sprite at position (5, 5)   
+    Sprite_draw(mySprite, 5, 5);
+
+    // Move Sprite to position (10, 10)
+    Sprite_moveTo(mySprite, 10, 10);
+    
+    // (width, height, char, ansi, z-index)
+    CmdFX_Sprite* background = Sprite_createFilled(10, 10, '#', 0, 0);
+
+    // Set Gradient to Foreground with Blue, Green, and Gold
+    Sprite_setForegroundGradientAll(background, GRADIENT_ANGLE_45, 0xFF0000, 0x00FF00, 0xFFD700);
 }
 
 ```
