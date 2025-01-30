@@ -77,7 +77,7 @@ int main() {
     Sprite_setForegroundAll(mySprite, 0xFF0000); // Set Color to Red
 
     // Draw Sprite at position (5, 5)   
-    Sprite_draw(mySprite, 5, 5);
+    Sprite_draw(5, 5, mySprite);
 
     // Move Sprite to position (10, 10)
     Sprite_moveTo(mySprite, 10, 10);
@@ -85,7 +85,7 @@ int main() {
     // (width, height, char, ansi, z-index)
     CmdFX_Sprite* background = Sprite_createFilled(10, 10, '#', 0, 0);
 
-    // Set Gradient to Foreground with Blue, Green, and Gold
+    // Set Gradient to Foreground with Red, Green, and Gold
     Sprite_setForegroundGradientAll(background, GRADIENT_ANGLE_45, 0xFF0000, 0x00FF00, 0xFFD700);
 }
 
