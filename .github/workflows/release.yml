@@ -27,14 +27,14 @@ jobs:
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-latest' }}
         run: |
-          sudo cmake --build . --config Debug --target install package
+          sudo cmake --build . --config Release --target install package
           sudo rm -rf build/package/_CPack_Packages/
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
           dotnet tool install --global wix
           wix extension add --global WixToolset.UI.wixext
-          cmake --build . --config Debug --target install package
+          cmake --build . --config Release --target install package
           rd /s /q build/package/_CPack_Packages
       - name: Archive Package Artifacts
         if: success() || failure()
