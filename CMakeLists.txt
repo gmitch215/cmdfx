@@ -185,6 +185,8 @@ if (PACKAGE_CMDFX)
         set(CPACK_BUNDLE_NAME ${PROJECT_NAME})
         set(CPACK_BUNDLE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.icns")
         set(CPACK_BUNDLE_PLIST "${PROJECT_SOURCE_DIR}/Info.plist")
+
+        set(CPACK_COMMAND_HDIUTIL "/usr/bin/sudo /usr/bin/hdiutil")
     elseif(UNIX)
         set(CPACK_GENERATOR "TGZ;TXZ;DEB;RPM")
         set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}-linux-${ARCHITECTURE}")
