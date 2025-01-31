@@ -51,6 +51,7 @@ jobs:
       contents: write
 
     steps:
+      - uses: actions/checkout@v4
       - name: Extract Version from CMakeLists.txt
         id: get_version
         run: |
