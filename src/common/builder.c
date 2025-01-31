@@ -462,7 +462,7 @@ int getAnsiArrayWidth(char*** array) {
 int getAnsiArrayHeight(char*** array) {
     if (array == 0) return 0;
 
-    int height;
+    int height = 0;
     while (array[height] != 0) height++;
 
     return height;
