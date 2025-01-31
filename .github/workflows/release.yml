@@ -2,6 +2,10 @@ name: Release Project
 
 on:
   workflow_dispatch:
+    inputs:
+      changelog:
+        type: string
+        description: 'Changelog to replace the auto-generated one'
 
 jobs:
   build:
@@ -65,17 +69,19 @@ jobs:
           path: build/package
           merge-multiple: true
       - name: Generate Changelog
+        if: ${{ github.event.inputs.changelog == '' }}
         id: changelog
         uses: mikepenz/release-changelog-builder-action@v5
         with:
           configuration: "release.json"
+          mode: "HYBRID"
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: build/package/*
           tag_name: v${{ env.VERSION }}
           name: cmdfx v${{ env.VERSION }}
-          body: ${{ steps.changelog.outputs.changelog }}
+          body: ${{ steps.changelog.outputs.changelog || github.event.inputs.changelog }}
           draft: false
           prerelease: false
 
