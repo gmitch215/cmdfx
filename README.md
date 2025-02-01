@@ -13,7 +13,7 @@
 
 ---
 
-**cmdfx** is a lightweight game engine for your terminal. It is designed to be simple and easy to use, while still providing a powerful set of features.
+**cmdfx** is a lightweight game engine for your terminal, allowing you to create some pretty wild things. It is designed to be simple and easy to use, while still providing a powerful set of features.
 
 It is written in C and is available cross-platform. It is licensed under the MIT license.
 
