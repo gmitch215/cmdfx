@@ -118,20 +118,23 @@ if (INSTALL_CMDFX)
     install(DIRECTORY
             "${PROJECT_SOURCE_DIR}/include/"
             DESTINATION include
+            COMPONENT library
     )
     
     if (DOCS_CMDFX)
-        if (EXISTS "${DOXYGEN_OUT}/html")
+        if (EXISTS "${PROJECT_SOURCE_DIR}/build/docs/html")
             install(DIRECTORY
                 "${PROJECT_SOURCE_DIR}/build/docs/html"
                 DESTINATION ${CMAKE_INSTALL_DOCDIR}
+                COMPONENT htmlDocs
             )
         endif()
 
-        if (EXISTS "${DOXYGEN_OUT}/latex")
+        if (EXISTS "${PROJECT_SOURCE_DIR}/build/docs/latex")
             install(DIRECTORY
                 "${PROJECT_SOURCE_DIR}/build/docs/latex"
                 DESTINATION ${CMAKE_INSTALL_DOCDIR}
+                COMPONENT latexDocs
             )
         endif()
         
@@ -152,6 +155,10 @@ if (PACKAGE_CMDFX)
 
     if (ARCHITECTURE STREQUAL "AMD64" OR ARCHITECTURE STREQUAL "x86_64")
         set(ARCHITECTURE "x64")
+    endif()
+
+    if (ARCHITECTURE STREQUAL "aarch64")
+        set(ARCHITECTURE "arm64")
     endif()
 
     set(CPACK_PACKAGE_DIRECTORY "${CMAKE_BINARY_DIR}/build/package")
@@ -175,7 +182,7 @@ if (PACKAGE_CMDFX)
         set(CPACK_WIX_LICENSE_RTF "${PROJECT_SOURCE_DIR}/LICENSE.rtf")
         set(CPACK_WIX_UPGRADE_GUID "42937a72-0b91-4a57-8f45-60d84df05e66")
     elseif(APPLE)
-        set(CPACK_GENERATOR "TGZ;ZIP;productbuild;Bundle")
+        set(CPACK_GENERATOR "TGZ;ZIP;Bundle")
         set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}-macOS-${ARCHITECTURE}")
         set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.icns")
         set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE.rtf")
@@ -195,4 +202,11 @@ if (PACKAGE_CMDFX)
     endif()
 
     include(CPack)
+
+    cpack_add_component(library DISPLAY_NAME "cmdfx Library" DESCRIPTION "The core library for cmdfx")
+    set(CPACK_COMPONENT_LIBRARY_REQUIRED ON)
+
+    cpack_add_component_group(docs DISPLAY_NAME "Documentation" DESCRIPTION "Documentation for cmdfx")
+    cpack_add_component(htmlDocs DISPLAY_NAME "HTML Documentation" DESCRIPTION "HTML documentation for cmdfx" GROUP docs)
+    cpack_add_component(latexDocs DISPLAY_NAME "LaTeX Documentation" DESCRIPTION "LaTeX documentation for cmdfx" GROUP docs)
 endif()

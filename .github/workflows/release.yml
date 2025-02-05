@@ -26,11 +26,14 @@ jobs:
         if: ${{ matrix.os == 'windows-2022' }}
         with:
           dotnet-version: '9'
-      - name: Configure Project
-        run: cmake .
+      - name: Install Doxygen
+        uses: ssciwr/doxygen-install@v1
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
+          sudo cmake .
+          sudo cmake --build . --config Release --target docs
+          sudo cmake .
           sudo cmake --build . --config Release --target install package
           sudo rm -rf build/package/_CPack_Packages/
       - name: Build Project (Windows)
@@ -38,6 +41,9 @@ jobs:
         run: |
           dotnet tool install --global wix
           wix extension add --global WixToolset.UI.wixext
+          cmake .
+          cmake --build . --config Release --target docs
+          cmake .
           cmake --build . --config Release --target install package
           rm .\build\package\_CPack_Packages\ -R -Force
       - name: Archive Package Artifacts
