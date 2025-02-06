@@ -41,6 +41,11 @@ jobs:
           wix extension add --global WixToolset.UI.wixext
           cmake --build . --config Debug --target install package
           Get-ChildItem -Path build/package/_CPack_Packages -Recurse | Remove-Item -Recurse -Force
+      - name: Generate Checksums
+        uses: Solratic/checksum-action@v1
+        with:
+          pattern: "build/package/*"
+          suffix: "sha256"
       - name: Archive Build Artifacts
         uses: actions/upload-artifact@v4
         with:

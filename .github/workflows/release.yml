@@ -74,6 +74,11 @@ jobs:
           pattern: CmdFX-Release-*
           path: build/package
           merge-multiple: true
+      - name: Generate Checksums
+        uses: Solratic/checksum-action@v1
+        with:
+          pattern: "build/package/*"
+          suffix: "sha256"
       - name: Generate Changelog
         if: ${{ github.event.inputs.changelog == '' }}
         id: changelog
