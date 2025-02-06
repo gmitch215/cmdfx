@@ -59,8 +59,6 @@ if (DOCS_CMDFX)
     find_package(Doxygen)
 
     if (DOXYGEN_FOUND)
-        message(STATUS "Doxygen found: ${DOXYGEN_EXECUTABLE}")
-
         set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
         set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/build/Doxyfile.in)
     
