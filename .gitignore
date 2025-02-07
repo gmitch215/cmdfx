@@ -15,7 +15,7 @@ DartConfiguration.tcl
 cmdfx-test-*
 CMakeDoxyfile.in
 CMakeDoxygenDefaults.cmake
-install_manifest.txt
+install_manifest*
 _CPack_Packages/
 
 *.dir/

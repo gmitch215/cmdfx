@@ -7,6 +7,8 @@ project(cmdfx
     DESCRIPTION "Lightweight game engine for your terminal"
     HOMEPAGE_URL "https://github.com/gmitch215/cmdfx"
 )
+set(PROJECT_DOCUMENTATION "https://gmitch215.github.io/cmdfx")
+
 set(CMAKE_C_STANDARD 11)
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -163,22 +165,34 @@ if (PACKAGE_CMDFX)
         set(ARCHITECTURE "arm64")
     endif()
 
+    set(CPACK_THREADS 0) # Use all available threads
     set(CPACK_PACKAGE_DIRECTORY "${CMAKE_BINARY_DIR}/build/package")
+    set(CPACK_PACKAGE_CHECKSUM SHA256)
 
     set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+    set(CPACK_PACKAGE_DESCRIPTION ${PROJECT_DESCRIPTION})
+    set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+    set(CPACK_PACKAGE_HOMEPAGE_URL ${PROJECT_HOMEPAGE_URL})
     set(CPACK_PACKAGE_INSTALL_DIRECTORY ${PROJECT_NAME})
     set(CPACK_PACKAGE_VENDOR "Gregory Mitchell")
     set(CPACK_PACKAGE_CONTACT "Gregory Mitchell")
 
+    set(CPACK_RESOURCE_FILE_README "${PROJECT_SOURCE_DIR}/README.md")
+    set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+
     if (WIN32)
         set(CPACK_GENERATOR "ZIP;NSIS;TGZ;WIX")
 
-        set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}-windows-${ARCHITECTURE}")
-        set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+        set(CPACK_SYSTEM_NAME "windows-${ARCHITECTURE}")
 
         set(CPACK_NSIS_DISPLAY_NAME ${PROJECT_NAME})
+        set(CPACK_NSIS_DISPLAY_NAME_SET ON)
+
+        set(CPACK_NSIS_INSTALLED_ICON_NAME "${PROJECT_SOURCE_DIR}/assets/cmdfx.ico")
         set(CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.ico")
         set(CPACK_NSIS_MUI_UNIICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.ico")
+        set(CPACK_NSIS_MODIFY_PATH ON)
+        set(CPACK_NSIS_MENU_LINKS "GitHub" ${PROJECT_HOMEPAGE_URL} "Documentation" ${PROJECT_DOCUMENTATION})
 
         set(CPACK_WIX_VERSION 4)
         set(CPACK_WIX_PRODUCT_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.ico")
@@ -186,25 +200,26 @@ if (PACKAGE_CMDFX)
         set(CPACK_WIX_UPGRADE_GUID "42937a72-0b91-4a57-8f45-60d84df05e66")
     elseif(APPLE)
         set(CPACK_GENERATOR "TGZ;ZIP;productbuild")
+
         set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
-        set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}-macOS-${ARCHITECTURE}")
+        set(CPACK_SYSTEM_NAME "macOS-${ARCHITECTURE}")
+
         set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.icns")
         set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE.rtf")
 
         set(CPACK_PRODUCTBUILD_IDENTIFIER "dev.gmitch215.${PROJECT_NAME}")
     elseif(UNIX)
         set(CPACK_GENERATOR "TGZ;TXZ;DEB;RPM")
-        set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}-linux-${ARCHITECTURE}")
+
+        set(CPACK_SYSTEM_NAME "linux-${ARCHITECTURE}")
         set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.png")
-        set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
     endif()
 
     include(CPack)
 
-    cpack_add_component(library DISPLAY_NAME "cmdfx Library" DESCRIPTION "The core library for cmdfx")
-    set(CPACK_COMPONENT_LIBRARY_REQUIRED ON)
+    cpack_add_component(library DISPLAY_NAME "cmdfx Library" DESCRIPTION "The core library for cmdfx" REQUIRED ON)
 
-    cpack_add_component_group(docs DISPLAY_NAME "Documentation" DESCRIPTION "Documentation for cmdfx")
+    cpack_add_component_group(docs DISPLAY_NAME "Documentation" DESCRIPTION "Documentation for cmdfx" EXPANDED ON)
     cpack_add_component(htmlDocs DISPLAY_NAME "HTML Documentation" DESCRIPTION "HTML documentation for cmdfx" GROUP docs)
     cpack_add_component(latexDocs DISPLAY_NAME "LaTeX Documentation" DESCRIPTION "LaTeX documentation for cmdfx" GROUP docs)
 endif()
