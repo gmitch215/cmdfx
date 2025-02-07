@@ -6,6 +6,7 @@ Testing/
 x64/
 Release/
 Debug/
+.DS_Store
 
 CMakeFiles
 Makefile

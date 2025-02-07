@@ -52,7 +52,7 @@ endif()
 
 # Testing
 enable_testing()
-add_subdirectory(test)
+add_subdirectory(test EXCLUDE_FROM_ALL)
 
 # Documentation
 option(DOCS_CMDFX "Build API documentation with Doxygen" ON)
@@ -97,6 +97,7 @@ if (INSTALL_CMDFX)
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        COMPONENT library
     )
 
     include(CMakePackageConfigHelpers)
@@ -114,10 +115,12 @@ if (INSTALL_CMDFX)
         FILE ${PROJECT_NAME}Targets.cmake
         NAMESPACE ${PROJECT_NAME}::
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
+        COMPONENT library
     )
     install(FILES "${PROJECT_BINARY_DIR}/Config.cmake"
                  "${PROJECT_BINARY_DIR}/ConfigVersion.cmake"
             DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
+            COMPONENT library
     )
     install(DIRECTORY
             "${PROJECT_SOURCE_DIR}/include/"
@@ -144,9 +147,12 @@ if (INSTALL_CMDFX)
         
         install(FILES
             "${PROJECT_SOURCE_DIR}/README.md"
+            "${PROJECT_SOURCE_DIR}/INSTALLER_README.txt"
             "${PROJECT_SOURCE_DIR}/LICENSE"
+            "${PROJECT_SOURCE_DIR}/LICENSE.rtf"
             "${PROJECT_SOURCE_DIR}/CONTRIBUTING.md"
             DESTINATION ${CMAKE_INSTALL_DOCDIR}
+            COMPONENT attribution
         )
     endif()
 endif()
@@ -177,7 +183,7 @@ if (PACKAGE_CMDFX)
     set(CPACK_PACKAGE_VENDOR "Gregory Mitchell")
     set(CPACK_PACKAGE_CONTACT "Gregory Mitchell")
 
-    set(CPACK_RESOURCE_FILE_README "${PROJECT_SOURCE_DIR}/README.md")
+    set(CPACK_RESOURCE_FILE_README "${PROJECT_SOURCE_DIR}/INSTALLER_README.txt")
     set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 
     if (WIN32)
@@ -218,6 +224,7 @@ if (PACKAGE_CMDFX)
     include(CPack)
 
     cpack_add_component(library DISPLAY_NAME "cmdfx Library" DESCRIPTION "The core library for cmdfx" REQUIRED ON)
+    cpack_add_component(attribution DISPLAY_NAME "Attribution" DESCRIPTION "Attribution files from cmdfx" REQUIRED ON)
 
     cpack_add_component_group(docs DISPLAY_NAME "Documentation" DESCRIPTION "Documentation for cmdfx" EXPANDED ON)
     cpack_add_component(htmlDocs DISPLAY_NAME "HTML Documentation" DESCRIPTION "HTML documentation for cmdfx" GROUP docs)
