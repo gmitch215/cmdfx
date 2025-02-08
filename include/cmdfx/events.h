@@ -70,13 +70,17 @@ typedef struct CmdFX_ResizeEvent {
  */
 typedef struct CmdFX_KeyEvent {
     /**
-     * @brief The key code.
+     * @brief The previous key code, or 0 if no key was previously pressed.
+     * 
+     * Tip: Use the `char` type to convert the key code to a character.
+     */
+    int prevKey;
+    /**
+     * @brief The key code, or 0 if no key is pressed.
+     * 
+     * Tip: Use the `char` type to convert the key code to a character.
      */
     int keyCode;
-    /**
-     * @brief The character representation of the key.
-     */
-    char keyChar;
 } CmdFX_KeyEvent;
 
 /**
@@ -85,6 +89,36 @@ typedef struct CmdFX_KeyEvent {
  * The data is a pointer to a `struct CmdFX_MouseEvent`.
  */
 #define CMDFX_EVENT_MOUSE 2
+
+/**
+ * @brief The payload for the `CMDFX_EVENT_MOUSE` event.
+ */
+typedef struct CmdFX_MouseEvent {
+    /**
+     * @brief The previous button that was pressed, or -1 if no button was pressed.
+     */
+    int prevButton;
+    /**
+     * @brief The button that was pressed, or -1 if no button was pressed.
+     */
+    int button;
+    /**
+     * @brief The previous x position of the mouse.
+     */
+    int prevX;
+    /**
+     * @brief The x position of the mouse.
+     */
+    int x;
+    /**
+     * @brief The previous y position of the mouse.
+     */
+    int prevY;
+    /**
+     * @brief The y position of the mouse.
+     */
+    int y;
+} CmdFX_MouseEvent;
 
 #pragma endregion
 

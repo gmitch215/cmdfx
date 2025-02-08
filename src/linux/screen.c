@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <linux/fb.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
+
+#include <X11/Xlib.h>
+#include <linux/fb.h>
 
 #include "cmdfx/screen.h"
 
@@ -34,4 +36,29 @@ void Screen_getSize(int *width, int *height) {
     *height = screen_info.yres;
 
     close(fb);
+}
+
+static int fd = -1;
+static int cx = 0, cy = 0;
+
+void Screen_getMousePos(int* x, int* y) {
+    fd = open("/dev/input/mice", O_RDONLY | O_NONBLOCK);
+    if (fd == -1) {
+        perror("Failed to open /dev/input/mice");
+    }
+
+    if (fd == -1) {
+        close(fd);
+        return;
+    }
+
+    int8_t data[3]; // [button state, dx, dy]
+    ssize_t bytes = read(fd, data, sizeof(data));
+    if (bytes > 0) {
+        cx += data[1];
+        cy -= data[2];
+    }
+
+    *x = cx;
+    *y = cy;
 }

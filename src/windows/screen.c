@@ -46,6 +46,75 @@ void Window_setSize(int width, int height) {
 // Screen API
 
 void Screen_getSize(int* width, int* height) {
+    if (width == 0) return;
+    if (height == 0) return;
+
     *width = GetSystemMetrics(SM_CXSCREEN);
     *height = GetSystemMetrics(SM_CYSCREEN);
+}
+
+void Screen_getMousePos(int* x, int* y) {
+    if (x == 0) return;
+    if (y == 0) return;
+
+    POINT p;
+    if (!GetCursorPos(&p)) return;
+
+    *x = p.x;
+    *y = p.y;
+}
+
+static DWORD original;
+static int original_saved = 0;
+
+static void ensure_saved_settings() {
+    if (!original_saved) {
+        HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
+        GetConsoleMode(hInput, &original);
+        original_saved = 1;
+    }
+}
+
+int Screen_isEchoEnabled() {
+    DWORD mode;
+    ensure_saved_settings();
+    GetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), &mode);
+
+    return (mode & ENABLE_ECHO_INPUT) ? 1 : 0;
+}
+
+int Screen_setEchoEnabled(int enabled) {
+    DWORD mode;
+    ensure_saved_settings();
+    HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
+    GetConsoleMode(hInput, &mode);
+
+    if (enabled)
+        mode |= ENABLE_ECHO_INPUT;
+    else
+        mode &= ~ENABLE_ECHO_INPUT;
+
+    return (SetConsoleMode(hInput, mode) != 0) ? 0 : -1;
+}
+
+int Screen_isLineBuffered() {
+    DWORD mode;
+    ensure_saved_settings();
+    GetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), &mode);
+
+    return (mode & ENABLE_LINE_INPUT) ? 1 : 0;
+}
+
+int Screen_setLineBuffered(int enabled) {
+    DWORD mode;
+    ensure_saved_settings();
+    HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
+    GetConsoleMode(hInput, &mode);
+
+    if (enabled)
+        mode |= ENABLE_LINE_INPUT;
+    else
+        mode &= ~ENABLE_LINE_INPUT;
+    
+    return (SetConsoleMode(hInput, mode) != 0) ? 0 : -1;
 }

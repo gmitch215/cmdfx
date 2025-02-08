@@ -9,6 +9,8 @@
 #include "cmdfx/canvas.h"
 #include "cmdfx/events.h"
 #include "cmdfx/util.h"
+#include "cmdfx/screen.h"
+#include "cmdfx/device.h"
 
 // Core Events
 
@@ -32,6 +34,43 @@ void posix_checkResizeEvent(int sig) {
     }
 }
 
+int _prevKey = 0;
+
+void posix_checkKeyEvent() {
+    int key = Device_getKeyboardKeyPressed();
+    if (key == -1) return;
+
+    if (key != _prevKey) {
+        CmdFX_KeyEvent keyEvent = {_prevKey, key};
+        CmdFX_Event event = {CMDFX_EVENT_KEY, currentTimeMillis(), &keyEvent};
+        dispatchCmdFXEvent(&event);
+
+        _prevKey = key;
+    }
+}
+
+int _prevButton = 0;
+int _prevMouseX = -1;
+int _prevMouseY = -1;
+
+void posix_checkMouseEvent() {
+    int button = Device_getMouseButtonPressed();
+    if (button == -1) return;
+
+    int x, y;
+    Screen_getMousePos(&x, &y);
+
+    if (button != _prevButton || x != _prevMouseX || y != _prevMouseY) {
+        CmdFX_MouseEvent mouseEvent = {_prevButton, button, _prevMouseX, x, _prevMouseY, y};
+        CmdFX_Event event = {CMDFX_EVENT_MOUSE, currentTimeMillis(), &mouseEvent};
+        dispatchCmdFXEvent(&event);
+
+        _prevButton = button;
+        _prevMouseX = x;
+        _prevMouseY = y;
+    }
+}
+
 // Event Loop
 
 void initSignalHandlers() {
@@ -47,6 +86,9 @@ void* _eventLoop(void* arg) {
     _running = 1;
 
     while (_running) {
+        posix_checkKeyEvent();
+        posix_checkMouseEvent();
+
         usleep(EVENT_TICK * 1000);
     }
 
