@@ -91,6 +91,33 @@ int main() {
 
 ```
 
+```c
+#include <stdio.h>
+#include <cmdfx.h>
+
+// Detect when the terminal window is resized
+int onResize(CmdFX_Event* event) {
+    // Get payload data
+    CmdFX_ResizeEvent* resizeEvent = (CmdFX_ResizeEvent*) event->data;
+
+    // Print the previous and new size of the terminal
+    printf("Terminal resized from %dx%d to %dx%d\n", resizeEvent->prevWidth, resizeEvent->prevHeight, resizeEvent->newWidth, resizeEvent->newHeight);
+    
+    return 0;
+}
+
+int main() {
+    int r = 0;
+
+    Canvas_clearScreen();
+    addCmdFXEventListener(CMDFX_EVENT_RESIZE, onResize);
+
+    while (1) {
+        // Do nothing while we wait for an event
+    }
+}
+```
+
 ## 📝 Contributing
 
 If you would like to contribute to cmdfx, please see the [contributing guidelines](CONTRIBUTING.md). All contributions are welcome!
