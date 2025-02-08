@@ -5,7 +5,6 @@
 #include <sys/ioctl.h>
 #include <sys/mman.h>
 
-#include <X11/Xlib.h>
 #include <linux/fb.h>
 
 #include "cmdfx/screen.h"

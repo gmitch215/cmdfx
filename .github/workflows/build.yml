@@ -32,22 +32,15 @@ jobs:
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
-          sudo cmake --build . --config Debug --target install package test
+          sudo cmake --build . --config Debug --target install package
           sudo rm -rf build/package/_CPack_Packages/
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
           dotnet tool install --global wix
           wix extension add --global WixToolset.UI.wixext
-          cmake --build . --config Debug --target install package test
+          cmake --build . --config Debug --target install package
           Get-ChildItem -Path build/package/_CPack_Packages -Recurse | Remove-Item -Recurse -Force
-      - name: Archive Build Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Build-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
-          path: build/bin/*
-          overwrite: true
-          if-no-files-found: ignore
       - name: Archive Package Artifacts
         if: success() || failure()
         uses: actions/upload-artifact@v4
@@ -55,8 +48,12 @@ jobs:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           path: build/package/*
           overwrite: true
-      - name: Test Project
-        run: ctest -C Debug -T test
+      - name: Test Project (Linux/MacOS)
+        if: ${{ matrix.os != 'windows-2022' }}
+        run: sudo cmake --build test --target install test
+      - name: Test Project (Windows)
+        if: ${{ matrix.os == 'windows-2022' }}
+        run: cmake --build test --target install test
   
   deploy:
     runs-on: ubuntu-latest
