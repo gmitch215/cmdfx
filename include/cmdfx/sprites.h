@@ -326,7 +326,7 @@ int Sprite_fillAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi, int width, i
  * This method will also redraw the sprite if it is currently drawn.
  * 
  * @param sprite The sprite to modify.
- * @param c The character to set.
+ * @param ansi The ANSI code to set.
  * @return 1 if the character was set, 0 if an error occurred.
  */
 int Sprite_setAnsiAll(CmdFX_Sprite* sprite, char* ansi);
@@ -538,8 +538,6 @@ int Sprite_setForeground(CmdFX_Sprite* sprite, int x, int y, int rgb);
  * 
  * This method will also redraw the sprite if it is currently drawn.
  * @param sprite The sprite to modify.
- * @param x The X position in the sprite.
- * @param y The Y position in the sprite.
  * @param rgb The RGB color to set.
  * @return 1 if the color was set, 0 if the position is out of bounds or an error occurred.
  */
@@ -555,8 +553,6 @@ int Sprite_setForegroundAll(CmdFX_Sprite* sprite, int rgb);
  * 
  * This method will also redraw the sprite if it is currently drawn.
  * @param sprite The sprite to modify.
- * @param x The X position in the sprite.
- * @param y The Y position in the sprite.
  * @param color The 256-color code to set.
  * @return 1 if the color was set, 0 if the position is out of bounds or an error occurred.
  */
@@ -589,8 +585,6 @@ int Sprite_setBackground(CmdFX_Sprite* sprite, int x, int y, int rgb);
  * 
  * This method will also redraw the sprite if it is currently drawn.
  * @param sprite The sprite to modify.
- * @param x The X position in the sprite.
- * @param y The Y position in the sprite.
  * @param rgb The RGB color to set.
  * @return 1 if the color was set, 0 if the position is out of bounds or an error occurred.
  */
@@ -606,8 +600,6 @@ int Sprite_setBackgroundAll(CmdFX_Sprite* sprite, int rgb);
  * 
  * This method will also redraw the sprite if it is currently drawn.
  * @param sprite The sprite to modify.
- * @param x The X position in the sprite.
- * @param y The Y position in the sprite.
  * @param color The 256-color code to set.
  * @return 1 if the color was set, 0 if the position is out of bounds or an error occurred.
  */
