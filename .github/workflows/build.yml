@@ -54,7 +54,7 @@ jobs:
       - name: Test Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
-          cmake --build test
+          cmake --build test --target install
           ctest -C Debug -T test
   
   deploy:
