@@ -47,6 +47,8 @@ endif()
 if (APPLE)
     target_link_libraries(cmdfx PRIVATE
         "-framework CoreGraphics"
+        "-framework CoreFoundation"
+        "-framework ApplicationServices"
     )
 endif()
 
