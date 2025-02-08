@@ -27,7 +27,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.1.1</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -113,6 +113,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1b/structCmdFX__KeyEvent.html">CmdFX_KeyEvent</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The payload for the <code>CMDFX_EVENT_KEY</code> event.  <a href="../../dc/d1b/structCmdFX__KeyEvent.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/df9/structCmdFX__MouseEvent.html">CmdFX_MouseEvent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The payload for the <code>CMDFX_EVENT_MOUSE</code> event.  <a href="../../df/df9/structCmdFX__MouseEvent.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main event structure for CmdFX.  <a href="../../dc/d5b/structCmdFX__Event.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,6 +145,10 @@ typedef struct CmdFX_ResizeEvent&#160;</td><td class="memItemRight" valign="bott
 typedef struct CmdFX_KeyEvent&#160;</td><td class="memItemRight" valign="bottom"><b>CmdFX_KeyEvent</b></td></tr>
 <tr class="memdesc:a64874cc0e72d640d79b48db0b17a2ca2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The payload for the <code>CMDFX_EVENT_KEY</code> event. <br /></td></tr>
 <tr class="separator:a64874cc0e72d640d79b48db0b17a2ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0c254b686f1f5697858c7cd6d208955" id="r_aa0c254b686f1f5697858c7cd6d208955"><td class="memItemLeft" align="right" valign="top"><a id="aa0c254b686f1f5697858c7cd6d208955" name="aa0c254b686f1f5697858c7cd6d208955"></a>
+typedef struct CmdFX_MouseEvent&#160;</td><td class="memItemRight" valign="bottom"><b>CmdFX_MouseEvent</b></td></tr>
+<tr class="memdesc:aa0c254b686f1f5697858c7cd6d208955"><td class="mdescLeft">&#160;</td><td class="mdescRight">The payload for the <code>CMDFX_EVENT_MOUSE</code> event. <br /></td></tr>
+<tr class="separator:aa0c254b686f1f5697858c7cd6d208955"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbcfbfd42cc9a596e41e5aacca028a90" id="r_acbcfbfd42cc9a596e41e5aacca028a90"><td class="memItemLeft" align="right" valign="top"><a id="acbcfbfd42cc9a596e41e5aacca028a90" name="acbcfbfd42cc9a596e41e5aacca028a90"></a>
 typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><b>EventCallback</b>) (struct <a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *event)</td></tr>
 <tr class="memdesc:acbcfbfd42cc9a596e41e5aacca028a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an event callback. <br /></td></tr>
@@ -208,7 +215,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Called when the mouse is moved or clicked. </p>
-<p>The data is a pointer to a <code>struct CmdFX_MouseEvent</code>. </p>
+<p>The data is a pointer to a <code>struct <a class="el" href="../../df/df9/structCmdFX__MouseEvent.html" title="The payload for the CMDFX_EVENT_MOUSE event.">CmdFX_MouseEvent</a></code>. </p>
 
 </div>
 </div>

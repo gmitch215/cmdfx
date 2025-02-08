@@ -27,7 +27,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.1.1</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -119,6 +119,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a911cd581b96247bb23116f4b8acba397" id="r_a911cd581b96247bb23116f4b8acba397"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a911cd581b96247bb23116f4b8acba397">Screen_getSize</a> (int *width, int *height)</td></tr>
 <tr class="memdesc:a911cd581b96247bb23116f4b8acba397"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the size of the screen, and stores it in the width and height variables.  <br /></td></tr>
 <tr class="separator:a911cd581b96247bb23116f4b8acba397"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac318e8caed540793052a29a7add6dfc5" id="r_ac318e8caed540793052a29a7add6dfc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac318e8caed540793052a29a7add6dfc5">Screen_getMousePos</a> (int *x, int *y)</td></tr>
+<tr class="memdesc:ac318e8caed540793052a29a7add6dfc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the position of the mouse, and stores it in the x and y variables.  <br /></td></tr>
+<tr class="separator:ac318e8caed540793052a29a7add6dfc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d66091265413cc315e2d40c341268d0" id="r_a9d66091265413cc315e2d40c341268d0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d66091265413cc315e2d40c341268d0">Screen_isEchoEnabled</a> ()</td></tr>
+<tr class="memdesc:a9d66091265413cc315e2d40c341268d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether or not echoing is enabled.  <br /></td></tr>
+<tr class="separator:a9d66091265413cc315e2d40c341268d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cb2eeb91a2d858135b4a58808fc8c4a" id="r_a7cb2eeb91a2d858135b4a58808fc8c4a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cb2eeb91a2d858135b4a58808fc8c4a">Screen_setEchoEnabled</a> (int enabled)</td></tr>
+<tr class="memdesc:a7cb2eeb91a2d858135b4a58808fc8c4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether or not echoing is enabled.  <br /></td></tr>
+<tr class="separator:a7cb2eeb91a2d858135b4a58808fc8c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6f161846f996fc2caa1007cfde98fc8" id="r_ae6f161846f996fc2caa1007cfde98fc8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6f161846f996fc2caa1007cfde98fc8">Screen_isLineBuffered</a> ()</td></tr>
+<tr class="memdesc:ae6f161846f996fc2caa1007cfde98fc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether or not line buffering is enabled.  <br /></td></tr>
+<tr class="separator:ae6f161846f996fc2caa1007cfde98fc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f3a5e1fe8e4e6fa0e361d159d9f9e52" id="r_a2f3a5e1fe8e4e6fa0e361d159d9f9e52"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f3a5e1fe8e4e6fa0e361d159d9f9e52">Screen_setLineBuffered</a> (int enabled)</td></tr>
+<tr class="memdesc:a2f3a5e1fe8e4e6fa0e361d159d9f9e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether or not line buffering is enabled.  <br /></td></tr>
+<tr class="separator:a2f3a5e1fe8e4e6fa0e361d159d9f9e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Screen API for controlling other things around the terminal. </p>
@@ -127,6 +142,38 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2025-01-24</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ac318e8caed540793052a29a7add6dfc5" name="ac318e8caed540793052a29a7add6dfc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac318e8caed540793052a29a7add6dfc5">&#9670;&#160;</a></span>Screen_getMousePos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Screen_getMousePos </td>
+          <td>(</td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the position of the mouse, and stores it in the x and y variables. </p>
+<p>This method gets the position of the mouse on the screen. The x and y variables will be updated with the x and y position of the mouse.</p>
+<p>This method will require administrator privileges on Linux.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The pointer to the x position of the mouse. </td></tr>
+    <tr><td class="paramname">y</td><td>The pointer to the y position of the mouse. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a911cd581b96247bb23116f4b8acba397" name="a911cd581b96247bb23116f4b8acba397"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a911cd581b96247bb23116f4b8acba397">&#9670;&#160;</a></span>Screen_getSize()</h2>
 
@@ -154,6 +201,100 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a9d66091265413cc315e2d40c341268d0" name="a9d66091265413cc315e2d40c341268d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d66091265413cc315e2d40c341268d0">&#9670;&#160;</a></span>Screen_isEchoEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Screen_isEchoEnabled </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets whether or not echoing is enabled. </p>
+<p>This method gets whether or not echoing is enabled on the terminal. Echoing is when the terminal displays the characters that are typed. If this is off, the terminal will not display the characters when they are typed.</p>
+<dl class="section return"><dt>Returns</dt><dd>1 if echoing is enabled, 0 if it is not. </dd></dl>
+
+</div>
+</div>
+<a id="ae6f161846f996fc2caa1007cfde98fc8" name="ae6f161846f996fc2caa1007cfde98fc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6f161846f996fc2caa1007cfde98fc8">&#9670;&#160;</a></span>Screen_isLineBuffered()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Screen_isLineBuffered </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets whether or not line buffering is enabled. </p>
+<p>This method gets whether or not line buffering is enabled on the terminal. Line buffering is when the terminal waits for a newline character before sending the input to the program. This must be disabled in order to listen for individual key presses, otherwise events will only pass if the user presses enter.</p>
+<dl class="section return"><dt>Returns</dt><dd>1 if line buffering is enabled, 0 if it is not. </dd></dl>
+
+</div>
+</div>
+<a id="a7cb2eeb91a2d858135b4a58808fc8c4a" name="a7cb2eeb91a2d858135b4a58808fc8c4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cb2eeb91a2d858135b4a58808fc8c4a">&#9670;&#160;</a></span>Screen_setEchoEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Screen_setEchoEnabled </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets whether or not echoing is enabled. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enabled</td><td>1 to enable echoing, 0 to disable echoing. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a2f3a5e1fe8e4e6fa0e361d159d9f9e52" name="a2f3a5e1fe8e4e6fa0e361d159d9f9e52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f3a5e1fe8e4e6fa0e361d159d9f9e52">&#9670;&#160;</a></span>Screen_setLineBuffered()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Screen_setLineBuffered </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets whether or not line buffering is enabled. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enabled</td><td>1 to enable line buffering, 0 to disable line buffering. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
 
 </div>
 </div>

@@ -27,7 +27,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.1.1</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -114,14 +114,29 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// Screen API</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="../../dd/ddc/screen_8h.html#a911cd581b96247bb23116f4b8acba397">   52</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a911cd581b96247bb23116f4b8acba397">Screen_getSize</a>(<span class="keywordtype">int</span>* width, <span class="keywordtype">int</span>* height);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="../../dd/ddc/screen_8h.html#ac318e8caed540793052a29a7add6dfc5">   65</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#ac318e8caed540793052a29a7add6dfc5">Screen_getMousePos</a>(<span class="keywordtype">int</span>* x, <span class="keywordtype">int</span>* y);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="../../dd/ddc/screen_8h.html#a9d66091265413cc315e2d40c341268d0">   77</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a9d66091265413cc315e2d40c341268d0">Screen_isEchoEnabled</a>();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="../../dd/ddc/screen_8h.html#a7cb2eeb91a2d858135b4a58808fc8c4a">   85</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a7cb2eeb91a2d858135b4a58808fc8c4a">Screen_setEchoEnabled</a>(<span class="keywordtype">int</span> enabled);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="../../dd/ddc/screen_8h.html#ae6f161846f996fc2caa1007cfde98fc8">   98</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#ae6f161846f996fc2caa1007cfde98fc8">Screen_isLineBuffered</a>();</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="../../dd/ddc/screen_8h.html#a2f3a5e1fe8e4e6fa0e361d159d9f9e52">  106</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a2f3a5e1fe8e4e6fa0e361d159d9f9e52">Screen_setLineBuffered</a>(<span class="keywordtype">int</span> enabled);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>}</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="ascreen_8h_html_a2f3a5e1fe8e4e6fa0e361d159d9f9e52"><div class="ttname"><a href="../../dd/ddc/screen_8h.html#a2f3a5e1fe8e4e6fa0e361d159d9f9e52">Screen_setLineBuffered</a></div><div class="ttdeci">int Screen_setLineBuffered(int enabled)</div><div class="ttdoc">Sets whether or not line buffering is enabled.</div></div>
 <div class="ttc" id="ascreen_8h_html_a41e8f296d20c97dc8d9fd8dbe1c6fd3f"><div class="ttname"><a href="../../dd/ddc/screen_8h.html#a41e8f296d20c97dc8d9fd8dbe1c6fd3f">Window_setTitle</a></div><div class="ttdeci">void Window_setTitle(const char *title)</div><div class="ttdoc">Sets the title of the terminal window.</div></div>
 <div class="ttc" id="ascreen_8h_html_a52e4b049b3f475f0b9a0844774e5e6aa"><div class="ttname"><a href="../../dd/ddc/screen_8h.html#a52e4b049b3f475f0b9a0844774e5e6aa">Window_setSize</a></div><div class="ttdeci">void Window_setSize(int width, int height)</div><div class="ttdoc">Sets the size of the terminal window.</div></div>
+<div class="ttc" id="ascreen_8h_html_a7cb2eeb91a2d858135b4a58808fc8c4a"><div class="ttname"><a href="../../dd/ddc/screen_8h.html#a7cb2eeb91a2d858135b4a58808fc8c4a">Screen_setEchoEnabled</a></div><div class="ttdeci">int Screen_setEchoEnabled(int enabled)</div><div class="ttdoc">Sets whether or not echoing is enabled.</div></div>
 <div class="ttc" id="ascreen_8h_html_a911cd581b96247bb23116f4b8acba397"><div class="ttname"><a href="../../dd/ddc/screen_8h.html#a911cd581b96247bb23116f4b8acba397">Screen_getSize</a></div><div class="ttdeci">void Screen_getSize(int *width, int *height)</div><div class="ttdoc">Gets the size of the screen, and stores it in the width and height variables.</div></div>
+<div class="ttc" id="ascreen_8h_html_a9d66091265413cc315e2d40c341268d0"><div class="ttname"><a href="../../dd/ddc/screen_8h.html#a9d66091265413cc315e2d40c341268d0">Screen_isEchoEnabled</a></div><div class="ttdeci">int Screen_isEchoEnabled()</div><div class="ttdoc">Gets whether or not echoing is enabled.</div></div>
 <div class="ttc" id="ascreen_8h_html_aa1d321f7c7e6427835786c406a3b0bea"><div class="ttname"><a href="../../dd/ddc/screen_8h.html#aa1d321f7c7e6427835786c406a3b0bea">Window_getTitle</a></div><div class="ttdeci">const char * Window_getTitle()</div><div class="ttdoc">Gets the title of the terminal window.</div></div>
+<div class="ttc" id="ascreen_8h_html_ac318e8caed540793052a29a7add6dfc5"><div class="ttname"><a href="../../dd/ddc/screen_8h.html#ac318e8caed540793052a29a7add6dfc5">Screen_getMousePos</a></div><div class="ttdeci">void Screen_getMousePos(int *x, int *y)</div><div class="ttdoc">Gets the position of the mouse, and stores it in the x and y variables.</div></div>
+<div class="ttc" id="ascreen_8h_html_ae6f161846f996fc2caa1007cfde98fc8"><div class="ttname"><a href="../../dd/ddc/screen_8h.html#ae6f161846f996fc2caa1007cfde98fc8">Screen_isLineBuffered</a></div><div class="ttdeci">int Screen_isLineBuffered()</div><div class="ttdoc">Gets whether or not line buffering is enabled.</div></div>
 <div class="ttc" id="ascreen_8h_html_aeb87b27acb64e12d6db2eaa754e48d18"><div class="ttname"><a href="../../dd/ddc/screen_8h.html#aeb87b27acb64e12d6db2eaa754e48d18">Window_getSize</a></div><div class="ttdeci">void Window_getSize(int *width, int *height)</div><div class="ttdoc">Gets the size of the terminal window, and stores it in the width and height variables.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

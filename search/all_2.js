@@ -86,9 +86,10 @@ var searchData=
   ['cmdfx_5fevent_5fresize_83',['CMDFX_EVENT_RESIZE',['../db/dd2/events_8h.html#a633e456ae66e1bd3632b95ba7ccad01a',1,'events.h']]],
   ['cmdfx_5fgradientdirection_84',['CmdFX_GradientDirection',['../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df',1,'sprites.h']]],
   ['cmdfx_5fkeyevent_85',['CmdFX_KeyEvent',['../dc/d1b/structCmdFX__KeyEvent.html',1,'CmdFX_KeyEvent'],['../db/dd2/events_8h.html#a64874cc0e72d640d79b48db0b17a2ca2',1,'CmdFX_KeyEvent:&#160;events.h']]],
-  ['cmdfx_5fresizeevent_86',['CmdFX_ResizeEvent',['../dc/d75/structCmdFX__ResizeEvent.html',1,'CmdFX_ResizeEvent'],['../db/dd2/events_8h.html#a5cb4290d01e9957f67bbe7a4e16568f6',1,'CmdFX_ResizeEvent:&#160;events.h']]],
-  ['cmdfx_5fsprite_87',['CmdFX_Sprite',['../d7/d39/structCmdFX__Sprite.html',1,'CmdFX_Sprite'],['../d3/def/sprites_8h.html#ac699ae06937cb86e997798eacfaa59bb',1,'CmdFX_Sprite:&#160;sprites.h']]],
-  ['contributing_88',['Contributing',['../index.html#autotoc_md5',1,'📝 Contributing'],['../d2/dfc/md__2home_2runner_2work_2cmdfx_2cmdfx_2CONTRIBUTING.html',1,'Contributing']]],
-  ['currenttimemillis_89',['currentTimeMillis',['../d8/d3c/util_8h.html#abc0cbd0ff1743666d722d55b15b2ba4c',1,'util.h']]],
-  ['currenttimenanos_90',['currentTimeNanos',['../d8/d3c/util_8h.html#addb951d4b6eeed0141dcc3ca78bab8f7',1,'util.h']]]
+  ['cmdfx_5fmouseevent_86',['CmdFX_MouseEvent',['../df/df9/structCmdFX__MouseEvent.html',1,'CmdFX_MouseEvent'],['../db/dd2/events_8h.html#aa0c254b686f1f5697858c7cd6d208955',1,'CmdFX_MouseEvent:&#160;events.h']]],
+  ['cmdfx_5fresizeevent_87',['CmdFX_ResizeEvent',['../dc/d75/structCmdFX__ResizeEvent.html',1,'CmdFX_ResizeEvent'],['../db/dd2/events_8h.html#a5cb4290d01e9957f67bbe7a4e16568f6',1,'CmdFX_ResizeEvent:&#160;events.h']]],
+  ['cmdfx_5fsprite_88',['CmdFX_Sprite',['../d7/d39/structCmdFX__Sprite.html',1,'CmdFX_Sprite'],['../d3/def/sprites_8h.html#ac699ae06937cb86e997798eacfaa59bb',1,'CmdFX_Sprite:&#160;sprites.h']]],
+  ['contributing_89',['Contributing',['../index.html#autotoc_md5',1,'📝 Contributing'],['../d2/dfc/md__2home_2runner_2work_2cmdfx_2cmdfx_2CONTRIBUTING.html',1,'Contributing']]],
+  ['currenttimemillis_90',['currentTimeMillis',['../d8/d3c/util_8h.html#abc0cbd0ff1743666d722d55b15b2ba4c',1,'util.h']]],
+  ['currenttimenanos_91',['currentTimeNanos',['../d8/d3c/util_8h.html#addb951d4b6eeed0141dcc3ca78bab8f7',1,'util.h']]]
 ];

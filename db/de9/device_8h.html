@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>cmdfx: CmdFX_KeyEvent Struct Reference</title>
+<title>cmdfx: /home/runner/work/cmdfx/cmdfx/include/cmdfx/device.h File Reference</title>
 <link rel="icon" href="../../cmdfx.ico" type="image/x-icon" />
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
@@ -84,70 +84,84 @@ $(function(){ initResizable(false); });
 </div>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../dir_d57baba9f97457737bc2ba6c8424a2ea.html">cmdfx</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="../../d2/d40/structCmdFX__KeyEvent-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">CmdFX_KeyEvent Struct Reference</div></div>
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">device.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>The payload for the <code>CMDFX_EVENT_KEY</code> event.  
- <a href="#details">More...</a></p>
+<p>Device command functions.  
+<a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../db/dd2/events_8h_source.html">events.h</a>&gt;</code></p>
+<p><a href="../../db/de9/device_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a3b920b19c99ac52ed7c21bfed9689d40" id="r_a3b920b19c99ac52ed7c21bfed9689d40"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b920b19c99ac52ed7c21bfed9689d40">prevKey</a></td></tr>
-<tr class="memdesc:a3b920b19c99ac52ed7c21bfed9689d40"><td class="mdescLeft">&#160;</td><td class="mdescRight">The previous key code, or 0 if no key was previously pressed.  <br /></td></tr>
-<tr class="separator:a3b920b19c99ac52ed7c21bfed9689d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ed739ac79d21622f1ecb05876dfa426" id="r_a4ed739ac79d21622f1ecb05876dfa426"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ed739ac79d21622f1ecb05876dfa426">keyCode</a></td></tr>
-<tr class="memdesc:a4ed739ac79d21622f1ecb05876dfa426"><td class="mdescLeft">&#160;</td><td class="mdescRight">The key code, or 0 if no key is pressed.  <br /></td></tr>
-<tr class="separator:a4ed739ac79d21622f1ecb05876dfa426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a2853958dddcf1815169dc7993cf37e3f" id="r_a2853958dddcf1815169dc7993cf37e3f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2853958dddcf1815169dc7993cf37e3f">Device_getKeyboardKeyPressed</a> ()</td></tr>
+<tr class="memdesc:a2853958dddcf1815169dc7993cf37e3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current key being pressed, or -1 if no key is being pressed.  <br /></td></tr>
+<tr class="separator:a2853958dddcf1815169dc7993cf37e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16b7d7ef2fcaba946ffacfb09624e1ce" id="r_a16b7d7ef2fcaba946ffacfb09624e1ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16b7d7ef2fcaba946ffacfb09624e1ce">Device_getMouseButtonPressed</a> ()</td></tr>
+<tr class="memdesc:a16b7d7ef2fcaba946ffacfb09624e1ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current mouse button being pressed, or -1 if no button is being pressed.  <br /></td></tr>
+<tr class="separator:a16b7d7ef2fcaba946ffacfb09624e1ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The payload for the <code>CMDFX_EVENT_KEY</code> event. </p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a4ed739ac79d21622f1ecb05876dfa426" name="a4ed739ac79d21622f1ecb05876dfa426"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ed739ac79d21622f1ecb05876dfa426">&#9670;&#160;</a></span>keyCode</h2>
+<div class="textblock"><p>Device command functions. </p>
+<dl class="section author"><dt>Author</dt><dd>Gregory Mitchell (<a href="#" onclick="location.href='mai'+'lto:'+'me@'+'gm'+'itc'+'h2'+'15.'+'xy'+'z'; return false;">me@gm<span class="obfuscator">.nosp@m.</span>itch<span class="obfuscator">.nosp@m.</span>215.x<span class="obfuscator">.nosp@m.</span>yz</a>) </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-02-07</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025 </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a2853958dddcf1815169dc7993cf37e3f" name="a2853958dddcf1815169dc7993cf37e3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2853958dddcf1815169dc7993cf37e3f">&#9670;&#160;</a></span>Device_getKeyboardKeyPressed()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int CmdFX_KeyEvent::keyCode</td>
+          <td class="memname">int Device_getKeyboardKeyPressed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The key code, or 0 if no key is pressed. </p>
-<p>Tip: Use the <code>char</code> type to convert the key code to a character. </p>
+<p>Gets the current key being pressed, or -1 if no key is being pressed. </p>
+<p>This is a non-blocking method. This method gets the current key being pressed on the keyboard. If no key is being pressed, it will return -1.</p>
+<p>This method requires administrator privileges on Linux.</p>
+<dl class="section return"><dt>Returns</dt><dd>The key code of the key being pressed, or -1 if no key is being pressed. </dd></dl>
 
 </div>
 </div>
-<a id="a3b920b19c99ac52ed7c21bfed9689d40" name="a3b920b19c99ac52ed7c21bfed9689d40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b920b19c99ac52ed7c21bfed9689d40">&#9670;&#160;</a></span>prevKey</h2>
+<a id="a16b7d7ef2fcaba946ffacfb09624e1ce" name="a16b7d7ef2fcaba946ffacfb09624e1ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16b7d7ef2fcaba946ffacfb09624e1ce">&#9670;&#160;</a></span>Device_getMouseButtonPressed()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int CmdFX_KeyEvent::prevKey</td>
+          <td class="memname">int Device_getMouseButtonPressed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The previous key code, or 0 if no key was previously pressed. </p>
-<p>Tip: Use the <code>char</code> type to convert the key code to a character. </p>
+<p>Gets the current mouse button being pressed, or -1 if no button is being pressed. </p>
+<p>This is a non-blocking method. This method gets the current mouse event. If no mouse button is being pressed, it will return -1.</p>
+<p>This method requires administrator privileges on Linux.</p>
+<dl class="section return"><dt>Returns</dt><dd>The mouse event struct. </dd></dl>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/home/runner/work/cmdfx/cmdfx/include/cmdfx/<a class="el" href="../../db/dd2/events_8h_source.html">events.h</a></li>
-</ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
