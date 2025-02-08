@@ -53,9 +53,7 @@ jobs:
         run: sudo cmake --build test --target install test
       - name: Test Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
-        run: |
-          cmake --build test --target install
-          ctest -C Debug -T test
+        run: ctest -C Debug -T test
   
   deploy:
     runs-on: ubuntu-latest

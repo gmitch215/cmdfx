@@ -54,7 +54,12 @@ endif()
 
 # Testing
 enable_testing()
-add_subdirectory(test EXCLUDE_FROM_ALL)
+
+if (WIN32)
+    add_subdirectory(test)
+else()
+    add_subdirectory(test EXCLUDE_FROM_ALL)
+endif()
 
 # Documentation
 option(DOCS_CMDFX "Build API documentation with Doxygen" ON)
