@@ -184,6 +184,40 @@ int CharBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradius
 int CharBuilder_line(char** array, int x1, int y1, int x2, int y2, char c);
 
 /**
+ * @brief Draws a polygon in a 2D Character Array.
+ * 
+ * This method draws a polygon in a 2D Character Array. If the x or y coordinate
+ * is out of bounds, the method will return -1. If the polygon goes out of bounds,
+ * the polygon will be cropped.
+ * 
+ * @param array The character array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param sides The number of sides of the polygon.
+ * @param radius The radius of the polygon.
+ * @param c The character to draw the polygon with.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CharBuilder_polygon(char** array, int x, int y, int sides, int radius, char c);
+
+/**
+ * @brief Fills a polygon in a 2D Character Array.
+ * 
+ * This method fills a polygon in a 2D Character Array. If the x or y coordinate
+ * is out of bounds, the method will return -1. If the polygon goes out of bounds,
+ * the polygon will be cropped.
+ * 
+ * @param array The character array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param sides The number of sides of the polygon.
+ * @param radius The radius of the polygon.
+ * @param c The character to fill the polygon with.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CharBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, char c);
+
+/**
  * @brief Writes text in a 2D Character Array.
  * 
  * If the text is too long to fit in the array, it will be wrapped to
@@ -457,6 +491,46 @@ int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradiu
  * @return 0 if successful, -1 if an error occurred.
  */
 int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c);
+
+/**
+ * @brief Draws a polygon in a 2D String Array.
+ * 
+ * Like all methods in AnsiBuilder, this does **not** append anything to the string.
+ * You will need to input the full ANSI code, like "\033[31m" for red text.
+ * 
+ * This method draws a polygon in a 2D String Array. If the x or y coordinate
+ * is out of bounds, the method will return -1. If the polygon goes out of bounds,
+ * the polygon will be cropped.
+ * 
+ * @param array The string array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param sides The number of sides of the polygon.
+ * @param radius The radius of the polygon.
+ * @param c The ANSI code to draw the polygon with.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_polygon(char*** array, int x, int y, int sides, int radius, char* c);
+
+/**
+ * @brief Fills a polygon in a 2D String Array.
+ * 
+ * Like all methods in AnsiBuilder, this does **not** append anything to the string.
+ * You will need to input the full ANSI code, like "\033[31m" for red text.
+ * 
+ * This method fills a polygon in a 2D String Array. If the x or y coordinate
+ * is out of bounds, the method will return -1. If the polygon goes out of bounds,
+ * the polygon will be cropped.
+ * 
+ * @param array The string array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param sides The number of sides of the polygon.
+ * @param radius The radius of the polygon.
+ * @param c The ANSI code to fill the polygon with.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, char* c);
 
 #pragma endregion
 

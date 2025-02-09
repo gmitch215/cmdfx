@@ -407,6 +407,34 @@ void Canvas_fillEllipse(int x, int y, int xradius, int yradius, char c);
  */
 void Canvas_line(int x1, int y1, int x2, int y2, char c);
 
+/**
+ * @brief Draws a polygon.
+ * 
+ * This method draws a polygon with the specified number of sides and radius.
+ * The X and Y coordinates are the center of the polygon.
+ * 
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param sides Number of sides.
+ * @param radius Radius of the polygon.
+ * @param c The character to draw the polygon with.
+ */
+void Canvas_polygon(int x, int y, int sides, int radius, char c);
+
+/**
+ * @brief Fills a polygon with a character.
+ * 
+ * This method fills a polygon with the specified number of sides and radius.
+ * The X and Y coordinates are the center of the polygon.
+ * 
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param sides Number of sides.
+ * @param radius Radius of the polygon.
+ * @param c The character to fill the polygon with.
+ */
+void Canvas_fillPolygon(int x, int y, int sides, int radius, char c);
+
 // Utility Functions - Text
 
 /**

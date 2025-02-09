@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #include "cmdfx/builder.h"
 
@@ -326,6 +327,66 @@ int CharBuilder_line(char** array, int x1, int y1, int x2, int y2, char c) {
             y1 += sy;
         }
     }
+
+    return 0;
+}
+
+int CharBuilder_polygon(char** array, int x, int y, int sides, int radius, char c) {
+    if (array == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    if (array[y] == 0) return -1;
+    if (array[y][x] == 0) return -1;
+
+    if (sides < 3) return -1;
+
+    double angle = 2 * M_PI / sides;
+    double startAngle = M_PI / 2;
+
+    int prevX = x + radius * cos(startAngle);
+    int prevY = y + radius * sin(startAngle);
+
+    for (int i = 1; i <= sides; i++) {
+        double currentAngle = startAngle + i * angle;
+        int currentX = x + radius * cos(currentAngle);
+        int currentY = y + radius * sin(currentAngle);
+
+        CharBuilder_line(array, prevX, prevY, currentX, currentY, c);
+
+        prevX = currentX;
+        prevY = currentY;
+    }
+
+    return 0;
+}
+
+int CharBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, char c) {
+    if (array == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    if (array[y] == 0) return -1;
+    if (array[y][x] == 0) return -1;
+
+    if (sides < 3) return -1;
+
+    double angle = 2 * M_PI / sides;
+    double startAngle = M_PI / 2;
+
+    int* xPoints = malloc(sizeof(int) * sides);
+    int* yPoints = malloc(sizeof(int) * sides);
+
+    for (int i = 0; i < sides; i++) {
+        double currentAngle = startAngle + i * angle;
+        xPoints[i] = x + radius * cos(currentAngle);
+        yPoints[i] = y + radius * sin(currentAngle);
+    }
+
+    for (int i = 0; i < sides; i++) CharBuilder_line(array, x, y, xPoints[i], yPoints[i], c);
+    for (int i = 0; i < sides - 1; i++) CharBuilder_line(array, xPoints[i], yPoints[i], xPoints[i + 1], yPoints[i + 1], c);
+    CharBuilder_line(array, xPoints[sides - 1], yPoints[sides - 1], xPoints[0], yPoints[0], c);
+
+    free(xPoints);
+    free(yPoints);
 
     return 0;
 }
@@ -774,6 +835,66 @@ int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c) {
             y1 += sy;
         }
     }
+
+    return 0;
+}
+
+int AnsiBuilder_polygon(char*** array, int x, int y, int sides, int radius, char* c) {
+    if (array == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    if (array[y] == 0) return -1;
+    if (array[y][x] == 0) return -1;
+
+    if (sides < 3) return -1;
+
+    double angle = 2 * M_PI / sides;
+    double startAngle = M_PI / 2;
+
+    int prevX = x + radius * cos(startAngle);
+    int prevY = y + radius * sin(startAngle);
+
+    for (int i = 1; i <= sides; i++) {
+        double currentAngle = startAngle + i * angle;
+        int currentX = x + radius * cos(currentAngle);
+        int currentY = y + radius * sin(currentAngle);
+
+        AnsiBuilder_line(array, prevX, prevY, currentX, currentY, c);
+
+        prevX = currentX;
+        prevY = currentY;
+    }
+
+    return 0;
+}
+
+int AnsiBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, char* c) {
+    if (array == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    if (array[y] == 0) return -1;
+    if (array[y][x] == 0) return -1;
+
+    if (sides < 3) return -1;
+
+    double angle = 2 * M_PI / sides;
+    double startAngle = M_PI / 2;
+
+    int* xPoints = malloc(sizeof(int) * sides);
+    int* yPoints = malloc(sizeof(int) * sides);
+
+    for (int i = 0; i < sides; i++) {
+        double currentAngle = startAngle + i * angle;
+        xPoints[i] = x + radius * cos(currentAngle);
+        yPoints[i] = y + radius * sin(currentAngle);
+    }
+
+    for (int i = 0; i < sides; i++) AnsiBuilder_line(array, x, y, xPoints[i], yPoints[i], c);
+    for (int i = 0; i < sides - 1; i++) AnsiBuilder_line(array, xPoints[i], yPoints[i], xPoints[i + 1], yPoints[i + 1], c);
+    AnsiBuilder_line(array, xPoints[sides - 1], yPoints[sides - 1], xPoints[0], yPoints[0], c);
+
+    free(xPoints);
+    free(yPoints);
 
     return 0;
 }

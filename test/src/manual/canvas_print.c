@@ -30,6 +30,8 @@ int main() {
     Canvas_drawAsciiText(x / 6, y + 1, '%', "ABCDEF");
     Canvas_disableDim();
 
+    Canvas_polygon(x, y, 10, 6, '#');
+
     Canvas_showCursor();
     Canvas_setCursor(cx, cy);
 

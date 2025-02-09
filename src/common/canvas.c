@@ -313,6 +313,46 @@ void Canvas_line(int x1, int y1, int x2, int y2, char c) {
     }
 }
 
+void Canvas_polygon(int x, int y, int sides, int radius, char c) {
+    double angle = 2 * M_PI / sides;
+    double startAngle = M_PI / 2;
+
+    int prevX = x + radius * cos(startAngle);
+    int prevY = y + radius * sin(startAngle);
+
+    for (int i = 1; i <= sides; i++) {
+        double currentAngle = startAngle + i * angle;
+        int currentX = x + radius * cos(currentAngle);
+        int currentY = y + radius * sin(currentAngle);
+
+        Canvas_line(prevX, prevY, currentX, currentY, c);
+
+        prevX = currentX;
+        prevY = currentY;
+    }
+}
+
+void Canvas_fillPolygon(int x, int y, int sides, int radius, char c) {
+    double angle = 2 * M_PI / sides;
+    double startAngle = M_PI / 2;
+
+    int* xPoints = malloc(sizeof(int) * sides);
+    int* yPoints = malloc(sizeof(int) * sides);
+
+    for (int i = 0; i < sides; i++) {
+        double currentAngle = startAngle + i * angle;
+        xPoints[i] = x + radius * cos(currentAngle);
+        yPoints[i] = y + radius * sin(currentAngle);
+    }
+
+    for (int i = 0; i < sides; i++) Canvas_line(x, y, xPoints[i], yPoints[i], c);
+    for (int i = 0; i < sides - 1; i++) Canvas_line(xPoints[i], yPoints[i], xPoints[i + 1], yPoints[i + 1], c);
+    Canvas_line(xPoints[sides - 1], yPoints[sides - 1], xPoints[0], yPoints[0], c);
+
+    free(xPoints);
+    free(yPoints);
+}
+
 // Utility Functions - Text
 
 void Canvas_drawText(int x, int y, const char* text) {
