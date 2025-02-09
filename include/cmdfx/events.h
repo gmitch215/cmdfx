@@ -59,7 +59,7 @@ typedef struct CmdFX_ResizeEvent {
 } CmdFX_ResizeEvent;
 
 /**
- * @brief Called when a key is pressed.
+ * @brief Called when a key is pressed or released.
  * 
  * The data is a pointer to a `struct CmdFX_KeyEvent`.
  */
@@ -70,17 +70,21 @@ typedef struct CmdFX_ResizeEvent {
  */
 typedef struct CmdFX_KeyEvent {
     /**
-     * @brief The previous key code, or 0 if no key was previously pressed.
-     * 
-     * Tip: Use the `char` type to convert the key code to a character.
-     */
-    int prevKey;
-    /**
      * @brief The key code, or 0 if no key is pressed.
-     * 
-     * Tip: Use the `char` type to convert the key code to a character.
      */
     int keyCode;
+    /**
+     * @brief The character representation of the key.
+     * 
+     * This value is 0 if the key does not have a character representation.
+     */
+    char keyChar;
+    /**
+     * @brief The state of the key.
+     * 
+     * The state is 1 if the key is pressed, or 0 if the key is released.
+     */
+    int state;
 } CmdFX_KeyEvent;
 
 /**
@@ -95,13 +99,18 @@ typedef struct CmdFX_KeyEvent {
  */
 typedef struct CmdFX_MouseEvent {
     /**
-     * @brief The previous button that was pressed, or -1 if no button was pressed.
-     */
-    int prevButton;
-    /**
      * @brief The button that was pressed, or -1 if no button was pressed.
+     * 
+     * On most systems, the button values are as follows:
+     * - 0: Left mouse button
+     * - 1: Middle mouse button
+     * - 2: Right mouse button
      */
     int button;
+    /**
+     * @brief Whether the button was pressed or released.
+     */
+    int state;
     /**
      * @brief The previous x position of the mouse.
      */

@@ -49,6 +49,8 @@ if (APPLE)
         "-framework CoreGraphics"
         "-framework CoreFoundation"
         "-framework ApplicationServices"
+        "-framework Carbon"
+        "-framework IOKit"
     )
 endif()
 

@@ -35,41 +35,50 @@ void win_checkResizeEvent() {
     }
 }
 
-int _prevKey = 0;
+int* _prevKeys = 0;
 
 void win_checkKeyEvent() {
-    int key = Device_getKeyboardKeyPressed();
-    if (key == -1) return;
+    int* keys = Device_getKeyboardKeysPressed();
+    if (_prevKeys == 0)
+        _prevKeys = (int*) calloc(256, sizeof(int));
 
-    if (key != _prevKey) {
-        CmdFX_KeyEvent keyEvent = {_prevKey, key};
-        CmdFX_Event event = {CMDFX_EVENT_KEY, currentTimeMillis(), &keyEvent};
-        dispatchCmdFXEvent(&event);
-
-        _prevKey = key;
+    for (int i = 0; i < 256; i++) {
+        if (keys[i] != _prevKeys[i]) {
+            CmdFX_KeyEvent keyEvent = {i, Device_fromKeyCode(i), keys[i]};
+            CmdFX_Event event = {CMDFX_EVENT_KEY, currentTimeMillis(), &keyEvent};
+            dispatchCmdFXEvent(&event);
+            _prevKeys[i] = keys[i];
+        }
     }
+
+    free(keys);
 }
 
-int _prevButton = 0;
+int* _prevButtons = 0;
 int _prevMouseX = -1;
 int _prevMouseY = -1;
 
 void win_checkMouseEvent() {
-    int button = Device_getMouseButtonPressed();
-    if (button == -1) return;
+    int* buttons = Device_getMouseButtonsPressed();
+    if (_prevButtons == 0)
+        _prevButtons = (int*) calloc(3, sizeof(int));
 
     int x, y;
     Screen_getMousePos(&x, &y);
 
-    if (button != _prevButton || x != _prevMouseX || y != _prevMouseY) {
-        CmdFX_MouseEvent mouseEvent = {_prevButton, button, _prevMouseX, x, _prevMouseY, y};
-        CmdFX_Event event = {CMDFX_EVENT_MOUSE, currentTimeMillis(), &mouseEvent};
-        dispatchCmdFXEvent(&event);
+    for (int i = 0; i < 3; i++) {
+        if (buttons[i] != _prevButtons[i] || x != _prevMouseX || y != _prevMouseY) {
+            CmdFX_MouseEvent mouseEvent = {i, buttons[i], _prevMouseX, x, _prevMouseY, y};
+            CmdFX_Event event = {CMDFX_EVENT_MOUSE, currentTimeMillis(), &mouseEvent};
+            dispatchCmdFXEvent(&event);
 
-        _prevButton = button;
-        _prevMouseX = x;
-        _prevMouseY = y;
+            _prevButtons[i] = buttons[i];
+            _prevMouseX = x;
+            _prevMouseY = y;
+        }
     }
+
+    free(buttons);
 }
 
 // Event Loop
@@ -106,6 +115,10 @@ int beginCmdFXEventLoop() {
 
 int endCmdFXEventLoop() {
     if (!_running) return 0;
+
+    // free up loose variables
+    if (_prevKeys) free(_prevKeys);
+    if (_prevButtons) free(_prevButtons);
 
     _running = 0;
     return 1;

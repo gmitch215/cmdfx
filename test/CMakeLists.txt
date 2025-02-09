@@ -48,6 +48,8 @@ add_test_executable(common canvas_dimensions)
 
 # Manual
 add_manual_test(events_resize)
+add_manual_test(events_key)
+add_manual_test(events_mouse)
 
 add_manual_test(canvas_print)
 add_manual_test(canvas_animated)
