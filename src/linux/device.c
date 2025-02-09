@@ -46,6 +46,34 @@ char* find_linux_event(const char* keyword) {
     return 0;
 }
 
+char Device_fromKeyCode(int keyCode) {
+    struct input_event ev;
+    char *devicePath = find_linux_event("keyboard");
+    if (!devicePath) {
+        fprintf(stderr, "Keyboard event device not found.\n");
+        return '\0';
+    }
+
+    int fd = open(devicePath, O_RDONLY);
+    free(devicePath);
+    if (fd < 0) {
+        perror("Failed to open input device");
+        return '\0';
+    }
+
+    while (read(fd, &ev, sizeof(struct input_event)) > 0) {
+        if (ev.type == EV_KEY && ev.value == 1) {
+            if (ev.code == keyCode) {
+                close(fd);
+                return (char) keyCode;
+            }
+        }
+    }
+
+    close(fd);
+    return '\0';
+}
+
 int* Device_getKeyboardKeysPressed() {
     char* eventFile = find_linux_event("keyboard");
     if (!eventFile) return 0;
