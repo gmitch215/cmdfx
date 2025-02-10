@@ -4,7 +4,7 @@
 #include <ApplicationServices/ApplicationServices.h>
 #include <Carbon/Carbon.h>
 
-#include "cmdfx/device.h"
+#include "cmdfx/core/device.h"
 
 int* Device_getKeyboardKeysPressed() {
     int* keys = (int*) calloc(256, sizeof(int)); 

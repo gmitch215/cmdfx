@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "cmdfx/util.h"
+#include "cmdfx/core/util.h"
 #include "../test.h"
 
 int main() {

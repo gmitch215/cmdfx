@@ -3,7 +3,7 @@
 #include <ApplicationServices/ApplicationServices.h>
 #include <CoreGraphics/CoreGraphics.h>
 
-#include "cmdfx/screen.h"
+#include "cmdfx/core/screen.h"
 
 // Screen API
 

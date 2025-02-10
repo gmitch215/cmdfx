@@ -10,7 +10,7 @@
  */
 #pragma once
 
-#include "cmdfx/canvas.h"
+#include "cmdfx/core/canvas.h"
 
 #ifdef __cplusplus
 extern "C" {

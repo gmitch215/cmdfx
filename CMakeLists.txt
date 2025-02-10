@@ -120,6 +120,9 @@ if (INSTALL_CMDFX)
             INSTALL_DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
     )
 
+    # Library Components
+
+    ## Core Library
     install(EXPORT cmdfx-targets
         FILE ${PROJECT_NAME}Targets.cmake
         NAMESPACE ${PROJECT_NAME}::
@@ -131,12 +134,32 @@ if (INSTALL_CMDFX)
             DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
             COMPONENT library
     )
-    install(DIRECTORY
-            "${PROJECT_SOURCE_DIR}/include/"
+
+    install(FILES "${PROJECT_SOURCE_DIR}/include/cmdfx.h"
             DESTINATION include
             COMPONENT library
     )
+    install(DIRECTORY
+            "${PROJECT_SOURCE_DIR}/include/cmdfx/core/"
+            DESTINATION include/cmdfx/core
+            COMPONENT library
+    )
+
+    ## Physics Engine
+    install(DIRECTORY
+            "${PROJECT_SOURCE_DIR}/include/cmdfx/physics/"
+            DESTINATION include/cmdfx/physics
+            COMPONENT library
+    )
+
+    ## Audio Library
+    install(DIRECTORY
+            "${PROJECT_SOURCE_DIR}/include/cmdfx/audio/"
+            DESTINATION include/cmdfx/audio
+            COMPONENT library
+    )
     
+    # Documentation Components
     if (DOCS_CMDFX)
         if (EXISTS "${PROJECT_SOURCE_DIR}/build/docs/html")
             install(DIRECTORY
@@ -236,6 +259,6 @@ if (PACKAGE_CMDFX)
     cpack_add_component(attribution DISPLAY_NAME "Attribution" DESCRIPTION "Attribution files from cmdfx" REQUIRED ON)
 
     cpack_add_component_group(docs DISPLAY_NAME "Documentation" DESCRIPTION "Documentation for cmdfx" EXPANDED ON)
-    cpack_add_component(htmlDocs DISPLAY_NAME "HTML Documentation" DESCRIPTION "HTML documentation for cmdfx" GROUP docs)
-    cpack_add_component(latexDocs DISPLAY_NAME "LaTeX Documentation" DESCRIPTION "LaTeX documentation for cmdfx" GROUP docs)
+    cpack_add_component(htmlDocs DISPLAY_NAME "HTML Documentation" DESCRIPTION "HTML documentation for cmdfx" GROUP docs DISABLED ON)
+    cpack_add_component(latexDocs DISPLAY_NAME "LaTeX Documentation" DESCRIPTION "LaTeX documentation for cmdfx" GROUP docs DISABLED ON)
 endif()

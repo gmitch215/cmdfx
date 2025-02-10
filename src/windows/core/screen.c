@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-#include "cmdfx/screen.h"
+#include "cmdfx/core/screen.h"
 
 // Window API
 

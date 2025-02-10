@@ -1,4 +1,4 @@
-#include "cmdfx/canvas.h"
+#include "cmdfx/core/canvas.h"
 
 int main() {
     Canvas_clearScreen();

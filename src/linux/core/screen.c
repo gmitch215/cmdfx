@@ -7,7 +7,7 @@
 
 #include <linux/fb.h>
 
-#include "cmdfx/screen.h"
+#include "cmdfx/core/screen.h"
 
 // Screen API
 

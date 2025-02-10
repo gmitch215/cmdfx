@@ -8,7 +8,7 @@
 
 #include <linux/input.h>
 
-#include "cmdfx/device.h"
+#include "cmdfx/core/device.h"
 
 char* find_linux_event(const char* keyword) {
     FILE *fp = fopen("/proc/bus/input/devices", "r");

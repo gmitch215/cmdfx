@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "cmdfx/canvas.h"
+#include "cmdfx/core/canvas.h"
 #include "../test.h"
 
 int main() {

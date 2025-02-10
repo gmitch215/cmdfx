@@ -5,7 +5,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-#include "cmdfx/screen.h"
+#include "cmdfx/core/screen.h"
 
 // Window API
 

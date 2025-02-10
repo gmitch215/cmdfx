@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "cmdfx/canvas.h"
-#include "cmdfx/animation/canvas.h"
+#include "cmdfx/core/canvas.h"
+#include "cmdfx/core/animation/canvas.h"
 #include "../test.h"
 
 int main() {

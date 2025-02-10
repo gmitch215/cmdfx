@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "cmdfx/screen.h"
+#include "cmdfx/core/screen.h"
 #include "../test.h"
 
 int main() {

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-#include "cmdfx/device.h"
+#include "cmdfx/core/device.h"
 
 int* Device_getKeyboardKeysPressed() {
     int* keys = (int*) calloc(256, sizeof(int)); 

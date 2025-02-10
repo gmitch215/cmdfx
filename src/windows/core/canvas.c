@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <windows.h>
 
-#include "cmdfx/canvas.h"
+#include "cmdfx/core/canvas.h"
 
 int Canvas_getWidth() {
     int width = 0;

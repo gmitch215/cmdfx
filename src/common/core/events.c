@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "cmdfx/events.h"
+#include "cmdfx/core/events.h"
 
 #define MAX_LISTENERS 1024
 

@@ -4,7 +4,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
-#include "cmdfx/canvas.h"
+#include "cmdfx/core/canvas.h"
 
 int Canvas_getWidth() {
     struct winsize w;

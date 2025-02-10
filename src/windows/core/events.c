@@ -1,42 +1,43 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
-#include <unistd.h>
-#include <signal.h>
-#include <sys/ioctl.h>
+#include <stdint.h>
+#include <windows.h>
+#include <process.h>
 #include <time.h>
 
-#include "cmdfx/canvas.h"
-#include "cmdfx/events.h"
-#include "cmdfx/util.h"
-#include "cmdfx/screen.h"
-#include "cmdfx/device.h"
+#include "cmdfx/core/canvas.h"
+#include "cmdfx/core/events.h"
+#include "cmdfx/core/util.h"
+#include "cmdfx/core/screen.h"
+#include "cmdfx/core/device.h"
 
 // Core Events
 
 int _prevWidth = 0;
 int _prevHeight = 0;
 
-void posix_checkResizeEvent(int sig) {
-    struct winsize ws;
-    if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == -1) {
-        perror("ioctl");
-        return;
-    }
+void win_checkResizeEvent() {
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    if (ws.ws_col != _prevWidth || ws.ws_row != _prevHeight) {
-        CmdFX_ResizeEvent resize = {_prevWidth, _prevHeight, ws.ws_col, ws.ws_row};
-        CmdFX_Event event = {CMDFX_EVENT_RESIZE, currentTimeMillis(), &resize};
-        dispatchCmdFXEvent(&event);
+    if (GetConsoleScreenBufferInfo(hConsole, &csbi)) {
+        int width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+        int height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 
-        _prevWidth = ws.ws_col;
-        _prevHeight = ws.ws_row;
+        if (width != _prevWidth || height != _prevHeight) {
+            CmdFX_ResizeEvent resize = {_prevWidth, _prevHeight, width, height};
+            CmdFX_Event event = {CMDFX_EVENT_RESIZE, currentTimeMillis(), &resize};
+            dispatchCmdFXEvent(&event);
+
+            _prevWidth = width;
+            _prevHeight = height;
+        }
     }
 }
 
 int* _prevKeys = 0;
 
-void posix_checkKeyEvent() {
+void win_checkKeyEvent() {
     int* keys = Device_getKeyboardKeysPressed();
     if (_prevKeys == 0)
         _prevKeys = (int*) calloc(256, sizeof(int));
@@ -57,7 +58,7 @@ int* _prevButtons = 0;
 int _prevMouseX = -1;
 int _prevMouseY = -1;
 
-void posix_checkMouseEvent() {
+void win_checkMouseEvent() {
     int* buttons = Device_getMouseButtonsPressed();
     if (_prevButtons == 0)
         _prevButtons = (int*) calloc(3, sizeof(int));
@@ -82,23 +83,17 @@ void posix_checkMouseEvent() {
 
 // Event Loop
 
-void initSignalHandlers() {
-    struct sigaction sa;
-    sa.sa_handler = posix_checkResizeEvent;
-    sa.sa_flags = SA_RESTART;
-    sigaction(SIGWINCH, &sa, NULL);
-}
-
 int _running = 0;
 
-void* _eventLoop(void* arg) {
+unsigned __stdcall _eventLoop(void* arg) {
     _running = 1;
 
     while (_running) {
-        posix_checkKeyEvent();
-        posix_checkMouseEvent();
+        win_checkResizeEvent();
+        win_checkKeyEvent();
+        win_checkMouseEvent();
 
-        usleep(EVENT_TICK * 1000);
+        Sleep(EVENT_TICK);
     }
 
     return 0;
@@ -107,17 +102,14 @@ void* _eventLoop(void* arg) {
 int beginCmdFXEventLoop() {
     if (_running) return 0;
 
-    pthread_t eventLoopThread;
-    if (pthread_create(&eventLoopThread, 0, _eventLoop, 0) != 0) {
-        fprintf(stderr, "Failed to start event loop.\n");
-        exit(1);
+    uintptr_t eventLoopThread;
+    eventLoopThread = _beginthreadex(NULL, 0, _eventLoop, NULL, 0, NULL);
+    if (eventLoopThread == 0) {
+        perror("Failed to start event loop.\n");
+        exit(EXIT_FAILURE);
     }
 
-    pthread_detach(eventLoopThread);
-
-    initSignalHandlers();
-    posix_checkResizeEvent(0);
-
+    CloseHandle((HANDLE) eventLoopThread);
     return 1;
 }
 

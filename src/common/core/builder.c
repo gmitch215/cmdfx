@@ -5,7 +5,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#include "cmdfx/builder.h"
+#include "cmdfx/core/builder.h"
 
 #pragma region Character Builder
 

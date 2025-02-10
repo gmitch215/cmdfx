@@ -5,8 +5,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#include "cmdfx/canvas.h"
-#include "cmdfx/util.h"
+#include "cmdfx/core/canvas.h"
+#include "cmdfx/core/util.h"
 
 // Utility Functions - Shapes
 

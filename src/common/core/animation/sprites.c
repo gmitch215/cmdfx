@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "cmdfx/sprites.h"
-#include "cmdfx/animation/sprites.h"
-#include "cmdfx/util.h"
+#include "cmdfx/core/sprites.h"
+#include "cmdfx/core/animation/sprites.h"
+#include "cmdfx/core/util.h"
 
 // Utility Methods - Movement
 

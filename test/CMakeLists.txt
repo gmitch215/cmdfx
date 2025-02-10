@@ -16,7 +16,7 @@ function(add_test_executable folder name)
     add_test(NAME ${folder}/${name} COMMAND "${TEST_NAME}")
 
     if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
-        target_compile_options("${TEST_NAME}" PRIVATE --coverage -lm)
+        target_compile_options("${TEST_NAME}" PRIVATE --coverage -lm -w)
         target_link_options("${TEST_NAME}" PRIVATE --coverage)
     endif()
 endfunction()
@@ -31,7 +31,7 @@ function(add_manual_test name)
     add_dependencies("${TEST_NAME}" cmdfx)
 
     if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
-        target_compile_options("${TEST_NAME}" PRIVATE -lm)
+        target_compile_options("${TEST_NAME}" PRIVATE -lm -w)
     endif()
 endfunction()
 

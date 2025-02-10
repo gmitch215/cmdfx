@@ -6,9 +6,9 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#include "cmdfx/sprites.h"
-#include "cmdfx/canvas.h"
-#include "cmdfx/util.h"
+#include "cmdfx/core/sprites.h"
+#include "cmdfx/core/canvas.h"
+#include "cmdfx/core/util.h"
 
 CmdFX_Sprite** sprites = 0;
 int spriteCount = 0;
