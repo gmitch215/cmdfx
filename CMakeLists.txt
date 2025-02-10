@@ -151,13 +151,6 @@ if (INSTALL_CMDFX)
             DESTINATION include/cmdfx/physics
             COMPONENT library
     )
-
-    ## Audio Library
-    install(DIRECTORY
-            "${PROJECT_SOURCE_DIR}/include/cmdfx/audio/"
-            DESTINATION include/cmdfx/audio
-            COMPONENT library
-    )
     
     # Documentation Components
     if (DOCS_CMDFX)
