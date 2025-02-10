@@ -10,7 +10,7 @@
  */
 #pragma once 
 
-#include "cmdfx/sprites.h"
+#include "cmdfx/core/sprites.h"
 
 #ifdef __cplusplus
 extern "C" {
