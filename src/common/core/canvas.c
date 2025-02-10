@@ -357,7 +357,7 @@ void Canvas_fillPolygon(int x, int y, int sides, int radius, char c) {
     }
 
     for (int scanY = minY; scanY <= maxY; scanY++) {
-        int intersections[sides];
+        int *intersections = calloc(sides, sizeof(int));
         int count = 0;
 
         for (int i = 0; i < sides; i++) {
@@ -387,6 +387,8 @@ void Canvas_fillPolygon(int x, int y, int sides, int radius, char c) {
                 }
             }
         }
+
+        free(intersections);
     }
 
     free(vx);
