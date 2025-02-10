@@ -382,7 +382,7 @@ int CharBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, c
     }
 
     for (int scanY = minY; scanY <= maxY; scanY++) {
-        int intersections[sides];
+        int* intersections = calloc(sides, sizeof(int));
         int count = 0;
 
         for (int i = 0; i < sides; i++) {
@@ -412,6 +412,8 @@ int CharBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, c
                 }
             }
         }
+
+        free(intersections);
     }
 
     return 0;
@@ -1147,7 +1149,7 @@ int AnsiBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, 
     }
 
     for (int scanY = minY; scanY <= maxY; scanY++) {
-        int intersections[sides];
+        int* intersections = calloc(sides, sizeof(int));
         int count = 0;
 
         for (int i = 0; i < sides; i++) {
@@ -1177,6 +1179,8 @@ int AnsiBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, 
                 }
             }
         }
+
+        free(intersections);
     }
 
     return 0;
