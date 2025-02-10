@@ -1196,7 +1196,7 @@ int Sprite_scale(CmdFX_Sprite* sprite, double scale) {
     }
 
     if (sprite->ansi != 0) {
-        char** newAnsi = AnsiBuilder_scale(sprite->ansi, scale);
+        char*** newAnsi = AnsiBuilder_scale(sprite->ansi, scale);
         sprite->ansi = newAnsi;
     }
 
@@ -1218,7 +1218,7 @@ int Sprite_transpose(CmdFX_Sprite* sprite) {
     }
 
     if (sprite->ansi != 0) {
-        char** newAnsi = AnsiBuilder_transpose(sprite->ansi);
+        char*** newAnsi = AnsiBuilder_transpose(sprite->ansi);
         sprite->ansi = newAnsi;
     }
 
