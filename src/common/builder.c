@@ -336,27 +336,22 @@ int CharBuilder_line(char** array, int x1, int y1, int x2, int y2, char c) {
 int CharBuilder_polygon(char** array, int x, int y, int sides, int radius, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
-
-    if (array[y] == 0) return -1;
-    if (array[y][x] == 0) return -1;
-
+    if (radius < 1) return -1;
     if (sides < 3) return -1;
 
-    double angle = 2 * M_PI / sides;
-    double startAngle = M_PI / 2;
-
-    int prevX = x + radius * cos(startAngle);
-    int prevY = y + radius * sin(startAngle);
+    double angleStep = 2 * M_PI / sides;
+    
+    int prevX = x + radius; // * cos(0);
+    int prevY = y; // + (radius * sin(0));
 
     for (int i = 1; i <= sides; i++) {
-        double currentAngle = startAngle + i * angle;
-        int currentX = x + radius * cos(currentAngle);
-        int currentY = y + radius * sin(currentAngle);
+        int nextX = x + radius * cos(i * angleStep);
+        int nextY = y + radius * sin(i * angleStep);
 
-        CharBuilder_line(array, prevX, prevY, currentX, currentY, c);
+        CharBuilder_line(array, prevX, prevY, nextX, nextY, c);
 
-        prevX = currentX;
-        prevY = currentY;
+        prevX = nextX;
+        prevY = nextY;
     }
 
     return 0;
@@ -365,30 +360,59 @@ int CharBuilder_polygon(char** array, int x, int y, int sides, int radius, char 
 int CharBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
-
-    if (array[y] == 0) return -1;
-    if (array[y][x] == 0) return -1;
-
+    if (radius < 1) return -1;
     if (sides < 3) return -1;
 
-    double angle = 2 * M_PI / sides;
-    double startAngle = M_PI / 2;
+    double angleStep = 2 * M_PI / sides;
 
-    int* xPoints = malloc(sizeof(int) * sides);
-    int* yPoints = malloc(sizeof(int) * sides);
+    int* vx = malloc(sides * sizeof(int));
+    int* vy = malloc(sides * sizeof(int));
+
+    if (!vx || !vy) return -1;
 
     for (int i = 0; i < sides; i++) {
-        double currentAngle = startAngle + i * angle;
-        xPoints[i] = x + radius * cos(currentAngle);
-        yPoints[i] = y + radius * sin(currentAngle);
+        vx[i] = x + radius * cos(i * angleStep);
+        vy[i] = y + radius * sin(i * angleStep);
     }
 
-    for (int i = 0; i < sides; i++) CharBuilder_line(array, x, y, xPoints[i], yPoints[i], c);
-    for (int i = 0; i < sides - 1; i++) CharBuilder_line(array, xPoints[i], yPoints[i], xPoints[i + 1], yPoints[i + 1], c);
-    CharBuilder_line(array, xPoints[sides - 1], yPoints[sides - 1], xPoints[0], yPoints[0], c);
+    int minY = vy[0], maxY = vy[0];
+    for (int i = 1; i < sides; i++) {
+        if (vy[i] < minY) minY = vy[i];
+        if (vy[i] > maxY) maxY = vy[i];
+    }
 
-    free(xPoints);
-    free(yPoints);
+    for (int scanY = minY; scanY <= maxY; scanY++) {
+        int intersections[sides];
+        int count = 0;
+
+        for (int i = 0; i < sides; i++) {
+            int j = (i + 1) % sides;
+            int y1 = vy[i], y2 = vy[j], x1 = vx[i], x2 = vx[j];
+
+            if ((y1 <= scanY && y2 > scanY) || (y2 <= scanY && y1 > scanY)) {
+                double t = (double) (scanY - y1) / (y2 - y1);
+                intersections[count++] = x1 + t * (x2 - x1);
+            }
+        }
+
+        for (int i = 0; i < count - 1; i++) {
+            for (int j = i + 1; j < count; j++) {
+                if (intersections[i] > intersections[j]) {
+                    int temp = intersections[i];
+                    intersections[i] = intersections[j];
+                    intersections[j] = temp;
+                }
+            }
+        }
+
+        for (int i = 0; i < count; i += 2) {
+            if (i + 1 < count) {
+                for (int xFill = intersections[i]; xFill <= intersections[i + 1]; xFill++) {
+                    CharBuilder_setChar(array, xFill, scanY, c);
+                }
+            }
+        }
+    }
 
     return 0;
 }
@@ -507,6 +531,152 @@ int CharBuilder_resizeAndCenter(char** array, int width, int height) {
     CharBuilder_resize0(array, width, height, ' ');
     CharBuilder_center0(array);
     return 0;
+}
+
+// Utility Functions - Transformation
+
+int CharBuilder_rotate(char** array, double radians) {
+    if (array == 0) return -1;
+
+    int width = getArrayWidth(array);
+    int height = getArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    int cx = width / 2;
+    int cy = height / 2;
+
+    char** tempArray = (char**) malloc(height * sizeof(char*));
+    if (tempArray == 0) return -1;
+
+    for (int i = 0; i < height; i++) {
+        tempArray[i] = (char*) malloc(width * sizeof(char));
+        if (tempArray[i] == 0) {
+            for (int j = 0; j < i; j++) free(tempArray[j]);
+            free(tempArray);
+            return -1;
+        }
+    }
+
+    for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++) {
+            int newX = (int) (cos(radians) * (x - cx) - sin(radians) * (y - cy) + cx);
+            int newY = (int) (sin(radians) * (x - cx) + cos(radians) * (y - cy) + cy);
+
+            if (newX >= 0 && newX < width && newY >= 0 && newY < height)
+                tempArray[newY][newX] = array[y][x];
+            else
+                tempArray[newY][newX] = ' '; // Fill empty spaces outside bounds
+        }
+
+    // Copy rotated values
+    for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++) {
+            array[y][x] = tempArray[y][x];
+        }
+
+    // Free the temporary array
+    for (int i = 0; i < height; i++) {
+        free(tempArray[i]);
+    }
+    free(tempArray);
+
+    return 0;
+}
+
+int CharBuilder_hFlip(char** array) {
+    if (array == 0) return -1;
+
+    int width = getArrayWidth(array);
+    int height = getArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width / 2; x++) {
+            // Swap columns
+            char temp = array[y][x];
+            array[y][x] = array[y][width - 1 - x];
+            array[y][width - 1 - x] = temp;
+        }
+    }
+
+    return 0;
+}
+
+int CharBuilder_vFlip(char** array) {
+    if (array == 0) return -1;
+
+    int width = getArrayWidth(array);
+    int height = getArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    for (int y = 0; y < height / 2; y++) {
+        for (int x = 0; x < width; x++) {
+            // Swap rows
+            char temp = array[y][x];
+            array[y][x] = array[height - 1 - y][x];
+            array[height - 1 - y][x] = temp;
+        }
+    }
+
+    return 0;
+}
+
+char** CharBuilder_transpose(char** array) {
+    if (array == 0) return 0;
+
+    int width = getArrayWidth(array);
+    int height = getArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return 0;
+
+    char** transposed = (char**) malloc(width * sizeof(char*));
+    if (transposed == 0) return 0;
+    
+    for (int i = 0; i < width; i++) {
+        transposed[i] = (char*) malloc(height * sizeof(char));
+        if (transposed[i] == 0) {
+            for (int j = 0; j < i; j++) free(transposed[j]);
+            free(transposed);
+            return 0;
+        }
+    }
+
+    // Transpose the array
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            transposed[x][y] = array[y][x];
+        }
+    }
+
+    // Free the original array
+    for (int i = 0; i < height; i++) {
+        free(array[i]);
+    }
+    free(array);
+
+    return transposed;
+}
+
+int CharBuilder_replaceAll(char** array, char find, char replace) {
+    if (array == 0) return -1;
+
+    int width = getArrayWidth(array);
+    int height = getArrayHeight(array);
+
+    int count = 0;
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            if (array[y][x] == find) {
+                array[y][x] = replace;
+                count++;
+            }
+        }
+    }
+
+    return count;
 }
 
 #pragma endregion
@@ -844,27 +1014,22 @@ int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c) {
 int AnsiBuilder_polygon(char*** array, int x, int y, int sides, int radius, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
-
-    if (array[y] == 0) return -1;
-    if (array[y][x] == 0) return -1;
-
+    if (radius < 1) return -1;
     if (sides < 3) return -1;
 
-    double angle = 2 * M_PI / sides;
-    double startAngle = M_PI / 2;
-
-    int prevX = x + radius * cos(startAngle);
-    int prevY = y + radius * sin(startAngle);
+    double angleStep = 2 * M_PI / sides;
+    
+    int prevX = x + radius; // * cos(0);
+    int prevY = y; // + (radius * sin(0));
 
     for (int i = 1; i <= sides; i++) {
-        double currentAngle = startAngle + i * angle;
-        int currentX = x + radius * cos(currentAngle);
-        int currentY = y + radius * sin(currentAngle);
+        int nextX = x + radius * cos(i * angleStep);
+        int nextY = y + radius * sin(i * angleStep);
 
-        AnsiBuilder_line(array, prevX, prevY, currentX, currentY, c);
+        AnsiBuilder_line(array, prevX, prevY, nextX, nextY, c);
 
-        prevX = currentX;
-        prevY = currentY;
+        prevX = nextX;
+        prevY = nextY;
     }
 
     return 0;
@@ -873,32 +1038,210 @@ int AnsiBuilder_polygon(char*** array, int x, int y, int sides, int radius, char
 int AnsiBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
-
-    if (array[y] == 0) return -1;
-    if (array[y][x] == 0) return -1;
-
+    if (radius < 1) return -1;
     if (sides < 3) return -1;
 
-    double angle = 2 * M_PI / sides;
-    double startAngle = M_PI / 2;
+    double angleStep = 2 * M_PI / sides;
 
-    int* xPoints = malloc(sizeof(int) * sides);
-    int* yPoints = malloc(sizeof(int) * sides);
+    int* vx = malloc(sides * sizeof(int));
+    int* vy = malloc(sides * sizeof(int));
+
+    if (!vx || !vy) return -1;
 
     for (int i = 0; i < sides; i++) {
-        double currentAngle = startAngle + i * angle;
-        xPoints[i] = x + radius * cos(currentAngle);
-        yPoints[i] = y + radius * sin(currentAngle);
+        vx[i] = x + radius * cos(i * angleStep);
+        vy[i] = y + radius * sin(i * angleStep);
     }
 
-    for (int i = 0; i < sides; i++) AnsiBuilder_line(array, x, y, xPoints[i], yPoints[i], c);
-    for (int i = 0; i < sides - 1; i++) AnsiBuilder_line(array, xPoints[i], yPoints[i], xPoints[i + 1], yPoints[i + 1], c);
-    AnsiBuilder_line(array, xPoints[sides - 1], yPoints[sides - 1], xPoints[0], yPoints[0], c);
+    int minY = vy[0], maxY = vy[0];
+    for (int i = 1; i < sides; i++) {
+        if (vy[i] < minY) minY = vy[i];
+        if (vy[i] > maxY) maxY = vy[i];
+    }
 
-    free(xPoints);
-    free(yPoints);
+    for (int scanY = minY; scanY <= maxY; scanY++) {
+        int intersections[sides];
+        int count = 0;
+
+        for (int i = 0; i < sides; i++) {
+            int j = (i + 1) % sides;
+            int y1 = vy[i], y2 = vy[j], x1 = vx[i], x2 = vx[j];
+
+            if ((y1 <= scanY && y2 > scanY) || (y2 <= scanY && y1 > scanY)) {
+                double t = (double) (scanY - y1) / (y2 - y1);
+                intersections[count++] = x1 + t * (x2 - x1);
+            }
+        }
+
+        for (int i = 0; i < count - 1; i++) {
+            for (int j = i + 1; j < count; j++) {
+                if (intersections[i] > intersections[j]) {
+                    int temp = intersections[i];
+                    intersections[i] = intersections[j];
+                    intersections[j] = temp;
+                }
+            }
+        }
+
+        for (int i = 0; i < count; i += 2) {
+            if (i + 1 < count) {
+                for (int xFill = intersections[i]; xFill <= intersections[i + 1]; xFill++) {
+                    AnsiBuilder_setAnsi(array, xFill, scanY, c);
+                }
+            }
+        }
+    }
 
     return 0;
+}
+
+// Utility Functions - Transformation (ANSI)
+
+int AnsiBuilder_rotate(char*** array, double radians) {
+    if (array == 0) return -1;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    int cx = width / 2;
+    int cy = height / 2;
+
+    char*** tempArray = (char***) malloc(height * sizeof(char**));
+    if (tempArray == 0) return -1;
+
+    for (int i = 0; i < height; i++) {
+        tempArray[i] = (char**) calloc(width, sizeof(char*));
+        if (tempArray[i] == 0) {
+            for (int j = 0; j < i; j++) free(tempArray[j]);
+            free(tempArray);
+            return -1;
+        }
+    }
+
+    for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++) {
+            int newX = (int) (cos(radians) * (x - cx) - sin(radians) * (y - cy) + cx);
+            int newY = (int) (sin(radians) * (x - cx) + cos(radians) * (y - cy) + cy);
+
+            if (newX >= 0 && newX < width && newY >= 0 && newY < height)
+                strcpy(tempArray[newY][newX], array[y][x]);
+        }
+
+    // Copy rotated values
+    for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++) {
+            strcpy(array[y][x], tempArray[y][x]);
+        }
+
+    // Free the temporary array
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            free(tempArray[i][j]);
+        }
+        free(tempArray[i]);
+    }
+    free(tempArray);
+
+    return 0;
+}
+
+int AnsiBuilder_hFlip(char*** array) {
+    if (array == 0) return -1;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width / 2; x++) {
+            // Swap columns
+            char* temp = array[y][x];
+            array[y][x] = array[y][width - 1 - x];
+            array[y][width - 1 - x] = temp;
+        }
+    }
+
+    return 0;
+}
+
+int AnsiBuilder_vFlip(char*** array) {
+    if (array == 0) return -1;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    for (int y = 0; y < height / 2; y++) {
+        for (int x = 0; x < width; x++) {
+            // Swap rows
+            char* temp = array[y][x];
+            array[y][x] = array[height - 1 - y][x];
+            array[height - 1 - y][x] = temp;
+        }
+    }
+
+    return 0;
+}
+
+char*** AnsiBuilder_transpose(char*** array) {
+    if (array == 0) return 0;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return 0;
+
+    char*** transposed = (char***) malloc(width * sizeof(char**));
+    if (transposed == 0) return 0;
+    
+    for (int i = 0; i < width; i++) {
+        transposed[i] = (char**) malloc(height * sizeof(char*));
+        if (transposed[i] == 0) {
+            for (int j = 0; j < i; j++) free(transposed[j]);
+            free(transposed);
+            return 0;
+        }
+    }
+
+    // Transpose the array
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            strcpy(transposed[x][y], array[y][x]);
+        }
+    }
+
+    // Free the original array
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            free(array[i][j]);
+        }
+        free(array[i]);
+    }
+
+    return transposed;
+}
+
+int AnsiBuilder_replaceAll(char*** array, char* find, char* replace) {
+    if (array == 0) return -1;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    int count = 0;
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            if (strcmp(array[y][x], find) == 0) {
+                strcpy(array[y][x], replace);
+                count++;
+            }
+        }
+    }
+
+    return count;
 }
 
 #pragma endregion

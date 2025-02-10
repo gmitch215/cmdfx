@@ -235,9 +235,9 @@ int CharBuilder_text(char** array, int x, int y, char* text);
 // Utility Functions - Sizing
 
 /**
- * @brief Resizes an 2D Character Array to a specific width and height.
+ * @brief Resizes a 2D Character Array to a specific width and height.
  * 
- * This method resizes an 2D Character Array to a specific width and height. If the new
+ * This method resizes a 2D Character Array to a specific width and height. If the new
  * width or height is smaller than the original width or height, the 2D Character Array
  * will be cropped. If the new width or height is larger than the original width or height,
  * the 2D Character Array will be padded with empty space.
@@ -250,9 +250,9 @@ int CharBuilder_text(char** array, int x, int y, char* text);
 int CharBuilder_resize(char** array, int width, int height);
 
 /**
- * @brief Resizes an 2D Character Array to a specific width and height with padding.
+ * @brief Resizes a 2D Character Array to a specific width and height with padding.
  * 
- * This method resizes an 2D Character Array to a specific width and height with padding.
+ * This method resizes a 2D Character Array to a specific width and height with padding.
  * If the new width or height is smaller than the original width or height, the ASCII art
  * character will be cropped. If the new width or height is larger than the original width
  * or height, the 2D Character Array will be padded with the specified character.
@@ -266,9 +266,9 @@ int CharBuilder_resize(char** array, int width, int height);
 int CharBuilder_resizeWithPadding(char** array, int width, int height, char padding);
 
 /**
- * @brief Centers an 2D Character Array.
+ * @brief Centers a 2D Character Array.
  * 
- * This method centers an 2D Character Array both horizontally and vertically. It will
+ * This method centers a 2D Character Array both horizontally and vertically. It will
  * reposition the characters depending on whether there is whitespace surrounding other
  * characters.
  * 
@@ -278,9 +278,9 @@ int CharBuilder_resizeWithPadding(char** array, int width, int height, char padd
 int CharBuilder_center(char** array);
 
 /**
- * @brief Resizes and centers an 2D Character Array.
+ * @brief Resizes and centers a 2D Character Array.
  * 
- * This method resizes and centers an 2D Character Array to a specific width and height.
+ * This method resizes and centers a 2D Character Array to a specific width and height.
  * If the new width or height is smaller than the original width or height, the ASCII art
  * character will be cropped. If the new width or height is larger than the original width
  * or height, the 2D Character Array will be padded with the specified character.
@@ -291,6 +291,58 @@ int CharBuilder_center(char** array);
  * @return 0 if successful, -1 if an error occurred.
  */
 int CharBuilder_resizeAndCenter(char** array, int width, int height);
+
+// Utility Functions - Transformation
+
+/**
+ * @brief Rotates a 2D Character Array.
+ * 
+ * This method rotates a 2D Character Array by a specific number of radians. The
+ * rotation will be done around the center of the 2D Character Array.
+ * 
+ * @param array The 2D Character Array.
+ * @param radians The number of radians to rotate.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CharBuilder_rotate(char** array, double radians);
+
+/**
+ * @brief Flips a 2D Character Array horizontally.
+ * 
+ * @param array The 2D Character Array.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CharBuilder_hFlip(char** array);
+
+/**
+ * @brief Flips a 2D Character Array vertically.
+ * 
+ * @param array The 2D Character Array.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CharBuilder_vFlip(char** array);
+
+/**
+ * @brief Transposes a 2D Character Array.
+ * 
+ * This method transposes a 2D Character Array, then
+ * returns the transposed 2D Character Array. The original
+ * 2D Character Array will be freed.
+ * 
+ * @param array The 2D Character Array.
+ * @return The transposed 2D Character Array.
+ */
+char** CharBuilder_transpose(char** array);
+
+/**
+ * @brief Replaces all instances of a character in a 2D Character Array.
+ * 
+ * @param array The 2D Character Array.
+ * @param find The character to find.
+ * @param replace The character to replace the found character with.
+ * @return The number of characters replaced, 0 if none, or -1 if an error occurred.
+ */
+int CharBuilder_replaceAll(char** array, char find, char replace);
 
 #pragma endregion
 
@@ -531,6 +583,58 @@ int AnsiBuilder_polygon(char*** array, int x, int y, int sides, int radius, char
  * @return 0 if successful, -1 if an error occurred.
  */
 int AnsiBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, char* c);
+
+// Utility Functions - Transformation (ANSI)
+
+/**
+ * @brief Rotates a 2D String Array.
+ * 
+ * This method rotates a 2D String Array by a specific number of radians. The
+ * rotation will be done around the center of the 2D String Array.
+ * 
+ * @param array The 2D String Array.
+ * @param radians The number of radians to rotate.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_rotate(char*** array, double radians);
+
+/**
+ * @brief Flips a 2D String Array horizontally.
+ * 
+ * @param array The 2D String Array.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_hFlip(char*** array);
+
+/**
+ * @brief Flips a 2D String Array vertically.
+ * 
+ * @param array The 2D String Array.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_vFlip(char*** array);
+
+/**
+ * @brief Transposes a 2D String Array.
+ * 
+ * This method transposes a 2D String Array, then
+ * returns the transposed 2D String Array. The original
+ * 2D String Array will be freed.
+ * 
+ * @param array The 2D String Array.
+ * @return The transposed 2D String Array.
+ */
+char*** AnsiBuilder_transpose(char*** array);
+
+/**
+ * @brief Replaces all instances of an ANSI code in a 2D String Array.
+ * 
+ * @param array The 2D String Array.
+ * @param find The ANSI code to find.
+ * @param replace The ANSI code to replace the found ANSI code with.
+ * @return The number of ANSI codes replaced, 0 if none, or -1 if an error occurred.
+ */
+int AnsiBuilder_replaceAll(char*** array, char* find, char* replace);
 
 #pragma endregion
 
