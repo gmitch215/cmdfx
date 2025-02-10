@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <cmdfx.h>
 
-#include <unistd.h>
-
 #include "../test.h"
 
 int onKey(CmdFX_Event* event) {
