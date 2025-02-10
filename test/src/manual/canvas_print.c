@@ -11,14 +11,11 @@ int main() {
     int x = Canvas_getWidth() / 2;
     int y = Canvas_getHeight() / 2;
 
-    int cx = Canvas_getCursorX();
-    int cy = Canvas_getCursorY();
-
     Canvas_hideCursor();
 
     Canvas_setForeground(0xFF0000);
     Canvas_ellipse(x, y, 12, 6, '$');
-    Canvas_resetFormat(x, y);
+    Canvas_resetFormat();
 
     Canvas_enableUnderline();
     Canvas_enableBold();
@@ -30,10 +27,11 @@ int main() {
     Canvas_drawAsciiText(x / 6, y + 1, '%', "ABCDEF");
     Canvas_disableDim();
 
-    Canvas_polygon(x, y, 10, 6, '#');
+    Canvas_polygon(x + 30, y, 6, 7, '#');
+    Canvas_fillPolygon(x + 50, y, 3, 7, '@');
 
     Canvas_showCursor();
-    Canvas_setCursor(cx, cy);
+    Canvas_setCursor(x * 2, y * 2);
 
     return r;
 }

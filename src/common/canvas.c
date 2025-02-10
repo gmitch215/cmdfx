@@ -314,43 +314,83 @@ void Canvas_line(int x1, int y1, int x2, int y2, char c) {
 }
 
 void Canvas_polygon(int x, int y, int sides, int radius, char c) {
-    double angle = 2 * M_PI / sides;
-    double startAngle = M_PI / 2;
+    if (x < 1 || y < 1) return;
+    if (radius < 1) return;
+    if (sides < 3) return;
 
-    int prevX = x + radius * cos(startAngle);
-    int prevY = y + radius * sin(startAngle);
+    double angleStep = 2 * M_PI / sides;
+    
+    int prevX = x + radius; // * cos(0);
+    int prevY = y; // + (radius * sin(0));
 
     for (int i = 1; i <= sides; i++) {
-        double currentAngle = startAngle + i * angle;
-        int currentX = x + radius * cos(currentAngle);
-        int currentY = y + radius * sin(currentAngle);
+        int nextX = x + radius * cos(i * angleStep);
+        int nextY = y + radius * sin(i * angleStep);
 
-        Canvas_line(prevX, prevY, currentX, currentY, c);
+        Canvas_line(prevX, prevY, nextX, nextY, c);
 
-        prevX = currentX;
-        prevY = currentY;
+        prevX = nextX;
+        prevY = nextY;
     }
 }
 
 void Canvas_fillPolygon(int x, int y, int sides, int radius, char c) {
-    double angle = 2 * M_PI / sides;
-    double startAngle = M_PI / 2;
+    if (x < 1 || y < 1) return;
+    if (radius < 1) return;
+    if (sides < 3) return;
 
-    int* xPoints = malloc(sizeof(int) * sides);
-    int* yPoints = malloc(sizeof(int) * sides);
+    double angleStep = 2 * M_PI / sides;
+    int *vx = malloc(sides * sizeof(int));
+    int *vy = malloc(sides * sizeof(int));
+
+    if (!vx || !vy) return;
 
     for (int i = 0; i < sides; i++) {
-        double currentAngle = startAngle + i * angle;
-        xPoints[i] = x + radius * cos(currentAngle);
-        yPoints[i] = y + radius * sin(currentAngle);
+        vx[i] = x + radius * cos(i * angleStep);
+        vy[i] = y + radius * sin(i * angleStep);
     }
 
-    for (int i = 0; i < sides; i++) Canvas_line(x, y, xPoints[i], yPoints[i], c);
-    for (int i = 0; i < sides - 1; i++) Canvas_line(xPoints[i], yPoints[i], xPoints[i + 1], yPoints[i + 1], c);
-    Canvas_line(xPoints[sides - 1], yPoints[sides - 1], xPoints[0], yPoints[0], c);
+    int minY = vy[0], maxY = vy[0];
+    for (int i = 1; i < sides; i++) {
+        if (vy[i] < minY) minY = vy[i];
+        if (vy[i] > maxY) maxY = vy[i];
+    }
 
-    free(xPoints);
-    free(yPoints);
+    for (int scanY = minY; scanY <= maxY; scanY++) {
+        int intersections[sides];
+        int count = 0;
+
+        for (int i = 0; i < sides; i++) {
+            int j = (i + 1) % sides;
+            int y1 = vy[i], y2 = vy[j], x1 = vx[i], x2 = vx[j];
+
+            if ((y1 <= scanY && y2 > scanY) || (y2 <= scanY && y1 > scanY)) {
+                double t = (double) (scanY - y1) / (y2 - y1);
+                intersections[count++] = x1 + t * (x2 - x1);
+            }
+        }
+
+        for (int i = 0; i < count - 1; i++) {
+            for (int j = i + 1; j < count; j++) {
+                if (intersections[i] > intersections[j]) {
+                    int temp = intersections[i];
+                    intersections[i] = intersections[j];
+                    intersections[j] = temp;
+                }
+            }
+        }
+
+        for (int i = 0; i < count; i += 2) {
+            if (i + 1 < count) {
+                for (int xFill = intersections[i]; xFill <= intersections[i + 1]; xFill++) {
+                    Canvas_setChar(xFill, scanY, c);
+                }
+            }
+        }
+    }
+
+    free(vx);
+    free(vy);
 }
 
 // Utility Functions - Text
