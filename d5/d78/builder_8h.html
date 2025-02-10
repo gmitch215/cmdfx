@@ -143,6 +143,12 @@ Functions</h2></td></tr>
 <tr class="memitem:aa74706869bd8748344d217884851e4f8" id="r_aa74706869bd8748344d217884851e4f8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa74706869bd8748344d217884851e4f8">CharBuilder_line</a> (char **array, int x1, int y1, int x2, int y2, char c)</td></tr>
 <tr class="memdesc:aa74706869bd8748344d217884851e4f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a line in a 2D Character Array.  <br /></td></tr>
 <tr class="separator:aa74706869bd8748344d217884851e4f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3421d5fe1b726d347cce31972a95d969" id="r_a3421d5fe1b726d347cce31972a95d969"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3421d5fe1b726d347cce31972a95d969">CharBuilder_polygon</a> (char **array, int x, int y, int sides, int radius, char c)</td></tr>
+<tr class="memdesc:a3421d5fe1b726d347cce31972a95d969"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a polygon in a 2D Character Array.  <br /></td></tr>
+<tr class="separator:a3421d5fe1b726d347cce31972a95d969"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f3d57d928152fb0502a86e73a5b812a" id="r_a0f3d57d928152fb0502a86e73a5b812a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f3d57d928152fb0502a86e73a5b812a">CharBuilder_fillPolygon</a> (char **array, int x, int y, int sides, int radius, char c)</td></tr>
+<tr class="memdesc:a0f3d57d928152fb0502a86e73a5b812a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills a polygon in a 2D Character Array.  <br /></td></tr>
+<tr class="separator:a0f3d57d928152fb0502a86e73a5b812a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad24aa39378cfa61aece291dda8a203e7" id="r_ad24aa39378cfa61aece291dda8a203e7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad24aa39378cfa61aece291dda8a203e7">CharBuilder_text</a> (char **array, int x, int y, char *text)</td></tr>
 <tr class="memdesc:ad24aa39378cfa61aece291dda8a203e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes text in a 2D Character Array.  <br /></td></tr>
 <tr class="separator:ad24aa39378cfa61aece291dda8a203e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -197,6 +203,12 @@ Functions</h2></td></tr>
 <tr class="memitem:aed072be3fbb816bb9d8639a5a6e9a217" id="r_aed072be3fbb816bb9d8639a5a6e9a217"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed072be3fbb816bb9d8639a5a6e9a217">AnsiBuilder_line</a> (char ***array, int x1, int y1, int x2, int y2, char *c)</td></tr>
 <tr class="memdesc:aed072be3fbb816bb9d8639a5a6e9a217"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a line in a 2D String Array.  <br /></td></tr>
 <tr class="separator:aed072be3fbb816bb9d8639a5a6e9a217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bca83e6b0ac833a4e81c5132dd7c348" id="r_a3bca83e6b0ac833a4e81c5132dd7c348"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3bca83e6b0ac833a4e81c5132dd7c348">AnsiBuilder_polygon</a> (char ***array, int x, int y, int sides, int radius, char *c)</td></tr>
+<tr class="memdesc:a3bca83e6b0ac833a4e81c5132dd7c348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a polygon in a 2D String Array.  <br /></td></tr>
+<tr class="separator:a3bca83e6b0ac833a4e81c5132dd7c348"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10f1335674d1b3481163ba5afd84cbc0" id="r_a10f1335674d1b3481163ba5afd84cbc0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10f1335674d1b3481163ba5afd84cbc0">AnsiBuilder_fillPolygon</a> (char ***array, int x, int y, int sides, int radius, char *c)</td></tr>
+<tr class="memdesc:a10f1335674d1b3481163ba5afd84cbc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills a polygon in a 2D String Array.  <br /></td></tr>
+<tr class="separator:a10f1335674d1b3481163ba5afd84cbc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Builder API for building 2D Character Arrays. </p>
@@ -450,6 +462,63 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a10f1335674d1b3481163ba5afd84cbc0" name="a10f1335674d1b3481163ba5afd84cbc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10f1335674d1b3481163ba5afd84cbc0">&#9670;&#160;</a></span>AnsiBuilder_fillPolygon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_fillPolygon </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sides</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fills a polygon in a 2D String Array. </p>
+<p>Like all methods in AnsiBuilder, this does <b>not</b> append anything to the string. You will need to input the full ANSI code, like "\033[31m" for red text.</p>
+<p>This method fills a polygon in a 2D String Array. If the x or y coordinate is out of bounds, the method will return -1. If the polygon goes out of bounds, the polygon will be cropped.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The string array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">sides</td><td>The number of sides of the polygon. </td></tr>
+    <tr><td class="paramname">radius</td><td>The radius of the polygon. </td></tr>
+    <tr><td class="paramname">c</td><td>The ANSI code to fill the polygon with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
 <a id="a29c351497c9a5fd21b115c25bee31d1d" name="a29c351497c9a5fd21b115c25bee31d1d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a29c351497c9a5fd21b115c25bee31d1d">&#9670;&#160;</a></span>AnsiBuilder_fillRect()</h2>
 
@@ -605,6 +674,63 @@ Functions</h2></td></tr>
     <tr><td class="paramname">x2</td><td>The x coordinate of the second point. </td></tr>
     <tr><td class="paramname">y2</td><td>The y coordinate of the second point. </td></tr>
     <tr><td class="paramname">c</td><td>The ANSI code to draw the line with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a3bca83e6b0ac833a4e81c5132dd7c348" name="a3bca83e6b0ac833a4e81c5132dd7c348"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bca83e6b0ac833a4e81c5132dd7c348">&#9670;&#160;</a></span>AnsiBuilder_polygon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_polygon </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sides</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draws a polygon in a 2D String Array. </p>
+<p>Like all methods in AnsiBuilder, this does <b>not</b> append anything to the string. You will need to input the full ANSI code, like "\033[31m" for red text.</p>
+<p>This method draws a polygon in a 2D String Array. If the x or y coordinate is out of bounds, the method will return -1. If the polygon goes out of bounds, the polygon will be cropped.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The string array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">sides</td><td>The number of sides of the polygon. </td></tr>
+    <tr><td class="paramname">radius</td><td>The radius of the polygon. </td></tr>
+    <tr><td class="paramname">c</td><td>The ANSI code to draw the polygon with. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1032,6 +1158,62 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a0f3d57d928152fb0502a86e73a5b812a" name="a0f3d57d928152fb0502a86e73a5b812a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f3d57d928152fb0502a86e73a5b812a">&#9670;&#160;</a></span>CharBuilder_fillPolygon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharBuilder_fillPolygon </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sides</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fills a polygon in a 2D Character Array. </p>
+<p>This method fills a polygon in a 2D Character Array. If the x or y coordinate is out of bounds, the method will return -1. If the polygon goes out of bounds, the polygon will be cropped.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The character array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">sides</td><td>The number of sides of the polygon. </td></tr>
+    <tr><td class="paramname">radius</td><td>The radius of the polygon. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to fill the polygon with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
 <a id="ace854460b3e2916745ad730bbc146b78" name="ace854460b3e2916745ad730bbc146b78"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace854460b3e2916745ad730bbc146b78">&#9670;&#160;</a></span>CharBuilder_fillRect()</h2>
 
@@ -1184,6 +1366,62 @@ Functions</h2></td></tr>
     <tr><td class="paramname">x2</td><td>The x coordinate of the second point. </td></tr>
     <tr><td class="paramname">y2</td><td>The y coordinate of the second point. </td></tr>
     <tr><td class="paramname">c</td><td>The character to draw the line with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a3421d5fe1b726d347cce31972a95d969" name="a3421d5fe1b726d347cce31972a95d969"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3421d5fe1b726d347cce31972a95d969">&#9670;&#160;</a></span>CharBuilder_polygon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharBuilder_polygon </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sides</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draws a polygon in a 2D Character Array. </p>
+<p>This method draws a polygon in a 2D Character Array. If the x or y coordinate is out of bounds, the method will return -1. If the polygon goes out of bounds, the polygon will be cropped.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The character array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">sides</td><td>The number of sides of the polygon. </td></tr>
+    <tr><td class="paramname">radius</td><td>The radius of the polygon. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to draw the polygon with. </td></tr>
   </table>
   </dd>
 </dl>

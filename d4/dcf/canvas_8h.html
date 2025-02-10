@@ -234,6 +234,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a800a9d7199f3c020c8f36be338885590" id="r_a800a9d7199f3c020c8f36be338885590"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a800a9d7199f3c020c8f36be338885590">Canvas_line</a> (int x1, int y1, int x2, int y2, char c)</td></tr>
 <tr class="memdesc:a800a9d7199f3c020c8f36be338885590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a line between two points.  <br /></td></tr>
 <tr class="separator:a800a9d7199f3c020c8f36be338885590"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0d0b43f83f92bdc2674603990bd4ca3" id="r_ac0d0b43f83f92bdc2674603990bd4ca3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0d0b43f83f92bdc2674603990bd4ca3">Canvas_polygon</a> (int x, int y, int sides, int radius, char c)</td></tr>
+<tr class="memdesc:ac0d0b43f83f92bdc2674603990bd4ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a polygon.  <br /></td></tr>
+<tr class="separator:ac0d0b43f83f92bdc2674603990bd4ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3a898d8ec78ef3bce7d047c996a88d4" id="r_ab3a898d8ec78ef3bce7d047c996a88d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3a898d8ec78ef3bce7d047c996a88d4">Canvas_fillPolygon</a> (int x, int y, int sides, int radius, char c)</td></tr>
+<tr class="memdesc:ab3a898d8ec78ef3bce7d047c996a88d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills a polygon with a character.  <br /></td></tr>
+<tr class="separator:ab3a898d8ec78ef3bce7d047c996a88d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8baa1ce20d8a2db0f1b3b919bad7b614" id="r_a8baa1ce20d8a2db0f1b3b919bad7b614"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8baa1ce20d8a2db0f1b3b919bad7b614">Canvas_drawText</a> (int x, int y, const char *text)</td></tr>
 <tr class="memdesc:a8baa1ce20d8a2db0f1b3b919bad7b614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws text at the current cursor position.  <br /></td></tr>
 <tr class="separator:a8baa1ce20d8a2db0f1b3b919bad7b614"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1155,6 +1161,55 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>ASCII_NINE</b> [8][5]
 
 </div>
 </div>
+<a id="ab3a898d8ec78ef3bce7d047c996a88d4" name="ab3a898d8ec78ef3bce7d047c996a88d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3a898d8ec78ef3bce7d047c996a88d4">&#9670;&#160;</a></span>Canvas_fillPolygon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Canvas_fillPolygon </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sides</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fills a polygon with a character. </p>
+<p>This method fills a polygon with the specified number of sides and radius. The X and Y coordinates are the center of the polygon.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Y coordinate. </td></tr>
+    <tr><td class="paramname">sides</td><td>Number of sides. </td></tr>
+    <tr><td class="paramname">radius</td><td>Radius of the polygon. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to fill the polygon with. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a3271098ed7bd81941104fbb1d61da257" name="a3271098ed7bd81941104fbb1d61da257"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3271098ed7bd81941104fbb1d61da257">&#9670;&#160;</a></span>Canvas_fillRect()</h2>
 
@@ -1408,6 +1463,55 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>ASCII_NINE</b> [8][5]
     <tr><td class="paramname">x2</td><td>The x coordinate of the second point. </td></tr>
     <tr><td class="paramname">y2</td><td>The y coordinate of the second point. </td></tr>
     <tr><td class="paramname">c</td><td>The character to draw the line with. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac0d0b43f83f92bdc2674603990bd4ca3" name="ac0d0b43f83f92bdc2674603990bd4ca3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0d0b43f83f92bdc2674603990bd4ca3">&#9670;&#160;</a></span>Canvas_polygon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Canvas_polygon </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sides</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draws a polygon. </p>
+<p>This method draws a polygon with the specified number of sides and radius. The X and Y coordinates are the center of the polygon.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Y coordinate. </td></tr>
+    <tr><td class="paramname">sides</td><td>Number of sides. </td></tr>
+    <tr><td class="paramname">radius</td><td>Radius of the polygon. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to draw the polygon with. </td></tr>
   </table>
   </dd>
 </dl>

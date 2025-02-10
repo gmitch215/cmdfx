@@ -104,12 +104,15 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2853958dddcf1815169dc7993cf37e3f" id="r_a2853958dddcf1815169dc7993cf37e3f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2853958dddcf1815169dc7993cf37e3f">Device_getKeyboardKeyPressed</a> ()</td></tr>
-<tr class="memdesc:a2853958dddcf1815169dc7993cf37e3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current key being pressed, or -1 if no key is being pressed.  <br /></td></tr>
-<tr class="separator:a2853958dddcf1815169dc7993cf37e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16b7d7ef2fcaba946ffacfb09624e1ce" id="r_a16b7d7ef2fcaba946ffacfb09624e1ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16b7d7ef2fcaba946ffacfb09624e1ce">Device_getMouseButtonPressed</a> ()</td></tr>
-<tr class="memdesc:a16b7d7ef2fcaba946ffacfb09624e1ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current mouse button being pressed, or -1 if no button is being pressed.  <br /></td></tr>
-<tr class="separator:a16b7d7ef2fcaba946ffacfb09624e1ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a464ebcfa05877d5e93f084f9f157d2a4" id="r_a464ebcfa05877d5e93f084f9f157d2a4"><td class="memItemLeft" align="right" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a464ebcfa05877d5e93f084f9f157d2a4">Device_getKeyboardKeysPressed</a> ()</td></tr>
+<tr class="memdesc:a464ebcfa05877d5e93f084f9f157d2a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current keys being pressed.  <br /></td></tr>
+<tr class="separator:a464ebcfa05877d5e93f084f9f157d2a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ed9b9b034f0713d87caef2b981408ec" id="r_a0ed9b9b034f0713d87caef2b981408ec"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ed9b9b034f0713d87caef2b981408ec">Device_fromKeyCode</a> (int keyCode)</td></tr>
+<tr class="memdesc:a0ed9b9b034f0713d87caef2b981408ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a key code to a character.  <br /></td></tr>
+<tr class="separator:a0ed9b9b034f0713d87caef2b981408ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00fcc5922fb2513f90d6ad60ebb415e8" id="r_a00fcc5922fb2513f90d6ad60ebb415e8"><td class="memItemLeft" align="right" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00fcc5922fb2513f90d6ad60ebb415e8">Device_getMouseButtonsPressed</a> ()</td></tr>
+<tr class="memdesc:a00fcc5922fb2513f90d6ad60ebb415e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current mouse button being pressed.  <br /></td></tr>
+<tr class="separator:a00fcc5922fb2513f90d6ad60ebb415e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Device command functions. </p>
@@ -118,14 +121,40 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2025-02-07</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a2853958dddcf1815169dc7993cf37e3f" name="a2853958dddcf1815169dc7993cf37e3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2853958dddcf1815169dc7993cf37e3f">&#9670;&#160;</a></span>Device_getKeyboardKeyPressed()</h2>
+<a id="a0ed9b9b034f0713d87caef2b981408ec" name="a0ed9b9b034f0713d87caef2b981408ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ed9b9b034f0713d87caef2b981408ec">&#9670;&#160;</a></span>Device_fromKeyCode()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int Device_getKeyboardKeyPressed </td>
+          <td class="memname">char Device_fromKeyCode </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>keyCode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts a key code to a character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">keyCode</td><td>The key code to convert. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The character representation of the key code. </dd></dl>
+
+</div>
+</div>
+<a id="a464ebcfa05877d5e93f084f9f157d2a4" name="a464ebcfa05877d5e93f084f9f157d2a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a464ebcfa05877d5e93f084f9f157d2a4">&#9670;&#160;</a></span>Device_getKeyboardKeysPressed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int * Device_getKeyboardKeysPressed </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -133,21 +162,25 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the current key being pressed, or -1 if no key is being pressed. </p>
+<p>Gets the current keys being pressed. </p>
+<p>The size of the array is always 256, with each index corresponding to a key code native to the operating system. If the key is being pressed, the value at the index will be 1. If the key is not being pressed, the value at the index will be 0.</p>
 <p>This is a non-blocking method. This method gets the current key being pressed on the keyboard. If no key is being pressed, it will return -1.</p>
-<p>This method requires administrator privileges on Linux.</p>
-<dl class="section return"><dt>Returns</dt><dd>The key code of the key being pressed, or -1 if no key is being pressed. </dd></dl>
+<p>The array must be freed after use.</p>
+<p><b>Preconditions:</b></p>
+<p>On macOS, the application must be added to the "Input Monitoring" permission in the "Security &amp; Privacy" settings. Otherwise, only control keys will be detected.</p>
+<p>On Linux, method requires administrator privileges.</p>
+<dl class="section return"><dt>Returns</dt><dd>The list of key code of the key being pressed. </dd></dl>
 
 </div>
 </div>
-<a id="a16b7d7ef2fcaba946ffacfb09624e1ce" name="a16b7d7ef2fcaba946ffacfb09624e1ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16b7d7ef2fcaba946ffacfb09624e1ce">&#9670;&#160;</a></span>Device_getMouseButtonPressed()</h2>
+<a id="a00fcc5922fb2513f90d6ad60ebb415e8" name="a00fcc5922fb2513f90d6ad60ebb415e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00fcc5922fb2513f90d6ad60ebb415e8">&#9670;&#160;</a></span>Device_getMouseButtonsPressed()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int Device_getMouseButtonPressed </td>
+          <td class="memname">int * Device_getMouseButtonsPressed </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -155,10 +188,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the current mouse button being pressed, or -1 if no button is being pressed. </p>
+<p>Gets the current mouse button being pressed. </p>
 <p>This is a non-blocking method. This method gets the current mouse event. If no mouse button is being pressed, it will return -1.</p>
+<p>On most systems, the button values are as follows (according to index):</p><ul>
+<li>0: Left mouse button</li>
+<li>1: Right mouse button</li>
+<li>2: Middle mouse button</li>
+</ul>
+<p>The array must be freed after use.</p>
 <p>This method requires administrator privileges on Linux.</p>
-<dl class="section return"><dt>Returns</dt><dd>The mouse event struct. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The list of mouse button code of the button being pressed. </dd></dl>
 
 </div>
 </div>

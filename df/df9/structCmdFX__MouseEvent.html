@@ -101,14 +101,13 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a8202ff9a6b6747fe77073604cbbefd6b" id="r_a8202ff9a6b6747fe77073604cbbefd6b"><td class="memItemLeft" align="right" valign="top"><a id="a8202ff9a6b6747fe77073604cbbefd6b" name="a8202ff9a6b6747fe77073604cbbefd6b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>prevButton</b></td></tr>
-<tr class="memdesc:a8202ff9a6b6747fe77073604cbbefd6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The previous button that was pressed, or -1 if no button was pressed. <br /></td></tr>
-<tr class="separator:a8202ff9a6b6747fe77073604cbbefd6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9103e2eed468fb54d3673b3306c519b" id="r_af9103e2eed468fb54d3673b3306c519b"><td class="memItemLeft" align="right" valign="top"><a id="af9103e2eed468fb54d3673b3306c519b" name="af9103e2eed468fb54d3673b3306c519b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>button</b></td></tr>
-<tr class="memdesc:af9103e2eed468fb54d3673b3306c519b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The button that was pressed, or -1 if no button was pressed. <br /></td></tr>
+<tr class="memitem:af9103e2eed468fb54d3673b3306c519b" id="r_af9103e2eed468fb54d3673b3306c519b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9103e2eed468fb54d3673b3306c519b">button</a></td></tr>
+<tr class="memdesc:af9103e2eed468fb54d3673b3306c519b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The button that was pressed, or -1 if no button was pressed.  <br /></td></tr>
 <tr class="separator:af9103e2eed468fb54d3673b3306c519b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a129a66cdea9e6289eee312445be2e2ec" id="r_a129a66cdea9e6289eee312445be2e2ec"><td class="memItemLeft" align="right" valign="top"><a id="a129a66cdea9e6289eee312445be2e2ec" name="a129a66cdea9e6289eee312445be2e2ec"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>state</b></td></tr>
+<tr class="memdesc:a129a66cdea9e6289eee312445be2e2ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the button was pressed or released. <br /></td></tr>
+<tr class="separator:a129a66cdea9e6289eee312445be2e2ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a560105d39d22d21f912560c9e8f23b7c" id="r_a560105d39d22d21f912560c9e8f23b7c"><td class="memItemLeft" align="right" valign="top"><a id="a560105d39d22d21f912560c9e8f23b7c" name="a560105d39d22d21f912560c9e8f23b7c"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>prevX</b></td></tr>
 <tr class="memdesc:a560105d39d22d21f912560c9e8f23b7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The previous x position of the mouse. <br /></td></tr>
@@ -128,7 +127,29 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>y</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The payload for the <code>CMDFX_EVENT_MOUSE</code> event. </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="af9103e2eed468fb54d3673b3306c519b" name="af9103e2eed468fb54d3673b3306c519b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9103e2eed468fb54d3673b3306c519b">&#9670;&#160;</a></span>button</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CmdFX_MouseEvent::button</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The button that was pressed, or -1 if no button was pressed. </p>
+<p>On most systems, the button values are as follows:</p><ul>
+<li>0: Left mouse button</li>
+<li>1: Middle mouse button</li>
+<li>2: Right mouse button </li>
+</ul>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li>/home/runner/work/cmdfx/cmdfx/include/cmdfx/<a class="el" href="../../db/dd2/events_8h_source.html">events.h</a></li>
 </ul>
 </div><!-- contents -->

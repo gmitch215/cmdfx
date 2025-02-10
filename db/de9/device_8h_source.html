@@ -102,15 +102,18 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="../../db/de9/device_8h.html#a2853958dddcf1815169dc7993cf37e3f">   28</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../db/de9/device_8h.html#a2853958dddcf1815169dc7993cf37e3f">Device_getKeyboardKeyPressed</a>();</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="../../db/de9/device_8h.html#a16b7d7ef2fcaba946ffacfb09624e1ce">   40</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../db/de9/device_8h.html#a16b7d7ef2fcaba946ffacfb09624e1ce">Device_getMouseButtonPressed</a>();</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="adevice_8h_html_a16b7d7ef2fcaba946ffacfb09624e1ce"><div class="ttname"><a href="../../db/de9/device_8h.html#a16b7d7ef2fcaba946ffacfb09624e1ce">Device_getMouseButtonPressed</a></div><div class="ttdeci">int Device_getMouseButtonPressed()</div><div class="ttdoc">Gets the current mouse button being pressed, or -1 if no button is being pressed.</div></div>
-<div class="ttc" id="adevice_8h_html_a2853958dddcf1815169dc7993cf37e3f"><div class="ttname"><a href="../../db/de9/device_8h.html#a2853958dddcf1815169dc7993cf37e3f">Device_getKeyboardKeyPressed</a></div><div class="ttdeci">int Device_getKeyboardKeyPressed()</div><div class="ttdoc">Gets the current key being pressed, or -1 if no key is being pressed.</div></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="../../db/de9/device_8h.html#a464ebcfa05877d5e93f084f9f157d2a4">   39</a></span><span class="keywordtype">int</span>* <a class="code hl_function" href="../../db/de9/device_8h.html#a464ebcfa05877d5e93f084f9f157d2a4">Device_getKeyboardKeysPressed</a>();</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="../../db/de9/device_8h.html#a0ed9b9b034f0713d87caef2b981408ec">   46</a></span><span class="keywordtype">char</span> <a class="code hl_function" href="../../db/de9/device_8h.html#a0ed9b9b034f0713d87caef2b981408ec">Device_fromKeyCode</a>(<span class="keywordtype">int</span> keyCode);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="../../db/de9/device_8h.html#a00fcc5922fb2513f90d6ad60ebb415e8">   65</a></span><span class="keywordtype">int</span>* <a class="code hl_function" href="../../db/de9/device_8h.html#a00fcc5922fb2513f90d6ad60ebb415e8">Device_getMouseButtonsPressed</a>();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="adevice_8h_html_a00fcc5922fb2513f90d6ad60ebb415e8"><div class="ttname"><a href="../../db/de9/device_8h.html#a00fcc5922fb2513f90d6ad60ebb415e8">Device_getMouseButtonsPressed</a></div><div class="ttdeci">int * Device_getMouseButtonsPressed()</div><div class="ttdoc">Gets the current mouse button being pressed.</div></div>
+<div class="ttc" id="adevice_8h_html_a0ed9b9b034f0713d87caef2b981408ec"><div class="ttname"><a href="../../db/de9/device_8h.html#a0ed9b9b034f0713d87caef2b981408ec">Device_fromKeyCode</a></div><div class="ttdeci">char Device_fromKeyCode(int keyCode)</div><div class="ttdoc">Converts a key code to a character.</div></div>
+<div class="ttc" id="adevice_8h_html_a464ebcfa05877d5e93f084f9f157d2a4"><div class="ttname"><a href="../../db/de9/device_8h.html#a464ebcfa05877d5e93f084f9f157d2a4">Device_getKeyboardKeysPressed</a></div><div class="ttdeci">int * Device_getKeyboardKeysPressed()</div><div class="ttdoc">Gets the current keys being pressed.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

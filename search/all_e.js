@@ -48,5 +48,6 @@ var searchData=
   ['sprite_5fsetforegroundall256_45',['Sprite_setForegroundAll256',['../d3/def/sprites_8h.html#adafbda7eebd350efa8c7392460ce6595',1,'sprites.h']]],
   ['sprite_5fsetforegroundgradient_46',['Sprite_setForegroundGradient',['../d3/def/sprites_8h.html#a37e6ed5537bab8ef9a0fd14feb20ae1b',1,'sprites.h']]],
   ['sprite_5fsetforegroundgradientall_47',['Sprite_setForegroundGradientAll',['../d3/def/sprites_8h.html#a7836145071ac1e6f494f5374777adfbf',1,'sprites.h']]],
-  ['sprites_2eh_48',['sprites.h',['../dd/dfc/animation_2sprites_8h.html',1,'(Global Namespace)'],['../d3/def/sprites_8h.html',1,'(Global Namespace)']]]
+  ['sprites_2eh_48',['sprites.h',['../dd/dfc/animation_2sprites_8h.html',1,'(Global Namespace)'],['../d3/def/sprites_8h.html',1,'(Global Namespace)']]],
+  ['state_49',['state',['../dc/d1b/structCmdFX__KeyEvent.html#a52dff6be5ddbd43737006260a556b1c3',1,'CmdFX_KeyEvent::state'],['../df/df9/structCmdFX__MouseEvent.html#a129a66cdea9e6289eee312445be2e2ec',1,'CmdFX_MouseEvent::state']]]
 ];
