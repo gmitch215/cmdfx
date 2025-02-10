@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>cmdfx: /home/runner/work/cmdfx/cmdfx/include/cmdfx/sprites.h File Reference</title>
+<title>cmdfx: /home/runner/work/cmdfx/cmdfx/include/cmdfx/core/sprites.h File Reference</title>
 <link rel="icon" href="../../cmdfx.ico" type="image/x-icon" />
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
@@ -86,7 +86,7 @@ $(function(){ initResizable(false); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../dir_d57baba9f97457737bc2ba6c8424a2ea.html">cmdfx</a></li>  </ul>
+<li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../dir_d57baba9f97457737bc2ba6c8424a2ea.html">cmdfx</a></li><li class="navelem"><a class="el" href="../../dir_fd613db7ac96c74c72e7598827ee0669.html">core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
@@ -253,6 +253,24 @@ Functions</h2></td></tr>
 <tr class="memitem:ae78095d8b10cda96d84de8f3430aa482" id="r_ae78095d8b10cda96d84de8f3430aa482"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae78095d8b10cda96d84de8f3430aa482">Sprite_setBackgroundGradientAll</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, enum <a class="el" href="#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction, int numColors,...)</td></tr>
 <tr class="memdesc:ae78095d8b10cda96d84de8f3430aa482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a background gradient using RGB colors.  <br /></td></tr>
 <tr class="separator:ae78095d8b10cda96d84de8f3430aa482"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3525d1dcba1d29fe7c9cc71b05cc6b42" id="r_a3525d1dcba1d29fe7c9cc71b05cc6b42"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3525d1dcba1d29fe7c9cc71b05cc6b42">Sprite_rotate</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, double radians)</td></tr>
+<tr class="memdesc:a3525d1dcba1d29fe7c9cc71b05cc6b42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates the sprite by the given angle.  <br /></td></tr>
+<tr class="separator:a3525d1dcba1d29fe7c9cc71b05cc6b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f46510743b3ff92a361e259d75ef4a2" id="r_a6f46510743b3ff92a361e259d75ef4a2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f46510743b3ff92a361e259d75ef4a2">Sprite_getRotationAngle</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:a6f46510743b3ff92a361e259d75ef4a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the rotation angle of the sprite.  <br /></td></tr>
+<tr class="separator:a6f46510743b3ff92a361e259d75ef4a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae44ffc782bde32f3f0551691787e9070" id="r_ae44ffc782bde32f3f0551691787e9070"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae44ffc782bde32f3f0551691787e9070">Sprite_hFlip</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:ae44ffc782bde32f3f0551691787e9070"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flips the sprite horizontally.  <br /></td></tr>
+<tr class="separator:ae44ffc782bde32f3f0551691787e9070"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ee35560ddffa2b5d6ae12e4cc1b1f35" id="r_a2ee35560ddffa2b5d6ae12e4cc1b1f35"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ee35560ddffa2b5d6ae12e4cc1b1f35">Sprite_vFlip</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:a2ee35560ddffa2b5d6ae12e4cc1b1f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flips the sprite vertically.  <br /></td></tr>
+<tr class="separator:a2ee35560ddffa2b5d6ae12e4cc1b1f35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4de92ab539481a99c284e60d7069f4d8" id="r_a4de92ab539481a99c284e60d7069f4d8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4de92ab539481a99c284e60d7069f4d8">Sprite_scale</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, double scale)</td></tr>
+<tr class="memdesc:a4de92ab539481a99c284e60d7069f4d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scales the sprite by the given factor.  <br /></td></tr>
+<tr class="separator:a4de92ab539481a99c284e60d7069f4d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a941f4eb1fc179dfc2e95ecc7913b94cb" id="r_a941f4eb1fc179dfc2e95ecc7913b94cb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a941f4eb1fc179dfc2e95ecc7913b94cb">Sprite_transpose</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:a941f4eb1fc179dfc2e95ecc7913b94cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transposes the sprite.  <br /></td></tr>
+<tr class="separator:a941f4eb1fc179dfc2e95ecc7913b94cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sprites API for CmdFX. </p>
@@ -891,6 +909,61 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6f46510743b3ff92a361e259d75ef4a2" name="a6f46510743b3ff92a361e259d75ef4a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f46510743b3ff92a361e259d75ef4a2">&#9670;&#160;</a></span>Sprite_getRotationAngle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Sprite_getRotationAngle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the rotation angle of the sprite. </p>
+<p>This method returns the rotation angle of the sprite in radians. The angle will be between -PI and PI. If the sprite is not rotated, the method will return 0. Rotation is calculated by the number of whitespace characters in the sprite, meaning this method relies on whether it is visually rotated or not.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to get the rotation angle of. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The rotation angle of the sprite in radians. </dd></dl>
+
+</div>
+</div>
+<a id="ae44ffc782bde32f3f0551691787e9070" name="ae44ffc782bde32f3f0551691787e9070"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae44ffc782bde32f3f0551691787e9070">&#9670;&#160;</a></span>Sprite_hFlip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_hFlip </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flips the sprite horizontally. </p>
+<p>This method flips the sprite horizontally. If an error occurs, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to flip. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if the sprite was flipped, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
 <a id="a377add6e3b4c53e3e2c2beb8c6c9e3b1" name="a377add6e3b4c53e3e2c2beb8c6c9e3b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a377add6e3b4c53e3e2c2beb8c6c9e3b1">&#9670;&#160;</a></span>Sprite_isColliding()</h2>
 
@@ -947,6 +1020,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets whether the sprite is the bottom-most sprite at the given position. </p>
+<p>This method checks if the sprite is the bottom-most sprite at the given position. The position is specified by the X and Y coordinates, where (0, 0) is the top-left corner of the sprite. If the position is out of bounds, the method will return 0. "Bottom-most" refers to the sprite with the lowest Z-index.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sprite</td><td>The sprite to check. </td></tr>
@@ -984,6 +1058,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets whether the sprite is the top-most sprite at the given position. </p>
+<p>This method checks if the sprite is the top-most sprite at the given position. The position is specified by the X and Y coordinates, where (0, 0) is the top-left corner of the sprite. If the position is out of bounds, the method will return 0. "Top-most" refers to the sprite with the highest Z-index.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sprite</td><td>The sprite to check. </td></tr>
@@ -1243,6 +1318,72 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the sprite was resized, 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a3525d1dcba1d29fe7c9cc71b05cc6b42" name="a3525d1dcba1d29fe7c9cc71b05cc6b42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3525d1dcba1d29fe7c9cc71b05cc6b42">&#9670;&#160;</a></span>Sprite_rotate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_rotate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>radians</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rotates the sprite by the given angle. </p>
+<p>This method rotates the sprite by the given angle in radians. The sprite will be rotated around its center. If an error occurs, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to rotate. </td></tr>
+    <tr><td class="paramname">radians</td><td>The angle to rotate the sprite by in radians. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if the sprite was rotated, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a4de92ab539481a99c284e60d7069f4d8" name="a4de92ab539481a99c284e60d7069f4d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4de92ab539481a99c284e60d7069f4d8">&#9670;&#160;</a></span>Sprite_scale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_scale </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>scale</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Scales the sprite by the given factor. </p>
+<p>This method scales the sprite by the given factor. The sprite will be scaled around its center. If an error occurs, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to scale. </td></tr>
+    <tr><td class="paramname">scale</td><td>The factor to scale the sprite by. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if the sprite was scaled, -1 if an error occurred. </dd></dl>
 
 </div>
 </div>
@@ -1837,6 +1978,62 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the gradient was set, 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a941f4eb1fc179dfc2e95ecc7913b94cb" name="a941f4eb1fc179dfc2e95ecc7913b94cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a941f4eb1fc179dfc2e95ecc7913b94cb">&#9670;&#160;</a></span>Sprite_transpose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_transpose </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transposes the sprite. </p>
+<p>This method transposes the sprite, swapping the rows and columns. If an error occurs, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to transpose. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if the sprite was transposed, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a2ee35560ddffa2b5d6ae12e4cc1b1f35" name="a2ee35560ddffa2b5d6ae12e4cc1b1f35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ee35560ddffa2b5d6ae12e4cc1b1f35">&#9670;&#160;</a></span>Sprite_vFlip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_vFlip </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flips the sprite vertically. </p>
+<p>This method flips the sprite vertically. If an error occurs, the method will return 0.</p>
+<p>This method will also redraw the sprite if it is currently drawn.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to flip. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if the sprite was flipped, -1 if an error occurred. </dd></dl>
 
 </div>
 </div>

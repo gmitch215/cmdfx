@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['📝_20contributing_0',['📝 Contributing',['../index.html#autotoc_md5',1,'']]]
+  ['🍎_20features_0',['🍎 Features',['../index.html#autotoc_md6',1,'']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['removecmdfxeventlistener_0',['removeCmdFXEventListener',['../db/dd2/events_8h.html#a67cadcc13f6596823cc8c9837a7c2f86',1,'events.h']]],
-  ['rgb_5fto_5fhsv_1',['rgb_to_hsv',['../d8/d3c/util_8h.html#a299c8fc6a56432d5a8d91e1cef478ddb',1,'util.h']]]
+  ['player_5fplay_0',['Player_play',['../d3/d62/player_8h.html#ad9ba6af02a9be931620272432bc00188',1,'player.h']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>cmdfx: /home/runner/work/cmdfx/cmdfx/include/cmdfx/builder.h File Reference</title>
+<title>cmdfx: /home/runner/work/cmdfx/cmdfx/include/cmdfx/core/builder.h File Reference</title>
 <link rel="icon" href="../../cmdfx.ico" type="image/x-icon" />
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
@@ -86,7 +86,7 @@ $(function(){ initResizable(false); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../dir_d57baba9f97457737bc2ba6c8424a2ea.html">cmdfx</a></li>  </ul>
+<li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../dir_d57baba9f97457737bc2ba6c8424a2ea.html">cmdfx</a></li><li class="navelem"><a class="el" href="../../dir_fd613db7ac96c74c72e7598827ee0669.html">core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
@@ -153,17 +153,38 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad24aa39378cfa61aece291dda8a203e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes text in a 2D Character Array.  <br /></td></tr>
 <tr class="separator:ad24aa39378cfa61aece291dda8a203e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d2dd86a884d29c82f5f200762280ef7" id="r_a1d2dd86a884d29c82f5f200762280ef7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d2dd86a884d29c82f5f200762280ef7">CharBuilder_resize</a> (char **array, int width, int height)</td></tr>
-<tr class="memdesc:a1d2dd86a884d29c82f5f200762280ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes an 2D Character Array to a specific width and height.  <br /></td></tr>
+<tr class="memdesc:a1d2dd86a884d29c82f5f200762280ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes a 2D Character Array to a specific width and height.  <br /></td></tr>
 <tr class="separator:a1d2dd86a884d29c82f5f200762280ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a641b209c174f6af5ccc784cb4b298f12" id="r_a641b209c174f6af5ccc784cb4b298f12"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a641b209c174f6af5ccc784cb4b298f12">CharBuilder_resizeWithPadding</a> (char **array, int width, int height, char padding)</td></tr>
-<tr class="memdesc:a641b209c174f6af5ccc784cb4b298f12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes an 2D Character Array to a specific width and height with padding.  <br /></td></tr>
+<tr class="memdesc:a641b209c174f6af5ccc784cb4b298f12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes a 2D Character Array to a specific width and height with padding.  <br /></td></tr>
 <tr class="separator:a641b209c174f6af5ccc784cb4b298f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8435db9e7bb54bb88c2e23a1d244202" id="r_aa8435db9e7bb54bb88c2e23a1d244202"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8435db9e7bb54bb88c2e23a1d244202">CharBuilder_center</a> (char **array)</td></tr>
-<tr class="memdesc:aa8435db9e7bb54bb88c2e23a1d244202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centers an 2D Character Array.  <br /></td></tr>
+<tr class="memdesc:aa8435db9e7bb54bb88c2e23a1d244202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centers a 2D Character Array.  <br /></td></tr>
 <tr class="separator:aa8435db9e7bb54bb88c2e23a1d244202"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb9aec546e61aa08909f9007924699e2" id="r_acb9aec546e61aa08909f9007924699e2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb9aec546e61aa08909f9007924699e2">CharBuilder_resizeAndCenter</a> (char **array, int width, int height)</td></tr>
-<tr class="memdesc:acb9aec546e61aa08909f9007924699e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes and centers an 2D Character Array.  <br /></td></tr>
+<tr class="memdesc:acb9aec546e61aa08909f9007924699e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes and centers a 2D Character Array.  <br /></td></tr>
 <tr class="separator:acb9aec546e61aa08909f9007924699e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5494d1ad247ba0c6b0d6dbc36d72cd48" id="r_a5494d1ad247ba0c6b0d6dbc36d72cd48"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5494d1ad247ba0c6b0d6dbc36d72cd48">CharBuilder_rotate</a> (char **array, double radians)</td></tr>
+<tr class="memdesc:a5494d1ad247ba0c6b0d6dbc36d72cd48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates a 2D Character Array.  <br /></td></tr>
+<tr class="separator:a5494d1ad247ba0c6b0d6dbc36d72cd48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c6aaa0f8e9ea3f8e230ee25fe533b1d" id="r_a2c6aaa0f8e9ea3f8e230ee25fe533b1d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c6aaa0f8e9ea3f8e230ee25fe533b1d">CharBuilder_getRotationAngle</a> (char **array)</td></tr>
+<tr class="memdesc:a2c6aaa0f8e9ea3f8e230ee25fe533b1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the rotation angle of a 2D Character Array.  <br /></td></tr>
+<tr class="separator:a2c6aaa0f8e9ea3f8e230ee25fe533b1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa9802e738db5ee0e4729dc51ecb9abe" id="r_aaa9802e738db5ee0e4729dc51ecb9abe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa9802e738db5ee0e4729dc51ecb9abe">CharBuilder_hFlip</a> (char **array)</td></tr>
+<tr class="memdesc:aaa9802e738db5ee0e4729dc51ecb9abe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flips a 2D Character Array horizontally.  <br /></td></tr>
+<tr class="separator:aaa9802e738db5ee0e4729dc51ecb9abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5565f8305740b0f61937e8d938a55dba" id="r_a5565f8305740b0f61937e8d938a55dba"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5565f8305740b0f61937e8d938a55dba">CharBuilder_vFlip</a> (char **array)</td></tr>
+<tr class="memdesc:a5565f8305740b0f61937e8d938a55dba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flips a 2D Character Array vertically.  <br /></td></tr>
+<tr class="separator:a5565f8305740b0f61937e8d938a55dba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ea955673be19a0a96719e7e39e59d72" id="r_a2ea955673be19a0a96719e7e39e59d72"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ea955673be19a0a96719e7e39e59d72">CharBuilder_transpose</a> (char **array)</td></tr>
+<tr class="memdesc:a2ea955673be19a0a96719e7e39e59d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transposes a 2D Character Array.  <br /></td></tr>
+<tr class="separator:a2ea955673be19a0a96719e7e39e59d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3fef52321c675d9b7284d121bab05cc" id="r_ab3fef52321c675d9b7284d121bab05cc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3fef52321c675d9b7284d121bab05cc">CharBuilder_replaceAll</a> (char **array, char find, char replace)</td></tr>
+<tr class="memdesc:ab3fef52321c675d9b7284d121bab05cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces all instances of a character in a 2D Character Array.  <br /></td></tr>
+<tr class="separator:ab3fef52321c675d9b7284d121bab05cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afea886eb2f8c71df1376e5a115072b8f" id="r_afea886eb2f8c71df1376e5a115072b8f"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afea886eb2f8c71df1376e5a115072b8f">CharBuilder_scale</a> (char **array, double scale)</td></tr>
+<tr class="memdesc:afea886eb2f8c71df1376e5a115072b8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scales a 2D Character Array.  <br /></td></tr>
+<tr class="separator:afea886eb2f8c71df1376e5a115072b8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b7140ea28802498b5cc9ecf0879bb2c" id="r_a6b7140ea28802498b5cc9ecf0879bb2c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b7140ea28802498b5cc9ecf0879bb2c">getAnsiArrayWidth</a> (char ***array)</td></tr>
 <tr class="memdesc:a6b7140ea28802498b5cc9ecf0879bb2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the width of a 2D String Array.  <br /></td></tr>
 <tr class="separator:a6b7140ea28802498b5cc9ecf0879bb2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,6 +230,24 @@ Functions</h2></td></tr>
 <tr class="memitem:a10f1335674d1b3481163ba5afd84cbc0" id="r_a10f1335674d1b3481163ba5afd84cbc0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10f1335674d1b3481163ba5afd84cbc0">AnsiBuilder_fillPolygon</a> (char ***array, int x, int y, int sides, int radius, char *c)</td></tr>
 <tr class="memdesc:a10f1335674d1b3481163ba5afd84cbc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills a polygon in a 2D String Array.  <br /></td></tr>
 <tr class="separator:a10f1335674d1b3481163ba5afd84cbc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a403390d399c0428e3cda84a8067c5518" id="r_a403390d399c0428e3cda84a8067c5518"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a403390d399c0428e3cda84a8067c5518">AnsiBuilder_rotate</a> (char ***array, double radians)</td></tr>
+<tr class="memdesc:a403390d399c0428e3cda84a8067c5518"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates a 2D String Array.  <br /></td></tr>
+<tr class="separator:a403390d399c0428e3cda84a8067c5518"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57540ede1142c75c873380f0f1211aaf" id="r_a57540ede1142c75c873380f0f1211aaf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57540ede1142c75c873380f0f1211aaf">AnsiBuilder_hFlip</a> (char ***array)</td></tr>
+<tr class="memdesc:a57540ede1142c75c873380f0f1211aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flips a 2D String Array horizontally.  <br /></td></tr>
+<tr class="separator:a57540ede1142c75c873380f0f1211aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa35a70bad668d9f2394e01ad88f82061" id="r_aa35a70bad668d9f2394e01ad88f82061"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa35a70bad668d9f2394e01ad88f82061">AnsiBuilder_vFlip</a> (char ***array)</td></tr>
+<tr class="memdesc:aa35a70bad668d9f2394e01ad88f82061"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flips a 2D String Array vertically.  <br /></td></tr>
+<tr class="separator:aa35a70bad668d9f2394e01ad88f82061"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd3fa0b1e9ddc6674adea0ea3dfa9c7d" id="r_abd3fa0b1e9ddc6674adea0ea3dfa9c7d"><td class="memItemLeft" align="right" valign="top">char ***&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd3fa0b1e9ddc6674adea0ea3dfa9c7d">AnsiBuilder_transpose</a> (char ***array)</td></tr>
+<tr class="memdesc:abd3fa0b1e9ddc6674adea0ea3dfa9c7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transposes a 2D String Array.  <br /></td></tr>
+<tr class="separator:abd3fa0b1e9ddc6674adea0ea3dfa9c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2437adf29c1dde21318eb1b88462c939" id="r_a2437adf29c1dde21318eb1b88462c939"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2437adf29c1dde21318eb1b88462c939">AnsiBuilder_replaceAll</a> (char ***array, char *find, char *replace)</td></tr>
+<tr class="memdesc:a2437adf29c1dde21318eb1b88462c939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces all instances of an ANSI code in a 2D String Array.  <br /></td></tr>
+<tr class="separator:a2437adf29c1dde21318eb1b88462c939"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a430f0ed1c27a985f40d95caeb2e870e0" id="r_a430f0ed1c27a985f40d95caeb2e870e0"><td class="memItemLeft" align="right" valign="top">char ***&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a430f0ed1c27a985f40d95caeb2e870e0">AnsiBuilder_scale</a> (char ***array, double scale)</td></tr>
+<tr class="memdesc:a430f0ed1c27a985f40d95caeb2e870e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scales a 2D String Array.  <br /></td></tr>
+<tr class="separator:a430f0ed1c27a985f40d95caeb2e870e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Builder API for building 2D Character Arrays. </p>
@@ -575,6 +614,32 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a57540ede1142c75c873380f0f1211aaf" name="a57540ede1142c75c873380f0f1211aaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57540ede1142c75c873380f0f1211aaf">&#9670;&#160;</a></span>AnsiBuilder_hFlip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_hFlip </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flips a 2D String Array horizontally. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
 <a id="a99992453001c18cc9129ed2c788ad07a" name="a99992453001c18cc9129ed2c788ad07a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a99992453001c18cc9129ed2c788ad07a">&#9670;&#160;</a></span>AnsiBuilder_hLine()</h2>
 
@@ -794,6 +859,108 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a2437adf29c1dde21318eb1b88462c939" name="a2437adf29c1dde21318eb1b88462c939"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2437adf29c1dde21318eb1b88462c939">&#9670;&#160;</a></span>AnsiBuilder_replaceAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_replaceAll </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>find</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>replace</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Replaces all instances of an ANSI code in a 2D String Array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">find</td><td>The ANSI code to find. </td></tr>
+    <tr><td class="paramname">replace</td><td>The ANSI code to replace the found ANSI code with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of ANSI codes replaced, 0 if none, or -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a403390d399c0428e3cda84a8067c5518" name="a403390d399c0428e3cda84a8067c5518"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a403390d399c0428e3cda84a8067c5518">&#9670;&#160;</a></span>AnsiBuilder_rotate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_rotate </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>radians</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rotates a 2D String Array. </p>
+<p>This method rotates a 2D String Array by a specific number of radians. The rotation will be done around the center of the 2D String Array.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">radians</td><td>The number of radians to rotate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a430f0ed1c27a985f40d95caeb2e870e0" name="a430f0ed1c27a985f40d95caeb2e870e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a430f0ed1c27a985f40d95caeb2e870e0">&#9670;&#160;</a></span>AnsiBuilder_scale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char *** AnsiBuilder_scale </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>scale</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Scales a 2D String Array. </p>
+<p>This method scales a 2D String Array by a specific factor. The scaling will be done around the center of the 2D String Array.</p>
+<p>The original 2D String Array will be freed.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">scale</td><td>The factor to scale the 2D String Array by. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
 <a id="ac5ae5e32b1029ba50c1f0e6dd9b40798" name="ac5ae5e32b1029ba50c1f0e6dd9b40798"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5ae5e32b1029ba50c1f0e6dd9b40798">&#9670;&#160;</a></span>AnsiBuilder_setAnsi()</h2>
 
@@ -833,6 +1000,59 @@ Functions</h2></td></tr>
     <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
     <tr><td class="paramname">y</td><td>The y coordinate </td></tr>
     <tr><td class="paramname">c</td><td>The ANSI code to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="abd3fa0b1e9ddc6674adea0ea3dfa9c7d" name="abd3fa0b1e9ddc6674adea0ea3dfa9c7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd3fa0b1e9ddc6674adea0ea3dfa9c7d">&#9670;&#160;</a></span>AnsiBuilder_transpose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char *** AnsiBuilder_transpose </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transposes a 2D String Array. </p>
+<p>This method transposes a 2D String Array, then returns the transposed 2D String Array. The original 2D String Array will be freed.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The transposed 2D String Array. </dd></dl>
+
+</div>
+</div>
+<a id="aa35a70bad668d9f2394e01ad88f82061" name="aa35a70bad668d9f2394e01ad88f82061"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa35a70bad668d9f2394e01ad88f82061">&#9670;&#160;</a></span>AnsiBuilder_vFlip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_vFlip </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flips a 2D String Array vertically. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
   </table>
   </dd>
 </dl>
@@ -905,8 +1125,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Centers an 2D Character Array. </p>
-<p>This method centers an 2D Character Array both horizontally and vertically. It will reposition the characters depending on whether there is whitespace surrounding other characters.</p>
+<p>Centers a 2D Character Array. </p>
+<p>This method centers a 2D Character Array both horizontally and vertically. It will reposition the characters depending on whether there is whitespace surrounding other characters.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
@@ -1269,6 +1489,59 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a2c6aaa0f8e9ea3f8e230ee25fe533b1d" name="a2c6aaa0f8e9ea3f8e230ee25fe533b1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c6aaa0f8e9ea3f8e230ee25fe533b1d">&#9670;&#160;</a></span>CharBuilder_getRotationAngle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CharBuilder_getRotationAngle </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the rotation angle of a 2D Character Array. </p>
+<p>This method returns the rotation angle of a 2D Character Array in radians. The angle will be between -PI and PI. If the 2D Character Array is not rotated, the method will return 0. Rotation is calculated by the number of whitespace characters in the 2D Character Array, meaning this method relies on whether it is visually rotated or not.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The rotation angle of the 2D Character Array in radians. </dd></dl>
+
+</div>
+</div>
+<a id="aaa9802e738db5ee0e4729dc51ecb9abe" name="aaa9802e738db5ee0e4729dc51ecb9abe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa9802e738db5ee0e4729dc51ecb9abe">&#9670;&#160;</a></span>CharBuilder_hFlip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharBuilder_hFlip </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flips a 2D Character Array horizontally. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
 <a id="a0238cf4e2ded22d5a6af01cc4a621b06" name="a0238cf4e2ded22d5a6af01cc4a621b06"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0238cf4e2ded22d5a6af01cc4a621b06">&#9670;&#160;</a></span>CharBuilder_hLine()</h2>
 
@@ -1484,6 +1757,43 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab3fef52321c675d9b7284d121bab05cc" name="ab3fef52321c675d9b7284d121bab05cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3fef52321c675d9b7284d121bab05cc">&#9670;&#160;</a></span>CharBuilder_replaceAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharBuilder_replaceAll </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>find</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>replace</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Replaces all instances of a character in a 2D Character Array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+    <tr><td class="paramname">find</td><td>The character to find. </td></tr>
+    <tr><td class="paramname">replace</td><td>The character to replace the found character with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of characters replaced, 0 if none, or -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
 <a id="a1d2dd86a884d29c82f5f200762280ef7" name="a1d2dd86a884d29c82f5f200762280ef7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d2dd86a884d29c82f5f200762280ef7">&#9670;&#160;</a></span>CharBuilder_resize()</h2>
 
@@ -1508,8 +1818,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Resizes an 2D Character Array to a specific width and height. </p>
-<p>This method resizes an 2D Character Array to a specific width and height. If the new width or height is smaller than the original width or height, the 2D Character Array will be cropped. If the new width or height is larger than the original width or height, the 2D Character Array will be padded with empty space.</p>
+<p>Resizes a 2D Character Array to a specific width and height. </p>
+<p>This method resizes a 2D Character Array to a specific width and height. If the new width or height is smaller than the original width or height, the 2D Character Array will be cropped. If the new width or height is larger than the original width or height, the 2D Character Array will be padded with empty space.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
@@ -1546,8 +1856,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Resizes and centers an 2D Character Array. </p>
-<p>This method resizes and centers an 2D Character Array to a specific width and height. If the new width or height is smaller than the original width or height, the ASCII art character will be cropped. If the new width or height is larger than the original width or height, the 2D Character Array will be padded with the specified character.</p>
+<p>Resizes and centers a 2D Character Array. </p>
+<p>This method resizes and centers a 2D Character Array to a specific width and height. If the new width or height is smaller than the original width or height, the ASCII art character will be cropped. If the new width or height is larger than the original width or height, the 2D Character Array will be padded with the specified character.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
@@ -1589,14 +1899,79 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Resizes an 2D Character Array to a specific width and height with padding. </p>
-<p>This method resizes an 2D Character Array to a specific width and height with padding. If the new width or height is smaller than the original width or height, the ASCII art character will be cropped. If the new width or height is larger than the original width or height, the 2D Character Array will be padded with the specified character.</p>
+<p>Resizes a 2D Character Array to a specific width and height with padding. </p>
+<p>This method resizes a 2D Character Array to a specific width and height with padding. If the new width or height is smaller than the original width or height, the ASCII art character will be cropped. If the new width or height is larger than the original width or height, the 2D Character Array will be padded with the specified character.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
     <tr><td class="paramname">width</td><td>The new width. </td></tr>
     <tr><td class="paramname">height</td><td>The new height. </td></tr>
     <tr><td class="paramname">padding</td><td>The padding character. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a5494d1ad247ba0c6b0d6dbc36d72cd48" name="a5494d1ad247ba0c6b0d6dbc36d72cd48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5494d1ad247ba0c6b0d6dbc36d72cd48">&#9670;&#160;</a></span>CharBuilder_rotate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharBuilder_rotate </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>radians</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rotates a 2D Character Array. </p>
+<p>This method rotates a 2D Character Array by a specific number of radians. The rotation will be done around the center of the 2D Character Array.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+    <tr><td class="paramname">radians</td><td>The number of radians to rotate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="afea886eb2f8c71df1376e5a115072b8f" name="afea886eb2f8c71df1376e5a115072b8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afea886eb2f8c71df1376e5a115072b8f">&#9670;&#160;</a></span>CharBuilder_scale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char ** CharBuilder_scale </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>scale</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Scales a 2D Character Array. </p>
+<p>This method scales a 2D Character Array by a specific factor. The scaling will be done around the center of the 2D Character Array.</p>
+<p>The original 2D Character Array will be freed.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+    <tr><td class="paramname">scale</td><td>The factor to scale the 2D Character Array by. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1685,6 +2060,59 @@ Functions</h2></td></tr>
     <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
     <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
     <tr><td class="paramname">text</td><td>The text to draw. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a2ea955673be19a0a96719e7e39e59d72" name="a2ea955673be19a0a96719e7e39e59d72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ea955673be19a0a96719e7e39e59d72">&#9670;&#160;</a></span>CharBuilder_transpose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char ** CharBuilder_transpose </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transposes a 2D Character Array. </p>
+<p>This method transposes a 2D Character Array, then returns the transposed 2D Character Array. The original 2D Character Array will be freed.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The transposed 2D Character Array. </dd></dl>
+
+</div>
+</div>
+<a id="a5565f8305740b0f61937e8d938a55dba" name="a5565f8305740b0f61937e8d938a55dba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5565f8305740b0f61937e8d938a55dba">&#9670;&#160;</a></span>CharBuilder_vFlip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharBuilder_vFlip </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flips a 2D Character Array vertically. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
   </table>
   </dd>
 </dl>

@@ -96,25 +96,41 @@ $(function(){ initResizable(false); });
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/dcf/canvas_8h.html">cmdfx/canvas.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/dd2/events_8h.html">cmdfx/events.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="../../d3/def/sprites_8h.html">cmdfx/sprites.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/d78/builder_8h.html">cmdfx/builder.h</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/ddc/screen_8h.html">cmdfx/screen.h</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/d3c/util_8h.html">cmdfx/util.h</a>&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/de9/device_8h.html">cmdfx/device.h</a>&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d9d/animation_2canvas_8h.html">cmdfx/animation/canvas.h</a>&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/dfc/animation_2sprites_8h.html">cmdfx/animation/sprites.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Core Library</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/dcf/canvas_8h.html">cmdfx/core/canvas.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/dd2/events_8h.html">cmdfx/core/events.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../d3/def/sprites_8h.html">cmdfx/core/sprites.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/d78/builder_8h.html">cmdfx/core/builder.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/ddc/screen_8h.html">cmdfx/core/screen.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d04/core_2util_8h.html">cmdfx/core/util.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/de9/device_8h.html">cmdfx/core/device.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d9d/animation_2canvas_8h.html">cmdfx/core/animation/canvas.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/dfc/animation_2sprites_8h.html">cmdfx/core/animation/sprites.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">// Physics Engine</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/d0d/force_8h.html">cmdfx/physics/force.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="../../d5/d63/mass_8h.html">cmdfx/physics/mass.h</a>&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="../../d2/dc7/physics_2util_8h.html">cmdfx/physics/util.h</a>&quot;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// Audio Player</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="../../d3/d62/player_8h.html">cmdfx/audio/player.h</a>&quot;</span></div>
 <div class="ttc" id="aanimation_2canvas_8h_html"><div class="ttname"><a href="../../da/d9d/animation_2canvas_8h.html">canvas.h</a></div><div class="ttdoc">Animation Extensions for canvas.h.</div></div>
 <div class="ttc" id="aanimation_2sprites_8h_html"><div class="ttname"><a href="../../dd/dfc/animation_2sprites_8h.html">sprites.h</a></div><div class="ttdoc">Animation Extensions for sprites.h.</div></div>
 <div class="ttc" id="abuilder_8h_html"><div class="ttname"><a href="../../d5/d78/builder_8h.html">builder.h</a></div><div class="ttdoc">Builder API for building 2D Character Arrays.</div></div>
 <div class="ttc" id="acanvas_8h_html"><div class="ttname"><a href="../../d4/dcf/canvas_8h.html">canvas.h</a></div><div class="ttdoc">Canvas API for drawing shapes and text on the terminal.</div></div>
+<div class="ttc" id="acore_2util_8h_html"><div class="ttname"><a href="../../da/d04/core_2util_8h.html">util.h</a></div><div class="ttdoc">Cross-Platform Utilities for CmdFX.</div></div>
 <div class="ttc" id="adevice_8h_html"><div class="ttname"><a href="../../db/de9/device_8h.html">device.h</a></div><div class="ttdoc">Device command functions.</div></div>
 <div class="ttc" id="aevents_8h_html"><div class="ttname"><a href="../../db/dd2/events_8h.html">events.h</a></div><div class="ttdoc">Events API for CmdFX.</div></div>
+<div class="ttc" id="aforce_8h_html"><div class="ttname"><a href="../../dd/d0d/force_8h.html">force.h</a></div><div class="ttdoc">Force-related physics declarations.</div></div>
+<div class="ttc" id="amass_8h_html"><div class="ttname"><a href="../../d5/d63/mass_8h.html">mass.h</a></div><div class="ttdoc">Mass-related physics declarations.</div></div>
+<div class="ttc" id="aphysics_2util_8h_html"><div class="ttname"><a href="../../d2/dc7/physics_2util_8h.html">util.h</a></div><div class="ttdoc">Physics utilities for cmdfx.</div></div>
+<div class="ttc" id="aplayer_8h_html"><div class="ttname"><a href="../../d3/d62/player_8h.html">player.h</a></div><div class="ttdoc">Audio Player API for CmdFX.</div></div>
 <div class="ttc" id="ascreen_8h_html"><div class="ttname"><a href="../../dd/ddc/screen_8h.html">screen.h</a></div><div class="ttdoc">Screen API for controlling other things around the terminal.</div></div>
 <div class="ttc" id="asprites_8h_html"><div class="ttname"><a href="../../d3/def/sprites_8h.html">sprites.h</a></div><div class="ttdoc">Sprites API for CmdFX.</div></div>
-<div class="ttc" id="autil_8h_html"><div class="ttname"><a href="../../d8/d3c/util_8h.html">util.h</a></div><div class="ttdoc">Cross-Platform Utilities for CmdFX.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

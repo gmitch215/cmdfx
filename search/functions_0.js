@@ -8,10 +8,16 @@ var searchData=
   ['ansibuilder_5ffillellipse_5',['AnsiBuilder_fillEllipse',['../d5/d78/builder_8h.html#a3130f4c47fa5059bffcffb120b6a5ccc',1,'builder.h']]],
   ['ansibuilder_5ffillpolygon_6',['AnsiBuilder_fillPolygon',['../d5/d78/builder_8h.html#a10f1335674d1b3481163ba5afd84cbc0',1,'builder.h']]],
   ['ansibuilder_5ffillrect_7',['AnsiBuilder_fillRect',['../d5/d78/builder_8h.html#a29c351497c9a5fd21b115c25bee31d1d',1,'builder.h']]],
-  ['ansibuilder_5fhline_8',['AnsiBuilder_hLine',['../d5/d78/builder_8h.html#a99992453001c18cc9129ed2c788ad07a',1,'builder.h']]],
-  ['ansibuilder_5fline_9',['AnsiBuilder_line',['../d5/d78/builder_8h.html#aed072be3fbb816bb9d8639a5a6e9a217',1,'builder.h']]],
-  ['ansibuilder_5fpolygon_10',['AnsiBuilder_polygon',['../d5/d78/builder_8h.html#a3bca83e6b0ac833a4e81c5132dd7c348',1,'builder.h']]],
-  ['ansibuilder_5frect_11',['AnsiBuilder_rect',['../d5/d78/builder_8h.html#a4836f473b9dc0072edce322815b93147',1,'builder.h']]],
-  ['ansibuilder_5fsetansi_12',['AnsiBuilder_setAnsi',['../d5/d78/builder_8h.html#ac5ae5e32b1029ba50c1f0e6dd9b40798',1,'builder.h']]],
-  ['ansibuilder_5fvline_13',['AnsiBuilder_vLine',['../d5/d78/builder_8h.html#af259e073493bc9ddfcf5ebfc63329d86',1,'builder.h']]]
+  ['ansibuilder_5fhflip_8',['AnsiBuilder_hFlip',['../d5/d78/builder_8h.html#a57540ede1142c75c873380f0f1211aaf',1,'builder.h']]],
+  ['ansibuilder_5fhline_9',['AnsiBuilder_hLine',['../d5/d78/builder_8h.html#a99992453001c18cc9129ed2c788ad07a',1,'builder.h']]],
+  ['ansibuilder_5fline_10',['AnsiBuilder_line',['../d5/d78/builder_8h.html#aed072be3fbb816bb9d8639a5a6e9a217',1,'builder.h']]],
+  ['ansibuilder_5fpolygon_11',['AnsiBuilder_polygon',['../d5/d78/builder_8h.html#a3bca83e6b0ac833a4e81c5132dd7c348',1,'builder.h']]],
+  ['ansibuilder_5frect_12',['AnsiBuilder_rect',['../d5/d78/builder_8h.html#a4836f473b9dc0072edce322815b93147',1,'builder.h']]],
+  ['ansibuilder_5freplaceall_13',['AnsiBuilder_replaceAll',['../d5/d78/builder_8h.html#a2437adf29c1dde21318eb1b88462c939',1,'builder.h']]],
+  ['ansibuilder_5frotate_14',['AnsiBuilder_rotate',['../d5/d78/builder_8h.html#a403390d399c0428e3cda84a8067c5518',1,'builder.h']]],
+  ['ansibuilder_5fscale_15',['AnsiBuilder_scale',['../d5/d78/builder_8h.html#a430f0ed1c27a985f40d95caeb2e870e0',1,'builder.h']]],
+  ['ansibuilder_5fsetansi_16',['AnsiBuilder_setAnsi',['../d5/d78/builder_8h.html#ac5ae5e32b1029ba50c1f0e6dd9b40798',1,'builder.h']]],
+  ['ansibuilder_5ftranspose_17',['AnsiBuilder_transpose',['../d5/d78/builder_8h.html#abd3fa0b1e9ddc6674adea0ea3dfa9c7d',1,'builder.h']]],
+  ['ansibuilder_5fvflip_18',['AnsiBuilder_vFlip',['../d5/d78/builder_8h.html#aa35a70bad668d9f2394e01ad88f82061',1,'builder.h']]],
+  ['ansibuilder_5fvline_19',['AnsiBuilder_vLine',['../d5/d78/builder_8h.html#af259e073493bc9ddfcf5ebfc63329d86',1,'builder.h']]]
 ];
