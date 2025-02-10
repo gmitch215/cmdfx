@@ -584,6 +584,56 @@ int CharBuilder_rotate(char** array, double radians) {
     return 0;
 }
 
+double CharBuilder_getRotationAngle(char** array) {
+    if (array == 0) return 0.0;
+
+    int width = getArrayWidth(array);
+    int height = getArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return 0.0;
+    
+    double cx = width / 2.0;
+    double cy = height / 2.0;
+    
+    double sumX = 0, sumY = 0;
+    int whitespaceCount = 0;
+    
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            if (array[y][x] == ' ') {
+                sumX += x;
+                sumY += y;
+                whitespaceCount++;
+            }
+        }
+    }
+
+    if (whitespaceCount == 0) return 0.0;
+
+    // Compute centroid
+    double avgX = sumX / whitespaceCount;
+    double avgY = sumY / whitespaceCount;
+    
+    // Compute moment of inertia
+    double sumXY = 0, sumXX = 0, sumYY = 0;
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            if (array[y][x] == ' ') {
+                double dx = x - avgX;
+                double dy = y - avgY;
+                sumXX += dx * dx;
+                sumYY += dy * dy;
+                sumXY += dx * dy;
+            }
+        }
+    }
+
+    double theta = 0.5 * atan2(2 * sumXY, sumXX - sumYY);
+
+    return theta;
+}
+
 int CharBuilder_hFlip(char** array) {
     if (array == 0) return -1;
 
@@ -677,6 +727,43 @@ int CharBuilder_replaceAll(char** array, char find, char replace) {
     }
 
     return count;
+}
+
+char** CharBuilder_scale(char** array, double scale) {
+    if (array == 0) return 0;
+    if (scale <= 0) return 0;
+
+    int width = getArrayWidth(array);
+    int height = getArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return 0;
+
+    char** scaled = (char**) malloc(height * scale * sizeof(char*));
+    if (scaled == 0) return 0;
+
+    for (int i = 0; i < height * scale; i++) {
+        scaled[i] = (char*) malloc(width * scale * sizeof(char));
+
+        if (scaled[i] == 0) {
+            for (int j = 0; j < i; j++) free(scaled[j]);
+            free(scaled);
+            return 0;
+        }
+    }
+
+    for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++)
+            for (int sy = 0; sy < scale; sy++)
+                for (int sx = 0; sx < scale; sx++)
+                    scaled[(int) (y * scale + sy)][(int) (x * scale + sx)] = array[y][x];
+
+    // Free the original array
+    for (int i = 0; i < height; i++) {
+        free(array[i]);
+    }
+    free(array);
+
+    return scaled;
 }
 
 #pragma endregion
@@ -1242,6 +1329,46 @@ int AnsiBuilder_replaceAll(char*** array, char* find, char* replace) {
     }
 
     return count;
+}
+
+char*** AnsiBuilder_scale(char*** array, double scale) {
+    if (array == 0) return 0;
+    if (scale <= 0) return 0;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return 0;
+
+    char*** scaled = (char***) malloc(height * scale * sizeof(char**));
+    if (scaled == 0) return 0;
+
+    for (int i = 0; i < height * scale; i++) {
+        scaled[i] = (char**) malloc(width * scale * sizeof(char*));
+
+        if (scaled[i] == 0) {
+            for (int j = 0; j < i; j++) free(scaled[j]);
+            free(scaled);
+            return 0;
+        }
+    }
+
+    for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++)
+            for (int sy = 0; sy < scale; sy++)
+                for (int sx = 0; sx < scale; sx++)
+                    strcpy(scaled[(int) (y * scale + sy)][(int) (x * scale + sx)], array[y][x]);
+
+    // Free the original array
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            free(array[i][j]);
+        }
+        free(array[i]);
+    }
+    free(array);
+
+    return scaled;
 }
 
 #pragma endregion

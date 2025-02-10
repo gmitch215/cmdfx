@@ -307,6 +307,19 @@ int CharBuilder_resizeAndCenter(char** array, int width, int height);
 int CharBuilder_rotate(char** array, double radians);
 
 /**
+ * @brief Gets the rotation angle of a 2D Character Array.
+ * 
+ * This method returns the rotation angle of a 2D Character Array in radians. The angle
+ * will be between -PI and PI. If the 2D Character Array is not rotated, the method will
+ * return 0. Rotation is calculated by the number of whitespace characters in the 2D
+ * Character Array, meaning this method relies on whether it is visually rotated or not.
+ * 
+ * @param array The 2D Character Array.
+ * @return The rotation angle of the 2D Character Array in radians.
+ */
+double CharBuilder_getRotationAngle(char** array);
+
+/**
  * @brief Flips a 2D Character Array horizontally.
  * 
  * @param array The 2D Character Array.
@@ -343,6 +356,20 @@ char** CharBuilder_transpose(char** array);
  * @return The number of characters replaced, 0 if none, or -1 if an error occurred.
  */
 int CharBuilder_replaceAll(char** array, char find, char replace);
+
+/**
+ * @brief Scales a 2D Character Array.
+ * 
+ * This method scales a 2D Character Array by a specific factor. The scaling
+ * will be done around the center of the 2D Character Array.
+ * 
+ * The original 2D Character Array will be freed.
+ * 
+ * @param array The 2D Character Array.
+ * @param scale The factor to scale the 2D Character Array by.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+char** CharBuilder_scale(char** array, double scale);
 
 #pragma endregion
 
@@ -635,6 +662,20 @@ char*** AnsiBuilder_transpose(char*** array);
  * @return The number of ANSI codes replaced, 0 if none, or -1 if an error occurred.
  */
 int AnsiBuilder_replaceAll(char*** array, char* find, char* replace);
+
+/**
+ * @brief Scales a 2D String Array.
+ * 
+ * This method scales a 2D String Array by a specific factor. The scaling
+ * will be done around the center of the 2D String Array.
+ * 
+ * The original 2D String Array will be freed.
+ * 
+ * @param array The 2D String Array.
+ * @param scale The factor to scale the 2D String Array by.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+char*** AnsiBuilder_scale(char*** array, double scale);
 
 #pragma endregion
 

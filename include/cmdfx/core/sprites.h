@@ -492,6 +492,11 @@ int Sprite_isColliding(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2);
 /**
  * @brief Gets whether the sprite is the top-most sprite at the given position.
  * 
+ * This method checks if the sprite is the top-most sprite at the given position.
+ * The position is specified by the X and Y coordinates, where (0, 0) is the
+ * top-left corner of the sprite. If the position is out of bounds, the method
+ * will return 0. "Top-most" refers to the sprite with the highest Z-index.
+ * 
  * @param sprite The sprite to check.
  * @param x The X position.
  * @param y The Y position.
@@ -501,6 +506,11 @@ int Sprite_isOnTop(CmdFX_Sprite* sprite, int x, int y);
 
 /**
  * @brief Gets whether the sprite is the bottom-most sprite at the given position.
+ * 
+ * This method checks if the sprite is the bottom-most sprite at the given position.
+ * The position is specified by the X and Y coordinates, where (0, 0) is the
+ * top-left corner of the sprite. If the position is out of bounds, the method
+ * will return 0. "Bottom-most" refers to the sprite with the lowest Z-index.
  * 
  * @param sprite The sprite to check.
  * @param x The X position.
@@ -722,6 +732,89 @@ int Sprite_setBackgroundGradient(CmdFX_Sprite* sprite, int x, int y, int width, 
  * @return 1 if the gradient was set, 0 if an error occurred.
  */
 int Sprite_setBackgroundGradientAll(CmdFX_Sprite* sprite, enum CmdFX_GradientDirection direction, int numColors, ...);
+
+// Utility Methods - Transformations
+
+/**
+ * @brief Rotates the sprite by the given angle.
+ * 
+ * This method rotates the sprite by the given angle in radians. The sprite
+ * will be rotated around its center. If an error occurs, the method will return 0.
+ * 
+ * This method will also redraw the sprite if it is currently drawn.
+ * 
+ * @param sprite The sprite to rotate.
+ * @param radians The angle to rotate the sprite by in radians.
+ * @return 0 if the sprite was rotated, -1 if an error occurred.
+ */
+int Sprite_rotate(CmdFX_Sprite* sprite, double radians);
+
+/**
+ * @brief Gets the rotation angle of the sprite.
+ * 
+ * This method returns the rotation angle of the sprite in radians. The angle
+ * will be between -PI and PI. If the sprite is not rotated, the method will
+ * return 0. Rotation is calculated by the number of whitespace characters
+ * in the sprite, meaning this method relies on whether it is visually
+ * rotated or not.
+ * 
+ * @param sprite The sprite to get the rotation angle of.
+ * @return The rotation angle of the sprite in radians.
+ */
+double Sprite_getRotationAngle(CmdFX_Sprite* sprite);
+
+/**
+ * @brief Flips the sprite horizontally.
+ * 
+ * This method flips the sprite horizontally. If an error occurs, the method
+ * will return 0.
+ * 
+ * This method will also redraw the sprite if it is currently drawn.
+ * 
+ * @param sprite The sprite to flip.
+ * @return 0 if the sprite was flipped, -1 if an error occurred.
+ */
+int Sprite_hFlip(CmdFX_Sprite* sprite);
+
+/**
+ * @brief Flips the sprite vertically.
+ * 
+ * This method flips the sprite vertically. If an error occurs, the method
+ * will return 0.
+ * 
+ * This method will also redraw the sprite if it is currently drawn.
+ * 
+ * @param sprite The sprite to flip.
+ * @return 0 if the sprite was flipped, -1 if an error occurred.
+ */
+int Sprite_vFlip(CmdFX_Sprite* sprite);
+
+/**
+ * @brief Scales the sprite by the given factor.
+ * 
+ * This method scales the sprite by the given factor. The sprite will be scaled
+ * around its center. If an error occurs, the method will return 0.
+ * 
+ * This method will also redraw the sprite if it is currently drawn.
+ * 
+ * @param sprite The sprite to scale.
+ * @param scale The factor to scale the sprite by.
+ * @return 0 if the sprite was scaled, -1 if an error occurred.
+ */
+int Sprite_scale(CmdFX_Sprite* sprite, double scale);
+
+/**
+ * @brief Transposes the sprite.
+ * 
+ * This method transposes the sprite, swapping the rows and columns. If an error
+ * occurs, the method will return 0.
+ * 
+ * This method will also redraw the sprite if it is currently drawn.
+ * 
+ * @param sprite The sprite to transpose.
+ * @return 0 if the sprite was transposed, -1 if an error occurred.
+ */
+int Sprite_transpose(CmdFX_Sprite* sprite);
 
 #ifdef __cplusplus
 }

@@ -9,6 +9,7 @@
 #include "cmdfx/core/sprites.h"
 #include "cmdfx/core/canvas.h"
 #include "cmdfx/core/util.h"
+#include "cmdfx/core/builder.h"
 
 CmdFX_Sprite** sprites = 0;
 int spriteCount = 0;
@@ -1118,4 +1119,111 @@ int Sprite_setBackgroundGradientAll(CmdFX_Sprite* sprite, enum CmdFX_GradientDir
     va_end(args);
 
     return res;
+}
+
+// Utility Methods - Transformations
+
+int Sprite_rotate(CmdFX_Sprite* sprite, double radians) {
+    if (sprite == 0) return -1;
+
+    // Remove Sprite if Drawn
+    if (sprite->id != 0) Sprite_remove0(sprite);
+
+    if (sprite->data != 0)
+        CharBuilder_rotate(sprite->data, radians);
+    
+    if (sprite->ansi != 0)
+        AnsiBuilder_rotate(sprite->ansi, radians);
+    
+    // Redraw Sprite if Drawn
+    if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 0;
+}
+
+double Sprite_getRotationAngle(CmdFX_Sprite* sprite) {
+    if (sprite == 0) return 0.0;
+    if (sprite->data == 0) return 0.0;
+
+    return CharBuilder_getRotationAngle(sprite->data);
+}
+
+int Sprite_hFlip(CmdFX_Sprite* sprite) {
+    if (sprite == 0) return -1;
+
+    // Remove Sprite if Drawn
+    if (sprite->id != 0) Sprite_remove0(sprite);
+
+    if (sprite->data != 0)
+        CharBuilder_hFlip(sprite->data);
+    
+    if (sprite->ansi != 0)
+        AnsiBuilder_hFlip(sprite->ansi);
+    
+    // Redraw Sprite if Drawn
+    if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 0;
+}
+
+int Sprite_vFlip(CmdFX_Sprite* sprite) {
+    if (sprite == 0) return -1;
+
+    // Remove Sprite if Drawn
+    if (sprite->id != 0) Sprite_remove0(sprite);
+
+    if (sprite->data != 0)
+        CharBuilder_vFlip(sprite->data);
+    
+    if (sprite->ansi != 0)
+        AnsiBuilder_vFlip(sprite->ansi);
+    
+    // Redraw Sprite if Drawn
+    if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 0;
+}
+
+int Sprite_scale(CmdFX_Sprite* sprite, double scale) {
+    if (sprite == 0) return -1;
+
+    // Remove Sprite if Drawn
+    if (sprite->id != 0) Sprite_remove0(sprite);
+
+    if (sprite->data != 0) {
+        char** newData = CharBuilder_scale(sprite->data, scale);
+        sprite->data = newData;
+    }
+
+    if (sprite->ansi != 0) {
+        char** newAnsi = AnsiBuilder_scale(sprite->ansi, scale);
+        sprite->ansi = newAnsi;
+    }
+
+    // Redraw Sprite if Drawn
+    if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 0;
+}
+
+int Sprite_transpose(CmdFX_Sprite* sprite) {
+    if (sprite == 0) return -1;
+
+    // Remove Sprite if Drawn
+    if (sprite->id != 0) Sprite_remove0(sprite);
+
+    if (sprite->data != 0) {
+        char** newData = CharBuilder_transpose(sprite->data);
+        sprite->data = newData;
+    }
+
+    if (sprite->ansi != 0) {
+        char** newAnsi = AnsiBuilder_transpose(sprite->ansi);
+        sprite->ansi = newAnsi;
+    }
+
+    // Redraw Sprite if Drawn
+    if (sprite->id != 0) Sprite_draw0(sprite);
+
+    return 0;
 }
