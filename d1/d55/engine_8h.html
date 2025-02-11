@@ -104,9 +104,6 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad1aee11bb83cc650e78de99327dcd918" id="r_ad1aee11bb83cc650e78de99327dcd918"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1aee11bb83cc650e78de99327dcd918">Engine_tick</a> ()</td></tr>
-<tr class="memdesc:ad1aee11bb83cc650e78de99327dcd918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ticks the physics engine, updating all sprites.  <br /></td></tr>
-<tr class="separator:ad1aee11bb83cc650e78de99327dcd918"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2644b9d935addfe409d66c576a097513" id="r_a2644b9d935addfe409d66c576a097513"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2644b9d935addfe409d66c576a097513">Engine_getForceOfGravity</a> ()</td></tr>
 <tr class="memdesc:a2644b9d935addfe409d66c576a097513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the force of gravity, in characters per second squared.  <br /></td></tr>
 <tr class="separator:a2644b9d935addfe409d66c576a097513"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,15 +125,27 @@ Functions</h2></td></tr>
 <tr class="memitem:a080606d49cbfd08f101b7bb403b13d47" id="r_a080606d49cbfd08f101b7bb403b13d47"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a080606d49cbfd08f101b7bb403b13d47">Engine_getDefaultFrictionCoefficient</a> ()</td></tr>
 <tr class="memdesc:a080606d49cbfd08f101b7bb403b13d47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the default friction coefficient for a sprite.  <br /></td></tr>
 <tr class="separator:a080606d49cbfd08f101b7bb403b13d47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4903fda742736f8feb858cd493bf8d6b" id="r_a4903fda742736f8feb858cd493bf8d6b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4903fda742736f8feb858cd493bf8d6b">Engine_setDefaultFrictionCoefficient</a> (double coefficient)</td></tr>
-<tr class="memdesc:a4903fda742736f8feb858cd493bf8d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the default friction coefficient for a sprite.  <br /></td></tr>
-<tr class="separator:a4903fda742736f8feb858cd493bf8d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acec59fffaa6ef61bdd2ff05c296bf791" id="r_acec59fffaa6ef61bdd2ff05c296bf791"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acec59fffaa6ef61bdd2ff05c296bf791">Engine_setDefaultFrictionCoefficient</a> (double coefficient)</td></tr>
+<tr class="memdesc:acec59fffaa6ef61bdd2ff05c296bf791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the default friction coefficient for a sprite.  <br /></td></tr>
+<tr class="separator:acec59fffaa6ef61bdd2ff05c296bf791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa664bde76eea77096a2f147ccd51a811" id="r_aa664bde76eea77096a2f147ccd51a811"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa664bde76eea77096a2f147ccd51a811">Engine_getCharacterMass</a> (char c)</td></tr>
 <tr class="memdesc:aa664bde76eea77096a2f147ccd51a811"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the default mass of a character.  <br /></td></tr>
 <tr class="separator:aa664bde76eea77096a2f147ccd51a811"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a645e60efcf7ac905484133d4c8d845a9" id="r_a645e60efcf7ac905484133d4c8d845a9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a645e60efcf7ac905484133d4c8d845a9">Engine_setCharacterMass</a> (char c, int mass)</td></tr>
 <tr class="memdesc:a645e60efcf7ac905484133d4c8d845a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the default mass of a character.  <br /></td></tr>
 <tr class="separator:a645e60efcf7ac905484133d4c8d845a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7906d41524c9a982c099c0cf4203e1b" id="r_ab7906d41524c9a982c099c0cf4203e1b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7906d41524c9a982c099c0cf4203e1b">Engine_start</a> ()</td></tr>
+<tr class="memdesc:ab7906d41524c9a982c099c0cf4203e1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts up the physics engine.  <br /></td></tr>
+<tr class="separator:ab7906d41524c9a982c099c0cf4203e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1aee11bb83cc650e78de99327dcd918" id="r_ad1aee11bb83cc650e78de99327dcd918"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1aee11bb83cc650e78de99327dcd918">Engine_tick</a> ()</td></tr>
+<tr class="memdesc:ad1aee11bb83cc650e78de99327dcd918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ticks the physics engine.  <br /></td></tr>
+<tr class="separator:ad1aee11bb83cc650e78de99327dcd918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79f81c4c8d4e8e97ce62439f8a1023a6" id="r_a79f81c4c8d4e8e97ce62439f8a1023a6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79f81c4c8d4e8e97ce62439f8a1023a6">Engine_cleanup</a> ()</td></tr>
+<tr class="memdesc:a79f81c4c8d4e8e97ce62439f8a1023a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans up the physics engine.  <br /></td></tr>
+<tr class="separator:a79f81c4c8d4e8e97ce62439f8a1023a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc1238b6c7b83df8f029ced09c5c2bb5" id="r_abc1238b6c7b83df8f029ced09c5c2bb5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc1238b6c7b83df8f029ced09c5c2bb5">Engine_end</a> ()</td></tr>
+<tr class="memdesc:abc1238b6c7b83df8f029ced09c5c2bb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the physics engine.  <br /></td></tr>
+<tr class="separator:abc1238b6c7b83df8f029ced09c5c2bb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Global physics engine declarations. </p>
@@ -145,6 +154,47 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2025-02-09</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a79f81c4c8d4e8e97ce62439f8a1023a6" name="a79f81c4c8d4e8e97ce62439f8a1023a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79f81c4c8d4e8e97ce62439f8a1023a6">&#9670;&#160;</a></span>Engine_cleanup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Engine_cleanup </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cleans up the physics engine. </p>
+<p>This is different from <code>Engine_end</code>, in that it claens up any loose variables before stopping the engine. This is automatically called by <code>Engine_end</code> and is not intended to be called independently to avoid undefined behavior.</p>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occured. </dd></dl>
+
+</div>
+</div>
+<a id="abc1238b6c7b83df8f029ced09c5c2bb5" name="abc1238b6c7b83df8f029ced09c5c2bb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc1238b6c7b83df8f029ced09c5c2bb5">&#9670;&#160;</a></span>Engine_end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Engine_end </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stops the physics engine. </p>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occured. </dd></dl>
+
+</div>
+</div>
 <a id="aa664bde76eea77096a2f147ccd51a811" name="aa664bde76eea77096a2f147ccd51a811"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa664bde76eea77096a2f147ccd51a811">&#9670;&#160;</a></span>Engine_getCharacterMass()</h2>
 
@@ -184,6 +234,7 @@ Functions</h2></td></tr>
 
 <p>Gets the default friction coefficient for a sprite. </p>
 <p>The default friction coefficient is a value between 0 and 1 that determines how much friction is applied to a sprite. A value of 0 means no friction, while a value of 1 means full friction, meaning it will stop immediately.</p>
+<p>The default value is 0.25.</p>
 <dl class="section return"><dt>Returns</dt><dd>The default friction coefficient. </dd></dl>
 
 </div>
@@ -225,7 +276,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the Y level of the ground for the physics engine. </p>
-<p>The default value is 0. The Y level of the ground helps determine when a sprite has landed on the ground.</p>
+<p>The default value is the canvas height. The Y level of the ground helps determine when a sprite has landed on the ground.</p>
 <dl class="section return"><dt>Returns</dt><dd>The Y level of the ground. </dd></dl>
 
 </div>
@@ -280,18 +331,18 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The default mass of the character. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occured. </dd></dl>
 
 </div>
 </div>
-<a id="a4903fda742736f8feb858cd493bf8d6b" name="a4903fda742736f8feb858cd493bf8d6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4903fda742736f8feb858cd493bf8d6b">&#9670;&#160;</a></span>Engine_setDefaultFrictionCoefficient()</h2>
+<a id="acec59fffaa6ef61bdd2ff05c296bf791" name="acec59fffaa6ef61bdd2ff05c296bf791"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acec59fffaa6ef61bdd2ff05c296bf791">&#9670;&#160;</a></span>Engine_setDefaultFrictionCoefficient()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double Engine_setDefaultFrictionCoefficient </td>
+          <td class="memname">int Engine_setDefaultFrictionCoefficient </td>
           <td>(</td>
           <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>coefficient</em></span></td><td>)</td>
           <td></td>
@@ -301,13 +352,14 @@ Functions</h2></td></tr>
 
 <p>Sets the default friction coefficient for a sprite. </p>
 <p>The default friction coefficient is a value between 0 and 1 that determines how much friction is applied to a sprite. A value of 0 means no friction, while a value of 1 means full friction, meaning it will stop immediately.</p>
+<p>The default value is 0.25.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">coefficient</td><td>The default friction coefficient. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The default friction coefficient. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occured. </dd></dl>
 
 </div>
 </div>
@@ -354,7 +406,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the Y level of the ground for the physics engine. </p>
-<p>The default value is 0. The Y level of the ground helps determine when a sprite has landed on the ground.</p>
+<p>The default value is the canvas height. The Y level of the ground helps determine when a sprite has landed on the ground.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">y</td><td>The Y level of the ground. </td></tr>
@@ -392,6 +444,26 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab7906d41524c9a982c099c0cf4203e1b" name="ab7906d41524c9a982c099c0cf4203e1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7906d41524c9a982c099c0cf4203e1b">&#9670;&#160;</a></span>Engine_start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Engine_start </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Starts up the physics engine. </p>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occured. </dd></dl>
+
+</div>
+</div>
 <a id="ad1aee11bb83cc650e78de99327dcd918" name="ad1aee11bb83cc650e78de99327dcd918"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad1aee11bb83cc650e78de99327dcd918">&#9670;&#160;</a></span>Engine_tick()</h2>
 
@@ -407,8 +479,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Ticks the physics engine, updating all sprites. </p>
-<p>This method ticks the physics engine, updating all sprites with the current forces acting on them. This method should be called once per frame to update the physics engine. </p>
+<p>Ticks the physics engine. </p>
+<p>This method ticks the physcis engine, if it is running. This is automatically called once per frame. </p>
 
 </div>
 </div>

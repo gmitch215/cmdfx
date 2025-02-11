@@ -104,6 +104,12 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ad6738877c43ddb0e8e0c9d86a610922c" id="r_ad6738877c43ddb0e8e0c9d86a610922c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6738877c43ddb0e8e0c9d86a610922c">CmdFX_getTickSpeed</a> ()</td></tr>
+<tr class="memdesc:ad6738877c43ddb0e8e0c9d86a610922c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the tick speed of cmdfx.  <br /></td></tr>
+<tr class="separator:ad6738877c43ddb0e8e0c9d86a610922c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f008c4b25aa85d6f9b71f468825726f" id="r_a7f008c4b25aa85d6f9b71f468825726f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f008c4b25aa85d6f9b71f468825726f">CmdFX_setTickSpeed</a> (int tickspeed)</td></tr>
+<tr class="memdesc:a7f008c4b25aa85d6f9b71f468825726f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the tick speed of cmdfx.  <br /></td></tr>
+<tr class="separator:a7f008c4b25aa85d6f9b71f468825726f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc0cbd0ff1743666d722d55b15b2ba4c" id="r_abc0cbd0ff1743666d722d55b15b2ba4c"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc0cbd0ff1743666d722d55b15b2ba4c">currentTimeMillis</a> ()</td></tr>
 <tr class="memdesc:abc0cbd0ff1743666d722d55b15b2ba4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current time in milliseconds.  <br /></td></tr>
 <tr class="separator:abc0cbd0ff1743666d722d55b15b2ba4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -259,6 +265,54 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The clamped value. </dd></dl>
+
+</div>
+</div>
+<a id="ad6738877c43ddb0e8e0c9d86a610922c" name="ad6738877c43ddb0e8e0c9d86a610922c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6738877c43ddb0e8e0c9d86a610922c">&#9670;&#160;</a></span>CmdFX_getTickSpeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CmdFX_getTickSpeed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the tick speed of cmdfx. </p>
+<p>The tick speed controls the rate of which ticking happens, such as the physics engine. The default value is 12.</p>
+<dl class="section return"><dt>Returns</dt><dd>The cmdfx Tick Speed </dd></dl>
+
+</div>
+</div>
+<a id="a7f008c4b25aa85d6f9b71f468825726f" name="a7f008c4b25aa85d6f9b71f468825726f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f008c4b25aa85d6f9b71f468825726f">&#9670;&#160;</a></span>CmdFX_setTickSpeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CmdFX_setTickSpeed </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>tickspeed</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the tick speed of cmdfx. </p>
+<p>The tick speed controls the rate of which ticking happens, such as the physics engine. The default value is 12.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tickspeed</td><td>The new tickspeed to set </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error happened </dd></dl>
 
 </div>
 </div>

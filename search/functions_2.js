@@ -89,6 +89,8 @@ var searchData=
   ['clamp_5fd_86',['clamp_d',['../da/d04/core_2util_8h.html#acf123cb577b9efc5785eb107d2e0e88a',1,'util.h']]],
   ['clamp_5ff_87',['clamp_f',['../da/d04/core_2util_8h.html#a9533dbec279736fe76ba2cec60fb3a5a',1,'util.h']]],
   ['clamp_5fi_88',['clamp_i',['../da/d04/core_2util_8h.html#accada49284cb0c9250deec8be5a8ccde',1,'util.h']]],
-  ['currenttimemillis_89',['currentTimeMillis',['../da/d04/core_2util_8h.html#abc0cbd0ff1743666d722d55b15b2ba4c',1,'util.h']]],
-  ['currenttimenanos_90',['currentTimeNanos',['../da/d04/core_2util_8h.html#addb951d4b6eeed0141dcc3ca78bab8f7',1,'util.h']]]
+  ['cmdfx_5fgettickspeed_89',['CmdFX_getTickSpeed',['../da/d04/core_2util_8h.html#ad6738877c43ddb0e8e0c9d86a610922c',1,'util.h']]],
+  ['cmdfx_5fsettickspeed_90',['CmdFX_setTickSpeed',['../da/d04/core_2util_8h.html#a7f008c4b25aa85d6f9b71f468825726f',1,'util.h']]],
+  ['currenttimemillis_91',['currentTimeMillis',['../da/d04/core_2util_8h.html#abc0cbd0ff1743666d722d55b15b2ba4c',1,'util.h']]],
+  ['currenttimenanos_92',['currentTimeNanos',['../da/d04/core_2util_8h.html#addb951d4b6eeed0141dcc3ca78bab8f7',1,'util.h']]]
 ];
