@@ -6,6 +6,9 @@
 #include <sys/ioctl.h>
 #include <time.h>
 
+#define __USE_XOPEN_EXTENDED
+#include <signal.h>
+
 #include "cmdfx/core/canvas.h"
 #include "cmdfx/core/events.h"
 #include "cmdfx/core/util.h"
@@ -38,6 +41,8 @@ int* _prevKeys = 0;
 
 void posix_checkKeyEvent() {
     int* keys = Device_getKeyboardKeysPressed();
+    if (keys == 0) return;
+
     if (_prevKeys == 0)
         _prevKeys = (int*) calloc(256, sizeof(int));
 
@@ -59,6 +64,8 @@ int _prevMouseY = -1;
 
 void posix_checkMouseEvent() {
     int* buttons = Device_getMouseButtonsPressed();
+    if (buttons == 0) return;
+
     if (_prevButtons == 0)
         _prevButtons = (int*) calloc(3, sizeof(int));
 

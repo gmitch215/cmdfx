@@ -9,6 +9,8 @@ int onKey(CmdFX_Event* event) {
     printf("Key state: '%c' (%d), %d\n", keyEvent->keyChar, keyEvent->keyCode, keyEvent->state);
 
     if (keyEvent->keyChar == 'q') {
+        Screen_setEchoEnabled(1);
+        Screen_setLineBuffered(1);
         exit(0);
     }
 

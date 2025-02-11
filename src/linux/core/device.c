@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -5,6 +7,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <ctype.h>
+#include <errno.h>
 
 #include <linux/input.h>
 
@@ -19,25 +22,20 @@ char* find_linux_event(const char* keyword) {
 
     char line[256];
     int found = 0;
-    char eventFile[32];
+    char eventFile[32] = {0};
 
     while (fgets(line, sizeof(line), fp)) {
-        char* upperKeyword = strdup(keyword);
-        upperKeyword[0] = toupper(upperKeyword[0]);
-
-        if (strstr(line, keyword) || strstr(line, upperKeyword))
-            found = 1;
-        
-        free(upperKeyword);
+        if (strcasestr(line, keyword)) found = 1;
 
         if (found && strstr(line, "Handlers=")) {
-            char *eventPos = strstr(line, "event");
+            char* eventPos = strstr(line, "event");
             if (eventPos) {
-                sscanf(eventPos, "event%d", &eventFile[5]);
-                snprintf(eventFile, sizeof(eventFile), "/dev/input/%s", eventPos);
-                fclose(fp);
-
-                return strdup(eventFile);
+                int eventNum;
+                if (sscanf(eventPos, "event%d", &eventNum) == 1) {
+                    snprintf(eventFile, sizeof(eventFile), "/dev/input/event%d", eventNum);
+                    fclose(fp);
+                    return strdup(eventFile);
+                }
             }
         }
     }
@@ -56,6 +54,7 @@ char Device_fromKeyCode(int keyCode) {
 
     int fd = open(devicePath, O_RDONLY);
     free(devicePath);
+
     if (fd < 0) {
         perror("Failed to open input device");
         return '\0';
@@ -78,19 +77,42 @@ int* Device_getKeyboardKeysPressed() {
     char* eventFile = find_linux_event("keyboard");
     if (!eventFile) return 0;
 
-    int fd = open(eventFile, O_RDONLY | O_NONBLOCK);
-    if (fd < 0) return 0;
-
     int* keys = (int*) calloc(256, sizeof(int));
+    if (!keys) return 0;
+
+    int fd = open(eventFile, O_RDONLY | O_NONBLOCK);
+    if (fd < 0) {
+        fprintf(stderr, "Failed to open input device: %s\n", eventFile);
+        perror("Output");
+        free(eventFile);
+        exit(1);
+    }
+
     struct input_event event;
 
-    while (read(fd, &event, sizeof(event)) > 0) {
+    int state = read(fd, &event, sizeof(event));
+    if (state < 0) {
+        if (errno == EAGAIN) {
+            close(fd);
+            free(eventFile);
+            return keys;
+        }
+
+        perror("Failed to read input event");
+        free(eventFile);
+        exit(1);
+    }
+
+    while (state > 0) {
         if (event.type == EV_KEY) {
             keys[event.code] = event.value;
         }
+
+        state = read(fd, &event, sizeof(event));
     }
 
     close(fd);
+    free(eventFile);
     return keys;
 }
 
@@ -98,10 +120,20 @@ int* Device_getMouseButtonsPressed() {
     char* eventFile = find_linux_event("mouse");
     if (!eventFile) return 0;
 
-    int fd = open(eventFile, O_RDONLY | O_NONBLOCK);
-    if (fd < 0) return 0;
-
     int* buttons = (int*) calloc(3, sizeof(int));
+    if (!buttons) {
+        free(eventFile);
+        return 0;
+    }
+
+    int fd = open(eventFile, O_RDONLY | O_NONBLOCK);
+    if (fd < 0) {
+        fprintf(stderr, "Failed to open input device: %s\n", eventFile);
+        perror("Output");
+        free(eventFile);
+        exit(1);
+    }
+
     struct input_event event;
 
     while (read(fd, &event, sizeof(event)) > 0) {
@@ -113,5 +145,6 @@ int* Device_getMouseButtonsPressed() {
     }
 
     close(fd);
+    free(eventFile);
     return buttons;
 }
