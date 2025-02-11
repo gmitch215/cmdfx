@@ -14,16 +14,7 @@
 extern "C" {
 #endif
 
-// Engine
-
-/**
- * @brief Ticks the physics engine, updating all sprites.
- * 
- * This method ticks the physics engine, updating all sprites with the
- * current forces acting on them. This method should be called once per
- * frame to update the physics engine.
- */
-void Engine_tick();
+// Engine Declarations
 
 /**
  * @brief Gets the force of gravity, in characters per second squared.
@@ -70,8 +61,8 @@ int Engine_setTerminalVelocity(int velocity);
 /**
  * @brief Gets the Y level of the ground for the physics engine.
  * 
- * The default value is 0. The Y level of the ground helps determine when
- * a sprite has landed on the ground.
+ * The default value is the canvas height. The Y level of the ground helps
+ * determine when a sprite has landed on the ground.
  * 
  * @return The Y level of the ground.
  */
@@ -80,8 +71,8 @@ int Engine_getGroundY();
 /**
  * @brief Sets the Y level of the ground for the physics engine.
  * 
- * The default value is 0. The Y level of the ground helps determine when
- * a sprite has landed on the ground.
+ * The default value is the canvas height. The Y level of the ground helps 
+ * determine when a sprite has landed on the ground.
  * 
  * @param y The Y level of the ground.
  * @return 0 if successful, -1 if an error occurred.
@@ -97,6 +88,8 @@ int Engine_setGroundY(int y);
  * how much friction is applied to a sprite. A value of 0 means no friction,
  * while a value of 1 means full friction, meaning it will stop immediately.
  * 
+ * The default value is 0.25.
+ * 
  * @return The default friction coefficient.
  */
 double Engine_getDefaultFrictionCoefficient();
@@ -108,10 +101,12 @@ double Engine_getDefaultFrictionCoefficient();
  * how much friction is applied to a sprite. A value of 0 means no friction,
  * while a value of 1 means full friction, meaning it will stop immediately.
  * 
+ * The default value is 0.25.
+ * 
  * @param coefficient The default friction coefficient.
- * @return The default friction coefficient.
+ * @return 0 if successful, -1 if an error occured.
  */
-double Engine_setDefaultFrictionCoefficient(double coefficient);
+int Engine_setDefaultFrictionCoefficient(double coefficient);
 
 /**
  * @brief Gets the default mass of a character.
@@ -141,9 +136,46 @@ int Engine_getCharacterMass(char c);
  * 
  * @param c The character to set the mass of.
  * @param mass The default mass of the character.
- * @return The default mass of the character.
+ * @return 0 if successful, -1 if an error occured.
  */
 int Engine_setCharacterMass(char c, int mass);
+
+// Engine
+
+/**
+ * @brief Starts up the physics engine.
+ * 
+ * @return 0 if successful, -1 if an error occured.
+ */
+int Engine_start();
+
+/**
+ * @brief Ticks the physics engine.
+ * 
+ * 
+ * This method ticks the physcis engine, if it is running.
+ * This is automatically called once per frame.
+ */
+void Engine_tick();
+
+/**
+ * @brief Cleans up the physics engine.
+ * 
+ * This is different from `Engine_end`, in that it claens up
+ * any loose variables before stopping the engine. This
+ * is automatically called by `Engine_end` and is not intended
+ * to be called independently to avoid undefined behavior.
+ * 
+ * @return 0 if successful, -1 if an error occured.
+ */
+int Engine_cleanup();
+
+/**
+ * @brief Stops the physics engine.
+ * 
+ * @return 0 if successful, -1 if an error occured.
+ */
+int Engine_end();
 
 #ifdef __cplusplus
 }

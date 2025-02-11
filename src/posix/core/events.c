@@ -89,12 +89,12 @@ void initSignalHandlers() {
     sigaction(SIGWINCH, &sa, NULL);
 }
 
-int _running = 0;
+int _eventsRunning = 0;
 
 void* _eventLoop(void* arg) {
-    _running = 1;
+    _eventsRunning = 1;
 
-    while (_running) {
+    while (_eventsRunning) {
         posix_checkKeyEvent();
         posix_checkMouseEvent();
 
@@ -105,7 +105,7 @@ void* _eventLoop(void* arg) {
 }
 
 int beginCmdFXEventLoop() {
-    if (_running) return 0;
+    if (_eventsRunning) return 0;
 
     pthread_t eventLoopThread;
     if (pthread_create(&eventLoopThread, 0, _eventLoop, 0) != 0) {
@@ -122,12 +122,13 @@ int beginCmdFXEventLoop() {
 }
 
 int endCmdFXEventLoop() {
-    if (!_running) return 0;
+    if (!_eventsRunning) return 0;
+
+    _eventsRunning = 0;
 
     // free up loose variables
     if (_prevKeys) free(_prevKeys);
     if (_prevButtons) free(_prevButtons);
-
-    _running = 0;
+    
     return 1;
 }

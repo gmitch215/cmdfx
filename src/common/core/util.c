@@ -5,6 +5,22 @@
 
 #include "cmdfx/core/util.h"
 
+// Global Declarations
+
+int _tickSpeed = 12;
+
+int CmdFX_getTickSpeed() {
+    return _tickSpeed;
+}
+
+int CmdFX_setTickSpeed(int tickspeed) {
+    if (tickspeed < 1) return -1;
+
+    _tickSpeed = tickspeed;
+
+    return 0;
+}
+
 // Math
 
 double clamp_d(double value, double min, double max) {

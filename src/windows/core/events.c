@@ -83,12 +83,12 @@ void win_checkMouseEvent() {
 
 // Event Loop
 
-int _running = 0;
+int _eventsRunning = 0;
 
 unsigned __stdcall _eventLoop(void* arg) {
-    _running = 1;
+    _eventsRunning = 1;
 
-    while (_running) {
+    while (_eventsRunning) {
         win_checkResizeEvent();
         win_checkKeyEvent();
         win_checkMouseEvent();
@@ -100,7 +100,7 @@ unsigned __stdcall _eventLoop(void* arg) {
 }
 
 int beginCmdFXEventLoop() {
-    if (_running) return 0;
+    if (_eventsRunning) return 0;
 
     uintptr_t eventLoopThread;
     eventLoopThread = _beginthreadex(NULL, 0, _eventLoop, NULL, 0, NULL);
@@ -114,12 +114,12 @@ int beginCmdFXEventLoop() {
 }
 
 int endCmdFXEventLoop() {
-    if (!_running) return 0;
+    if (!_eventsRunning) return 0;
 
     // free up loose variables
     if (_prevKeys) free(_prevKeys);
     if (_prevButtons) free(_prevButtons);
 
-    _running = 0;
+    _eventsRunning = 0;
     return 1;
 }

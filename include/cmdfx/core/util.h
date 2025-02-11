@@ -14,6 +14,29 @@
 extern "C" {
 #endif
 
+// Global Declarations
+
+/**
+ * @brief Gets the tick speed of cmdfx.
+ * 
+ * The tick speed controls the rate of which ticking happens, such
+ * as the physics engine. The default value is 12.
+ * 
+ * @return The cmdfx Tick Speed
+ */
+int CmdFX_getTickSpeed();
+
+/**
+ * @brief Sets the tick speed of cmdfx.
+ * 
+ * The tick speed controls the rate of which ticking happens, such
+ * as the physics engine. The default value is 12.
+ * 
+ * @param tickspeed The new tickspeed to set
+ * @return 0 if successful, -1 if an error happened
+ */
+int CmdFX_setTickSpeed(int tickspeed);
+
 // Time
 
 /**
