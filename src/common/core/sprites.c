@@ -10,6 +10,7 @@
 #include "cmdfx/core/canvas.h"
 #include "cmdfx/core/util.h"
 #include "cmdfx/core/builder.h"
+#include "cmdfx/physics/force.h"
 
 CmdFX_Sprite** sprites = 0;
 int spriteCount = 0;
@@ -208,6 +209,9 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
         sprites[spriteCount] = 0;
 
     spriteCount--;
+
+    // Remove Physics Engine Forces
+    Sprite_removeAllForces(sprite);
 }
 
 // Utility Methods - Sprite Builder

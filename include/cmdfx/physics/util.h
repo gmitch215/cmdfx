@@ -31,6 +31,18 @@ typedef struct CmdFX_Vector {
 } CmdFX_Vector;
 
 /**
+ * @brief Creates a new 2D Vector.
+ * 
+ * This method creates a new 2D Vector with the given x and y coordinates.
+ * The vector must be freed with `free` when it is no longer needed.
+ * 
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @return The new 2D Vector.
+ */
+CmdFX_Vector* Vector_create(int x, int y);
+
+/**
  * @brief Adds two 2D Vectors.
  * 
  * @param v1 The first 2D Vector.
@@ -86,6 +98,30 @@ int Vector_divide(CmdFX_Vector* v, double scalar);
  * @return 0 if successful, -1 if an error occurred.
  */
 int Vector_rotate(CmdFX_Vector* v, double radians);
+
+/**
+ * @brief Flips a 2D Vector horizontally.
+ * 
+ * @param v The 2D Vector.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int Vector_flipX(CmdFX_Vector* v);
+
+/**
+ * @brief Flips a 2D Vector vertically.
+ * 
+ * @param v The 2D Vector.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int Vector_flipY(CmdFX_Vector* v);
+
+/**
+ * @brief Flips a 2D Vector.
+ * 
+ * @param v The 2D Vector.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int Vector_flip(CmdFX_Vector* v);
 
 /**
  * @brief Multiplies a 2D Vector by a scalar.
