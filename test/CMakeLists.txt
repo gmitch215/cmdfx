@@ -46,6 +46,10 @@ add_test_executable(common screen)
 add_test_executable(common canvas_clear)
 add_test_executable(common canvas_dimensions)
 
+## Physics
+add_test_executable(physics engine)
+add_test_executable(physics mass)
+
 # Manual
 add_manual_test(events_resize)
 add_manual_test(events_key)

@@ -63,6 +63,54 @@ int Sprite_removeForce(CmdFX_Sprite* sprite, CmdFX_Vector* force);
  */
 int Sprite_removeAllForces(CmdFX_Sprite* sprite);
 
+/**
+ * @brief Gets the friction coefficient of a sprite.
+ * 
+ * The friction coefficient is a value between 0 and 1 that determines
+ * how much a sprite will slow down when moving on the ground.
+ * 
+ * If the sprite does not have a custom friction coefficient, the default
+ * value of `Engine_getDefaultFrictionCoefficient` will be returned.
+ * 
+ * @param sprite The sprite to use.
+ * @return The friction coefficient of the sprite.
+ */
+double Sprite_getFrictionCoefficient(CmdFX_Sprite* sprite);
+
+/**
+ * @brief Sets the friction coefficient of a sprite.
+ * 
+ * The friction coefficient is a value between 0 and 1 that determines
+ * how much a sprite will slow down when moving on the ground.
+ * 
+ * @param sprite The sprite to use.
+ * @param coefficient The friction coefficient to set.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int Sprite_setFrictionCoefficient(CmdFX_Sprite* sprite, double coefficient);
+
+/**
+ * @brief Resets the friction coefficient of a sprite.
+ * 
+ * The friction coefficient will be reset to the default value.
+ * 
+ * @param sprite The sprite to use.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int Sprite_resetFrictionCoefficient(CmdFX_Sprite* sprite);
+
+// Impulse Functions
+
+/**
+ * @brief Adds an impulse to a sprite.
+ * 
+ * @param sprite The sprite to use.
+ * @param force The impulse to add.
+ * @param duration The duration of the impulse, in milliseconds.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int Sprite_addImpulse(CmdFX_Sprite* sprite, CmdFX_Vector* force, int duration);
+
 #ifdef __cplusplus
 }
 #endif

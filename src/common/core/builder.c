@@ -28,11 +28,11 @@ int getArrayHeight(char** array) {
 char** CharBuilder_create(int width, int height) {
     if (width <= 0 || height <= 0) return 0;
 
-    char** array = (char**) malloc(sizeof(char*) * (height + 1));
+    char** array = (char**) calloc(height + 1, sizeof(char*));
     if (array == 0) return 0;
 
     for (int i = 0; i < height; i++) {
-        array[i] = (char*) malloc(sizeof(char) * (width + 1));
+        array[i] = (char*) calloc(width + 1, sizeof(char));
         if (array[i] == 0) {
             for (int j = 0; j < i; j++) free(array[j]);
             free(array);
@@ -41,9 +41,6 @@ char** CharBuilder_create(int width, int height) {
 
         for (int j = 0; j < width; j++) array[i][j] = ' ';
     }
-
-    array[height] = 0;
-    array[height][width] = 0;
 
     return array;
 }
@@ -135,6 +132,15 @@ int CharBuilder_fillRect(char** array, int x, int y, int width, int height, char
     }
 
     return 0;
+}
+
+int CharBuilder_fill(char** array, char c) {
+    if (array == 0) return -1;
+
+    int width = getArrayWidth(array);
+    int height = getArrayHeight(array);
+
+    return CharBuilder_fillRect(array, 0, 0, width, height, c);
 }
 
 int CharBuilder_circle(char** array, int x, int y, int radius, char c) {
@@ -902,6 +908,16 @@ int AnsiBuilder_fillRect(char*** array, int x, int y, int width, int height, cha
     }
 
     return 0;
+}
+
+int AnsiBuilder_fill(char*** array, char* c) {
+    if (array == 0) return -1;
+    if (c == 0) return -1;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    return AnsiBuilder_fillRect(array, 0, 0, width, height, c);
 }
 
 int AnsiBuilder_circle(char*** array, int x, int y, int radius, char* c) {

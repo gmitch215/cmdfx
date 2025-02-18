@@ -11,12 +11,17 @@
 #include "cmdfx/core/util.h"
 #include "cmdfx/core/builder.h"
 #include "cmdfx/physics/force.h"
+#include "cmdfx/physics/mass.h"
 
 CmdFX_Sprite** sprites = 0;
 int spriteCount = 0;
 
 CmdFX_Sprite** Canvas_getDrawnSprites() {
     return sprites;
+}
+
+int Canvas_getDrawnSpritesCount() {
+    return spriteCount;
 }
 
 CmdFX_Sprite* Canvas_getSpriteAt(int x, int y) {
@@ -69,6 +74,7 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
     sprite->y = -1;
     sprite->z = z;
     sprite->id = 0;
+    sprite->uid = 0;
 
     _getSpriteDimensions(data, &sprite->width, &sprite->height);
     sprite->data = data;
@@ -169,6 +175,7 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
     sprites[spriteCount] = sprite;
     sprites[spriteCount + 1] = 0;
     sprite->id = ++spriteCount;
+    sprite->uid = spriteCount;
 
     return 1;
 }
@@ -210,8 +217,10 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
 
     spriteCount--;
 
-    // Remove Physics Engine Forces
+    // Reset Physics declarations
     Sprite_removeAllForces(sprite);
+    Sprite_resetMass(sprite);
+    Sprite_resetFrictionCoefficient(sprite);
 }
 
 // Utility Methods - Sprite Builder

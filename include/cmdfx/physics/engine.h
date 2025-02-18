@@ -10,9 +10,33 @@
  */
 #pragma once
 
+#include "cmdfx/core/sprites.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+ * @brief Gets whether this sprite is static.
+ * 
+ * A sprite is static if it is not affected by the physics engine.
+ * 
+ * @param sprite The sprite to check.
+ * @return 1 if the sprite is static, 0 otherwise.
+ */
+int Sprite_isStatic(CmdFX_Sprite* sprite);
+
+/**
+ * @brief Sets whether this sprite is static.
+ * 
+ * A sprite is static if it is not affected by the physics engine.
+ * Use this method to set whether a sprite is static or not.
+ * 
+ * @param sprite The sprite to modify.
+ * @param isStatic 1 if the sprite is static, 0 otherwise.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int Sprite_setStatic(CmdFX_Sprite* sprite, int isStatic);
 
 // Engine Declarations
 

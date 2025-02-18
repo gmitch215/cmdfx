@@ -126,6 +126,14 @@ int CharBuilder_rect(char** array, int x, int y, int width, int height, char c);
 int CharBuilder_fillRect(char** array, int x, int y, int width, int height, char c);
 
 /**
+ * @brief Fills the entire 2D Character Array.
+ * @param array The character array.
+ * @param c The character to fill the array with.
+ * @return 0 if successful, -1 if an error occured.
+ */
+int CharBuilder_fill(char** array, char c);
+
+/**
  * @brief Draws a circle in a 2D Character Array.
  * @param array The character array.
  * @param x The x coordinate.
@@ -492,6 +500,19 @@ int AnsiBuilder_rect(char*** array, int x, int y, int width, int height, char* c
  * @return 0 if successful, -1 if an error occurred.
  */
 int AnsiBuilder_fillRect(char*** array, int x, int y, int width, int height, char* c);
+
+
+/**
+ * @brief Fills the entire 2D String Array.
+ * 
+ * Like all methods in AnsiBuilder, this does **not** append anything to the string.
+ * You will need to input the full ANSI code, like "\033[31m" for red text.
+ * 
+ * @param array The string array.
+ * @param c The ANSI code to fill the array with.
+ * @return 0 if successful, -1 if an error occured.
+ */
+int AnsiBuilder_fill(char*** array, char* c);
 
 /**
  * @brief Draws a circle in a 2D String Array.

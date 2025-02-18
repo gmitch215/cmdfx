@@ -10,16 +10,18 @@ CmdFX_Vector*** _forces = 0;
 
 CmdFX_Vector** Sprite_getAllForces(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
-    if (sprite->id == 0) return 0;
+    if (sprite->uid == 0) return 0;
 
-    return _forces[sprite->id];
+    int id = sprite->uid - 1;
+    return _forces[id];
 }
 
 CmdFX_Vector* Sprite_getNetForce(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
-    if (sprite->id == 0) return 0;
+    if (sprite->uid == 0) return 0;
 
-    CmdFX_Vector** forces = _forces[sprite->id];
+    int id = sprite->uid - 1;
+    CmdFX_Vector** forces = _forces[id];
     if (forces == 0) return 0;
 
     CmdFX_Vector* netForce = Vector_create(0, 0);
@@ -35,11 +37,10 @@ CmdFX_Vector* Sprite_getNetForce(CmdFX_Sprite* sprite) {
 
 int Sprite_addForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
     if (sprite == 0) return -1;
-    if (sprite->id == 0) return -1;
+    if (sprite->uid == 0) return -1;
 
-    CmdFX_Sprite** sprites = Canvas_getDrawnSprites();
-    int count = 0;
-    while (sprites[count] != 0) count++;
+    int count = Canvas_getDrawnSpritesCount();
+    int id = sprite->uid - 1;
 
     if (_forces == 0) {
         _forces = calloc(count + 1, sizeof(CmdFX_Vector**));
@@ -59,7 +60,7 @@ int Sprite_addForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
         }
     }
 
-    CmdFX_Vector** forces = _forces[sprite->id];
+    CmdFX_Vector** forces = _forces[id];
     if (forces == 0) {
         forces = malloc(sizeof(CmdFX_Vector*) * 2);
         if (forces == 0) return -1;
@@ -67,7 +68,7 @@ int Sprite_addForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
         forces[0] = vector;
         forces[1] = 0;
 
-        _forces[sprite->id] = forces;
+        _forces[id] = forces;
         return 0;
     }
 
@@ -80,16 +81,17 @@ int Sprite_addForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
     forces = temp;
     forces[i] = vector;
     forces[i + 1] = 0;
-    _forces[sprite->id] = forces;
+    _forces[id] = forces;
 
     return 0;
 }
 
 int Sprite_removeForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
     if (sprite == 0) return -1;
-    if (sprite->id == 0) return -1;
+    if (sprite->uid == 0) return -1;
 
-    CmdFX_Vector** forces = _forces[sprite->id];
+    int id = sprite->uid - 1;
+    CmdFX_Vector** forces = _forces[id];
     if (forces == 0) return -1;
 
     int i = 0;
@@ -107,7 +109,7 @@ int Sprite_removeForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
             if (temp == 0) return -1;
 
             forces = temp;
-            _forces[sprite->id] = forces;
+            _forces[id] = forces;
 
             return 0;
         }
@@ -120,16 +122,84 @@ int Sprite_removeForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
 
 int Sprite_removeAllForces(CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
-    if (sprite->id == 0) return -1;
+    if (sprite->uid == 0) return -1;
+    if (_forces == 0) return 0;
 
-    CmdFX_Vector** forces = _forces[sprite->id];
+    int id = sprite->uid - 1;
+    CmdFX_Vector** forces = _forces[id];
     if (forces == 0) return -1;
 
     for (int i = 0; forces[i] != 0; i++)
         free(forces[i]);
 
     free(forces);
-    _forces[sprite->id] = 0;
+    _forces[id] = 0;
 
+    if (Canvas_getDrawnSpritesCount() <= 1) {
+        free(_forces);
+        _forces = 0;
+    }
+
+    return 0;
+}
+
+double* _frictionCoefficients = 0;
+int _frictionCoefficientsCount = 0;
+
+double Sprite_getFrictionCoefficient(CmdFX_Sprite* sprite) {
+    if (sprite == 0) return Engine_getDefaultFrictionCoefficient();
+    if (sprite->uid == 0) return Engine_getDefaultFrictionCoefficient();
+
+    if (_frictionCoefficients == 0) return Engine_getDefaultFrictionCoefficient();
+
+    int id = sprite->uid - 1;
+    return _frictionCoefficients[id];
+}
+
+int Sprite_setFrictionCoefficient(CmdFX_Sprite* sprite, double coefficient) {
+    if (sprite == 0) return -1;
+    if (sprite->uid == 0) return -1;
+    if (coefficient < 0 || coefficient > 1) return -1;
+
+    int id = sprite->uid - 1;
+    if (_frictionCoefficients == 0) {
+        _frictionCoefficients = calloc(id + 1, sizeof(double));
+        if (_frictionCoefficients == 0) return -1;
+    }
+
+    if (_frictionCoefficientsCount < id) {
+        double* temp = realloc(_frictionCoefficients, sizeof(double) * (id + 1));
+        if (temp == 0) return -1;
+
+        _frictionCoefficients = temp;
+        for (int i = _frictionCoefficientsCount; i < id; i++)
+            _frictionCoefficients[i] = Engine_getDefaultFrictionCoefficient();
+
+        _frictionCoefficientsCount = id + 1;
+    }
+
+    _frictionCoefficients[id] = coefficient;
+    return 0;
+}
+
+int Sprite_resetFrictionCoefficient(CmdFX_Sprite* sprite) {
+    if (sprite == 0) return -1;
+    if (sprite->uid == 0) return -1;
+
+    if (_frictionCoefficients == 0) return 0;
+
+    int id = sprite->uid - 1;
+    if (_frictionCoefficientsCount < id) {
+        double* temp = realloc(_frictionCoefficients, sizeof(double) * (id + 1));
+        if (temp == 0) return -1;
+
+        _frictionCoefficients = temp;
+        for (int i = _frictionCoefficientsCount; i < id; i++)
+            _frictionCoefficients[i] = Engine_getDefaultFrictionCoefficient();
+
+        _frictionCoefficientsCount = id + 1;
+    }
+
+    _frictionCoefficients[id] = Engine_getDefaultFrictionCoefficient();
     return 0;
 }

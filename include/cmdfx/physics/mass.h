@@ -47,9 +47,21 @@ int Sprite_getMass(CmdFX_Sprite* sprite);
  * `Sprite_getDefaultMass`.
  * 
  * @param sprite The sprite to use.
+ * @param mass The mass of the sprite.
  * @return The mass of the sprite.
  */
-int Sprite_setMass(CmdFX_Sprite* sprite);
+int Sprite_setMass(CmdFX_Sprite* sprite, int mass);
+
+/**
+ * @brief Resets the mass of a sprite
+ * 
+ * This method will reset the mass of a sprite to the default
+ * value.
+ * 
+ * @param sprite The sprite to use.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int Sprite_resetMass(CmdFX_Sprite* sprite);
 
 #ifdef __cplusplus
 }

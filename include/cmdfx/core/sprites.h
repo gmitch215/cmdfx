@@ -73,13 +73,22 @@ typedef struct CmdFX_Sprite {
      */
     int z;
     /**
-     * @brief The unique ID of the sprite.
+     * @brief The drawing ID of the sprite.
      * 
      * This is assigned once the sprite is drawn on the screen. It is used to
      * identify the sprite when editing or removing it. If the sprite is not
-     * drawn, this value will be 0.
+     * drawn, this value will be 0. This value will change depending on the
+     * number of sprites drawn.
      */
     int id;
+    /**
+     * @brief The unique ID of the sprite.
+     * 
+     * This is assigned when the sprite is created. It is used to identify the
+     * sprite when editing or removing it. If the sprite is not created, this
+     * value will be 0. This value will not change.
+     */
+    int uid;
 } CmdFX_Sprite;
 
 /**
@@ -91,6 +100,12 @@ typedef struct CmdFX_Sprite {
  * @return An array of pointers to the drawn sprites.
  */
 CmdFX_Sprite** Canvas_getDrawnSprites();
+
+/**
+ * @brief Gets the number of sprites that have been drawn to the terminal.
+ * @return The number of drawn sprites.
+ */
+int Canvas_getDrawnSpritesCount();
 
 /**
  * @brief Gets a sprite at the given position with the highest Z-index.
