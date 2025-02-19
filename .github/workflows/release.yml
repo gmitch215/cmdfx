@@ -86,6 +86,7 @@ jobs:
         with:
           configuration: "release.json"
           mode: "HYBRID"
+          toTag: "${{ env.VERSION }}"
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
