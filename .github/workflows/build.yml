@@ -38,7 +38,7 @@ jobs:
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
           dotnet tool install --global wix --version 5.0.2
-          wix extension add --global WixToolset.UI.wixext
+          wix extension add --global WixToolset.UI.wixext/5.0.2
           cmake --build . --config Debug --target install package
           Get-ChildItem -Path build/package/_CPack_Packages -Recurse | Remove-Item -Recurse -Force
       - name: Archive Package Artifacts
