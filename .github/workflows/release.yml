@@ -62,6 +62,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Extract Version from CMakeLists.txt
         id: get_version
         run: |
@@ -84,7 +86,7 @@ jobs:
         with:
           configuration: "release.json"
           mode: "HYBRID"
-          fromTag: "v${{ env.LATEST_TAG }}"
+          fromTag: "${{ env.LATEST_TAG }}"
           toTag: "v${{ env.VERSION }}"
       - name: Create Release
         uses: softprops/action-gh-release@v1
