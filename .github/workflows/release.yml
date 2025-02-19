@@ -39,7 +39,7 @@ jobs:
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
-          dotnet tool install --global wix
+          dotnet tool install --global wix --version 5.0.2
           wix extension add --global WixToolset.UI.wixext
           cmake .
           cmake --build . --config Release --target docs
