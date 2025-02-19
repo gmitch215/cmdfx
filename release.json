@@ -1,5 +1,7 @@
 {
     "template": "#{{CHANGELOG}}\n## Contributors\n- #{{CONTRIBUTORS}}",
+    "pr_template": "- #{{TITLE}} (#{{NUMBER}}) by @{{AUTHOR}}",
+    "commit_template": "- #{{TITLE}} (#{{HASH}}) by @{{AUTHOR}}",
     "categories": [
         {
             "title": "## New Features",

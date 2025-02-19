@@ -68,17 +68,15 @@ jobs:
           VERSION=$(grep -Po '(?<=set\(PROJECT_VERSION ")[^"]*' CMakeLists.txt)
           echo "Extracted Version: $VERSION"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
+      - name: Retrieve Latest Tag
+        id: latest_tag
+        run: echo "LATEST_TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
       - name: Download Release Artifacts
         uses: actions/download-artifact@v4
         with:
           pattern: CmdFX-Release-*
           path: build/package
           merge-multiple: true
-      - name: Generate Checksums
-        uses: Solratic/checksum-action@v1
-        with:
-          pattern: "build/package/*"
-          suffix: "sha256"
       - name: Generate Changelog
         if: ${{ github.event.inputs.changelog == '' }}
         id: changelog
@@ -86,7 +84,8 @@ jobs:
         with:
           configuration: "release.json"
           mode: "HYBRID"
-          toTag: "${{ env.VERSION }}"
+          fromTag: "v${{ env.LATEST_TAG }}"
+          toTag: "v${{ env.VERSION }}"
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
