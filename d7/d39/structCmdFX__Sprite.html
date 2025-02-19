@@ -127,8 +127,11 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b></td></tr>
 <tr class="memdesc:a2526881ac755138d847dd8d8576c80e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Z-index of the sprite.  <br /></td></tr>
 <tr class="separator:a2526881ac755138d847dd8d8576c80e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f07d86d5e4a98d24ddf38cd12811855" id="r_a6f07d86d5e4a98d24ddf38cd12811855"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f07d86d5e4a98d24ddf38cd12811855">id</a></td></tr>
-<tr class="memdesc:a6f07d86d5e4a98d24ddf38cd12811855"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique ID of the sprite.  <br /></td></tr>
+<tr class="memdesc:a6f07d86d5e4a98d24ddf38cd12811855"><td class="mdescLeft">&#160;</td><td class="mdescRight">The drawing ID of the sprite.  <br /></td></tr>
 <tr class="separator:a6f07d86d5e4a98d24ddf38cd12811855"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd8000cd5ae50d3d79f6409f891d9a38" id="r_afd8000cd5ae50d3d79f6409f891d9a38"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd8000cd5ae50d3d79f6409f891d9a38">uid</a></td></tr>
+<tr class="memdesc:afd8000cd5ae50d3d79f6409f891d9a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique ID of the sprite.  <br /></td></tr>
+<tr class="separator:afd8000cd5ae50d3d79f6409f891d9a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a sprite that can be drawn to the terminal. </p>
@@ -180,8 +183,25 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>The drawing ID of the sprite. </p>
+<p>This is assigned once the sprite is drawn on the screen. It is used to identify the sprite when editing or removing it. If the sprite is not drawn, this value will be 0. This value will change depending on the number of sprites drawn. </p>
+
+</div>
+</div>
+<a id="afd8000cd5ae50d3d79f6409f891d9a38" name="afd8000cd5ae50d3d79f6409f891d9a38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd8000cd5ae50d3d79f6409f891d9a38">&#9670;&#160;</a></span>uid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CmdFX_Sprite::uid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 <p>The unique ID of the sprite. </p>
-<p>This is assigned once the sprite is drawn on the screen. It is used to identify the sprite when editing or removing it. If the sprite is not drawn, this value will be 0. </p>
+<p>This is assigned when the sprite is created. It is used to identify the sprite when editing or removing it. If the sprite is not created, this value will be 0. This value will not change. </p>
 
 </div>
 </div>

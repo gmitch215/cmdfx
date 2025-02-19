@@ -111,9 +111,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a3edd2845de8439b1f0b5ea9f2915cc2b" id="r_a3edd2845de8439b1f0b5ea9f2915cc2b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3edd2845de8439b1f0b5ea9f2915cc2b">Sprite_getMass</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite)</td></tr>
 <tr class="memdesc:a3edd2845de8439b1f0b5ea9f2915cc2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the mass of a sprite.  <br /></td></tr>
 <tr class="separator:a3edd2845de8439b1f0b5ea9f2915cc2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d61cdbaa1e8c0a4c62a4e689520cf32" id="r_a9d61cdbaa1e8c0a4c62a4e689520cf32"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d61cdbaa1e8c0a4c62a4e689520cf32">Sprite_setMass</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite)</td></tr>
-<tr class="memdesc:a9d61cdbaa1e8c0a4c62a4e689520cf32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the mass of a sprite.  <br /></td></tr>
-<tr class="separator:a9d61cdbaa1e8c0a4c62a4e689520cf32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12140f6b3766c1098fade61fe21caef9" id="r_a12140f6b3766c1098fade61fe21caef9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12140f6b3766c1098fade61fe21caef9">Sprite_setMass</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, int mass)</td></tr>
+<tr class="memdesc:a12140f6b3766c1098fade61fe21caef9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the mass of a sprite.  <br /></td></tr>
+<tr class="separator:a12140f6b3766c1098fade61fe21caef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bac173ef66136ef54df3889891fda70" id="r_a0bac173ef66136ef54df3889891fda70"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0bac173ef66136ef54df3889891fda70">Sprite_resetMass</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:a0bac173ef66136ef54df3889891fda70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the mass of a sprite.  <br /></td></tr>
+<tr class="separator:a0bac173ef66136ef54df3889891fda70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Mass-related physics declarations. </p>
@@ -176,8 +179,35 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9d61cdbaa1e8c0a4c62a4e689520cf32" name="a9d61cdbaa1e8c0a4c62a4e689520cf32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d61cdbaa1e8c0a4c62a4e689520cf32">&#9670;&#160;</a></span>Sprite_setMass()</h2>
+<a id="a0bac173ef66136ef54df3889891fda70" name="a0bac173ef66136ef54df3889891fda70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bac173ef66136ef54df3889891fda70">&#9670;&#160;</a></span>Sprite_resetMass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_resetMass </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resets the mass of a sprite. </p>
+<p>This method will reset the mass of a sprite to the default value.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to use. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a12140f6b3766c1098fade61fe21caef9" name="a12140f6b3766c1098fade61fe21caef9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12140f6b3766c1098fade61fe21caef9">&#9670;&#160;</a></span>Sprite_setMass()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -185,8 +215,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int Sprite_setMass </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>mass</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -196,6 +230,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sprite</td><td>The sprite to use. </td></tr>
+    <tr><td class="paramname">mass</td><td>The mass of the sprite. </td></tr>
   </table>
   </dd>
 </dl>
