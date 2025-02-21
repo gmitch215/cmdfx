@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.30)
 
-set(PROJECT_VERSION "0.1.1")
+set(PROJECT_VERSION "0.1.2")
 project(cmdfx 
     LANGUAGES C 
     VERSION ${PROJECT_VERSION}
