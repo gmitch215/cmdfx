@@ -589,16 +589,10 @@ int Sprite_resize0(CmdFX_Sprite* sprite, int width, int height, char padding) {
 
             // Fail check
             if (newAnsi[i] == 0) {
-                for (int j = 0; j <= i; j++) {
-                    free(newData[j]);
-                }
+                for (int j = 0; j <= i; j++) free(newData[j]);
                 free(newData);
 
-                for (int j = 0; j < i; j++) {
-                    free(newAnsi[j]);
-                    newData[i][j] = (sprite->data[i] != 0) ? sprite->data[i][j] : padding;
-                }
-
+                for (int j = 0; j < i; j++) free(newAnsi[j]);
                 free(newAnsi);
             }
 
@@ -1042,7 +1036,7 @@ char*** _toANSI(int prefix, int** grid, int width, int height) {
             int b = rgb & 0xFF;
 
             ansi[i][j] = (char*) malloc(22);
-            snprintf(ansi[i][j], 24, "\033[%d;2;%d;%d;%dm", prefix, r, g, b);
+            snprintf(ansi[i][j], 22, "\033[%d;2;%d;%d;%dm", prefix, r, g, b);
         }
     }
 
