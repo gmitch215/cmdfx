@@ -99,7 +99,8 @@ $(function(){ initResizable(false); });
 
 <p>Builder API for building 2D Character Arrays.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d3/def/sprites_8h_source.html">cmdfx/core/sprites.h</a>&quot;</code><br />
+</div>
 <p><a href="../../d5/d78/builder_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -188,6 +189,24 @@ Functions</h2></td></tr>
 <tr class="memitem:afea886eb2f8c71df1376e5a115072b8f" id="r_afea886eb2f8c71df1376e5a115072b8f"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afea886eb2f8c71df1376e5a115072b8f">CharBuilder_scale</a> (char **array, double scale)</td></tr>
 <tr class="memdesc:afea886eb2f8c71df1376e5a115072b8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scales a 2D Character Array.  <br /></td></tr>
 <tr class="separator:afea886eb2f8c71df1376e5a115072b8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a834fc9d63ff5ca44e214a791d05e0045" id="r_a834fc9d63ff5ca44e214a791d05e0045"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a834fc9d63ff5ca44e214a791d05e0045">CharBuilder_gradient</a> (char **array, int x, int y, int width, int height, char start, char end, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:a834fc9d63ff5ca44e214a791d05e0045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a gradient in a 2D Character Array.  <br /></td></tr>
+<tr class="separator:a834fc9d63ff5ca44e214a791d05e0045"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a939935494ab272a2d72457664297cc21" id="r_a939935494ab272a2d72457664297cc21"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a939935494ab272a2d72457664297cc21">CharBuilder_multiGradient</a> (char **array, int x, int y, int width, int height, int numChars, char *gradient, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:a939935494ab272a2d72457664297cc21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a multi-gradient in a 2D Character Array.  <br /></td></tr>
+<tr class="separator:a939935494ab272a2d72457664297cc21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a415ce989a06f926f7bac9c1f177cc2bd" id="r_a415ce989a06f926f7bac9c1f177cc2bd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a415ce989a06f926f7bac9c1f177cc2bd">CharBuilder_multiGradients</a> (char **array, int x, int y, int width, int height, int numChars, char *gradient, double *percentages, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:a415ce989a06f926f7bac9c1f177cc2bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a multi-gradient in a 2D Character Array with percentages.  <br /></td></tr>
+<tr class="separator:a415ce989a06f926f7bac9c1f177cc2bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a482b2ed985c54a072b6b18fab765e6cb" id="r_a482b2ed985c54a072b6b18fab765e6cb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a482b2ed985c54a072b6b18fab765e6cb">CharBuilder_gradientFull</a> (char **array, char start, char end, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:a482b2ed985c54a072b6b18fab765e6cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a full gradient in a 2D Character Array.  <br /></td></tr>
+<tr class="separator:a482b2ed985c54a072b6b18fab765e6cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeda12ed970b022db6eec2e859a0f6c19" id="r_aeda12ed970b022db6eec2e859a0f6c19"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeda12ed970b022db6eec2e859a0f6c19">CharBuilder_multiGradientFull</a> (char **array, int numChars, char *gradient, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:aeda12ed970b022db6eec2e859a0f6c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a multi-gradient in a 2D Character Array.  <br /></td></tr>
+<tr class="separator:aeda12ed970b022db6eec2e859a0f6c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6fd85591b3156c0da22d31ec2a7a09c" id="r_af6fd85591b3156c0da22d31ec2a7a09c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6fd85591b3156c0da22d31ec2a7a09c">CharBuilder_multiGradientsFull</a> (char **array, int numChars, char *gradient, double *percentages, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:af6fd85591b3156c0da22d31ec2a7a09c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a multi-gradient in a 2D Character Array with percentages.  <br /></td></tr>
+<tr class="separator:af6fd85591b3156c0da22d31ec2a7a09c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b7140ea28802498b5cc9ecf0879bb2c" id="r_a6b7140ea28802498b5cc9ecf0879bb2c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b7140ea28802498b5cc9ecf0879bb2c">getAnsiArrayWidth</a> (char ***array)</td></tr>
 <tr class="memdesc:a6b7140ea28802498b5cc9ecf0879bb2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the width of a 2D String Array.  <br /></td></tr>
 <tr class="separator:a6b7140ea28802498b5cc9ecf0879bb2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -254,6 +273,42 @@ Functions</h2></td></tr>
 <tr class="memitem:a430f0ed1c27a985f40d95caeb2e870e0" id="r_a430f0ed1c27a985f40d95caeb2e870e0"><td class="memItemLeft" align="right" valign="top">char ***&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a430f0ed1c27a985f40d95caeb2e870e0">AnsiBuilder_scale</a> (char ***array, double scale)</td></tr>
 <tr class="memdesc:a430f0ed1c27a985f40d95caeb2e870e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scales a 2D String Array.  <br /></td></tr>
 <tr class="separator:a430f0ed1c27a985f40d95caeb2e870e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98dffc252842ba09ce097333c1ee20e7" id="r_a98dffc252842ba09ce097333c1ee20e7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98dffc252842ba09ce097333c1ee20e7">AnsiBuilder_gradientForeground</a> (char ***array, int x, int y, int width, int height, int start, int end, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:a98dffc252842ba09ce097333c1ee20e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a foreground gradient in a 2D String Array.  <br /></td></tr>
+<tr class="separator:a98dffc252842ba09ce097333c1ee20e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae47275801fd269a1bdc54b1597c454b9" id="r_ae47275801fd269a1bdc54b1597c454b9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae47275801fd269a1bdc54b1597c454b9">AnsiBuilder_gradientBackground</a> (char ***array, int x, int y, int width, int height, int start, int end, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:ae47275801fd269a1bdc54b1597c454b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a background gradient in a 2D String Array.  <br /></td></tr>
+<tr class="separator:ae47275801fd269a1bdc54b1597c454b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa9cdf7e7389e917325b94d6d899aca0" id="r_aaa9cdf7e7389e917325b94d6d899aca0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa9cdf7e7389e917325b94d6d899aca0">AnsiBuilder_multiGradientForeground</a> (char ***array, int x, int y, int width, int height, int numColors, int *colors, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:aaa9cdf7e7389e917325b94d6d899aca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a foreground gradient in a 2D String Array.  <br /></td></tr>
+<tr class="separator:aaa9cdf7e7389e917325b94d6d899aca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3a2198fd1e024f8fa30a2309676e04c" id="r_ad3a2198fd1e024f8fa30a2309676e04c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3a2198fd1e024f8fa30a2309676e04c">AnsiBuilder_multiGradientBackground</a> (char ***array, int x, int y, int width, int height, int numColors, int *colors, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:ad3a2198fd1e024f8fa30a2309676e04c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a background gradient in a 2D String Array.  <br /></td></tr>
+<tr class="separator:ad3a2198fd1e024f8fa30a2309676e04c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8e5c4f62ec9a42e0aabc62bb88c96c7" id="r_ab8e5c4f62ec9a42e0aabc62bb88c96c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8e5c4f62ec9a42e0aabc62bb88c96c7">AnsiBuilder_multiGradientsForeground</a> (char ***array, int x, int y, int width, int height, int numColors, int *colors, double *percentages, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:ab8e5c4f62ec9a42e0aabc62bb88c96c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a foreground gradient in a 2D String Array.  <br /></td></tr>
+<tr class="separator:ab8e5c4f62ec9a42e0aabc62bb88c96c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33a4b39ed5ee1cd87516d32791c5e9df" id="r_a33a4b39ed5ee1cd87516d32791c5e9df"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33a4b39ed5ee1cd87516d32791c5e9df">AnsiBuilder_multiGradientsBackground</a> (char ***array, int x, int y, int width, int height, int numColors, int *colors, double *percentages, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:a33a4b39ed5ee1cd87516d32791c5e9df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a background gradient in a 2D String Array.  <br /></td></tr>
+<tr class="separator:a33a4b39ed5ee1cd87516d32791c5e9df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9982d62f6ae52c980dd50cfeac832cd" id="r_aa9982d62f6ae52c980dd50cfeac832cd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9982d62f6ae52c980dd50cfeac832cd">AnsiBuilder_gradientForegroundFull</a> (char ***array, int start, int end, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:aa9982d62f6ae52c980dd50cfeac832cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a background gradient in a 2D String Array.  <br /></td></tr>
+<tr class="separator:aa9982d62f6ae52c980dd50cfeac832cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10522a057d0421ac324f08b14be3cd51" id="r_a10522a057d0421ac324f08b14be3cd51"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10522a057d0421ac324f08b14be3cd51">AnsiBuilder_gradientBackgroundFull</a> (char ***array, int start, int end, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:a10522a057d0421ac324f08b14be3cd51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a background gradient in a 2D String Array.  <br /></td></tr>
+<tr class="separator:a10522a057d0421ac324f08b14be3cd51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a364ad9c2a191e5b1dc9907def62b4294" id="r_a364ad9c2a191e5b1dc9907def62b4294"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a364ad9c2a191e5b1dc9907def62b4294">AnsiBuilder_multiGradientForegroundFull</a> (char ***array, int numColors, int *colors, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:a364ad9c2a191e5b1dc9907def62b4294"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a foreground gradient in a 2D String Array.  <br /></td></tr>
+<tr class="separator:a364ad9c2a191e5b1dc9907def62b4294"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75e5e45a32188e29c3f14c5b0dd50781" id="r_a75e5e45a32188e29c3f14c5b0dd50781"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75e5e45a32188e29c3f14c5b0dd50781">AnsiBuilder_multiGradientBackgroundFull</a> (char ***array, int numColors, int *colors, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:a75e5e45a32188e29c3f14c5b0dd50781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a background gradient in a 2D String Array.  <br /></td></tr>
+<tr class="separator:a75e5e45a32188e29c3f14c5b0dd50781"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1abb566dbf8e98a4f49daf83b746e559" id="r_a1abb566dbf8e98a4f49daf83b746e559"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1abb566dbf8e98a4f49daf83b746e559">AnsiBuilder_multiGradientsForegroundFull</a> (char ***array, int numColors, int *colors, double *percentages, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:a1abb566dbf8e98a4f49daf83b746e559"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a foreground gradient in a 2D String Array.  <br /></td></tr>
+<tr class="separator:a1abb566dbf8e98a4f49daf83b746e559"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae09df107c385c2f7308a82c136e3a503" id="r_ae09df107c385c2f7308a82c136e3a503"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae09df107c385c2f7308a82c136e3a503">AnsiBuilder_multiGradientsBackgroundFull</a> (char ***array, int numColors, int *colors, double *percentages, enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
+<tr class="memdesc:ae09df107c385c2f7308a82c136e3a503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a background gradient in a 2D String Array.  <br /></td></tr>
+<tr class="separator:ae09df107c385c2f7308a82c136e3a503"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Builder API for building 2D Character Arrays. </p>
@@ -652,6 +707,234 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae47275801fd269a1bdc54b1597c454b9" name="ae47275801fd269a1bdc54b1597c454b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae47275801fd269a1bdc54b1597c454b9">&#9670;&#160;</a></span>AnsiBuilder_gradientBackground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_gradientBackground </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>end</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a background gradient in a 2D String Array. </p>
+<p>This method sets a gradient in a 2D String Array. The gradient will be set from the start RGB code to the end RGB code in the specified bounds. The direction of the gradient can be specified.</p>
+<p>This function supports a simple gradient with 2 colors at 50% each.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the gradient. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the gradient. </td></tr>
+    <tr><td class="paramname">start</td><td>The start RGB code. </td></tr>
+    <tr><td class="paramname">end</td><td>The end RGB code. </td></tr>
+    <tr><td class="paramname">direction</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a10522a057d0421ac324f08b14be3cd51" name="a10522a057d0421ac324f08b14be3cd51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10522a057d0421ac324f08b14be3cd51">&#9670;&#160;</a></span>AnsiBuilder_gradientBackgroundFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_gradientBackgroundFull </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>end</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a background gradient in a 2D String Array. </p>
+<p>This method sets a gradient in a 2D String Array. The gradient will be set from the start RGB code to the end RGB code in the specified bounds. The direction of the gradient can be specified.</p>
+<p>This function supports a full gradient with multiple colors at different intervals.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">start</td><td>The start RGB code. </td></tr>
+    <tr><td class="paramname">end</td><td>The end RGB code. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a98dffc252842ba09ce097333c1ee20e7" name="a98dffc252842ba09ce097333c1ee20e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98dffc252842ba09ce097333c1ee20e7">&#9670;&#160;</a></span>AnsiBuilder_gradientForeground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_gradientForeground </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>end</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a foreground gradient in a 2D String Array. </p>
+<p>This method sets a gradient in a 2D String Array. The gradient will be set from the start RGB code to the end RGB code in the specified bounds. The direction of the gradient can be specified.</p>
+<p>This function supports a simple gradient with 2 colors at 50% each.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the gradient. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the gradient. </td></tr>
+    <tr><td class="paramname">start</td><td>The start RGB code. </td></tr>
+    <tr><td class="paramname">end</td><td>The end RGB code. </td></tr>
+    <tr><td class="paramname">direction</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="aa9982d62f6ae52c980dd50cfeac832cd" name="aa9982d62f6ae52c980dd50cfeac832cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9982d62f6ae52c980dd50cfeac832cd">&#9670;&#160;</a></span>AnsiBuilder_gradientForegroundFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_gradientForegroundFull </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>end</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a background gradient in a 2D String Array. </p>
+<p>This method sets a gradient in a 2D String Array. The gradient will be set from the start RGB code to the end RGB code in the specified bounds. The direction of the gradient can be specified.</p>
+<p>This function supports a full gradient with multiple colors at different intervals.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">start</td><td>The start RGB code. </td></tr>
+    <tr><td class="paramname">end</td><td>The end RGB code. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
 <a id="a57540ede1142c75c873380f0f1211aaf" name="a57540ede1142c75c873380f0f1211aaf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a57540ede1142c75c873380f0f1211aaf">&#9670;&#160;</a></span>AnsiBuilder_hFlip()</h2>
 
@@ -777,6 +1060,486 @@ Functions</h2></td></tr>
     <tr><td class="paramname">x2</td><td>The x coordinate of the second point. </td></tr>
     <tr><td class="paramname">y2</td><td>The y coordinate of the second point. </td></tr>
     <tr><td class="paramname">c</td><td>The ANSI code to draw the line with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="ad3a2198fd1e024f8fa30a2309676e04c" name="ad3a2198fd1e024f8fa30a2309676e04c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3a2198fd1e024f8fa30a2309676e04c">&#9670;&#160;</a></span>AnsiBuilder_multiGradientBackground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_multiGradientBackground </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numColors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>colors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a background gradient in a 2D String Array. </p>
+<p>This method sets a gradient in a 2D String Array. The gradient will be set from the start RGB code to the end RGB code in the specified bounds. The direction of the gradient can be specified.</p>
+<p>This function supports a multi-gradient with multiple colors at equal intervals.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the gradient. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the gradient. </td></tr>
+    <tr><td class="paramname">numColors</td><td>The number of colors in the gradient </td></tr>
+    <tr><td class="paramname">colors</td><td>The RGB colors in the gradient. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a75e5e45a32188e29c3f14c5b0dd50781" name="a75e5e45a32188e29c3f14c5b0dd50781"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75e5e45a32188e29c3f14c5b0dd50781">&#9670;&#160;</a></span>AnsiBuilder_multiGradientBackgroundFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_multiGradientBackgroundFull </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numColors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>colors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a background gradient in a 2D String Array. </p>
+<p>This method sets a gradient in a 2D String Array. The gradient will be set from the start RGB code to the end RGB code in the specified bounds. The direction of the gradient can be specified.</p>
+<p>This function supports a multi-gradient with multiple colors at equal intervals.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">numColors</td><td>The number of colors in the gradient </td></tr>
+    <tr><td class="paramname">colors</td><td>The RGB colors in the gradient. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="aaa9cdf7e7389e917325b94d6d899aca0" name="aaa9cdf7e7389e917325b94d6d899aca0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa9cdf7e7389e917325b94d6d899aca0">&#9670;&#160;</a></span>AnsiBuilder_multiGradientForeground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_multiGradientForeground </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numColors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>colors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a foreground gradient in a 2D String Array. </p>
+<p>This method sets a gradient in a 2D String Array. The gradient will be set from the start RGB code to the end RGB code in the specified bounds. The direction of the gradient can be specified.</p>
+<p>This function supports a multi-gradient with multiple colors at equal intervals.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the gradient. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the gradient. </td></tr>
+    <tr><td class="paramname">numColors</td><td>The number of colors in the gradient </td></tr>
+    <tr><td class="paramname">colors</td><td>The RGB colors in the gradient. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a364ad9c2a191e5b1dc9907def62b4294" name="a364ad9c2a191e5b1dc9907def62b4294"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a364ad9c2a191e5b1dc9907def62b4294">&#9670;&#160;</a></span>AnsiBuilder_multiGradientForegroundFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_multiGradientForegroundFull </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numColors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>colors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a foreground gradient in a 2D String Array. </p>
+<p>This method sets a gradient in a 2D String Array. The gradient will be set from the start RGB code to the end RGB code in the specified bounds. The direction of the gradient can be specified.</p>
+<p>This function supports a multi-gradient with multiple colors at equal intervals.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">numColors</td><td>The number of colors in the gradient </td></tr>
+    <tr><td class="paramname">colors</td><td>The RGB colors in the gradient. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a33a4b39ed5ee1cd87516d32791c5e9df" name="a33a4b39ed5ee1cd87516d32791c5e9df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33a4b39ed5ee1cd87516d32791c5e9df">&#9670;&#160;</a></span>AnsiBuilder_multiGradientsBackground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_multiGradientsBackground </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numColors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>colors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>percentages</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a background gradient in a 2D String Array. </p>
+<p>This method sets a gradient in a 2D String Array. The gradient will be set from the start RGB code to the end RGB code in the specified bounds. The direction of the gradient can be specified.</p>
+<p>This function supports a multi-gradient with multiple colors at different intervals.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the gradient. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the gradient. </td></tr>
+    <tr><td class="paramname">numColors</td><td>The number of colors in the gradient </td></tr>
+    <tr><td class="paramname">colors</td><td>The RGB colors in the gradient. </td></tr>
+    <tr><td class="paramname">percentages</td><td>The percentages of each color in the gradient. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="ae09df107c385c2f7308a82c136e3a503" name="ae09df107c385c2f7308a82c136e3a503"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae09df107c385c2f7308a82c136e3a503">&#9670;&#160;</a></span>AnsiBuilder_multiGradientsBackgroundFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_multiGradientsBackgroundFull </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numColors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>colors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>percentages</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a background gradient in a 2D String Array. </p>
+<p>This method sets a gradient in a 2D String Array. The gradient will be set from the start RGB code to the end RGB code in the specified bounds. The direction of the gradient can be specified.</p>
+<p>This function supports a multi-gradient with multiple colors at different intervals.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">numColors</td><td>The number of colors in the gradient </td></tr>
+    <tr><td class="paramname">colors</td><td>The RGB colors in the gradient. </td></tr>
+    <tr><td class="paramname">percentages</td><td>The percentages of each color in the gradient. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="ab8e5c4f62ec9a42e0aabc62bb88c96c7" name="ab8e5c4f62ec9a42e0aabc62bb88c96c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8e5c4f62ec9a42e0aabc62bb88c96c7">&#9670;&#160;</a></span>AnsiBuilder_multiGradientsForeground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_multiGradientsForeground </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numColors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>colors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>percentages</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a foreground gradient in a 2D String Array. </p>
+<p>This method sets a gradient in a 2D String Array. The gradient will be set from the start RGB code to the end RGB code in the specified bounds. The direction of the gradient can be specified.</p>
+<p>This function supports a multi-gradient with multiple colors at different intervals.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the gradient. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the gradient. </td></tr>
+    <tr><td class="paramname">numColors</td><td>The number of colors in the gradient </td></tr>
+    <tr><td class="paramname">colors</td><td>The RGB colors in the gradient. </td></tr>
+    <tr><td class="paramname">percentages</td><td>The percentages of each color in the gradient. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a1abb566dbf8e98a4f49daf83b746e559" name="a1abb566dbf8e98a4f49daf83b746e559"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1abb566dbf8e98a4f49daf83b746e559">&#9670;&#160;</a></span>AnsiBuilder_multiGradientsForegroundFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AnsiBuilder_multiGradientsForegroundFull </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numColors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>colors</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>percentages</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a foreground gradient in a 2D String Array. </p>
+<p>This method sets a gradient in a 2D String Array. The gradient will be set from the start RGB code to the end RGB code in the specified bounds. The direction of the gradient can be specified.</p>
+<p>This function supports a multi-gradient with multiple colors at different intervals.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">numColors</td><td>The number of colors in the gradient </td></tr>
+    <tr><td class="paramname">colors</td><td>The RGB colors in the gradient. </td></tr>
+    <tr><td class="paramname">percentages</td><td>The percentages of each color in the gradient. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1585,6 +2348,120 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a834fc9d63ff5ca44e214a791d05e0045" name="a834fc9d63ff5ca44e214a791d05e0045"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a834fc9d63ff5ca44e214a791d05e0045">&#9670;&#160;</a></span>CharBuilder_gradient()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharBuilder_gradient </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>end</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a gradient in a 2D Character Array. </p>
+<p>This method creates a gradient in a 2D Character Array. The gradient will be created from the start character to the end character. The gradient will be created in the specified direction.</p>
+<p>This function supports a simple gradient from one character to another at 50% each.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the gradient. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the gradient. </td></tr>
+    <tr><td class="paramname">start</td><td>The start character. </td></tr>
+    <tr><td class="paramname">end</td><td>The end character. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a482b2ed985c54a072b6b18fab765e6cb" name="a482b2ed985c54a072b6b18fab765e6cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a482b2ed985c54a072b6b18fab765e6cb">&#9670;&#160;</a></span>CharBuilder_gradientFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharBuilder_gradientFull </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>end</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a full gradient in a 2D Character Array. </p>
+<p>This method creates a full gradient in a 2D Character Array. The gradient will be created from the start character to the end character. The gradient will be created in the specified direction.</p>
+<p>This function supports a full gradient from one character to another.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+    <tr><td class="paramname">start</td><td>The start character. </td></tr>
+    <tr><td class="paramname">end</td><td>The end character. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
 <a id="aaa9802e738db5ee0e4729dc51ecb9abe" name="aaa9802e738db5ee0e4729dc51ecb9abe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaa9802e738db5ee0e4729dc51ecb9abe">&#9670;&#160;</a></span>CharBuilder_hFlip()</h2>
 
@@ -1708,6 +2585,246 @@ Functions</h2></td></tr>
     <tr><td class="paramname">x2</td><td>The x coordinate of the second point. </td></tr>
     <tr><td class="paramname">y2</td><td>The y coordinate of the second point. </td></tr>
     <tr><td class="paramname">c</td><td>The character to draw the line with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a939935494ab272a2d72457664297cc21" name="a939935494ab272a2d72457664297cc21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a939935494ab272a2d72457664297cc21">&#9670;&#160;</a></span>CharBuilder_multiGradient()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharBuilder_multiGradient </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numChars</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>gradient</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a multi-gradient in a 2D Character Array. </p>
+<p>This method creates a multi-gradient in a 2D Character Array. The gradient will be created from the start character to the end character. The gradient will be created in the specified direction.</p>
+<p>This function supports a multi-gradient from multiple characters at equal intervals.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the gradient. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the gradient. </td></tr>
+    <tr><td class="paramname">numChars</td><td>The number of characters in the gradient. </td></tr>
+    <tr><td class="paramname">gradient</td><td>The gradient characters. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="aeda12ed970b022db6eec2e859a0f6c19" name="aeda12ed970b022db6eec2e859a0f6c19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeda12ed970b022db6eec2e859a0f6c19">&#9670;&#160;</a></span>CharBuilder_multiGradientFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharBuilder_multiGradientFull </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numChars</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>gradient</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a multi-gradient in a 2D Character Array. </p>
+<p>This method creates a multi-gradient in a 2D Character Array. The gradient will be created from the start character to the end character. The gradient will be created in the specified direction.</p>
+<p>This function supports a multi-gradient from multiple characters at equal intervals.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+    <tr><td class="paramname">numChars</td><td>The number of characters in the gradient. </td></tr>
+    <tr><td class="paramname">gradient</td><td>The gradient characters. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a415ce989a06f926f7bac9c1f177cc2bd" name="a415ce989a06f926f7bac9c1f177cc2bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a415ce989a06f926f7bac9c1f177cc2bd">&#9670;&#160;</a></span>CharBuilder_multiGradients()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharBuilder_multiGradients </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numChars</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>gradient</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>percentages</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a multi-gradient in a 2D Character Array with percentages. </p>
+<p>This method creates a multi-gradient in a 2D Character Array. The gradient will be created from the start character to the end character. The gradient will be created in the specified direction.</p>
+<p>This function supports a multi-gradient from multiple characters at specific percentages.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the gradient. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the gradient. </td></tr>
+    <tr><td class="paramname">numChars</td><td>The number of characters in the gradient. </td></tr>
+    <tr><td class="paramname">gradient</td><td>The gradient characters. </td></tr>
+    <tr><td class="paramname">percentages</td><td>The percentages of the gradient. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="af6fd85591b3156c0da22d31ec2a7a09c" name="af6fd85591b3156c0da22d31ec2a7a09c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6fd85591b3156c0da22d31ec2a7a09c">&#9670;&#160;</a></span>CharBuilder_multiGradientsFull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharBuilder_multiGradientsFull </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>numChars</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>gradient</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>percentages</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="../../d3/def/sprites_8h.html#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a multi-gradient in a 2D Character Array with percentages. </p>
+<p>This method creates a multi-gradient in a 2D Character Array. The gradient will be created from the start character to the end character. The gradient will be created in the specified direction.</p>
+<p>This function supports a multi-gradient from multiple characters at specific percentages.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+    <tr><td class="paramname">numChars</td><td>The number of characters in the gradient. </td></tr>
+    <tr><td class="paramname">gradient</td><td>The gradient characters. </td></tr>
+    <tr><td class="paramname">percentages</td><td>The percentages of the gradient. </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction of the gradient. </td></tr>
   </table>
   </dd>
 </dl>
