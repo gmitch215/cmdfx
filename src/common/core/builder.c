@@ -1,11 +1,68 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 
 #include "cmdfx/core/builder.h"
+#include "cmdfx/core/sprites.h"
+#include "cmdfx/core/util.h"
+
+#pragma region Utility
+
+double _calculateGradientFactor(int x, int y, int width, int height, enum CmdFX_GradientDirection direction) {
+    double factor = 0.0;
+
+    switch (direction) {
+        case GRADIENT_HORIZONTAL:
+            factor = (double) x / (width - 1);
+            break;
+        case GRADIENT_HORIZONTAL_REVERSE:
+            factor = 1.0 - (double) x / (width - 1);
+            break;
+        case GRADIENT_VERTICAL:
+            factor = (double) y / (height - 1);
+            break;
+        case GRADIENT_VERTICAL_REVERSE:
+            factor = 1.0 - (double) y / (height - 1);
+            break;
+        case GRADIENT_ANGLE_45:
+            factor = ((double) x + y) / (width + height - 2);
+            break;
+        case GRADIENT_ANGLE_135:
+            factor = (double) (width - x - 1 + y) / (width + height - 2);
+            break;
+        case GRADIENT_RADIAL: {
+            double centerX = width / 2.0;
+            double centerY = height / 2.0;
+            double distance = sqrt(pow(x - centerX, 2) + pow(y - centerY, 2));
+            double maxDistance = sqrt(pow(centerX, 2) + pow(centerY, 2));
+
+            factor = distance / maxDistance;
+            break;
+        }
+        case GRADIENT_CONICAL: {
+            double angle = atan2(y - height / 2.0, x - width / 2.0);
+            factor = (angle + M_PI) / (2 * M_PI);
+            break;
+        }
+    }
+
+    return factor;
+}
+
+int _getLower(double factor, double* percentages, int size) {
+    double cumulative = 0.0;
+    for (int i = 0; i < size; i++) {
+        cumulative += percentages[i];
+        if (factor < cumulative)
+            return i;
+    }
+
+    return size - 1;
+}
 
 #pragma region Character Builder
 
@@ -18,7 +75,10 @@ int getArrayHeight(char** array) {
     if (array == 0) return 0;
     
     int height = 0;
-    while (array[height] != 0) height++;
+    while (array[height] != 0) {
+        if (height >= INT_MAX) return INT_MAX;
+        height++;
+    }
 
     return height;
 }
@@ -774,6 +834,145 @@ char** CharBuilder_scale(char** array, double scale) {
     return scaled;
 }
 
+// Utility Functions - Gradient
+
+char** _generateCharGradientGrid(char* chars, double* percentages, int numChars, int width, int height, enum CmdFX_GradientDirection direction) {
+    char** grid = (char**) malloc(height * sizeof(char*));
+    for (int i = 0; i < height; i++) {
+        grid[i] = (char*) malloc(width * sizeof(char));
+    }
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            double factor = _calculateGradientFactor(x, y, width, height, direction);
+
+            int lower = _getLower(factor, percentages, numChars);
+            int upper = lower + 1;
+                
+            double range = percentages[upper] - percentages[lower];
+            double interpFactor = (factor - percentages[lower]) / (range > 0 ? range : 1);
+            
+            int charIndex = lower + (int) (interpFactor * (upper - lower));
+            grid[y][x] = chars[charIndex];
+        }
+    }
+
+    return grid;
+}
+
+int CharBuilder_gradient0(char** array, int x, int y, int width, int height, char* chars, double* percentages, int numChars, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    if (array[y] == 0) return -1;
+    if (array[y][x] == 0) return -1;
+    if (array[y][x + width - 1] == 0) return -1;
+    if (array[y + height - 1] == 0) return -1;
+
+    char** grid = _generateCharGradientGrid(chars, percentages, numChars, width, height, direction);
+
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            array[y + i][x + j] = grid[i][j];
+        }
+    }
+
+    for (int i = 0; i < height; i++) free(grid[i]);
+    free(grid);
+
+    return 0;
+}
+
+int CharBuilder_gradient(char** array, int x, int y, int width, int height, char start, char end, enum CmdFX_GradientDirection direction) {
+    char* chars = (char*) malloc(2 * sizeof(char));
+    if (chars == 0) return -1;
+    chars[0] = start;
+    chars[1] = end;
+
+    double* percentages = (double*) malloc(2 * sizeof(double));
+    if (percentages == 0) {
+        free(chars);
+        return -1;
+    }
+    percentages[0] = 0.5;
+    percentages[1] = 0.5;
+
+    int res = CharBuilder_gradient0(array, x, y, width, height, chars, percentages, 2, direction);
+
+    free(chars);
+    free(percentages);
+
+    return res;
+}
+
+int CharBuilder_multiGradient(char** array, int x, int y, int width, int height, int numChars, char* gradient, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    if (array[y] == 0) return -1;
+    if (array[y][x] == 0) return -1;
+    if (array[y][x + width - 1] == 0) return -1;
+    if (array[y + height - 1] == 0) return -1;
+
+    double percent = 1.0 / (numChars - 1);
+    double* percentages = (double*) malloc(numChars * sizeof(double));
+    if (percentages == 0) return -1;
+
+    for (int i = 0; i < numChars; i++)
+        percentages[i] = percent;
+    
+    int res = CharBuilder_gradient0(array, x, y, width, height, gradient, percentages, numChars, direction);
+
+    free(percentages);
+
+    return res;
+}
+
+int CharBuilder_multiGradients(char** array, int x, int y, int width, int height, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    if (array[y] == 0) return -1;
+    if (array[y][x] == 0) return -1;
+    if (array[y][x + width - 1] == 0) return -1;
+    if (array[y + height - 1] == 0) return -1;
+
+    return CharBuilder_gradient0(array, x, y, width, height, gradient, percentages, numChars, direction);
+}
+
+int CharBuilder_gradientFull(char** array, char start, char end, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+
+    int width = getArrayWidth(array);
+    int height = getArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    return CharBuilder_gradient(array, 0, 0, width, height, start, end, direction);
+}
+
+int CharBuilder_multiGradientFull(char** array, int numChars, char* gradient, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+
+    int width = getArrayWidth(array);
+    int height = getArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    return CharBuilder_multiGradient(array, 0, 0, width, height, numChars, gradient, direction);
+}
+
+int CharBuilder_multiGradientsFull(char** array, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+
+    int width = getArrayWidth(array);
+    int height = getArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    return CharBuilder_multiGradients(array, 0, 0, width, height, numChars, gradient, percentages, direction);
+}
+
 #pragma endregion
 
 #pragma region ANSI Builder
@@ -782,7 +981,10 @@ int getAnsiArrayWidth(char*** array) {
     if (array == 0) return 0;
 
     int width = 0;
-    while (array[0][width] != 0) width++;
+    while (array[0][width] != 0) {
+        if (width >= INT_MAX) return INT_MAX;
+        width++;
+    }
 
     return width;
 }
@@ -791,7 +993,10 @@ int getAnsiArrayHeight(char*** array) {
     if (array == 0) return 0;
 
     int height = 0;
-    while (array[height] != 0) height++;
+    while (array[height] != 0) {
+        if (height >= INT_MAX) return INT_MAX;
+        height++;
+    }
 
     return height;
 }
@@ -1389,6 +1594,238 @@ char*** AnsiBuilder_scale(char*** array, double scale) {
     free(array);
 
     return scaled;
+}
+
+// Utility Functions - Gradient (ANSI)
+
+int** _generateColorGradientGrid(int* colors, double* percentages, int numColors, int width, int height, enum CmdFX_GradientDirection direction) {
+    int** grid = (int**) malloc(height * sizeof(int*));
+    for (int i = 0; i < height; i++) {
+        grid[i] = (int*) malloc(width * sizeof(int));
+    }
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            double factor = _calculateGradientFactor(x, y, width, height, direction);
+
+            int lower = _getLower(factor, percentages, numColors);
+            int upper = lower + 1;
+
+            if (lower == upper)
+                grid[y][x] = colors[lower];
+            else {
+                double rangeFactor = (factor - percentages[lower]) / (percentages[upper] - percentages[lower]);
+                grid[y][x] = lerp_color(colors[lower], colors[upper], rangeFactor);
+            }
+        }
+    }
+
+    return grid;
+}
+
+char*** _toANSI(int prefix, int** grid, int width, int height) {
+    if (grid == 0) return 0;
+
+    char*** ansi = (char***) malloc(height * sizeof(char**));
+    for (int i = 0; i < height; i++) {
+        ansi[i] = (char**) malloc(width * sizeof(char*));
+        for (int j = 0; j < width; j++) {
+            int rgb = grid[i][j];
+
+            int r = (rgb >> 16) & 0xFF;
+            int g = (rgb >> 8) & 0xFF;
+            int b = rgb & 0xFF;
+
+            ansi[i][j] = (char*) malloc(22);
+            snprintf(ansi[i][j], 22, "\033[%d;2;%d;%d;%dm", prefix, r, g, b);
+        }
+    }
+
+    return ansi;
+}
+
+void _freeGrid(int** grid, int width, int height) {
+    for (int i = 0; i < height; i++) free(grid[i]);
+    free(grid);
+}
+
+// declared in src/common/core/sprites.c
+extern void _freeANSI(char*** ansi, int width, int height);
+
+int AnsiBuilder_gradient0(char*** array, int x, int y, int width, int height, int prefix, int* colors, double* percentages, int numColors, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    if (array[y] == 0) return -1;
+    if (array[y][x] == 0) return -1;
+    if (array[y][x + width - 1] == 0) return -1;
+    if (array[y + height - 1] == 0) return -1;
+
+    int** grid = _generateColorGradientGrid(colors, percentages, numColors, width, height, direction);
+    char*** ansi = _toANSI(prefix, grid, width, height);
+
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            free(array[y + i][x + j]);
+            array[y + i][x + j] = ansi[i][j];
+        }
+    }
+
+    _freeGrid(grid, width, height);
+    return 0;
+}
+
+int AnsiBuilder_gradientForeground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+    
+    int* colors = (int*) malloc(2 * sizeof(int));
+    if (colors == 0) return -1;
+    colors[0] = start;
+    colors[1] = end;
+
+    double* percentages = (double*) malloc(2 * sizeof(double));
+    if (percentages == 0) {
+        free(colors);
+        return -1;
+    }
+    percentages[0] = 0.5;
+    percentages[1] = 0.5;
+
+    int res = AnsiBuilder_gradient0(array, x, y, width, height, 38, colors, percentages, 2, direction);
+    
+    free(colors);
+    free(percentages);
+
+    return res;
+}
+
+int AnsiBuilder_gradientBackground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+    
+    int* colors = (int*) malloc(2 * sizeof(int));
+    if (colors == 0) return -1;
+    colors[0] = start;
+    colors[1] = end;
+
+    double* percentages = (double*) malloc(2 * sizeof(double));
+    if (percentages == 0) {
+        free(colors);
+        return -1;
+    }
+    percentages[0] = 0.5;
+    percentages[1] = 0.5;
+
+    int res = AnsiBuilder_gradient0(array, x, y, width, height, 48, colors, percentages, 2, direction);
+
+    free(colors);
+    free(percentages);
+
+    return res;
+}
+
+int AnsiBuilder_multiGradientForeground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    double percent = 1.0 / (numColors - 1);
+    double* percentages = (double*) malloc(numColors * sizeof(double));
+    if (percentages == 0) return -1;
+
+    for (int i = 0; i < numColors; i++)
+        percentages[i] = percent;
+    
+    int res = AnsiBuilder_gradient0(array, x, y, width, height, 38, gradient, percentages, numColors, direction);
+
+    free(percentages);
+
+    return res;
+}
+
+int AnsiBuilder_multiGradientBackground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    double percent = 1.0 / (numColors - 1);
+    double* percentages = (double*) malloc(numColors * sizeof(double));
+    if (percentages == 0) return -1;
+
+    for (int i = 0; i < numColors; i++)
+        percentages[i] = percent;
+    
+    int res = AnsiBuilder_gradient0(array, x, y, width, height, 48, gradient, percentages, numColors, direction);
+
+    free(percentages);
+
+    return res;
+}
+
+int AnsiBuilder_multiGradientsForeground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    return AnsiBuilder_gradient0(array, x, y, width, height, 38, gradient, percentages, numColors, direction);
+}
+
+int AnsiBuilder_multiGradientsBackground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    return AnsiBuilder_gradient0(array, x, y, width, height, 48, gradient, percentages, numColors, direction);
+}
+
+int AnsiBuilder_gradientForegroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    return AnsiBuilder_gradientForeground(array, 0, 0, width, height, start, end, direction);
+}
+
+int AnsiBuilder_gradientBackgroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    return AnsiBuilder_gradientBackground(array, 0, 0, width, height, start, end, direction);
+}
+
+int AnsiBuilder_multiGradientForegroundFull(char*** array, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    return AnsiBuilder_multiGradientForeground(array, 0, 0, width, height, numColors, gradient, direction);
+}
+
+int AnsiBuilder_multiGradientBackgroundFull(char*** array, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    return AnsiBuilder_multiGradientBackground(array, 0, 0, width, height, numColors, gradient, direction);
+}
+
+int AnsiBuilder_multiGradientsForegroundFull(char*** array, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    return AnsiBuilder_multiGradientsForeground(array, 0, 0, width, height, numColors, gradient, percentages, direction);
 }
 
 #pragma endregion

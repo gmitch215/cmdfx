@@ -11,6 +11,8 @@
 
 #pragma once
 
+#include "cmdfx/core/sprites.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -379,6 +381,129 @@ int CharBuilder_replaceAll(char** array, char find, char replace);
  */
 char** CharBuilder_scale(char** array, double scale);
 
+// Utility Functions - Gradient
+
+/**
+ * @brief Creates a gradient in a 2D Character Array.
+ * 
+ * This method creates a gradient in a 2D Character Array. The gradient will
+ * be created from the start character to the end character. The gradient
+ * will be created in the specified direction.
+ * 
+ * This function supports a simple gradient from one character to another
+ * at 50% each.
+ * 
+ * @param array The 2D Character Array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param width The width of the gradient.
+ * @param height The height of the gradient.
+ * @param start The start character.
+ * @param end The end character.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CharBuilder_gradient(char** array, int x, int y, int width, int height, char start, char end, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Creates a multi-gradient in a 2D Character Array.
+ * 
+ * This method creates a multi-gradient in a 2D Character Array. The gradient will
+ * be created from the start character to the end character. The gradient will
+ * be created in the specified direction.
+ * 
+ * This function supports a multi-gradient from multiple characters at
+ * equal intervals.
+ * 
+ * @param array The 2D Character Array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param width The width of the gradient.
+ * @param height The height of the gradient.
+ * @param numChars The number of characters in the gradient.
+ * @param gradient The gradient characters.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CharBuilder_multiGradient(char** array, int x, int y, int width, int height, int numChars, char* gradient, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Creates a multi-gradient in a 2D Character Array with percentages.
+ * 
+ * This method creates a multi-gradient in a 2D Character Array. The gradient will
+ * be created from the start character to the end character. The gradient will
+ * be created in the specified direction.
+ * 
+ * This function supports a multi-gradient from multiple characters at
+ * specific percentages.
+ * 
+ * @param array The 2D Character Array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param width The width of the gradient.
+ * @param height The height of the gradient.
+ * @param numChars The number of characters in the gradient.
+ * @param gradient The gradient characters.
+ * @param percentages The percentages of the gradient.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CharBuilder_multiGradients(char** array, int x, int y, int width, int height, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Creates a full gradient in a 2D Character Array.
+ * 
+ * This method creates a full gradient in a 2D Character Array. The gradient will
+ * be created from the start character to the end character. The gradient will
+ * be created in the specified direction.
+ * 
+ * This function supports a full gradient from one character to another.
+ * 
+ * @param array The 2D Character Array.
+ * @param start The start character.
+ * @param end The end character.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CharBuilder_gradientFull(char** array, char start, char end, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Creates a multi-gradient in a 2D Character Array.
+ * 
+ * This method creates a multi-gradient in a 2D Character Array. The gradient will
+ * be created from the start character to the end character. The gradient will
+ * be created in the specified direction.
+ * 
+ * This function supports a multi-gradient from multiple characters at
+ * equal intervals.
+ * 
+ * @param array The 2D Character Array.
+ * @param numChars The number of characters in the gradient.
+ * @param gradient The gradient characters.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CharBuilder_multiGradientFull(char** array, int numChars, char* gradient, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Creates a multi-gradient in a 2D Character Array with percentages.
+ * 
+ * This method creates a multi-gradient in a 2D Character Array. The gradient will
+ * be created from the start character to the end character. The gradient will
+ * be created in the specified direction.
+ * 
+ * This function supports a multi-gradient from multiple characters at
+ * specific percentages.
+ * 
+ * @param array The 2D Character Array.
+ * @param numChars The number of characters in the gradient.
+ * @param gradient The gradient characters.
+ * @param percentages The percentages of the gradient.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CharBuilder_multiGradientsFull(char** array, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction);
+
 #pragma endregion
 
 #pragma region ANSI Builder
@@ -697,6 +822,250 @@ int AnsiBuilder_replaceAll(char*** array, char* find, char* replace);
  * @return 0 if successful, -1 if an error occurred.
  */
 char*** AnsiBuilder_scale(char*** array, double scale);
+
+// Utility Functions - Gradients (ANSI)
+
+/**
+ * @brief Sets a foreground gradient in a 2D String Array.
+ * 
+ * This method sets a gradient in a 2D String Array. The gradient will be
+ * set from the start RGB code to the end RGB code in the specified bounds.
+ * The direction of the gradient can be specified.
+ * 
+ * This function supports a simple gradient with 2 colors at 50% each.
+ * 
+ * @param array The 2D String Array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param width The width of the gradient.
+ * @param height The height of the gradient.
+ * @param start The start RGB code.
+ * @param end The end RGB code.
+ * @param direction 
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_gradientForeground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Sets a background gradient in a 2D String Array.
+ * 
+ * This method sets a gradient in a 2D String Array. The gradient will be
+ * set from the start RGB code to the end RGB code in the specified bounds.
+ * The direction of the gradient can be specified.
+ * 
+ * This function supports a simple gradient with 2 colors at 50% each.
+ * 
+ * @param array The 2D String Array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param width The width of the gradient.
+ * @param height The height of the gradient.
+ * @param start The start RGB code.
+ * @param end The end RGB code.
+ * @param direction 
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_gradientBackground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Sets a foreground gradient in a 2D String Array.
+ * 
+ * This method sets a gradient in a 2D String Array. The gradient will be
+ * set from the start RGB code to the end RGB code in the specified bounds.
+ * The direction of the gradient can be specified.
+ * 
+ * This function supports a multi-gradient with multiple colors at equal
+ * intervals.
+ * 
+ * @param array The 2D String Array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param width The width of the gradient.
+ * @param height The height of the gradient.
+ * @param numColors The number of colors in the gradient
+ * @param colors The RGB colors in the gradient.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_multiGradientForeground(char*** array, int x, int y, int width, int height, int numColors, int* colors, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Sets a background gradient in a 2D String Array.
+ * 
+ * This method sets a gradient in a 2D String Array. The gradient will be
+ * set from the start RGB code to the end RGB code in the specified bounds.
+ * The direction of the gradient can be specified.
+ * 
+ * This function supports a multi-gradient with multiple colors at equal
+ * intervals.
+ * 
+ * @param array The 2D String Array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param width The width of the gradient.
+ * @param height The height of the gradient.
+ * @param numColors The number of colors in the gradient
+ * @param colors The RGB colors in the gradient.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_multiGradientBackground(char*** array, int x, int y, int width, int height, int numColors, int* colors, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Sets a foreground gradient in a 2D String Array.
+ * 
+ * This method sets a gradient in a 2D String Array. The gradient will be
+ * set from the start RGB code to the end RGB code in the specified bounds.
+ * The direction of the gradient can be specified.
+ * 
+ * This function supports a multi-gradient with multiple colors at different
+ * intervals.
+ * 
+ * @param array The 2D String Array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param width The width of the gradient.
+ * @param height The height of the gradient.
+ * @param numColors The number of colors in the gradient
+ * @param colors The RGB colors in the gradient.
+ * @param percentages The percentages of each color in the gradient.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_multiGradientsForeground(char*** array, int x, int y, int width, int height, int numColors, int* colors, double* percentages, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Sets a background gradient in a 2D String Array.
+ * 
+ * This method sets a gradient in a 2D String Array. The gradient will be
+ * set from the start RGB code to the end RGB code in the specified bounds.
+ * The direction of the gradient can be specified.
+ * 
+ * This function supports a multi-gradient with multiple colors at different
+ * intervals.
+ * 
+ * @param array The 2D String Array.
+ * @param x The x coordinate.
+ * @param y The y coordinate.
+ * @param width The width of the gradient.
+ * @param height The height of the gradient.
+ * @param numColors The number of colors in the gradient
+ * @param colors The RGB colors in the gradient.
+ * @param percentages The percentages of each color in the gradient.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_multiGradientsBackground(char*** array, int x, int y, int width, int height, int numColors, int* colors, double* percentages, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Sets a background gradient in a 2D String Array.
+ * 
+ * This method sets a gradient in a 2D String Array. The gradient will be
+ * set from the start RGB code to the end RGB code in the specified bounds.
+ * The direction of the gradient can be specified.
+ * 
+ * This function supports a full gradient with multiple colors at different
+ * intervals.
+ * 
+ * @param array The 2D String Array.
+ * @param start The start RGB code.
+ * @param end The end RGB code.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_gradientForegroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Sets a background gradient in a 2D String Array.
+ * 
+ * This method sets a gradient in a 2D String Array. The gradient will be
+ * set from the start RGB code to the end RGB code in the specified bounds.
+ * The direction of the gradient can be specified.
+ * 
+ * This function supports a full gradient with multiple colors at different
+ * intervals.
+ * 
+ * @param array The 2D String Array.
+ * @param start The start RGB code.
+ * @param end The end RGB code.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_gradientBackgroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Sets a foreground gradient in a 2D String Array.
+ * 
+ * This method sets a gradient in a 2D String Array. The gradient will be
+ * set from the start RGB code to the end RGB code in the specified bounds.
+ * The direction of the gradient can be specified.
+ * 
+ * This function supports a multi-gradient with multiple colors at equal
+ * intervals.
+ * 
+ * @param array The 2D String Array.
+ * @param numColors The number of colors in the gradient
+ * @param colors The RGB colors in the gradient.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_multiGradientForegroundFull(char*** array, int numColors, int* colors, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Sets a background gradient in a 2D String Array.
+ * 
+ * This method sets a gradient in a 2D String Array. The gradient will be
+ * set from the start RGB code to the end RGB code in the specified bounds.
+ * The direction of the gradient can be specified.
+ * 
+ * This function supports a multi-gradient with multiple colors at equal
+ * intervals.
+ * 
+ * @param array The 2D String Array.
+ * @param numColors The number of colors in the gradient
+ * @param colors The RGB colors in the gradient.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_multiGradientBackgroundFull(char*** array, int numColors, int* colors, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Sets a foreground gradient in a 2D String Array.
+ * 
+ * This method sets a gradient in a 2D String Array. The gradient will be
+ * set from the start RGB code to the end RGB code in the specified bounds.
+ * The direction of the gradient can be specified.
+ * 
+ * This function supports a multi-gradient with multiple colors at different
+ * intervals.
+ * 
+ * @param array The 2D String Array.
+ * @param numColors The number of colors in the gradient
+ * @param colors The RGB colors in the gradient.
+ * @param percentages The percentages of each color in the gradient.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_multiGradientsForegroundFull(char*** array, int numColors, int* colors, double* percentages, enum CmdFX_GradientDirection direction);
+
+/**
+ * @brief Sets a background gradient in a 2D String Array.
+ * 
+ * This method sets a gradient in a 2D String Array. The gradient will be
+ * set from the start RGB code to the end RGB code in the specified bounds.
+ * The direction of the gradient can be specified.
+ * 
+ * This function supports a multi-gradient with multiple colors at different
+ * intervals.
+ * 
+ * @param array The 2D String Array.
+ * @param numColors The number of colors in the gradient
+ * @param colors The RGB colors in the gradient.
+ * @param percentages The percentages of each color in the gradient.
+ * @param direction The direction of the gradient.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int AnsiBuilder_multiGradientsBackgroundFull(char*** array, int numColors, int* colors, double* percentages, enum CmdFX_GradientDirection direction);
 
 #pragma endregion
 

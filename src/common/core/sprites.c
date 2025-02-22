@@ -950,7 +950,9 @@ int Sprite_setBackgroundAll256(CmdFX_Sprite* sprite, int color) {
     if (color < 0 || color > 255) return 0;
 
     char* ansi = malloc(14);
-    sprintf(ansi, "\033[48;5;%dm", color);
+    if (ansi == 0) return 0;
+
+    snprintf(ansi, 14, "\033[48;5;%dm", color);
 
     int res = Sprite_appendAnsiAll(sprite, ansi);
     free(ansi);
@@ -959,94 +961,6 @@ int Sprite_setBackgroundAll256(CmdFX_Sprite* sprite, int color) {
 }
 
 // Utility Methods - Color Gradient
-
-int** _generateGradientGrid(int* colors, int numColors, int width, int height, enum CmdFX_GradientDirection direction) {
-    int** grid = (int**) malloc(height * sizeof(int*));
-    for (int i = 0; i < height; i++) {
-        grid[i] = (int*) malloc(width * sizeof(int));
-    }
-
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            double factor = 0.0;
-
-            switch (direction) {
-                case GRADIENT_HORIZONTAL:
-                    factor = (double) x / (width - 1);
-                    break;
-                case GRADIENT_HORIZONTAL_REVERSE:
-                    factor = 1.0 - (double) x / (width - 1);
-                    break;
-                case GRADIENT_VERTICAL:
-                    factor = (double) y / (height - 1);
-                    break;
-                case GRADIENT_VERTICAL_REVERSE:
-                    factor = 1.0 - (double) y / (height - 1);
-                    break;
-                case GRADIENT_ANGLE_45:
-                    factor = ((double) x + y) / (width + height - 2);
-                    break;
-                case GRADIENT_ANGLE_135:
-                    factor = (double) (width - x - 1 + y) / (width + height - 2);
-                    break;
-                case GRADIENT_RADIAL: {
-                    double centerX = width / 2.0;
-                    double centerY = height / 2.0;
-                    double distance = sqrt(pow(x - centerX, 2) + pow(y - centerY, 2));
-                    double maxDistance = sqrt(pow(centerX, 2) + pow(centerY, 2));
-                    factor = distance / maxDistance;
-                    break;
-                }
-                case GRADIENT_CONICAL: {
-                    double angle = atan2(y - height / 2.0, x - width / 2.0);
-                    factor = (angle + M_PI) / (2 * M_PI);
-                    break;
-                }
-            }
-
-            double scaledFactor = factor * (numColors - 1);
-            int lower = (int) scaledFactor;
-            int upper = lower + 1;
-
-            if (upper >= numColors)
-                upper = numColors - 1;
-
-            if (lower == upper) {
-                grid[y][x] = colors[lower];
-            } else {
-                grid[y][x] = lerp_color(colors[lower], colors[upper], scaledFactor - lower);
-            }
-        }
-    }
-
-    return grid;
-}
-
-char*** _toANSI(int prefix, int** grid, int width, int height) {
-    if (grid == 0) return 0;
-
-    char*** ansi = (char***) malloc(height * sizeof(char**));
-    for (int i = 0; i < height; i++) {
-        ansi[i] = (char**) malloc(width * sizeof(char*));
-        for (int j = 0; j < width; j++) {
-            int rgb = grid[i][j];
-
-            int r = (rgb >> 16) & 0xFF;
-            int g = (rgb >> 8) & 0xFF;
-            int b = rgb & 0xFF;
-
-            ansi[i][j] = (char*) malloc(22);
-            snprintf(ansi[i][j], 22, "\033[%d;2;%d;%d;%dm", prefix, r, g, b);
-        }
-    }
-
-    return ansi;
-}
-
-void _freeGrid(int** grid, int width, int height) {
-    for (int i = 0; i < height; i++) free(grid[i]);
-    free(grid);
-}
 
 void _freeANSI(char*** ansi, int width, int height) {
     for (int i = 0; i < height; i++) {
@@ -1064,25 +978,31 @@ int Sprite_setGradient0(CmdFX_Sprite* sprite, int prefix, int x, int y, int widt
         colors[i] = va_arg(*args, int);
     }
 
-    int** grid = _generateGradientGrid(colors, numColors, width, height, direction);
-    if (grid == 0) {
+    char*** gradient = AnsiBuilder_create(width, height);
+    if (gradient == 0) {
         free(colors);
         return 0;
     }
+    if (prefix == 38)
+        AnsiBuilder_multiGradientForegroundFull(gradient, numColors, colors, direction);
+    else
+        AnsiBuilder_multiGradientBackgroundFull(gradient, numColors, colors, direction);
 
-    char*** ansi = _toANSI(prefix, grid, width, height);
-    if (ansi == 0) {
-        _freeGrid(grid, width, height);
-        return 0;
-    }
+    for (int j = 0; j < height; j++) {
+        int cy = y + j;
+        if (cy < 0 || cy >= sprite->height) continue;
 
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            Sprite_setAnsi(sprite, x + j, y + i, ansi[i][j]);
+        for (int i = 0; i < width; i++) {
+            int cx = x + i;
+            if (cx < 0 || cx >= sprite->width) continue;
+
+            free(sprite->ansi[cy][cx]);
+            sprite->ansi[cy][cx] = gradient[j][i];
         }
     }
 
-    _freeGrid(grid, width, height);
+    free(colors);
+    _freeANSI(gradient, width, height);
 
     if (sprite->id != 0) {
         Sprite_remove0(sprite);
