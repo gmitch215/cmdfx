@@ -103,10 +103,10 @@ if (INSTALL_CMDFX)
    
     install(TARGETS cmdfx
         EXPORT cmdfx-targets
+        COMPONENT library
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        COMPONENT library
     )
 
     include(CMakePackageConfigHelpers)
@@ -229,6 +229,7 @@ if (PACKAGE_CMDFX)
         set(CPACK_WIX_PRODUCT_ICON "${PROJECT_SOURCE_DIR}/assets/cmdfx.ico")
         set(CPACK_WIX_LICENSE_RTF "${PROJECT_SOURCE_DIR}/LICENSE.rtf")
         set(CPACK_WIX_UPGRADE_GUID "42937a72-0b91-4a57-8f45-60d84df05e66")
+        set(CPACK_WIX_CMAKE_PACKAGE_REGISTRY ${PROJECT_NAME})
     elseif(APPLE)
         set(CPACK_GENERATOR "TGZ;ZIP;productbuild")
 
