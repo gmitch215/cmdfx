@@ -8,7 +8,7 @@ int onKey(CmdFX_Event* event) {
     CmdFX_KeyEvent* keyEvent = (CmdFX_KeyEvent*) event->data;
     printf("Key state: '%c' (%d), %d\n", keyEvent->keyChar, keyEvent->keyCode, keyEvent->state);
 
-    if (keyEvent->keyChar == 'q') {
+    if (keyEvent->keyChar == 'q' || keyEvent->keyChar == 'Q') {
         Screen_setEchoEnabled(1);
         Screen_setLineBuffered(1);
         exit(0);
