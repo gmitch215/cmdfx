@@ -17,6 +17,8 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 file(GLOB_RECURSE COMMON_SRC ${PROJECT_SOURCE_DIR}/src/common/*.c)
 if (WIN32)
     file(GLOB_RECURSE PLATFORM_SRC ${PROJECT_SOURCE_DIR}/src/windows/*.c)
+    
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 else()
     file(GLOB_RECURSE PLATFORM_SRC ${PROJECT_SOURCE_DIR}/src/posix/*.c)
 
@@ -102,39 +104,41 @@ if (INSTALL_CMDFX)
     include(GNUInstallDirs)
    
     install(TARGETS cmdfx
-        EXPORT cmdfx-targets
+        EXPORT cmdfxTargets
         COMPONENT library
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        INCLUDES DESTINATION include
+    )
+    install(EXPORT cmdfxTargets
+        FILE ${PROJECT_NAME}Targets.cmake
+        NAMESPACE ${PROJECT_NAME}::
+        DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME}
+        COMPONENT library
     )
 
     include(CMakePackageConfigHelpers)
-    write_basic_package_version_file("ConfigVersion.cmake"
+    write_basic_package_version_file("${PROJECT_NAME}ConfigVersion.cmake"
         VERSION ${PROJECT_VERSION}
         COMPATIBILITY AnyNewerVersion
     )
     configure_package_config_file(
             "${PROJECT_SOURCE_DIR}/cmake/Config.cmake.in"
-            "${PROJECT_BINARY_DIR}/Config.cmake"
+            "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
             INSTALL_DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
+    )
+
+    install(FILES 
+        "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake" 
+        "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+        DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME}
+        COMPONENT library
     )
 
     # Library Components
 
     ## Core Library
-    install(EXPORT cmdfx-targets
-        FILE ${PROJECT_NAME}Targets.cmake
-        NAMESPACE ${PROJECT_NAME}::
-        DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
-        COMPONENT library
-    )
-    install(FILES "${PROJECT_BINARY_DIR}/Config.cmake"
-                 "${PROJECT_BINARY_DIR}/ConfigVersion.cmake"
-            DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
-            COMPONENT library
-    )
-
     install(FILES "${PROJECT_SOURCE_DIR}/include/cmdfx.h"
             DESTINATION include
             COMPONENT library
