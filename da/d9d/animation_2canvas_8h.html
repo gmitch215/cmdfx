@@ -129,12 +129,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a737354ef11560aba591e06a68274031c" id="r_a737354ef11560aba591e06a68274031c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a737354ef11560aba591e06a68274031c">Canvas_line_anim_reverse</a> (int x0, int y0, int x1, int y1, char c, double time)</td></tr>
 <tr class="memdesc:a737354ef11560aba591e06a68274031c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a line at the specified position over time, then reverses the animation.  <br /></td></tr>
 <tr class="separator:a737354ef11560aba591e06a68274031c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8a26d7de48e99d0c4d64d7f71f1ec8f" id="r_aa8a26d7de48e99d0c4d64d7f71f1ec8f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8a26d7de48e99d0c4d64d7f71f1ec8f">Canvas_drawText_anim</a> (int x, int y, const char *text, double time)</td></tr>
-<tr class="memdesc:aa8a26d7de48e99d0c4d64d7f71f1ec8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws text at the specified position over time.  <br /></td></tr>
-<tr class="separator:aa8a26d7de48e99d0c4d64d7f71f1ec8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f682992e80b44e793b8b7d6381ccc22" id="r_a8f682992e80b44e793b8b7d6381ccc22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f682992e80b44e793b8b7d6381ccc22">Canvas_drawText_anim_reverse</a> (int x, int y, const char *text, double time)</td></tr>
-<tr class="memdesc:a8f682992e80b44e793b8b7d6381ccc22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws text at the specified position over time, then reverses the animation.  <br /></td></tr>
-<tr class="separator:a8f682992e80b44e793b8b7d6381ccc22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2dfcea69be32cf072e391ca814a7a59" id="r_ae2dfcea69be32cf072e391ca814a7a59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2dfcea69be32cf072e391ca814a7a59">Canvas_drawText_anim</a> (int x, int y, char *text, double time)</td></tr>
+<tr class="memdesc:ae2dfcea69be32cf072e391ca814a7a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws text at the specified position over time.  <br /></td></tr>
+<tr class="separator:ae2dfcea69be32cf072e391ca814a7a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa743d5cdacf86f2893396d8b945b628a" id="r_aa743d5cdacf86f2893396d8b945b628a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa743d5cdacf86f2893396d8b945b628a">Canvas_drawText_anim_reverse</a> (int x, int y, char *text, double time)</td></tr>
+<tr class="memdesc:aa743d5cdacf86f2893396d8b945b628a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws text at the specified position over time, then reverses the animation.  <br /></td></tr>
+<tr class="separator:aa743d5cdacf86f2893396d8b945b628a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3d4b1c8a2b9328a66b650b9a13276b5" id="r_ad3d4b1c8a2b9328a66b650b9a13276b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3d4b1c8a2b9328a66b650b9a13276b5">Canvas_drawAsciiText_anim</a> (int x, int y, char character, const char *text, double time)</td></tr>
 <tr class="memdesc:ad3d4b1c8a2b9328a66b650b9a13276b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws an ASCII character at the specified position over time.  <br /></td></tr>
 <tr class="separator:ad3d4b1c8a2b9328a66b650b9a13276b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -195,8 +195,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa8a26d7de48e99d0c4d64d7f71f1ec8f" name="aa8a26d7de48e99d0c4d64d7f71f1ec8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8a26d7de48e99d0c4d64d7f71f1ec8f">&#9670;&#160;</a></span>Canvas_drawText_anim()</h2>
+<a id="ae2dfcea69be32cf072e391ca814a7a59" name="ae2dfcea69be32cf072e391ca814a7a59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2dfcea69be32cf072e391ca814a7a59">&#9670;&#160;</a></span>Canvas_drawText_anim()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -214,7 +214,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>text</em></span>, </td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>text</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -238,8 +238,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8f682992e80b44e793b8b7d6381ccc22" name="a8f682992e80b44e793b8b7d6381ccc22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f682992e80b44e793b8b7d6381ccc22">&#9670;&#160;</a></span>Canvas_drawText_anim_reverse()</h2>
+<a id="aa743d5cdacf86f2893396d8b945b628a" name="aa743d5cdacf86f2893396d8b945b628a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa743d5cdacf86f2893396d8b945b628a">&#9670;&#160;</a></span>Canvas_drawText_anim_reverse()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -257,7 +257,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>text</em></span>, </td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>text</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
