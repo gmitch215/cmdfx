@@ -131,7 +131,7 @@ void Canvas_line_anim_reverse(int x0, int y0, int x1, int y1, char c, double tim
 
 // Utility Functions - Text
 
-void Canvas_drawText_anim(int x, int y, const char* text, double time) {
+void Canvas_drawText_anim(int x, int y, char* text, double time) {
     if (x < 1 || y < 1) return;
     if (time <= 0) return;
 
@@ -145,7 +145,7 @@ void Canvas_drawText_anim(int x, int y, const char* text, double time) {
     }
 }
 
-void Canvas_drawText_anim_reverse(int x, int y, const char* text, double time) {
+void Canvas_drawText_anim_reverse(int x, int y, char* text, double time) {
     if (x < 1 || y < 1) return;
     if (time <= 0) return;
 

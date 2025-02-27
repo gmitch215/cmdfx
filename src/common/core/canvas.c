@@ -397,7 +397,7 @@ void Canvas_fillPolygon(int x, int y, int sides, int radius, char c) {
 
 // Utility Functions - Text
 
-void Canvas_drawText(int x, int y, const char* text) {
+void Canvas_drawText(int x, int y, char* text) {
     Canvas_setCursor(x, y);
     printf("%s", text);
 }

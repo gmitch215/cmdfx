@@ -174,7 +174,7 @@ void Canvas_line_anim_reverse(int x0, int y0, int x1, int y1, char c, double tim
  * @param text The text to draw.
  * @param time The amount of time, in seconds, to draw the text.
  */
-void Canvas_drawText_anim(int x, int y, const char* text, double time);
+void Canvas_drawText_anim(int x, int y, char* text, double time);
 
 /**
  * @brief Draws text at the specified position over time, then reverses the animation.
@@ -192,7 +192,7 @@ void Canvas_drawText_anim(int x, int y, const char* text, double time);
  * @param text The text to draw.
  * @param time The amount of time, in seconds, to draw the text.
  */
-void Canvas_drawText_anim_reverse(int x, int y, const char* text, double time);
+void Canvas_drawText_anim_reverse(int x, int y, char* text, double time);
 
 /**
  * @brief Draws an ASCII character at the specified position over time.

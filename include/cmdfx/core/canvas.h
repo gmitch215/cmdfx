@@ -443,7 +443,7 @@ void Canvas_fillPolygon(int x, int y, int sides, int radius, char c);
  * @param y Y coordinate.
  * @param text The text to draw.
  */
-void Canvas_drawText(int x, int y, const char* text);
+void Canvas_drawText(int x, int y, char* text);
 
 #pragma region ASCII Art
 
