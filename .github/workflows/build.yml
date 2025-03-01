@@ -28,7 +28,7 @@ jobs:
         with:
           dotnet-version: '9'
       - name: Configure Project
-        run: cmake .
+        run: cmake . -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7}
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
