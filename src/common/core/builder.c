@@ -102,6 +102,8 @@ char** CharBuilder_create(int width, int height) {
         for (int j = 0; j < width; j++) array[i][j] = ' ';
     }
 
+    array[height] = 0;
+
     return array;
 }
 
@@ -1034,8 +1036,6 @@ char*** AnsiBuilder_create(int width, int height) {
     }
 
     array[height] = 0;
-    array[height][width] = 0;
-
     return array;
 }
 
