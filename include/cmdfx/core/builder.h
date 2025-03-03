@@ -55,6 +55,26 @@ int getArrayHeight(char** array);
  */
 char** CharBuilder_create(int width, int height);
 
+
+/**
+ * @brief Creates a 2D Character Array with a specific width and height, filled with a specific character.
+ * 
+ * This method creates an array with a specific width and height. The
+ * array will be initialized with the specified character.
+ * 
+ * The values at `array[height]` and `array[height][width]` will be set 
+ * to 0 for null termination. It is advised that you create a `char**` 
+ * with this method and pass it to other functions presented in this 
+ * header file, rather than create a `char**` and pass it to other 
+ * functions, in order to avoid undefined behavior.
+ * 
+ * @param width The width of the array.
+ * @param height The height of the array.
+ * @param c The character to fill the array with.
+ * @return The 2D Character Array.
+ */
+char** CharBuilder_createFilled(int width, int height, char c);
+
 /**
  * @brief Sets a character in a 2D Character Array.
  * 
@@ -540,6 +560,21 @@ int getAnsiArrayHeight(char*** array);
  * @return The 2D String Array.
  */
 char*** AnsiBuilder_create(int width, int height);
+
+/**
+ * @brief Creates a 2D String Array with a specific width and height, filled with a specific string.
+ * 
+ * Like all methods in AnsiBuilder, this does **not** append anything to the string.
+ * You will need to input the full ANSI code, like "\033[31m" for red text.
+ * 
+ * This method creates an array with a specific width and height. The
+ * array will be initialized with the specified string.
+ * 
+ * @param width The width of the array.
+ * @param height The height of the array.
+ * @return The 2D String Array.
+ */
+char*** AnsiBuilder_createFilled(int width, int height, char* c);
 
 /**
  * @brief Sets an ANSI code in a 2D String Array.

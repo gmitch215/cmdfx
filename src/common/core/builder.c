@@ -105,6 +105,19 @@ char** CharBuilder_create(int width, int height) {
     return array;
 }
 
+char** CharBuilder_createFilled(int width, int height, char c) {
+    if (width <= 0 || height <= 0) return 0;
+
+    char** array = CharBuilder_create(width, height);
+    if (array == 0) return 0;
+
+    for (int i = 0; i < height; i++)
+        for (int j = 0; j < width; j++) 
+            array[i][j] = c;
+
+    return array;
+}
+
 int CharBuilder_setChar(char** array, int x, int y, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
@@ -1022,6 +1035,20 @@ char*** AnsiBuilder_create(int width, int height) {
 
     array[height] = 0;
     array[height][width] = 0;
+
+    return array;
+}
+
+char*** AnsiBuilder_createFilled(int width, int height, char* c) {
+    if (width <= 0 || height <= 0) return 0;
+    if (c == 0) return 0;
+
+    char*** array = AnsiBuilder_create(width, height);
+    if (array == 0) return 0;
+
+    for (int i = 0; i < height; i++)
+        for (int j = 0; j < width; j++)
+            array[i][j] = c;
 
     return array;
 }
