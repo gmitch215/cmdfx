@@ -114,6 +114,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae36287f353582770a0aa5546a27bb00d" id="r_ae36287f353582770a0aa5546a27bb00d"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae36287f353582770a0aa5546a27bb00d">CharBuilder_create</a> (int width, int height)</td></tr>
 <tr class="memdesc:ae36287f353582770a0aa5546a27bb00d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 2D Character Array with a specific width and height.  <br /></td></tr>
 <tr class="separator:ae36287f353582770a0aa5546a27bb00d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0922c7739fb14e055b981c87f0818db6" id="r_a0922c7739fb14e055b981c87f0818db6"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0922c7739fb14e055b981c87f0818db6">CharBuilder_createFilled</a> (int width, int height, char c)</td></tr>
+<tr class="memdesc:a0922c7739fb14e055b981c87f0818db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 2D Character Array with a specific width and height, filled with a specific character.  <br /></td></tr>
+<tr class="separator:a0922c7739fb14e055b981c87f0818db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a267a4cb23c86b233658784f272bc8cf4" id="r_a267a4cb23c86b233658784f272bc8cf4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a267a4cb23c86b233658784f272bc8cf4">CharBuilder_setChar</a> (char **array, int x, int y, char c)</td></tr>
 <tr class="memdesc:a267a4cb23c86b233658784f272bc8cf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a character in a 2D Character Array.  <br /></td></tr>
 <tr class="separator:a267a4cb23c86b233658784f272bc8cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,6 +219,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a070c22f4c87c6b4aa5e4d182871db079" id="r_a070c22f4c87c6b4aa5e4d182871db079"><td class="memItemLeft" align="right" valign="top">char ***&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a070c22f4c87c6b4aa5e4d182871db079">AnsiBuilder_create</a> (int width, int height)</td></tr>
 <tr class="memdesc:a070c22f4c87c6b4aa5e4d182871db079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 2D String Array with a specific width and height.  <br /></td></tr>
 <tr class="separator:a070c22f4c87c6b4aa5e4d182871db079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28e4ef8dcae3bb14d8fd8503a4b712c1" id="r_a28e4ef8dcae3bb14d8fd8503a4b712c1"><td class="memItemLeft" align="right" valign="top">char ***&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28e4ef8dcae3bb14d8fd8503a4b712c1">AnsiBuilder_createFilled</a> (int width, int height, char *c)</td></tr>
+<tr class="memdesc:a28e4ef8dcae3bb14d8fd8503a4b712c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 2D String Array with a specific width and height, filled with a specific string.  <br /></td></tr>
+<tr class="separator:a28e4ef8dcae3bb14d8fd8503a4b712c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5ae5e32b1029ba50c1f0e6dd9b40798" id="r_ac5ae5e32b1029ba50c1f0e6dd9b40798"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5ae5e32b1029ba50c1f0e6dd9b40798">AnsiBuilder_setAnsi</a> (char ***array, int x, int y, char *c)</td></tr>
 <tr class="memdesc:ac5ae5e32b1029ba50c1f0e6dd9b40798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets an ANSI code in a 2D String Array.  <br /></td></tr>
 <tr class="separator:ac5ae5e32b1029ba50c1f0e6dd9b40798"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -389,6 +395,44 @@ Functions</h2></td></tr>
 <p>Creates a 2D String Array with a specific width and height. </p>
 <p>Like all methods in AnsiBuilder, this does <b>not</b> append anything to the string. You will need to input the full ANSI code, like "\033[31m" for red text.</p>
 <p>This method creates an array with a specific width and height. The array will be initialized with the space character.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The width of the array. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the array. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The 2D String Array. </dd></dl>
+
+</div>
+</div>
+<a id="a28e4ef8dcae3bb14d8fd8503a4b712c1" name="a28e4ef8dcae3bb14d8fd8503a4b712c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28e4ef8dcae3bb14d8fd8503a4b712c1">&#9670;&#160;</a></span>AnsiBuilder_createFilled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char *** AnsiBuilder_createFilled </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a 2D String Array with a specific width and height, filled with a specific string. </p>
+<p>Like all methods in AnsiBuilder, this does <b>not</b> append anything to the string. You will need to input the full ANSI code, like "\033[31m" for red text.</p>
+<p>This method creates an array with a specific width and height. The array will be initialized with the specified string.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">width</td><td>The width of the array. </td></tr>
@@ -2013,6 +2057,45 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">width</td><td>The width of the array. </td></tr>
     <tr><td class="paramname">height</td><td>The height of the array. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The 2D Character Array. </dd></dl>
+
+</div>
+</div>
+<a id="a0922c7739fb14e055b981c87f0818db6" name="a0922c7739fb14e055b981c87f0818db6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0922c7739fb14e055b981c87f0818db6">&#9670;&#160;</a></span>CharBuilder_createFilled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char ** CharBuilder_createFilled </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a 2D Character Array with a specific width and height, filled with a specific character. </p>
+<p>This method creates an array with a specific width and height. The array will be initialized with the specified character.</p>
+<p>The values at <code>array[height]</code> and <code>array[height][width]</code> will be set to 0 for null termination. It is advised that you create a <code>char**</code> with this method and pass it to other functions presented in this header file, rather than create a <code>char**</code> and pass it to other functions, in order to avoid undefined behavior.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The width of the array. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the array. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to fill the array with. </td></tr>
   </table>
   </dd>
 </dl>
