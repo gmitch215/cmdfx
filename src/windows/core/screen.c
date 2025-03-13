@@ -118,3 +118,26 @@ int Screen_setLineBuffered(int enabled) {
     
     return (SetConsoleMode(hInput, mode) != 0) ? 0 : -1;
 }
+
+int Screen_isInTerminal() {
+    return GetConsoleWindow() != NULL;
+}
+
+void launchInTerminal() {
+    char command[MAX_PATH];
+    GetModuleFileName(NULL, command, MAX_PATH);
+    strcat(command, "");
+
+    char cmd[MAX_PATH + 20];
+    snprintf(cmd, sizeof(cmd), "cmd /c start cmd /k \"%s\"", command);
+    system(cmd);
+}
+
+int Screen_ensureInTerminal() {
+    if (!Screen_isInTerminal()) {
+        fprintf(stderr, "Program must be run in a terminal.\n");
+        launchInTerminal();
+        exit(1);
+    }
+    return 0;
+}

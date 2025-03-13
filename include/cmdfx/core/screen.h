@@ -105,6 +105,24 @@ int Screen_isLineBuffered();
  */
 int Screen_setLineBuffered(int enabled);
 
+/**
+ * @brief Checks if the program is running in a terminal.
+ * 
+ * This method checks if the program is running in a terminal. This is useful
+ * for determining if your setup is correct.`
+ * 
+ * @return 1 if the program is running in a terminal, 0 if it is not.
+ */
+int Screen_isInTerminal();
+
+/**
+ * @brief Ensures that the program is running in a terminal.
+ * 
+ * This method will check if the program is running in a terminal. If it is not,
+ * the program will exit and launch the program in a terminal.
+ */
+void Screen_ensureInTerminal();
+
 #ifdef __cplusplus
 }
 #endif
