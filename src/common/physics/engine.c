@@ -163,6 +163,7 @@ void Engine_tick() {
             dx = netForce->x;
             dy = netForce->y;
         }
+        free(netForce);
 
         // Apply Friction
         double frictionCoefficient = Sprite_getFrictionCoefficient(sprite);
@@ -208,6 +209,7 @@ void Engine_tick() {
                 
                 free(otherForce);
             }
+            free(colliding);
         }
 
         // Check Terminal Velocity

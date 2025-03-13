@@ -16,7 +16,7 @@ typedef struct _WinImpulsePayload {
     int duration;
 } _WinImpulsePayload;
 
-void* _addSpriteImpulse(void* arg) {
+unsigned __stdcall _addSpriteImpulse(void* arg) {
     _WinImpulsePayload* payload = (_WinImpulsePayload*) arg;
 
     Sprite_addForce(payload->sprite, payload->vector);

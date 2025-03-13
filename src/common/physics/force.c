@@ -31,7 +31,10 @@ CmdFX_Vector* Sprite_getNetForce(CmdFX_Sprite* sprite) {
 
     for (int i = 0; forces[i] != 0; i++) {
         CmdFX_Vector* force = forces[i];
-        netForce = Vector_add(netForce, force);
+
+        CmdFX_Vector* newForce = Vector_add(netForce, force);
+        free(netForce);
+        netForce = newForce;
     }
 
     return netForce;
@@ -56,6 +59,7 @@ int Sprite_addForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
         if (forcesCount != count) {
             CmdFX_Vector*** temp = realloc(_forces, sizeof(CmdFX_Vector**) * (count + 1));
             if (temp == 0) return -1;
+            for (int i = forcesCount; i < count + 1; i++) temp[i] = 0;
 
             _forces = temp;
             _forces[count] = 0;
@@ -64,7 +68,7 @@ int Sprite_addForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
 
     CmdFX_Vector** forces = _forces[id];
     if (forces == 0) {
-        forces = malloc(sizeof(CmdFX_Vector*) * 2);
+        forces = calloc(2, sizeof(CmdFX_Vector*));
         if (forces == 0) return -1;
 
         forces[0] = vector;
@@ -99,20 +103,12 @@ int Sprite_removeForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
     int i = 0;
     while (forces[i] != 0) {
         if (forces[i] == vector) {
-            free(forces[i]);
+            forces[i] = 0;
 
             for (int j = i; forces[j] != 0; j++)
                 forces[j] = forces[j + 1];
 
-            int count = 0;
-            while (forces[count] != 0) count++;
-
-            CmdFX_Vector** temp = realloc(forces, sizeof(CmdFX_Vector*) * count);
-            if (temp == 0) return -1;
-
-            forces = temp;
-            _forces[id] = forces;
-
+            forces[i] = 0;
             return 0;
         }
 
@@ -136,11 +132,6 @@ int Sprite_removeAllForces(CmdFX_Sprite* sprite) {
 
     free(forces);
     _forces[id] = 0;
-
-    if (Canvas_getDrawnSpritesCount() <= 1) {
-        free(_forces);
-        _forces = 0;
-    }
 
     return 0;
 }

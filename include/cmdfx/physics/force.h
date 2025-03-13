@@ -50,7 +50,8 @@ int Sprite_addForce(CmdFX_Sprite* sprite, CmdFX_Vector* force);
 /**
  * @brief Removes a force from a sprite.
  * 
- * The force will be removed if it is found in the sprite's force array.
+ * The force will be removed if it is found in the sprite's force array and
+ * will not be freed.
  * 
  * @param sprite The sprite to use.
  * @param force The force to remove.
@@ -60,6 +61,9 @@ int Sprite_removeForce(CmdFX_Sprite* sprite, CmdFX_Vector* force);
 
 /**
  * @brief Removes all forces from a sprite.
+ * 
+ * Removing all forces will free all forces in the sprite's force array,
+ * and then free the array itself.
  * 
  * @param sprite The sprite to use.
  * @return 0 if successful, -1 if an error occurred.

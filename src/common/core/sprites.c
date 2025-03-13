@@ -834,6 +834,7 @@ int Sprite_isOnTop(CmdFX_Sprite* sprite, int x, int y) {
             return 0;
         }
     }
+    free(collisions);
 
     return 1;
 }
@@ -857,6 +858,7 @@ int Sprite_isOnBottom(CmdFX_Sprite* sprite, int x, int y) {
             return 0;
         }
     }
+    free(collisions);
 
     return 1;
 }
