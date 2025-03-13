@@ -279,6 +279,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the net force acting on a sprite. </p>
+<p>This creates a new vector that is the sum of all the forces acting on the sprite. The vector should be freed after use.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sprite</td><td>The sprite to use. </td></tr>
@@ -305,6 +306,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes all forces from a sprite. </p>
+<p>Removing all forces will free all forces in the sprite's force array, and then free the array itself.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sprite</td><td>The sprite to use. </td></tr>
@@ -335,7 +337,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes a force from a sprite. </p>
-<p>The force will be removed if it is found in the sprite's force array.</p>
+<p>The force will be removed if it is found in the sprite's force array and will not be freed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sprite</td><td>The sprite to use. </td></tr>

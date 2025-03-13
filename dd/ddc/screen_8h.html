@@ -134,6 +134,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a2f3a5e1fe8e4e6fa0e361d159d9f9e52" id="r_a2f3a5e1fe8e4e6fa0e361d159d9f9e52"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f3a5e1fe8e4e6fa0e361d159d9f9e52">Screen_setLineBuffered</a> (int enabled)</td></tr>
 <tr class="memdesc:a2f3a5e1fe8e4e6fa0e361d159d9f9e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether or not line buffering is enabled.  <br /></td></tr>
 <tr class="separator:a2f3a5e1fe8e4e6fa0e361d159d9f9e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8ac838ab1255178e5c53bbbb8ffd22a" id="r_ab8ac838ab1255178e5c53bbbb8ffd22a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8ac838ab1255178e5c53bbbb8ffd22a">Screen_isInTerminal</a> ()</td></tr>
+<tr class="memdesc:ab8ac838ab1255178e5c53bbbb8ffd22a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the program is running in a terminal.  <br /></td></tr>
+<tr class="separator:ab8ac838ab1255178e5c53bbbb8ffd22a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ce196246a6936e1a24e628d7ec3aa29" id="r_a5ce196246a6936e1a24e628d7ec3aa29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ce196246a6936e1a24e628d7ec3aa29">Screen_ensureInTerminal</a> ()</td></tr>
+<tr class="memdesc:a5ce196246a6936e1a24e628d7ec3aa29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensures that the program is running in a terminal.  <br /></td></tr>
+<tr class="separator:a5ce196246a6936e1a24e628d7ec3aa29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Screen API for controlling other things around the terminal. </p>
@@ -142,6 +148,26 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2025-01-24</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a5ce196246a6936e1a24e628d7ec3aa29" name="a5ce196246a6936e1a24e628d7ec3aa29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ce196246a6936e1a24e628d7ec3aa29">&#9670;&#160;</a></span>Screen_ensureInTerminal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Screen_ensureInTerminal </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ensures that the program is running in a terminal. </p>
+<p>This method will check if the program is running in a terminal. If it is not, the program will exit and launch the program in a terminal. </p>
+
+</div>
+</div>
 <a id="ac318e8caed540793052a29a7add6dfc5" name="ac318e8caed540793052a29a7add6dfc5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac318e8caed540793052a29a7add6dfc5">&#9670;&#160;</a></span>Screen_getMousePos()</h2>
 
@@ -222,6 +248,27 @@ Functions</h2></td></tr>
 <p>Gets whether or not echoing is enabled. </p>
 <p>This method gets whether or not echoing is enabled on the terminal. Echoing is when the terminal displays the characters that are typed. If this is off, the terminal will not display the characters when they are typed.</p>
 <dl class="section return"><dt>Returns</dt><dd>1 if echoing is enabled, 0 if it is not. </dd></dl>
+
+</div>
+</div>
+<a id="ab8ac838ab1255178e5c53bbbb8ffd22a" name="ab8ac838ab1255178e5c53bbbb8ffd22a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8ac838ab1255178e5c53bbbb8ffd22a">&#9670;&#160;</a></span>Screen_isInTerminal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Screen_isInTerminal </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the program is running in a terminal. </p>
+<p>This method checks if the program is running in a terminal. This is useful for determining if your setup is correct.`</p>
+<dl class="section return"><dt>Returns</dt><dd>1 if the program is running in a terminal, 0 if it is not. </dd></dl>
 
 </div>
 </div>
