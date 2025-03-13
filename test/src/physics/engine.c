@@ -59,7 +59,6 @@ int main() {
     Sprite_removeForce(square, impulse);
     for (int i = 0; i < 10; i++) Engine_tick();
     r |= assert(square->x == 11);
-    free(impulse);
 
     Sprite_free(square);
 
