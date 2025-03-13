@@ -133,11 +133,10 @@ void launchInTerminal() {
     system(cmd);
 }
 
-int Screen_ensureInTerminal() {
+void Screen_ensureInTerminal() {
     if (!Screen_isInTerminal()) {
         fprintf(stderr, "Program must be run in a terminal.\n");
         launchInTerminal();
         exit(1);
     }
-    return 0;
 }

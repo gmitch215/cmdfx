@@ -111,18 +111,15 @@ void launchInTerminal() {
     ssize_t len = readlink("/proc/self/exe", exe_path, sizeof(exe_path) - 1);
     if (len == -1) {
         perror("readlink");
-        return 1;
+        return;
     }
     exe_path[len] = '\0';
 
     const char *terminal = "x-terminal-emulator"; // Debian-based
-    if (access("/usr/bin/gnome-terminal", X_OK) == 0) {
-        terminal = "gnome-terminal";
-    } else if (access("/usr/bin/konsole", X_OK) == 0) {
-        terminal = "konsole";
-    } else if (access("/usr/bin/xterm", X_OK) == 0) {
-        terminal = "xterm";
-    }
+    
+    if (access("/usr/bin/gnome-terminal", X_OK) == 0) terminal = "gnome-terminal";
+    else if (access("/usr/bin/konsole", X_OK) == 0) terminal = "konsole";
+    else if (access("/usr/bin/xterm", X_OK) == 0) terminal = "xterm";
 
     char command[2048];
     snprintf(command, sizeof(command), "%s -e \"%s\"", terminal, exe_path);
@@ -130,11 +127,10 @@ void launchInTerminal() {
     system(command);
 }
 
-int Screen_ensureInTerminal() {
+void Screen_ensureInTerminal() {
     if (!Screen_isInTerminal()) {
         fprintf(stderr, "This program must be run in a terminal.\n");
         launchInTerminal();
         exit(1);
     }
-    return 0;
 }
