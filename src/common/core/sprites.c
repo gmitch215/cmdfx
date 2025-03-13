@@ -144,7 +144,7 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
 int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
     if (sprite->data == 0) return 0;
-    if (x < 1 || y < 1) return 0;
+    if (x < 0 || y < 0) return 0;
 
     sprite->x = x;
     sprite->y = y;
@@ -748,8 +748,6 @@ int Sprite_resizeAndCenter(CmdFX_Sprite* sprite, int width, int height) {
 void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y) {
     if (sprite == 0) return;
     if (sprite->id == 0) return;
-    if (x < 1 || y < 1) return;
-    if (x + sprite->width > Canvas_getWidth() || y + sprite->height > Canvas_getHeight()) return;
 
     Sprite_remove0(sprite);
     sprite->x = x;
@@ -774,7 +772,7 @@ CmdFX_Sprite** Sprite_getCollidingSprites(CmdFX_Sprite* sprite) {
     int collidingCount = 0;
     int allocated = 4;
 
-    CmdFX_Sprite** colliding = malloc(sizeof(CmdFX_Sprite*) * (allocated + 1));
+    CmdFX_Sprite** colliding = calloc(allocated + 1, sizeof(CmdFX_Sprite*));
     if (!colliding) return 0;
 
     for (int i = 0; i < spriteCount; i++) {
@@ -791,6 +789,9 @@ CmdFX_Sprite** Sprite_getCollidingSprites(CmdFX_Sprite* sprite) {
                     return 0;
                 }
                 colliding = temp;
+
+                // realloc a calloc
+                for (int j = collidingCount; j < allocated + 1; j++) colliding[j] = 0;
             }
 
             colliding[collidingCount++] = other;

@@ -30,6 +30,9 @@ CmdFX_Vector** Sprite_getAllForces(CmdFX_Sprite* sprite);
 /**
  * @brief Gets the net force acting on a sprite.
  * 
+ * This creates a new vector that is the sum of all the forces acting on the sprite.
+ * The vector should be freed after use.
+ * 
  * @param sprite The sprite to use.
  * @return The net force acting on the sprite.
  */

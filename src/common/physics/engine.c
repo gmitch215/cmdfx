@@ -177,17 +177,47 @@ void Engine_tick() {
         }
 
         // Apply Gravity
-        int mass = Sprite_getMass(sprite);
-        dy += forceOfGravity * mass;
+        dy -= forceOfGravity;
+
+        // Collision Forces
+        CmdFX_Sprite** colliding = Sprite_getCollidingSprites(sprite);
+        if (colliding != 0) {
+            for (int j = 0; colliding[j] != 0; j++) {
+                CmdFX_Sprite* other = colliding[j];
+                if (Sprite_isStatic(other)) continue;
+
+                CmdFX_Vector* otherForce = Sprite_getNetForce(other);
+
+                // m1u1 + m2u2 = m1v1 + m2v2
+                // v1 = ((m1 – m2)u1 + 2(m2u2)) / (m1 + m2)
+                // v2 = ((m2 – m1)u2 + 2(m1u1)) / (m1 + m2)
+                
+                int m1 = Sprite_getMass(sprite);
+                int m2 = Sprite_getMass(other);
+                int u2x = otherForce->x;
+                int u2y = otherForce->y;
+                
+                // dx = v1x, dy = v1y
+                int v1x = (((m1 - m2) * dx) + (2 * m2 * u2x)) / (m1 + m2);
+                int v1y = (((m1 - m2) * dy) + (2 * m2 * u2y)) / (m1 + m2);
+                int v2x = (((m2 - m1) * u2x) + (2 * m1 * dx)) / (m1 + m2);
+                int v2y = (((m2 - m1) * u2y) + (2 * m1 * dy)) / (m1 + m2);
+
+                dx = v1x;
+                dy = v1y;
+                
+                free(otherForce);
+            }
+        }
 
         // Check Terminal Velocity
         if (dy > terminalVelocity) dy = terminalVelocity;
         if (dy < -terminalVelocity) dy = -terminalVelocity;
 
-        // Ensure Sprite stays on ground
-        if (sprite->y + dy > ground)
+        // Ensure Sprite stays in bounds
+        if (sprite->y + dy < ground)
             dy = ground - sprite->y;
-
+        
         // Move Sprite
         if (dx != 0 || dy != 0)
             Sprite_moveBy(sprite, dx, dy);

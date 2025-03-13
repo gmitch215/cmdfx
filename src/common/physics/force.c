@@ -11,6 +11,7 @@ CmdFX_Vector*** _forces = 0;
 CmdFX_Vector** Sprite_getAllForces(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
     if (sprite->uid == 0) return 0;
+    if (_forces == 0) return 0;
 
     int id = sprite->uid - 1;
     return _forces[id];
@@ -19,6 +20,7 @@ CmdFX_Vector** Sprite_getAllForces(CmdFX_Sprite* sprite) {
 CmdFX_Vector* Sprite_getNetForce(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
     if (sprite->uid == 0) return 0;
+    if (_forces == 0) return 0;
 
     int id = sprite->uid - 1;
     CmdFX_Vector** forces = _forces[id];

@@ -9,14 +9,14 @@
 
 // Impulse Functions
 
-typedef struct _WinImpulsePayload {
+typedef struct _PosixImpulsePayload {
     CmdFX_Sprite* sprite;
     CmdFX_Vector* vector;
     int duration;
-} _WinImpulsePayload;
+} _PosixImpulsePayload;
 
 void* _addSpriteImpulse(void* arg) {
-    _WinImpulsePayload* payload = (_WinImpulsePayload*) arg;
+    _PosixImpulsePayload* payload = (_PosixImpulsePayload*) arg;
 
     Sprite_addForce(payload->sprite, payload->vector);
     usleep(payload->duration);
@@ -32,7 +32,7 @@ int Sprite_addImpulse(CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration) 
     if (vector == 0) return -1;
     if (duration <= 0) return -1;
 
-    _WinImpulsePayload* payload = malloc(sizeof(_WinImpulsePayload));
+    _PosixImpulsePayload* payload = malloc(sizeof(_PosixImpulsePayload));
     if (payload == 0) return -1;
 
     payload->sprite = sprite;
