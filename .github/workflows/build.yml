@@ -55,6 +55,12 @@ jobs:
       - name: Test Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
         run: ctest -C Debug -T test
+      - name: Archive Test Reports
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-test
+          path: Testing/*
   
   deploy:
     runs-on: ubuntu-latest
