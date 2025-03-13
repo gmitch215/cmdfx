@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "cmdfx/core/sprites.h"
 #include "cmdfx/core/builder.h"
