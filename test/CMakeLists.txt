@@ -35,29 +35,22 @@ function(add_manual_test name)
     endif()
 endfunction()
 
-# Common
-add_test_executable(common util_time)
-add_test_executable(common util_math_clamp)
-add_test_executable(common util_math_lerp)
-add_test_executable(common util_color_lerp)
+# Automatic Tests
+file(GLOB_RECURSE AUTO_TESTS "src/common/*.c" "src/physics/*.c")
 
-add_test_executable(common screen)
+foreach(TEST_FILE ${AUTO_TESTS})
+    get_filename_component(TEST_NAME ${TEST_FILE} NAME_WE)
+    get_filename_component(TEST_FOLDER ${TEST_FILE} DIRECTORY)
+    get_filename_component(TEST_FOLDER ${TEST_FOLDER} NAME)
 
-add_test_executable(common canvas_clear)
-add_test_executable(common canvas_dimensions)
+    add_test_executable(${TEST_FOLDER} ${TEST_NAME})
+endforeach()
 
-## Physics
-add_test_executable(physics engine)
-add_test_executable(physics mass)
+# Manual Tests
+file(GLOB MANUAL_TESTS "src/manual/*.c")
 
-# Manual
-add_manual_test(events_resize)
-add_manual_test(events_key)
-add_manual_test(events_mouse)
+foreach(TEST_FILE ${MANUAL_TESTS})
+    get_filename_component(TEST_NAME ${TEST_FILE} NAME_WE)
 
-add_manual_test(canvas_print)
-add_manual_test(canvas_animated)
-
-add_manual_test(sprites_move)
-add_manual_test(sprites_resize)
-add_manual_test(sprites_ansi)
+    add_manual_test(${TEST_NAME})
+endforeach()

@@ -30,6 +30,7 @@ int main() {
     r |= assert(Sprite_getMass(sprite) == 18);
 
     Sprite_free(sprite);
+    Engine_cleanup();
     
     return r;
 }
