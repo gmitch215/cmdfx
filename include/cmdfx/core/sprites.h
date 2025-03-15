@@ -218,12 +218,12 @@ int Sprite_setChar(CmdFX_Sprite* sprite, int x, int y, char c);
  * @param sprite The sprite to modify.
  * @param x The X position in the sprite.
  * @param y The Y position in the sprite.
- * @param c The character to set.
  * @param width The width of the fill.
  * @param height The height of the fill.
+ * @param c The character to set.
  * @return 1 if the character was set, 0 if an error occurred.
  */
-int Sprite_fillChar(CmdFX_Sprite* sprite, int x, int y, char c, int width, int height);
+int Sprite_fillChar(CmdFX_Sprite* sprite, int x, int y, int width, int height, char c);
 
 /**
  * @brief Fills positions in the sprite where there isn't a character.
@@ -240,12 +240,12 @@ int Sprite_fillChar(CmdFX_Sprite* sprite, int x, int y, char c, int width, int h
  * @param sprite The sprite to modify.
  * @param x The X position in the sprite.
  * @param y The Y position in the sprite.
- * @param c The character to set.
  * @param width The width of the fill.
  * @param height The height of the fill.
+ * @param c The character to set.
  * @return 1 if the character was set, 0 if an error occurred.
  */
-int Sprite_fillCharEmpty(CmdFX_Sprite* sprite, int x, int y, char c, int width, int height);
+int Sprite_fillCharEmpty(CmdFX_Sprite* sprite, int x, int y, int width, int height, char c);
 
 /**
  * @brief Sets the character at all positions in the sprite.

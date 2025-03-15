@@ -11,7 +11,7 @@
 // Utility Functions - Shapes
 
 void Canvas_hLine_anim(int x, int y, int width, char c, double time) {
-    if (x < 1 || y < 1) return;
+    if (x < 0 || y < 0) return;
     if (width < 1) return;
     if (time <= 0) return;
 
@@ -25,7 +25,7 @@ void Canvas_hLine_anim(int x, int y, int width, char c, double time) {
 }
 
 void Canvas_hLine_anim_reverse(int x, int y, int width, char c, double time) {
-    if (x < 1 || y < 1) return;
+    if (x < 0 || y < 0) return;
     if (width < 1) return;
     if (time <= 0) return;
 
@@ -39,7 +39,7 @@ void Canvas_hLine_anim_reverse(int x, int y, int width, char c, double time) {
 }
 
 void Canvas_vLine_anim(int x, int y, int height, char c, double time) {
-    if (x < 1 || y < 1) return;
+    if (x < 0 || y < 0) return;
     if (height < 1) return;
     if (time <= 0) return;
 
@@ -53,7 +53,7 @@ void Canvas_vLine_anim(int x, int y, int height, char c, double time) {
 }
 
 void Canvas_vLine_anim_reverse(int x, int y, int height, char c, double time) {
-    if (x < 1 || y < 1) return;
+    if (x < 0 || y < 0) return;
     if (height < 1) return;
     if (time <= 0) return;
 
@@ -67,7 +67,7 @@ void Canvas_vLine_anim_reverse(int x, int y, int height, char c, double time) {
 }
 
 void Canvas_rect_anim(int x, int y, int width, int height, char c, double time) {
-    if (x < 1 || y < 1) return;
+    if (x < 0 || y < 0) return;
     if (width < 1 || height < 1) return;
     if (time <= 0) return;
 
@@ -80,7 +80,7 @@ void Canvas_rect_anim(int x, int y, int width, int height, char c, double time) 
 }
 
 void Canvas_fillRect_anim(int x, int y, int width, int height, char c, double time) {
-    if (x < 1 || y < 1) return;
+    if (x < 0 || y < 0) return;
     if (width < 1 || height < 1) return;
     if (time <= 0) return;
 
@@ -132,7 +132,7 @@ void Canvas_line_anim_reverse(int x0, int y0, int x1, int y1, char c, double tim
 // Utility Functions - Text
 
 void Canvas_drawText_anim(int x, int y, char* text, double time) {
-    if (x < 1 || y < 1) return;
+    if (x < 0 || y < 0) return;
     if (time <= 0) return;
 
     int len = (int) strlen(text);
@@ -146,7 +146,7 @@ void Canvas_drawText_anim(int x, int y, char* text, double time) {
 }
 
 void Canvas_drawText_anim_reverse(int x, int y, char* text, double time) {
-    if (x < 1 || y < 1) return;
+    if (x < 0 || y < 0) return;
     if (time <= 0) return;
 
     int len = (int) strlen(text);
@@ -160,7 +160,7 @@ void Canvas_drawText_anim_reverse(int x, int y, char* text, double time) {
 }
 
 void Canvas_drawAsciiText_anim(int x, int y, char character, const char* text, double time) {
-    if (x < 1 || y < 1) return;
+    if (x < 0 || y < 0) return;
     if (time <= 0) return;
     if (text == 0) return;
 

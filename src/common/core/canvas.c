@@ -10,8 +10,8 @@
 // Core Functions
 
 void Canvas_setChar(int x, int y, char c) {
-    if (x < 1) return;
-    if (y < 1) return;
+    if (x < 0) return;
+    if (y < 0) return;
 
     Canvas_setCursor(x, y);
     putchar(c);
@@ -22,8 +22,8 @@ void Canvas_setAnsiCurrent(const char* ansi) {
 }
 
 void Canvas_setAnsi(int x, int y, const char* ansi) {
-    if (x < 1) return;
-    if (y < 1) return;
+    if (x < 0) return;
+    if (y < 0) return;
 
     Canvas_setCursor(x, y);
     Canvas_setAnsiCurrent(ansi);
@@ -314,7 +314,7 @@ void Canvas_line(int x1, int y1, int x2, int y2, char c) {
 }
 
 void Canvas_polygon(int x, int y, int sides, int radius, char c) {
-    if (x < 1 || y < 1) return;
+    if (x 0 || y < 0) return;
     if (radius < 1) return;
     if (sides < 3) return;
 
@@ -335,7 +335,7 @@ void Canvas_polygon(int x, int y, int sides, int radius, char c) {
 }
 
 void Canvas_fillPolygon(int x, int y, int sides, int radius, char c) {
-    if (x < 1 || y < 1) return;
+    if (x < 0 || y < 0) return;
     if (radius < 1) return;
     if (sides < 3) return;
 

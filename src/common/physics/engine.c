@@ -72,7 +72,7 @@ int Engine_getTerminalVelocity() {
 }
 
 int Engine_setTerminalVelocity(int velocity) {
-    if (velocity < 1) return -1;
+    if (velocity < 0) return -1;
 
     _terminalVelocity = velocity;
 

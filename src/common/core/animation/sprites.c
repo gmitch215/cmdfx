@@ -10,7 +10,7 @@
 void Sprite_moveTo_anim(CmdFX_Sprite* sprite, int x, int y, double time) {
     if (sprite == 0) return;
     if (sprite->id == 0) return;
-    if (x < 1 || y < 1) return;
+    if (x < 0 || y < 0) return;
     if (time <= 0) return;
 
     int dx = x - sprite->x;

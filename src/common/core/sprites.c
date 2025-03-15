@@ -286,7 +286,7 @@ int Sprite_setChar(CmdFX_Sprite* sprite, int x, int y, char c) {
     return 1;
 }
 
-int Sprite_fillChar(CmdFX_Sprite* sprite, int x, int y, char c, int width, int height) {
+int Sprite_fillChar(CmdFX_Sprite* sprite, int x, int y, int width, int height, char c) {
     if (sprite == 0) return 0;
     if (sprite->data == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
@@ -305,7 +305,7 @@ int Sprite_fillChar(CmdFX_Sprite* sprite, int x, int y, char c, int width, int h
     return 1;
 }
 
-int Sprite_fillCharEmpty(CmdFX_Sprite* sprite, int x, int y, char c, int width, int height) {
+int Sprite_fillCharEmpty(CmdFX_Sprite* sprite, int x, int y, int width, int height, char c) {
     if (sprite == 0) return 0;
     if (sprite->data == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
