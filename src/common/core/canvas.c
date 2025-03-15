@@ -314,7 +314,7 @@ void Canvas_line(int x1, int y1, int x2, int y2, char c) {
 }
 
 void Canvas_polygon(int x, int y, int sides, int radius, char c) {
-    if (x 0 || y < 0) return;
+    if (x < 0 || y < 0) return;
     if (radius < 1) return;
     if (sides < 3) return;
 
