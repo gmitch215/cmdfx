@@ -11,7 +11,3 @@ The main module for the library. Required to be included in any project using th
 ### [`physics`](/include/physics/)
 
 The physics engine module for the library. Designed to work with `Sprite` structs.
-
-### [`audio`](/include/audio/)
-
-The audio engine module for the library. Allows you to play audio files and sound effects.
