@@ -131,7 +131,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: build/package/*
+          files: build/package/**/*
           tag_name: v${{ env.VERSION }}
           name: cmdfx v${{ env.VERSION }}
           body: ${{ steps.changelog.outputs.changelog || github.event.inputs.changelog }}
