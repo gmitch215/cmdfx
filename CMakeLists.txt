@@ -299,7 +299,7 @@ if (APPLE OR WIN32 OR ARCHITECTURE STREQUAL "x64")
     endif()
     set(MAVEN_REMOTE_ID "calcugames")
 
-    include(CMakeKt)
+    include(CMakeKt OPTIONAL)
 else()
     add_custom_target(klib COMMAND echo "Kotlin/Native bindings are not supported on this platform" VERBATIM)
 endif()
