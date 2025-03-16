@@ -77,6 +77,7 @@ jobs:
             build/package/*
             build/cinterop/*
           overwrite: true
+          if-no-files-found: error
       - name: Test Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
         run: sudo cmake --build test --target install test
@@ -91,6 +92,7 @@ jobs:
           path: |
             Testing/*
             LastTest*.log
+          if-no-files-found: ignore
   
   deploy:
     runs-on: ubuntu-latest
