@@ -224,7 +224,7 @@ if (PACKAGE_CMDFX)
     set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 
     if (WIN32)
-        set(CPACK_GENERATOR "ZIP;NSIS;TGZ;WIX;NuGet")
+        set(CPACK_GENERATOR "ZIP;NSIS;TGZ;WIX")
 
         set(CPACK_SYSTEM_NAME "windows-${ARCHITECTURE}")
 
@@ -246,14 +246,6 @@ if (PACKAGE_CMDFX)
 
         set(CPACK_WIX_UPGRADE_GUID "42937a72-0b91-4a57-8f45-60d84df05e66")
         set(CPACK_WIX_CMAKE_PACKAGE_REGISTRY ${PROJECT_NAME})
-
-        # NuGet
-        set(CPACK_NUGET_PACKAGE_LICENSE_EXPRESSION "MIT")
-        set(CPACK_NUGET_PACKAGE_REQUIRE_LICENSE_ACCEPTANCE ON)
-        set(CPACK_NUGET_PACKAGE_LANGUAGE "en_US")
-        set(CPACK_NUGET_PACKAGE_TAGS "cmdfx game-engine terminal game development")
-        set(CPACK_NUGET_PACKAGE_REPOSITORY_URL ${PROJECT_HOMEPAGE_URL})
-        set(CPACK_NUGET_PACKAGE_REPOSITORY_TYPE git)
     elseif(APPLE)
         set(CPACK_GENERATOR "TGZ;ZIP;productbuild")
 
@@ -286,24 +278,26 @@ if (PACKAGE_CMDFX)
 endif()
 
 # Kotlin/Native Bindings
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/CMakeKt")
+if (APPLE OR WIN32 OR ARCHITECTURE STREQUAL "x64")
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/CMakeKt")
 
-set(KN_DEFINITION_PACKAGE "dev.gmitch215.cmdfx")
-set(KN_INSTALL_GROUPID "dev.gmitch215")
+    set(KN_DEFINITION_PACKAGE "dev.gmitch215.cmdfx")
+    set(KN_INSTALL_GROUPID "dev.gmitch215")
 
-if (WIN32)
-    set(KN_DEFINITION_LIBRARIES "cmdfx.lib")
-else()
-    set(KN_DEFINITION_LIBRARIES "libcmdfx.a")
+    if (WIN32)
+        set(KN_DEFINITION_LIBRARIES "cmdfx.lib")
+    else()
+        set(KN_DEFINITION_LIBRARIES "libcmdfx.a")
+    endif()
+
+    if (DEFINED PROJECT_VERSION_SUFFIX)
+        set(KN_PROJECT_VERSION "${PROJECT_VERSION}-${PROJECT_VERSION_SUFFIX}")
+        set(MAVEN_REMOTE_URL "https://repo.calcugames.xyz/repository/maven-snapshots/")
+    else()
+        set(KN_PROJECT_VERSION "${PROJECT_VERSION}")
+        set(MAVEN_REMOTE_URL "https://repo.calcugames.xyz/repository/maven-releases/")
+    endif()
+    set(MAVEN_REMOTE_ID "calcugames")
+
+    include(CMakeKt)
 endif()
-
-if (DEFINED PROJECT_VERSION_SUFFIX)
-    set(KN_PROJECT_VERSION "${PROJECT_VERSION}-${PROJECT_VERSION_SUFFIX}")
-    set(MAVEN_REMOTE_URL "https://repo.calcugames.xyz/repository/maven-snapshots/")
-else()
-    set(KN_PROJECT_VERSION "${PROJECT_VERSION}")
-    set(MAVEN_REMOTE_URL "https://repo.calcugames.xyz/repository/maven-releases/")
-endif()
-set(MAVEN_REMOTE_ID "calcugames")
-
-include(CMakeKt)
