@@ -75,7 +75,7 @@ jobs:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           path: |
             build/package/*
-            build/cinterop/*.klib
+            build/cinterop/*
           overwrite: true
       - name: Test Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
