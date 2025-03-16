@@ -60,6 +60,7 @@ jobs:
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
           sudo cmake . -DKN_INSTALL_ARTIFACTID=${{ env.KN_INSTALL_ARTIFACTID }} -DKN_CINTEROP_FILE_NAME=${{ env.KN_INSTALL_ARTIFACTID }}
+          sudo cmake --build .
           sudo cmake --build . --config Release --target docs klib
           sudo cmake .
           sudo cmake --build . --config Release --target install package
@@ -70,6 +71,7 @@ jobs:
           dotnet tool install --global wix --version 5.0.2
           wix extension add --global WixToolset.UI.wixext/5.0.2
           cmake . -DKN_INSTALL_ARTIFACTID=${{ env.KN_INSTALL_ARTIFACTID }} -DKN_CINTEROP_FILE_NAME=${{ env.KN_INSTALL_ARTIFACTID }}
+          cmake --build .
           cmake --build . --config Release --target docs klib
           cmake .
           cmake --build . --config Release --target install package
