@@ -18,6 +18,7 @@ CMakeDoxyfile.in
 CMakeDoxygenDefaults.cmake
 install_manifest*
 _CPack_Packages/
+pom.xml
 
 *.dir/
 *.o
