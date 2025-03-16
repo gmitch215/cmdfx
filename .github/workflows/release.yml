@@ -56,6 +56,12 @@ jobs:
           RUNNER_OS=$(echo ${{ runner.os }} | tr '[:upper:]' '[:lower:]')
           RUNNER_ARCH=$(echo ${{ runner.arch }} | tr '[:upper:]' '[:lower:]')
           echo "KN_INSTALL_ARTIFACTID=cmdfx-$RUNNER_OS-$RUNNER_ARCH" >> $GITHUB_ENV
+      - name: Link CInterop Command
+        if: ${{ matrix.os == 'ubuntu-24.04' }}
+        run: |
+          sudo ln -s $KOTLIN_NATIVE_HOME/bin/cinterop /usr/local/bin/cinterop
+          sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
+          sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
         run: |

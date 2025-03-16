@@ -49,6 +49,12 @@ jobs:
           key: ${{ runner.os }}-${{ runner.arch }}-konan
           restore-keys: |
             ${{ runner.os }}-${{ runner.arch }}-konan
+      - name: Link CInterop Command
+        if: ${{ matrix.os == 'ubuntu-24.04' }}
+        run: |
+          sudo ln -s $KOTLIN_NATIVE_HOME/bin/cinterop /usr/local/bin/cinterop
+          sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
+          sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
       - name: Configure Project
         run: cmake . -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7}
         shell: bash
