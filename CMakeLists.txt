@@ -27,7 +27,7 @@ else()
     endif()
 endif()
 
-add_library(cmdfx SHARED ${COMMON_SRC} ${PLATFORM_SRC} ${OS_SRC})
+add_library(cmdfx STATIC ${COMMON_SRC} ${PLATFORM_SRC} ${OS_SRC})
 target_include_directories(cmdfx PUBLIC
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
@@ -284,3 +284,26 @@ if (PACKAGE_CMDFX)
     cpack_add_component(htmlDocs DISPLAY_NAME "HTML Documentation" DESCRIPTION "HTML documentation for cmdfx" GROUP docs DISABLED ON)
     cpack_add_component(latexDocs DISPLAY_NAME "LaTeX Documentation" DESCRIPTION "LaTeX documentation for cmdfx" GROUP docs DISABLED ON)
 endif()
+
+# Kotlin/Native Bindings
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/CMakeKt")
+
+set(KN_DEFINITION_PACKAGE "dev.gmitch215.cmdfx")
+set(KN_INSTALL_GROUPID "dev.gmitch215")
+
+if (WIN32)
+    set(KN_DEFINITION_LIBRARIES "cmdfx.lib")
+else()
+    set(KN_DEFINITION_LIBRARIES "libcmdfx.a")
+endif()
+
+if (DEFINED PROJECT_VERSION_SUFFIX)
+    set(KN_PROJECT_VERSION "${PROJECT_VERSION}-${PROJECT_VERSION_SUFFIX}")
+    set(MAVEN_REMOTE_URL "https://repo.calcugames.xyz/repository/maven-snapshots/")
+else()
+    set(KN_PROJECT_VERSION "${PROJECT_VERSION}")
+    set(MAVEN_REMOTE_URL "https://repo.calcugames.xyz/repository/maven-releases/")
+endif()
+set(MAVEN_REMOTE_ID "calcugames")
+
+include(CMakeKt)
