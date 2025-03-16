@@ -29,6 +29,7 @@ jobs:
         if: ${{ matrix.os == 'windows-2022' }}
         with:
           dotnet-version: '9'
+      - uses: fwilhe2/setup-kotlin@main
       - name: Configure Project
         run: cmake . -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7}
         shell: bash

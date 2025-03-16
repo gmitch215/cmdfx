@@ -26,6 +26,7 @@ jobs:
         if: ${{ matrix.os == 'windows-2022' }}
         with:
           dotnet-version: '9'
+      - uses: fwilhe2/setup-kotlin@main
       - name: Install Doxygen
         uses: ssciwr/doxygen-install@v1
       - name: Set Artifact ID
