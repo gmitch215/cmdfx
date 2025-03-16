@@ -29,7 +29,24 @@ jobs:
         if: ${{ matrix.os == 'windows-2022' }}
         with:
           dotnet-version: '9'
-      - uses: fwilhe2/setup-kotlin@main
+      - name: Install Kotlin
+        uses: fwilhe2/setup-kotlin@main
+        with:
+          version: '2.1.10'
+          install-native: true
+      - name: Setup Konan
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.konan/caches
+            ~/.konan/dependencies
+            ~/.konan/kotlin-native-prebuilt-*
+            /root/.konan/caches
+            /root/.konan/dependencies
+            /root/.konan/kotlin-native-prebuilt-*
+          key: ${{ runner.os }}-${{ runner.arch }}-konan
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-konan
       - name: Configure Project
         run: cmake . -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7}
         shell: bash
