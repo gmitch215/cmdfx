@@ -50,12 +50,20 @@ jobs:
             ${{ runner.os }}-${{ runner.arch }}-konan
       - name: Install Doxygen
         uses: ssciwr/doxygen-install@v1
+      - name: Extract Version from CMakeLists.txt
+        id: get_version
+        run: |
+          VERSION=$(grep -Po '(?<=set\(PROJECT_VERSION ")[^"]*' CMakeLists.txt)
+          echo "Extracted Version: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV]
+        shell: bash
       - name: Set Artifact ID
         id: set_artifact_id
         run: |
           RUNNER_OS=$(echo ${{ runner.os }} | tr '[:upper:]' '[:lower:]')
           RUNNER_ARCH=$(echo ${{ runner.arch }} | tr '[:upper:]' '[:lower:]')
           echo "KN_INSTALL_ARTIFACTID=cmdfx-$RUNNER_OS-$RUNNER_ARCH" >> $GITHUB_ENV
+          echo "KN_CINTEROP_FILE_NAME=cmdfx-${{ env.VERSION }}-$RUNNER_OS-$RUNNER_ARCH" >> $GITHUB_ENV
       - name: Link CInterop Command
         if: ${{ matrix.os == 'ubuntu-24.04' }}
         run: |
@@ -65,7 +73,7 @@ jobs:
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
-          sudo cmake . -DKN_INSTALL_ARTIFACTID=${{ env.KN_INSTALL_ARTIFACTID }} -DKN_CINTEROP_FILE_NAME=${{ env.KN_INSTALL_ARTIFACTID }}
+          sudo cmake . -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib"
           sudo cmake --build .
           sudo cmake --build . --config Release --target docs klib
           sudo cmake .
@@ -76,7 +84,7 @@ jobs:
         run: |
           dotnet tool install --global wix --version 5.0.2
           wix extension add --global WixToolset.UI.wixext/5.0.2
-          cmake . -DKN_INSTALL_ARTIFACTID=${{ env.KN_INSTALL_ARTIFACTID }} -DKN_CINTEROP_FILE_NAME=${{ env.KN_INSTALL_ARTIFACTID }}
+          cmake . -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib"
           cmake --build .
           cmake --build . --config Release --target docs klib
           cmake .
