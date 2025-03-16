@@ -1,0 +1,3 @@
+[submodule "cmake/CMakeKt"]
+	path = cmake/CMakeKt
+	url = https://github.com/gmitch215/cmakekt
