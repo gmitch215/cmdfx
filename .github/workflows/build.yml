@@ -84,20 +84,17 @@ jobs:
             build/cinterop/*
           overwrite: true
           if-no-files-found: error
-      - name: Test Project (Linux/MacOS)
+      - name: Build Test Project (Posix)
         if: ${{ matrix.os != 'windows-2022' }}
-        run: sudo cmake --build test --target install test
-      - name: Test Project (Windows)
-        if: ${{ matrix.os == 'windows-2022' }}
+        run: sudo cmake --build test
+      - name: Test Project
         run: ctest -C Debug -T test
       - name: Archive Test Reports
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-test
-          path: |
-            Testing/*
-            LastTest*.log
+          path: Testing/*
           if-no-files-found: ignore
   
   deploy:
