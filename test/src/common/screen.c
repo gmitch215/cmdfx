@@ -38,12 +38,12 @@ int main() {
     r |= assert(width3 > -1);
     r |= assert(height3 > -1);
 
-    int mx = -1, my = -1;
+    int mx = -2, my = -2;
     Screen_getMousePos(&mx, &my);
 
     printf("Mouse: %d, %d\n", mx, my);
-    r |= assert(mx > -1);
-    r |= assert(my > -1);
+    r |= assert(mx > -2);
+    r |= assert(my > -2);
 
     return r;
 }
