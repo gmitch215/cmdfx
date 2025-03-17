@@ -87,7 +87,11 @@ jobs:
       - name: Build Test Project (Posix)
         if: ${{ matrix.os != 'windows-2022' }}
         run: sudo cmake --build test
-      - name: Test Project
+      - name: Test Project (Windows)
+        if: ${{ matrix.os == 'windows-2022' }}
+        run: ctest -C Debug -T test
+      - name: Test Project (Posix)
+        if: ${{ matrix.os != 'windows-2022' }}
         run: sudo ctest -C Debug -T test
       - name: Archive Test Reports
         if: success() || failure()
