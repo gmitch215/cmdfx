@@ -10,6 +10,7 @@
 #include "cmdfx/core/canvas.h"
 #include "cmdfx/core/util.h"
 #include "cmdfx/core/builder.h"
+#include "cmdfx/core/costumes.h"
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
 
@@ -103,6 +104,9 @@ void Sprite_free(CmdFX_Sprite* sprite) {
             free(ansi);
         }
     }
+
+    // Free Sprite Costumes
+    free(Sprite_getCostumes(sprite));
 
     free(sprite->data);
     if (sprite->ansi != 0) free(sprite->ansi);

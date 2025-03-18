@@ -9,6 +9,7 @@
 #include "cmdfx/core/screen.h"
 #include "cmdfx/core/util.h"
 #include "cmdfx/core/device.h"
+#include "cmdfx/core/costumes.h"
 
 #include "cmdfx/core/animation/canvas.h"
 #include "cmdfx/core/animation/sprites.h"
