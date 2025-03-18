@@ -11,7 +11,7 @@ var searchData=
   ['screen_5fsetlinebuffered_8',['Screen_setLineBuffered',['../dd/ddc/screen_8h.html#a2f3a5e1fe8e4e6fa0e361d159d9f9e52',1,'screen.h']]],
   ['sleepmillis_9',['sleepMillis',['../da/d04/core_2util_8h.html#ac54650f821a847abeb00ba34e68b8dce',1,'util.h']]],
   ['sleepnanos_10',['sleepNanos',['../da/d04/core_2util_8h.html#ace438f14791860dfbb6e4f21239d52e6',1,'util.h']]],
-  ['sprite_5faddcostume_11',['Sprite_addCostume',['../d1/d89/costumes_8h.html#ae0d3412f539ad31baa778f5c0cea8945',1,'costumes.h']]],
+  ['sprite_5faddcostume_11',['Sprite_addCostume',['../d1/d89/costumes_8h.html#adf6fc8916e2505d833083539d1bc7238',1,'costumes.h']]],
   ['sprite_5faddforce_12',['Sprite_addForce',['../dd/d0d/force_8h.html#aefcae1ae48ff2863291227c26005dd86',1,'force.h']]],
   ['sprite_5faddimpulse_13',['Sprite_addImpulse',['../dd/d0d/force_8h.html#a12317a84c07f1a30fb7b11e94f46439e',1,'force.h']]],
   ['sprite_5fappendansi_14',['Sprite_appendAnsi',['../d3/def/sprites_8h.html#ab962ca4f0013eb15f504cda05507e763',1,'sprites.h']]],
