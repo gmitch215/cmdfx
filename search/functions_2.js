@@ -100,6 +100,8 @@ var searchData=
   ['clamp_5fi_97',['clamp_i',['../da/d04/core_2util_8h.html#accada49284cb0c9250deec8be5a8ccde',1,'util.h']]],
   ['cmdfx_5fgettickspeed_98',['CmdFX_getTickSpeed',['../da/d04/core_2util_8h.html#ad6738877c43ddb0e8e0c9d86a610922c',1,'util.h']]],
   ['cmdfx_5fsettickspeed_99',['CmdFX_setTickSpeed',['../da/d04/core_2util_8h.html#a7f008c4b25aa85d6f9b71f468825726f',1,'util.h']]],
-  ['currenttimemillis_100',['currentTimeMillis',['../da/d04/core_2util_8h.html#abc0cbd0ff1743666d722d55b15b2ba4c',1,'util.h']]],
-  ['currenttimenanos_101',['currentTimeNanos',['../da/d04/core_2util_8h.html#addb951d4b6eeed0141dcc3ca78bab8f7',1,'util.h']]]
+  ['createansiarraycopy_100',['createAnsiArrayCopy',['../d5/d78/builder_8h.html#a276acf14571fc2d47a16f3b3a2e97780',1,'builder.h']]],
+  ['createarraycopy_101',['createArrayCopy',['../d5/d78/builder_8h.html#aae76e05c942c7923caeeefe48f50ac6d',1,'builder.h']]],
+  ['currenttimemillis_102',['currentTimeMillis',['../da/d04/core_2util_8h.html#abc0cbd0ff1743666d722d55b15b2ba4c',1,'util.h']]],
+  ['currenttimenanos_103',['currentTimeNanos',['../da/d04/core_2util_8h.html#addb951d4b6eeed0141dcc3ca78bab8f7',1,'util.h']]]
 ];

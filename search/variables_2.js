@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['data_0',['data',['../dc/d5b/structCmdFX__Event.html#ab39c464eb100ffb342a8d0b400befc03',1,'CmdFX_Event::data'],['../d7/d39/structCmdFX__Sprite.html#a31e1d4a20bf8573c03ce40ff6fde0238',1,'CmdFX_Sprite::data']]]
+  ['costumecount_0',['costumeCount',['../d2/d2e/structCmdFX__SpriteCostumes.html#a32762d734385bc8eb8d691b79757cec6',1,'CmdFX_SpriteCostumes']]],
+  ['costumes_1',['costumes',['../d2/d2e/structCmdFX__SpriteCostumes.html#afc8b57eb26428bc973c9e9bd92acb398',1,'CmdFX_SpriteCostumes']]]
 ];

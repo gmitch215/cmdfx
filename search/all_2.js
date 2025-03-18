@@ -112,10 +112,16 @@ var searchData=
   ['cmdfx_5fresizeevent_109',['CmdFX_ResizeEvent',['../dc/d75/structCmdFX__ResizeEvent.html',1,'CmdFX_ResizeEvent'],['../db/dd2/events_8h.html#a5cb4290d01e9957f67bbe7a4e16568f6',1,'CmdFX_ResizeEvent:&#160;events.h']]],
   ['cmdfx_5fsettickspeed_110',['CmdFX_setTickSpeed',['../da/d04/core_2util_8h.html#a7f008c4b25aa85d6f9b71f468825726f',1,'util.h']]],
   ['cmdfx_5fsprite_111',['CmdFX_Sprite',['../d7/d39/structCmdFX__Sprite.html',1,'CmdFX_Sprite'],['../d3/def/sprites_8h.html#ac699ae06937cb86e997798eacfaa59bb',1,'CmdFX_Sprite:&#160;sprites.h']]],
-  ['cmdfx_5fvector_112',['CmdFX_Vector',['../dd/d40/structCmdFX__Vector.html',1,'CmdFX_Vector'],['../d2/dc7/physics_2util_8h.html#a2dd8ea95f85076da5b5012a501242c5c',1,'CmdFX_Vector:&#160;util.h']]],
-  ['contributing_113',['Contributing',['../index.html#autotoc_md9',1,'📝 Contributing'],['../d2/dfc/md__2home_2runner_2work_2cmdfx_2cmdfx_2CONTRIBUTING.html',1,'Contributing']]],
-  ['core_20tt_20a_114',['&lt;a href=&quot;/include/cmdfx/core&quot; &gt;&lt;tt&gt;core&lt;/tt&gt;&lt;/a&gt;',['..//home/runner/work/cmdfx/cmdfx/include/README.md#autotoc_md2',1,'']]],
-  ['core_20tt_20core_20tt_20a_115',['&lt;a href=&quot;/include/cmdfx/core&quot; &gt;&lt;tt&gt;core&lt;/tt&gt;&lt;/a&gt;',['..//home/runner/work/cmdfx/cmdfx/include/README.md#autotoc_md2',1,'']]],
-  ['currenttimemillis_116',['currentTimeMillis',['../da/d04/core_2util_8h.html#abc0cbd0ff1743666d722d55b15b2ba4c',1,'util.h']]],
-  ['currenttimenanos_117',['currentTimeNanos',['../da/d04/core_2util_8h.html#addb951d4b6eeed0141dcc3ca78bab8f7',1,'util.h']]]
+  ['cmdfx_5fspritecostumes_112',['CmdFX_SpriteCostumes',['../d2/d2e/structCmdFX__SpriteCostumes.html',1,'CmdFX_SpriteCostumes'],['../d1/d89/costumes_8h.html#ad420f82e3ffe958b3bfa33485ed25236',1,'CmdFX_SpriteCostumes:&#160;costumes.h']]],
+  ['cmdfx_5fvector_113',['CmdFX_Vector',['../dd/d40/structCmdFX__Vector.html',1,'CmdFX_Vector'],['../d2/dc7/physics_2util_8h.html#a2dd8ea95f85076da5b5012a501242c5c',1,'CmdFX_Vector:&#160;util.h']]],
+  ['contributing_114',['Contributing',['../index.html#autotoc_md9',1,'📝 Contributing'],['../d2/dfc/md__2home_2runner_2work_2cmdfx_2cmdfx_2CONTRIBUTING.html',1,'Contributing']]],
+  ['core_20tt_20a_115',['&lt;a href=&quot;/include/cmdfx/core&quot; &gt;&lt;tt&gt;core&lt;/tt&gt;&lt;/a&gt;',['..//home/runner/work/cmdfx/cmdfx/include/README.md#autotoc_md2',1,'']]],
+  ['core_20tt_20core_20tt_20a_116',['&lt;a href=&quot;/include/cmdfx/core&quot; &gt;&lt;tt&gt;core&lt;/tt&gt;&lt;/a&gt;',['..//home/runner/work/cmdfx/cmdfx/include/README.md#autotoc_md2',1,'']]],
+  ['costumecount_117',['costumeCount',['../d2/d2e/structCmdFX__SpriteCostumes.html#a32762d734385bc8eb8d691b79757cec6',1,'CmdFX_SpriteCostumes']]],
+  ['costumes_118',['costumes',['../d2/d2e/structCmdFX__SpriteCostumes.html#afc8b57eb26428bc973c9e9bd92acb398',1,'CmdFX_SpriteCostumes']]],
+  ['costumes_2eh_119',['costumes.h',['../d1/d89/costumes_8h.html',1,'']]],
+  ['createansiarraycopy_120',['createAnsiArrayCopy',['../d5/d78/builder_8h.html#a276acf14571fc2d47a16f3b3a2e97780',1,'builder.h']]],
+  ['createarraycopy_121',['createArrayCopy',['../d5/d78/builder_8h.html#aae76e05c942c7923caeeefe48f50ac6d',1,'builder.h']]],
+  ['currenttimemillis_122',['currentTimeMillis',['../da/d04/core_2util_8h.html#abc0cbd0ff1743666d722d55b15b2ba4c',1,'util.h']]],
+  ['currenttimenanos_123',['currentTimeNanos',['../da/d04/core_2util_8h.html#addb951d4b6eeed0141dcc3ca78bab8f7',1,'util.h']]]
 ];

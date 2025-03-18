@@ -111,6 +111,9 @@ Functions</h2></td></tr>
 <tr class="memitem:adc1be6be44ef5e41ecf19f1b98dcf33e" id="r_adc1be6be44ef5e41ecf19f1b98dcf33e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc1be6be44ef5e41ecf19f1b98dcf33e">getArrayHeight</a> (char **array)</td></tr>
 <tr class="memdesc:adc1be6be44ef5e41ecf19f1b98dcf33e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the height of a 2D Character Array.  <br /></td></tr>
 <tr class="separator:adc1be6be44ef5e41ecf19f1b98dcf33e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae76e05c942c7923caeeefe48f50ac6d" id="r_aae76e05c942c7923caeeefe48f50ac6d"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae76e05c942c7923caeeefe48f50ac6d">createArrayCopy</a> (char **array)</td></tr>
+<tr class="memdesc:aae76e05c942c7923caeeefe48f50ac6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a copy of a 2D Character Array.  <br /></td></tr>
+<tr class="separator:aae76e05c942c7923caeeefe48f50ac6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae36287f353582770a0aa5546a27bb00d" id="r_ae36287f353582770a0aa5546a27bb00d"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae36287f353582770a0aa5546a27bb00d">CharBuilder_create</a> (int width, int height)</td></tr>
 <tr class="memdesc:ae36287f353582770a0aa5546a27bb00d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 2D Character Array with a specific width and height.  <br /></td></tr>
 <tr class="separator:ae36287f353582770a0aa5546a27bb00d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,6 +219,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aeca9a970b10a822291ada7486ab7830c" id="r_aeca9a970b10a822291ada7486ab7830c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeca9a970b10a822291ada7486ab7830c">getAnsiArrayHeight</a> (char ***array)</td></tr>
 <tr class="memdesc:aeca9a970b10a822291ada7486ab7830c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the height of a 2D String Array.  <br /></td></tr>
 <tr class="separator:aeca9a970b10a822291ada7486ab7830c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a276acf14571fc2d47a16f3b3a2e97780" id="r_a276acf14571fc2d47a16f3b3a2e97780"><td class="memItemLeft" align="right" valign="top">char ***&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a276acf14571fc2d47a16f3b3a2e97780">createAnsiArrayCopy</a> (char ***array)</td></tr>
+<tr class="memdesc:a276acf14571fc2d47a16f3b3a2e97780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a copy of a 2D String Array.  <br /></td></tr>
+<tr class="separator:a276acf14571fc2d47a16f3b3a2e97780"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a070c22f4c87c6b4aa5e4d182871db079" id="r_a070c22f4c87c6b4aa5e4d182871db079"><td class="memItemLeft" align="right" valign="top">char ***&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a070c22f4c87c6b4aa5e4d182871db079">AnsiBuilder_create</a> (int width, int height)</td></tr>
 <tr class="memdesc:a070c22f4c87c6b4aa5e4d182871db079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 2D String Array with a specific width and height.  <br /></td></tr>
 <tr class="separator:a070c22f4c87c6b4aa5e4d182871db079"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -3438,6 +3444,58 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a276acf14571fc2d47a16f3b3a2e97780" name="a276acf14571fc2d47a16f3b3a2e97780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a276acf14571fc2d47a16f3b3a2e97780">&#9670;&#160;</a></span>createAnsiArrayCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char *** createAnsiArrayCopy </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a copy of a 2D String Array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A copy of the 2D Array. </dd></dl>
+
+</div>
+</div>
+<a id="aae76e05c942c7923caeeefe48f50ac6d" name="aae76e05c942c7923caeeefe48f50ac6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae76e05c942c7923caeeefe48f50ac6d">&#9670;&#160;</a></span>createArrayCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char ** createArrayCopy </td>
+          <td>(</td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>array</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a copy of a 2D Character Array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A copy of the array. </dd></dl>
+
+</div>
+</div>
 <a id="aeca9a970b10a822291ada7486ab7830c" name="aeca9a970b10a822291ada7486ab7830c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeca9a970b10a822291ada7486ab7830c">&#9670;&#160;</a></span>getAnsiArrayHeight()</h2>
 
@@ -3456,7 +3514,7 @@ Functions</h2></td></tr>
 <p>Gets the height of a 2D String Array. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">array</td><td>The a 2D String Array. </td></tr>
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
   </table>
   </dd>
 </dl>
@@ -3508,7 +3566,7 @@ Functions</h2></td></tr>
 <p>Gets the height of a 2D Character Array. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">array</td><td>The a 2D Character Array. </td></tr>
+    <tr><td class="paramname">array</td><td>The 2D Character Array. </td></tr>
   </table>
   </dd>
 </dl>
