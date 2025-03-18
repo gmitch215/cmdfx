@@ -124,11 +124,10 @@ int Vector_flipY(CmdFX_Vector* v);
 int Vector_flip(CmdFX_Vector* v);
 
 /**
- * @brief Multiplies a 2D Vector by a scalar.
- * 
- * @param v The 2D Vector.
- * @param scalar The scalar.
- * @return The product of the 2D Vector and the scalar.
+ * @brief Gets the dot product of two vectors.
+ * @param v1 The first 2D Vector.
+ * @param v2 The second 2D Vector.
+ * @return The dot product.
  */
 int Vector_dot(CmdFX_Vector* v1, CmdFX_Vector* v2);
 

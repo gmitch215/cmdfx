@@ -1,3 +1,11 @@
+/**
+ * @file cmdfx.h
+ * @author Gregory Mitchell (me@gmitch215.xyz)
+ * @brief The main header file for CmdFX. Includes the rest of the library.
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #pragma once
 
 // Core Library

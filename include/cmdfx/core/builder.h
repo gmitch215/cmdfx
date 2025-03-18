@@ -50,11 +50,11 @@ char** createArrayCopy(char** array);
  * This method creates an array with a specific width and height. The
  * array will be initialized with the space character.
  * 
- * The values at `array[height]` and `array[height][width]` will be set 
- * to 0 for null termination. It is advised that you create a `char**` 
- * with this method and pass it to other functions presented in this 
- * header file, rather than create a `char**` and pass it to other 
- * functions, in order to avoid undefined behavior.
+ * The values at `array[height]` will be set to 0 for null termination.
+ * It is advised that you create a `char**` with this method and pass
+ * it to other functions presented in this header file, rather than 
+ * create a `char**` and pass it to other functions, in order to 
+ * avoid undefined behavior.
  * 
  * @param width The width of the array.
  * @param height The height of the array.
@@ -69,11 +69,11 @@ char** CharBuilder_create(int width, int height);
  * This method creates an array with a specific width and height. The
  * array will be initialized with the specified character.
  * 
- * The values at `array[height]` and `array[height][width]` will be set 
- * to 0 for null termination. It is advised that you create a `char**` 
- * with this method and pass it to other functions presented in this 
- * header file, rather than create a `char**` and pass it to other 
- * functions, in order to avoid undefined behavior.
+ * The values at `array[height]` will be set to 0 for null termination. 
+ * It is advised that you create a `char**` with this method and pass 
+ * it to other functions presented in this header file, rather than 
+ * create a `char**` and pass it to other functions, in order to 
+ * avoid undefined behavior.
  * 
  * @param width The width of the array.
  * @param height The height of the array.
@@ -586,6 +586,7 @@ char*** AnsiBuilder_create(int width, int height);
  * 
  * @param width The width of the array.
  * @param height The height of the array.
+ * @param c The string to fill the array with.
  * @return The 2D String Array.
  */
 char*** AnsiBuilder_createFilled(int width, int height, char* c);
@@ -599,11 +600,11 @@ char*** AnsiBuilder_createFilled(int width, int height, char* c);
  * This method sets an ANSI code at the specified x and y
  * coordinates. If the x or y coordinate is out of bounds, the method will return -1.
  * 
- * The values at `array[height]` and `array[height][width]` will be set 
- * to 0 for null termination. It is advised that you create a `char***` 
- * with this method and pass it to other functions presented in this 
- * header file, rather than create a `char***` and pass it to other 
- * functions, in order to avoid undefined behavior.
+ * The values at `array[height]` will be set  to 0 for null termination. 
+ * It is advised that you create a `char***` with this method and pass 
+ * it to other functions presented in this header file, rather than 
+ * create a `char***` and pass it to other functions, in order to avoid 
+ * undefined behavior.
  * 
  * @param array The 2D String Array.
  * @param x The x coordinate.
