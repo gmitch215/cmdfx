@@ -83,6 +83,24 @@ int getArrayHeight(char** array) {
     return height;
 }
 
+char** createArrayCopy(char** array) {
+    if (array == 0) return 0;
+
+    int height = getArrayHeight(array);
+    int width = getArrayWidth(array);
+
+    char** copy = malloc(sizeof(char*) * (height + 1));
+    for (int j = 0; j < height; j++) {
+        char* rowCopy = malloc(sizeof(char) * (width + 1));
+        strcpy(rowCopy, array[j]);
+        rowCopy[width] = 0;
+        copy[j] = rowCopy;
+    }
+
+    copy[height] = 0;
+    return copy;
+}
+
 // Core Functions (Character)
 
 char** CharBuilder_create(int width, int height) {
@@ -1014,6 +1032,25 @@ int getAnsiArrayHeight(char*** array) {
     }
 
     return height;
+}
+
+char*** createAnsiArrayCopy(char*** array) {
+    if (array == 0) return 0;
+
+    int height = getAnsiArrayHeight(array);
+    int width = getAnsiArrayWidth(array);
+
+    char*** copy = malloc(sizeof(char**) * (height + 1));
+    for (int j = 0; j < height; j++) {
+        char** rowCopy = malloc(sizeof(char*) * (width + 1));
+        for (int i = 0; i < width; i++) rowCopy[i] = array[i];
+
+        rowCopy[width] = 0;
+        copy[j] = rowCopy;
+    }
+
+    copy[height] = 0;
+    return copy;
 }
 
 // Core Functions (ANSI)

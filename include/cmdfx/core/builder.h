@@ -30,10 +30,17 @@ int getArrayWidth(char** array);
 
 /**
  * @brief Gets the height of a 2D Character Array.
- * @param array The a 2D Character Array.
+ * @param array The 2D Character Array.
  * @return The height of the array.
  */
 int getArrayHeight(char** array);
+
+/**
+ * @brief Creates a copy of a 2D Character Array.
+ * @param array The 2D Character Array.
+ * @return A copy of the array.
+ */
+char** createArrayCopy(char** array);
 
 // Core Functions (Character)
 
@@ -539,10 +546,17 @@ int getAnsiArrayWidth(char*** array);
 
 /**
  * @brief Gets the height of a 2D String Array.
- * @param array The a 2D String Array.
+ * @param array The 2D String Array.
  * @return The height of the array.
  */
 int getAnsiArrayHeight(char*** array);
+
+/**
+ * @brief Creates a copy of a 2D String Array.
+ * @param array The 2D String Array.
+ * @return A copy of the 2D Array.
+ */
+char*** createAnsiArrayCopy(char*** array);
 
 // Core Functions (ANSI)
 
