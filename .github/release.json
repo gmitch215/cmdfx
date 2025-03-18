@@ -1,7 +1,7 @@
 {
     "template": "#{{CHANGELOG}}\n## Contributors\n- #{{CONTRIBUTORS}}",
     "commit_template": "- #{{TITLE}} (#{{MERGE_SHA}})",
-    "pr_template": "- #{{TITLE}} (#{{NUMBER}})",
+    "pr_template": "- #{{TITLE}} (##{{NUMBER}})",
     "categories": [
         {
             "title": "## New Features",
