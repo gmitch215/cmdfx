@@ -89,9 +89,9 @@ char** createArrayCopy(char** array) {
     int height = getArrayHeight(array);
     int width = getArrayWidth(array);
 
-    char** copy = malloc(sizeof(char*) * (height + 1));
+    char** copy = (char**) malloc(sizeof(char*) * (height + 1));
     for (int j = 0; j < height; j++) {
-        char* rowCopy = malloc(sizeof(char) * (width + 1));
+        char* rowCopy = (char*) malloc(sizeof(char) * (width + 1));
         strcpy(rowCopy, array[j]);
         rowCopy[width] = 0;
         copy[j] = rowCopy;
@@ -1043,7 +1043,7 @@ char*** createAnsiArrayCopy(char*** array) {
     char*** copy = malloc(sizeof(char**) * (height + 1));
     for (int j = 0; j < height; j++) {
         char** rowCopy = malloc(sizeof(char*) * (width + 1));
-        for (int i = 0; i < width; i++) rowCopy[i] = array[i];
+        for (int i = 0; i < width; i++) rowCopy[i] = array[j][i];
 
         rowCopy[width] = 0;
         copy[j] = rowCopy;

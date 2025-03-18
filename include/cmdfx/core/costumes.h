@@ -135,7 +135,8 @@ char*** Sprite_getAnsiCostume(CmdFX_Sprite* sprite, int costumeIndex);
  * 
  * This method switches the sprite costume to a specific index. If the
  * index is out of bounds, the method will return -1. The costume
- * will switch the `data` and the `ansiData` inside the sprite.
+ * will switch the `data` and the `ansiData` inside the sprite, and
+ * set the old data and ANSI data to the costume index.
  * 
  * @param sprite The sprite to switch the costume for.
  * @param costumeIndex The index of the costume to switch to.
@@ -155,7 +156,7 @@ int Sprite_switchCostumeTo(CmdFX_Sprite* sprite, int costumeIndex);
  * @param ansiCostume The ANSI code for the costume.
  * @return 0 if successful, -1 if an error occurred.
  */
-int Sprite_addCostume(CmdFX_Sprite* sprite, char** costume, char** ansiCostume);
+int Sprite_addCostume(CmdFX_Sprite* sprite, char** costume, char*** ansiCostume);
 
 /**
  * @brief Removes a sprite costume.
