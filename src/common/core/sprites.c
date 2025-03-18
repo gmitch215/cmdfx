@@ -106,7 +106,29 @@ void Sprite_free(CmdFX_Sprite* sprite) {
     }
 
     // Free Sprite Costumes
-    free(Sprite_getCostumes(sprite));
+    CmdFX_SpriteCostumes* costumes = Sprite_getCostumes(sprite);
+    if (costumes != 0) {
+        for (int i = 0; i < costumes->costumeCount; i++) {
+            char** data = costumes->costumes[i];
+            if (data != 0) {
+                int height = getArrayHeight(data);
+                for (int j = 0; j < height; j++) free(data[j]);
+            }
+            free(data);
+
+            char*** ansi = costumes->ansiCostumes[i];
+            if (ansi != 0) {
+                int height = getAnsiArrayHeight(ansi);
+                int width = getAnsiArrayWidth(ansi);
+                for (int j = 0; j < height; j++) {
+                    for (int k = 0; k < width; k++) free(ansi[j][k]);
+                    free(ansi[j]);
+                }
+            }
+            free(ansi);
+        }
+    }
+    free(costumes);
 
     free(sprite->data);
     if (sprite->ansi != 0) free(sprite->ansi);

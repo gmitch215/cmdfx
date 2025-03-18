@@ -18,6 +18,14 @@ extern "C" {
 #endif
 
 /**
+ * @brief The maximum amount of costumes a sprite can have.
+ * 
+ * This defines the maximum number of costumes a sprite can have in its
+ * SpriteCostumes holder.
+ */
+#define MAX_SPRITE_COSTUMES 128
+
+/**
  * @brief Represents the holder for sprite costumes.
  * 
  * This struct is used to hold sprite costumes. A sprite costume is a state
@@ -37,6 +45,8 @@ typedef struct CmdFX_SpriteCostumes {
      * 
      * This array must match the same length as the `ansiCostumes` array. `costumeCount`
      * must be the same length as the first dimension of this array.
+     * 
+     * There is an internal limit of 128 costumes per sprite.
      */
     char*** costumes;
     /**
@@ -48,6 +58,8 @@ typedef struct CmdFX_SpriteCostumes {
      * This array must match the same length as the `costumes` array. `costumeCount`
      * must be the same length as the first dimension of this array. ANSI costumes
      * can be initialized to 0 to account for no ANSI codes.
+     * 
+     * There is an internal limit of 128 costumes per sprite.
      */
     char**** ansiCostumes;
     /**
@@ -55,6 +67,8 @@ typedef struct CmdFX_SpriteCostumes {
      * 
      * This is the number of sprite costumes in the `costumes` and the
      * `ansiCostumes` arrays.
+     * 
+     * There is an internal limit of 128 costumes per sprite.
      */
     int costumeCount;
 } CmdFX_SpriteCostumes;
@@ -70,10 +84,13 @@ typedef struct CmdFX_SpriteCostumes {
  * If `costumeCount` is greater 1, the rest of the costumes will be
  * initialized to 0.
  * 
+ * There is an internal limit of 128 costumes per sprite.
+ * 
+ * @param sprite The sprite to create the costume for.
  * @param costumeCount The number of costumes to create.
  * @return The sprite costumes, or `NULL` if an error occurred.
  */
-CmdFX_SpriteCostumes* Sprite_createCostumes(int costumeCount);
+CmdFX_SpriteCostumes* Sprite_createCostumes(CmdFX_Sprite* sprite, int costumeCount);
 
 /**
  * @brief Gets the sprite costumes.
