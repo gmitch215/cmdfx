@@ -42,6 +42,20 @@ For a full method list, check out the [documentation](https://gmitch215.github.i
     - Set the color of a sprite.
     - Create Gradients for a sprite.
     - ...and much more!
+- **Builder API**
+  - Easily build 2D arrays of characters and strings.
+  - Set the color of the text.
+  - Create gradients of text and colors!
+  - ...and much more!
+- **Physics Engine**
+  - Create and manage physics objects with the Sprite API.
+  - Set the velocity and acceleration of a sprite.
+  - Detect collisions between sprites.
+  - ...and much more!
+- **Input API**
+  - Get the current state of the keyboard and mouse events.
+  - Handle key presses and key releases.
+  - ..and much more!
 - **Cross-Platform Exposure**
   - Expose platform-specific features and utilities such as setting the title of the terminal.
 
