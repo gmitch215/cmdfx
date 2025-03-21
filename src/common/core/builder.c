@@ -103,7 +103,7 @@ char** createArrayCopy(char** array) {
 
 // Core Functions (Character)
 
-char** CharBuilder_create(int width, int height) {
+char** Char2DBuilder_create(int width, int height) {
     if (width <= 0 || height <= 0) return 0;
 
     char** array = (char**) calloc(height + 1, sizeof(char*));
@@ -125,10 +125,10 @@ char** CharBuilder_create(int width, int height) {
     return array;
 }
 
-char** CharBuilder_createFilled(int width, int height, char c) {
+char** Char2DBuilder_createFilled(int width, int height, char c) {
     if (width <= 0 || height <= 0) return 0;
 
-    char** array = CharBuilder_create(width, height);
+    char** array = Char2DBuilder_create(width, height);
     if (array == 0) return 0;
 
     for (int i = 0; i < height; i++)
@@ -138,7 +138,7 @@ char** CharBuilder_createFilled(int width, int height, char c) {
     return array;
 }
 
-int CharBuilder_setChar(char** array, int x, int y, char c) {
+int Char2DBuilder_setChar(char** array, int x, int y, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -151,7 +151,7 @@ int CharBuilder_setChar(char** array, int x, int y, char c) {
     return 0;
 }
 
-int CharBuilder_hLine(char** array, int x, int y, int width, char c) {
+int Char2DBuilder_hLine(char** array, int x, int y, int width, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -167,7 +167,7 @@ int CharBuilder_hLine(char** array, int x, int y, int width, char c) {
     return 0;
 }
 
-int CharBuilder_vLine(char** array, int x, int y, int height, char c) {
+int Char2DBuilder_vLine(char** array, int x, int y, int height, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -183,7 +183,7 @@ int CharBuilder_vLine(char** array, int x, int y, int height, char c) {
     return 0;
 }
 
-int CharBuilder_rect(char** array, int x, int y, int width, int height, char c) {
+int Char2DBuilder_rect(char** array, int x, int y, int width, int height, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -207,7 +207,7 @@ int CharBuilder_rect(char** array, int x, int y, int width, int height, char c) 
     return 0;
 }
 
-int CharBuilder_fillRect(char** array, int x, int y, int width, int height, char c) {
+int Char2DBuilder_fillRect(char** array, int x, int y, int width, int height, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -227,16 +227,16 @@ int CharBuilder_fillRect(char** array, int x, int y, int width, int height, char
     return 0;
 }
 
-int CharBuilder_fill(char** array, char c) {
+int Char2DBuilder_fill(char** array, char c) {
     if (array == 0) return -1;
 
     int width = getArrayWidth(array);
     int height = getArrayHeight(array);
 
-    return CharBuilder_fillRect(array, 0, 0, width, height, c);
+    return Char2DBuilder_fillRect(array, 0, 0, width, height, c);
 }
 
-int CharBuilder_circle(char** array, int x, int y, int radius, char c) {
+int Char2DBuilder_circle(char** array, int x, int y, int radius, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -253,14 +253,14 @@ int CharBuilder_circle(char** array, int x, int y, int radius, char c) {
     int d = 1 - radius;
 
     while (x1 <= y1) {
-        CharBuilder_setChar(array, x + x1, y + y1, c);
-        CharBuilder_setChar(array, x - x1, y + y1, c);
-        CharBuilder_setChar(array, x + x1, y - y1, c);
-        CharBuilder_setChar(array, x - x1, y - y1, c);
-        CharBuilder_setChar(array, x + y1, y + x1, c);
-        CharBuilder_setChar(array, x - y1, y + x1, c);
-        CharBuilder_setChar(array, x + y1, y - x1, c);
-        CharBuilder_setChar(array, x - y1, y - x1, c);
+        Char2DBuilder_setChar(array, x + x1, y + y1, c);
+        Char2DBuilder_setChar(array, x - x1, y + y1, c);
+        Char2DBuilder_setChar(array, x + x1, y - y1, c);
+        Char2DBuilder_setChar(array, x - x1, y - y1, c);
+        Char2DBuilder_setChar(array, x + y1, y + x1, c);
+        Char2DBuilder_setChar(array, x - y1, y + x1, c);
+        Char2DBuilder_setChar(array, x + y1, y - x1, c);
+        Char2DBuilder_setChar(array, x - y1, y - x1, c);
 
         if (d < 0) {
             d += 2 * x1 + 3;
@@ -274,7 +274,7 @@ int CharBuilder_circle(char** array, int x, int y, int radius, char c) {
     return 0;
 }
 
-int CharBuilder_fillCircle(char** array, int x, int y, int radius, char c) {
+int Char2DBuilder_fillCircle(char** array, int x, int y, int radius, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -292,10 +292,10 @@ int CharBuilder_fillCircle(char** array, int x, int y, int radius, char c) {
         int y1Sq = y1 * y1;
         int x1 = 0;
         while (x1 * x1 + y1Sq <= radiusSq) {
-            CharBuilder_setChar(array, x + x1, y + y1, c);
-            CharBuilder_setChar(array, x - x1, y + y1, c);
-            CharBuilder_setChar(array, x + x1, y - y1, c);
-            CharBuilder_setChar(array, x - x1, y - y1, c);
+            Char2DBuilder_setChar(array, x + x1, y + y1, c);
+            Char2DBuilder_setChar(array, x - x1, y + y1, c);
+            Char2DBuilder_setChar(array, x + x1, y - y1, c);
+            Char2DBuilder_setChar(array, x - x1, y - y1, c);
             x1++;
         }
     }
@@ -303,7 +303,7 @@ int CharBuilder_fillCircle(char** array, int x, int y, int radius, char c) {
     return 0;
 }
 
-int CharBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, char c) {
+int Char2DBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -327,10 +327,10 @@ int CharBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, ch
 
     p = yradiusSq - (xradiusSq * yradius) + (0.25 * xradiusSq);
     while (px < py) {
-        CharBuilder_setChar(array, x + x1, y + y1, c);
-        CharBuilder_setChar(array, x - x1, y + y1, c);
-        CharBuilder_setChar(array, x + x1, y - y1, c);
-        CharBuilder_setChar(array, x - x1, y - y1, c);
+        Char2DBuilder_setChar(array, x + x1, y + y1, c);
+        Char2DBuilder_setChar(array, x - x1, y + y1, c);
+        Char2DBuilder_setChar(array, x + x1, y - y1, c);
+        Char2DBuilder_setChar(array, x - x1, y - y1, c);
 
         x1++;
         px += twoYradiusSq;
@@ -346,10 +346,10 @@ int CharBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, ch
 
     p = yradiusSq * (x1 + 0.5) * (x1 + 0.5) + xradiusSq * (y1 - 1) * (y1 - 1) - xradiusSq * yradiusSq;
     while (y1 >= 0) {
-        CharBuilder_setChar(array, x + x1, y + y1, c);
-        CharBuilder_setChar(array, x - x1, y + y1, c);
-        CharBuilder_setChar(array, x + x1, y - y1, c);
-        CharBuilder_setChar(array, x - x1, y - y1, c);
+        Char2DBuilder_setChar(array, x + x1, y + y1, c);
+        Char2DBuilder_setChar(array, x - x1, y + y1, c);
+        Char2DBuilder_setChar(array, x + x1, y - y1, c);
+        Char2DBuilder_setChar(array, x - x1, y - y1, c);
 
         y1--;
         py -= twoXradiusSq;
@@ -366,7 +366,7 @@ int CharBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, ch
     return 0;
 }
 
-int CharBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradius, char c) {
+int Char2DBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradius, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -389,7 +389,7 @@ int CharBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradius
                 int px = x + dx;
                 int py = y + dy;
 
-                CharBuilder_setChar(array, px, py, c);
+                Char2DBuilder_setChar(array, px, py, c);
             }
         }
     }
@@ -397,7 +397,7 @@ int CharBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradius
     return 0;
 }
 
-int CharBuilder_line(char** array, int x1, int y1, int x2, int y2, char c) {
+int Char2DBuilder_line(char** array, int x1, int y1, int x2, int y2, char c) {
     if (array == 0) return -1;
     if (x1 < 0 || y1 < 0) return -1;
 
@@ -415,7 +415,7 @@ int CharBuilder_line(char** array, int x1, int y1, int x2, int y2, char c) {
     int e2;
 
     while (1) {
-        CharBuilder_setChar(array, x1, y1, c);
+        Char2DBuilder_setChar(array, x1, y1, c);
         if (x1 == x2 && y1 == y2) break;
 
         e2 = 2 * err;
@@ -432,7 +432,7 @@ int CharBuilder_line(char** array, int x1, int y1, int x2, int y2, char c) {
     return 0;
 }
 
-int CharBuilder_polygon(char** array, int x, int y, int sides, int radius, char c) {
+int Char2DBuilder_polygon(char** array, int x, int y, int sides, int radius, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
     if (radius < 1) return -1;
@@ -447,7 +447,7 @@ int CharBuilder_polygon(char** array, int x, int y, int sides, int radius, char 
         int nextX = x + radius * cos(i * angleStep);
         int nextY = y + radius * sin(i * angleStep);
 
-        CharBuilder_line(array, prevX, prevY, nextX, nextY, c);
+        Char2DBuilder_line(array, prevX, prevY, nextX, nextY, c);
 
         prevX = nextX;
         prevY = nextY;
@@ -456,7 +456,7 @@ int CharBuilder_polygon(char** array, int x, int y, int sides, int radius, char 
     return 0;
 }
 
-int CharBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, char c) {
+int Char2DBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
     if (radius < 1) return -1;
@@ -507,7 +507,7 @@ int CharBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, c
         for (int i = 0; i < count; i += 2) {
             if (i + 1 < count) {
                 for (int xFill = intersections[i]; xFill <= intersections[i + 1]; xFill++) {
-                    CharBuilder_setChar(array, xFill, scanY, c);
+                    Char2DBuilder_setChar(array, xFill, scanY, c);
                 }
             }
         }
@@ -518,7 +518,7 @@ int CharBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, c
     return 0;
 }
 
-int CharBuilder_text(char** array, int x, int y, char* text) {
+int Char2DBuilder_text(char** array, int x, int y, char* text) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -544,11 +544,11 @@ int CharBuilder_text(char** array, int x, int y, char* text) {
 
 // Utility Functions - Sizing
 
-int CharBuilder_resize0(char** array, int width, int height, char padding) {
+int Char2DBuilder_resize0(char** array, int width, int height, char padding) {
     int oldWidth = getArrayWidth(array);
     int oldHeight = getArrayHeight(array);
 
-    char** newArray = CharBuilder_create(width, height);
+    char** newArray = Char2DBuilder_create(width, height);
     if (newArray == 0) return -1;
 
     for (int y = 0; y < height; y++) {
@@ -565,23 +565,23 @@ int CharBuilder_resize0(char** array, int width, int height, char padding) {
     return 0;
 }
 
-int CharBuilder_resize(char** array, int width, int height) {
+int Char2DBuilder_resize(char** array, int width, int height) {
     if (array == 0) return -1;
     if (width <= 0 || height <= 0) return -1;
 
-    CharBuilder_resize0(array, width, height, ' ');
+    Char2DBuilder_resize0(array, width, height, ' ');
     return 0;
 }
 
-int CharBuilder_resizeWithPadding(char** array, int width, int height, char padding) {
+int Char2DBuilder_resizeWithPadding(char** array, int width, int height, char padding) {
     if (array == 0) return -1;
     if (width <= 0 || height <= 0) return -1;
 
-    CharBuilder_resize0(array, width, height, padding);
+    Char2DBuilder_resize0(array, width, height, padding);
     return 0;
 }
 
-int CharBuilder_center0(char** array) {
+int Char2DBuilder_center0(char** array) {
     int width = getArrayWidth(array);
     int height = getArrayHeight(array);
 
@@ -601,7 +601,7 @@ int CharBuilder_center0(char** array) {
     int xoffset = (width - x) / 2;
     int yoffset = (height - y) / 2;
 
-    char** newArray = CharBuilder_create(width, height);
+    char** newArray = Char2DBuilder_create(width, height);
     if (newArray == 0) return -1;
 
     for (int i = 0; i < height; i++) {
@@ -618,25 +618,25 @@ int CharBuilder_center0(char** array) {
     return 0;
 }
 
-int CharBuilder_center(char** array) {
+int Char2DBuilder_center(char** array) {
     if (array == 0) return -1;
 
-    CharBuilder_center0(array);
+    Char2DBuilder_center0(array);
     return 0;
 }
 
-int CharBuilder_resizeAndCenter(char** array, int width, int height) {
+int Char2DBuilder_resizeAndCenter(char** array, int width, int height) {
     if (array == 0) return -1;
     if (width <= 0 || height <= 0) return -1;
 
-    CharBuilder_resize0(array, width, height, ' ');
-    CharBuilder_center0(array);
+    Char2DBuilder_resize0(array, width, height, ' ');
+    Char2DBuilder_center0(array);
     return 0;
 }
 
 // Utility Functions - Transformation
 
-int CharBuilder_rotate(char** array, double radians) {
+int Char2DBuilder_rotate(char** array, double radians) {
     if (array == 0) return -1;
 
     int width = getArrayWidth(array);
@@ -685,7 +685,7 @@ int CharBuilder_rotate(char** array, double radians) {
     return 0;
 }
 
-double CharBuilder_getRotationAngle(char** array) {
+double Char2DBuilder_getRotationAngle(char** array) {
     if (array == 0) return 0.0;
 
     int width = getArrayWidth(array);
@@ -735,7 +735,7 @@ double CharBuilder_getRotationAngle(char** array) {
     return theta;
 }
 
-int CharBuilder_hFlip(char** array) {
+int Char2DBuilder_hFlip(char** array) {
     if (array == 0) return -1;
 
     int width = getArrayWidth(array);
@@ -755,7 +755,7 @@ int CharBuilder_hFlip(char** array) {
     return 0;
 }
 
-int CharBuilder_vFlip(char** array) {
+int Char2DBuilder_vFlip(char** array) {
     if (array == 0) return -1;
 
     int width = getArrayWidth(array);
@@ -775,7 +775,7 @@ int CharBuilder_vFlip(char** array) {
     return 0;
 }
 
-char** CharBuilder_transpose(char** array) {
+char** Char2DBuilder_transpose(char** array) {
     if (array == 0) return 0;
 
     int width = getArrayWidth(array);
@@ -811,7 +811,7 @@ char** CharBuilder_transpose(char** array) {
     return transposed;
 }
 
-int CharBuilder_replaceAll(char** array, char find, char replace) {
+int Char2DBuilder_replaceAll(char** array, char find, char replace) {
     if (array == 0) return -1;
 
     int width = getArrayWidth(array);
@@ -830,7 +830,7 @@ int CharBuilder_replaceAll(char** array, char find, char replace) {
     return count;
 }
 
-char** CharBuilder_scale(char** array, double scale) {
+char** Char2DBuilder_scale(char** array, double scale) {
     if (array == 0) return 0;
     if (scale <= 0) return 0;
 
@@ -893,7 +893,7 @@ char** _generateCharGradientGrid(char* chars, double* percentages, int numChars,
     return grid;
 }
 
-int CharBuilder_gradient0(char** array, int x, int y, int width, int height, char* chars, double* percentages, int numChars, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_gradient0(char** array, int x, int y, int width, int height, char* chars, double* percentages, int numChars, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -916,7 +916,7 @@ int CharBuilder_gradient0(char** array, int x, int y, int width, int height, cha
     return 0;
 }
 
-int CharBuilder_gradient(char** array, int x, int y, int width, int height, char start, char end, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_gradient(char** array, int x, int y, int width, int height, char start, char end, enum CmdFX_GradientDirection direction) {
     char* chars = (char*) malloc(2 * sizeof(char));
     if (chars == 0) return -1;
     chars[0] = start;
@@ -930,7 +930,7 @@ int CharBuilder_gradient(char** array, int x, int y, int width, int height, char
     percentages[0] = 0.5;
     percentages[1] = 0.5;
 
-    int res = CharBuilder_gradient0(array, x, y, width, height, chars, percentages, 2, direction);
+    int res = Char2DBuilder_gradient0(array, x, y, width, height, chars, percentages, 2, direction);
 
     free(chars);
     free(percentages);
@@ -938,7 +938,7 @@ int CharBuilder_gradient(char** array, int x, int y, int width, int height, char
     return res;
 }
 
-int CharBuilder_multiGradient(char** array, int x, int y, int width, int height, int numChars, char* gradient, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_multiGradient(char** array, int x, int y, int width, int height, int numChars, char* gradient, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -954,14 +954,14 @@ int CharBuilder_multiGradient(char** array, int x, int y, int width, int height,
     for (int i = 0; i < numChars; i++)
         percentages[i] = percent;
     
-    int res = CharBuilder_gradient0(array, x, y, width, height, gradient, percentages, numChars, direction);
+    int res = Char2DBuilder_gradient0(array, x, y, width, height, gradient, percentages, numChars, direction);
 
     free(percentages);
 
     return res;
 }
 
-int CharBuilder_multiGradients(char** array, int x, int y, int width, int height, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_multiGradients(char** array, int x, int y, int width, int height, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -970,10 +970,10 @@ int CharBuilder_multiGradients(char** array, int x, int y, int width, int height
     if (array[y][x + width - 1] == 0) return -1;
     if (array[y + height - 1] == 0) return -1;
 
-    return CharBuilder_gradient0(array, x, y, width, height, gradient, percentages, numChars, direction);
+    return Char2DBuilder_gradient0(array, x, y, width, height, gradient, percentages, numChars, direction);
 }
 
-int CharBuilder_gradientFull(char** array, char start, char end, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_gradientFull(char** array, char start, char end, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
     int width = getArrayWidth(array);
@@ -981,10 +981,10 @@ int CharBuilder_gradientFull(char** array, char start, char end, enum CmdFX_Grad
 
     if (width <= 0 || height <= 0) return -1;
 
-    return CharBuilder_gradient(array, 0, 0, width, height, start, end, direction);
+    return Char2DBuilder_gradient(array, 0, 0, width, height, start, end, direction);
 }
 
-int CharBuilder_multiGradientFull(char** array, int numChars, char* gradient, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_multiGradientFull(char** array, int numChars, char* gradient, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
     int width = getArrayWidth(array);
@@ -992,10 +992,10 @@ int CharBuilder_multiGradientFull(char** array, int numChars, char* gradient, en
 
     if (width <= 0 || height <= 0) return -1;
 
-    return CharBuilder_multiGradient(array, 0, 0, width, height, numChars, gradient, direction);
+    return Char2DBuilder_multiGradient(array, 0, 0, width, height, numChars, gradient, direction);
 }
 
-int CharBuilder_multiGradientsFull(char** array, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_multiGradientsFull(char** array, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
     int width = getArrayWidth(array);
@@ -1003,7 +1003,7 @@ int CharBuilder_multiGradientsFull(char** array, int numChars, char* gradient, d
 
     if (width <= 0 || height <= 0) return -1;
 
-    return CharBuilder_multiGradients(array, 0, 0, width, height, numChars, gradient, percentages, direction);
+    return Char2DBuilder_multiGradients(array, 0, 0, width, height, numChars, gradient, percentages, direction);
 }
 
 #pragma endregion
@@ -1055,7 +1055,7 @@ char*** createAnsiArrayCopy(char*** array) {
 
 // Core Functions (ANSI)
 
-char*** AnsiBuilder_create(int width, int height) {
+char*** String2DBuilder_create(int width, int height) {
     if (width <= 0 || height <= 0) return 0;
 
     char*** array = (char***) malloc(sizeof(char**) * (height + 1));
@@ -1069,18 +1069,22 @@ char*** AnsiBuilder_create(int width, int height) {
             return 0;
         }
 
-        for (int j = 0; j < width; j++) array[i][j] = 0;
+        for (int j = 0; j < width; j++) {
+            char* buf = malloc(1);
+            buf[0] = '\0';
+            array[i][j] = buf;
+        }
     }
 
     array[height] = 0;
     return array;
 }
 
-char*** AnsiBuilder_createFilled(int width, int height, char* c) {
+char*** String2DBuilder_createFilled(int width, int height, char* c) {
     if (width <= 0 || height <= 0) return 0;
     if (c == 0) return 0;
 
-    char*** array = AnsiBuilder_create(width, height);
+    char*** array = String2DBuilder_create(width, height);
     if (array == 0) return 0;
 
     for (int i = 0; i < height; i++)
@@ -1090,7 +1094,7 @@ char*** AnsiBuilder_createFilled(int width, int height, char* c) {
     return array;
 }
 
-int AnsiBuilder_setAnsi(char*** array, int x, int y, char* c) {
+int String2DBuilder_setAnsi(char*** array, int x, int y, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1103,7 +1107,7 @@ int AnsiBuilder_setAnsi(char*** array, int x, int y, char* c) {
     return 0;
 }
 
-int AnsiBuilder_hLine(char*** array, int x, int y, int width, char* c) {
+int String2DBuilder_hLine(char*** array, int x, int y, int width, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1119,7 +1123,7 @@ int AnsiBuilder_hLine(char*** array, int x, int y, int width, char* c) {
     return 0;
 }
 
-int AnsiBuilder_vLine(char*** array, int x, int y, int height, char* c) {
+int String2DBuilder_vLine(char*** array, int x, int y, int height, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1135,7 +1139,7 @@ int AnsiBuilder_vLine(char*** array, int x, int y, int height, char* c) {
     return 0;
 }
 
-int AnsiBuilder_rect(char*** array, int x, int y, int width, int height, char* c) {
+int String2DBuilder_rect(char*** array, int x, int y, int width, int height, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1159,7 +1163,7 @@ int AnsiBuilder_rect(char*** array, int x, int y, int width, int height, char* c
     return 0;
 }
 
-int AnsiBuilder_fillRect(char*** array, int x, int y, int width, int height, char* c) {
+int String2DBuilder_fillRect(char*** array, int x, int y, int width, int height, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1179,17 +1183,17 @@ int AnsiBuilder_fillRect(char*** array, int x, int y, int width, int height, cha
     return 0;
 }
 
-int AnsiBuilder_fill(char*** array, char* c) {
+int String2DBuilder_fill(char*** array, char* c) {
     if (array == 0) return -1;
     if (c == 0) return -1;
 
     int width = getAnsiArrayWidth(array);
     int height = getAnsiArrayHeight(array);
 
-    return AnsiBuilder_fillRect(array, 0, 0, width, height, c);
+    return String2DBuilder_fillRect(array, 0, 0, width, height, c);
 }
 
-int AnsiBuilder_circle(char*** array, int x, int y, int radius, char* c) {
+int String2DBuilder_circle(char*** array, int x, int y, int radius, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1206,14 +1210,14 @@ int AnsiBuilder_circle(char*** array, int x, int y, int radius, char* c) {
     int d = 1 - radius;
 
     while (x1 <= y1) {
-        AnsiBuilder_setAnsi(array, x + x1, y + y1, c);
-        AnsiBuilder_setAnsi(array, x - x1, y + y1, c);
-        AnsiBuilder_setAnsi(array, x + x1, y - y1, c);
-        AnsiBuilder_setAnsi(array, x - x1, y - y1, c);
-        AnsiBuilder_setAnsi(array, x + y1, y + x1, c);
-        AnsiBuilder_setAnsi(array, x - y1, y + x1, c);
-        AnsiBuilder_setAnsi(array, x + y1, y - x1, c);
-        AnsiBuilder_setAnsi(array, x - y1, y - x1, c);
+        String2DBuilder_setAnsi(array, x + x1, y + y1, c);
+        String2DBuilder_setAnsi(array, x - x1, y + y1, c);
+        String2DBuilder_setAnsi(array, x + x1, y - y1, c);
+        String2DBuilder_setAnsi(array, x - x1, y - y1, c);
+        String2DBuilder_setAnsi(array, x + y1, y + x1, c);
+        String2DBuilder_setAnsi(array, x - y1, y + x1, c);
+        String2DBuilder_setAnsi(array, x + y1, y - x1, c);
+        String2DBuilder_setAnsi(array, x - y1, y - x1, c);
 
         if (d < 0) {
             d += 2 * x1 + 3;
@@ -1227,7 +1231,7 @@ int AnsiBuilder_circle(char*** array, int x, int y, int radius, char* c) {
     return 0;
 }
 
-int AnsiBuilder_fillCircle(char*** array, int x, int y, int radius, char* c) {
+int String2DBuilder_fillCircle(char*** array, int x, int y, int radius, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1245,10 +1249,10 @@ int AnsiBuilder_fillCircle(char*** array, int x, int y, int radius, char* c) {
         int y1Sq = y1 * y1;
         int x1 = 0;
         while (x1 * x1 + y1Sq <= radiusSq) {
-            AnsiBuilder_setAnsi(array, x + x1, y + y1, c);
-            AnsiBuilder_setAnsi(array, x - x1, y + y1, c);
-            AnsiBuilder_setAnsi(array, x + x1, y - y1, c);
-            AnsiBuilder_setAnsi(array, x - x1, y - y1, c);
+            String2DBuilder_setAnsi(array, x + x1, y + y1, c);
+            String2DBuilder_setAnsi(array, x - x1, y + y1, c);
+            String2DBuilder_setAnsi(array, x + x1, y - y1, c);
+            String2DBuilder_setAnsi(array, x - x1, y - y1, c);
             x1++;
         }
     }
@@ -1256,7 +1260,7 @@ int AnsiBuilder_fillCircle(char*** array, int x, int y, int radius, char* c) {
     return 0;
 }
 
-int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, char* c) {
+int String2DBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1280,10 +1284,10 @@ int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, c
 
     p = yradiusSq - (xradiusSq * yradius) + (0.25 * xradiusSq);
     while (px < py) {
-        AnsiBuilder_setAnsi(array, x + x1, y + y1, c);
-        AnsiBuilder_setAnsi(array, x - x1, y + y1, c);
-        AnsiBuilder_setAnsi(array, x + x1, y - y1, c);
-        AnsiBuilder_setAnsi(array, x - x1, y - y1, c);
+        String2DBuilder_setAnsi(array, x + x1, y + y1, c);
+        String2DBuilder_setAnsi(array, x - x1, y + y1, c);
+        String2DBuilder_setAnsi(array, x + x1, y - y1, c);
+        String2DBuilder_setAnsi(array, x - x1, y - y1, c);
 
         x1++;
         px += twoYradiusSq;
@@ -1299,10 +1303,10 @@ int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, c
 
     p = yradiusSq * (x1 + 0.5) * (x1 + 0.5) + xradiusSq * (y1 - 1) * (y1 - 1) - xradiusSq * yradiusSq;
     while (y1 >= 0) {
-        AnsiBuilder_setAnsi(array, x + x1, y + y1, c);
-        AnsiBuilder_setAnsi(array, x - x1, y + y1, c);
-        AnsiBuilder_setAnsi(array, x + x1, y - y1, c);
-        AnsiBuilder_setAnsi(array, x - x1, y - y1, c);
+        String2DBuilder_setAnsi(array, x + x1, y + y1, c);
+        String2DBuilder_setAnsi(array, x - x1, y + y1, c);
+        String2DBuilder_setAnsi(array, x + x1, y - y1, c);
+        String2DBuilder_setAnsi(array, x - x1, y - y1, c);
 
         y1--;
         py -= twoXradiusSq;
@@ -1319,7 +1323,7 @@ int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, c
     return 0;
 }
 
-int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradius, char* c) {
+int String2DBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradius, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1342,7 +1346,7 @@ int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradiu
                 int px = x + dx;
                 int py = y + dy;
 
-                AnsiBuilder_setAnsi(array, px, py, c);
+                String2DBuilder_setAnsi(array, px, py, c);
             }
         }
     }
@@ -1350,7 +1354,7 @@ int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradiu
     return 0;
 }
 
-int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c) {
+int String2DBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c) {
     if (array == 0) return -1;
     if (x1 < 0 || y1 < 0) return -1;
 
@@ -1368,7 +1372,7 @@ int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c) {
     int e2;
 
     while (1) {
-        AnsiBuilder_setAnsi(array, x1, y1, c);
+        String2DBuilder_setAnsi(array, x1, y1, c);
         if (x1 == x2 && y1 == y2) break;
 
         e2 = 2 * err;
@@ -1385,7 +1389,7 @@ int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c) {
     return 0;
 }
 
-int AnsiBuilder_polygon(char*** array, int x, int y, int sides, int radius, char* c) {
+int String2DBuilder_polygon(char*** array, int x, int y, int sides, int radius, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
     if (radius < 1) return -1;
@@ -1400,7 +1404,7 @@ int AnsiBuilder_polygon(char*** array, int x, int y, int sides, int radius, char
         int nextX = x + radius * cos(i * angleStep);
         int nextY = y + radius * sin(i * angleStep);
 
-        AnsiBuilder_line(array, prevX, prevY, nextX, nextY, c);
+        String2DBuilder_line(array, prevX, prevY, nextX, nextY, c);
 
         prevX = nextX;
         prevY = nextY;
@@ -1409,7 +1413,7 @@ int AnsiBuilder_polygon(char*** array, int x, int y, int sides, int radius, char
     return 0;
 }
 
-int AnsiBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, char* c) {
+int String2DBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
     if (radius < 1) return -1;
@@ -1460,7 +1464,7 @@ int AnsiBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, 
         for (int i = 0; i < count; i += 2) {
             if (i + 1 < count) {
                 for (int xFill = intersections[i]; xFill <= intersections[i + 1]; xFill++) {
-                    AnsiBuilder_setAnsi(array, xFill, scanY, c);
+                    String2DBuilder_setAnsi(array, xFill, scanY, c);
                 }
             }
         }
@@ -1473,7 +1477,7 @@ int AnsiBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, 
 
 // Utility Functions - Transformation (ANSI)
 
-int AnsiBuilder_rotate(char*** array, double radians) {
+int String2DBuilder_rotate(char*** array, double radians) {
     if (array == 0) return -1;
 
     int width = getAnsiArrayWidth(array);
@@ -1523,7 +1527,7 @@ int AnsiBuilder_rotate(char*** array, double radians) {
     return 0;
 }
 
-int AnsiBuilder_hFlip(char*** array) {
+int String2DBuilder_hFlip(char*** array) {
     if (array == 0) return -1;
 
     int width = getAnsiArrayWidth(array);
@@ -1543,7 +1547,7 @@ int AnsiBuilder_hFlip(char*** array) {
     return 0;
 }
 
-int AnsiBuilder_vFlip(char*** array) {
+int String2DBuilder_vFlip(char*** array) {
     if (array == 0) return -1;
 
     int width = getAnsiArrayWidth(array);
@@ -1563,7 +1567,7 @@ int AnsiBuilder_vFlip(char*** array) {
     return 0;
 }
 
-char*** AnsiBuilder_transpose(char*** array) {
+char*** String2DBuilder_transpose(char*** array) {
     if (array == 0) return 0;
 
     int width = getAnsiArrayWidth(array);
@@ -1601,7 +1605,7 @@ char*** AnsiBuilder_transpose(char*** array) {
     return transposed;
 }
 
-int AnsiBuilder_replaceAll(char*** array, char* find, char* replace) {
+int String2DBuilder_replaceAll(char*** array, char* find, char* replace) {
     if (array == 0) return -1;
 
     int width = getAnsiArrayWidth(array);
@@ -1620,7 +1624,7 @@ int AnsiBuilder_replaceAll(char*** array, char* find, char* replace) {
     return count;
 }
 
-char*** AnsiBuilder_scale(char*** array, double scale) {
+char*** String2DBuilder_scale(char*** array, double scale) {
     if (array == 0) return 0;
     if (scale <= 0) return 0;
 
@@ -1716,7 +1720,7 @@ void _freeGrid(int** grid, int width, int height) {
 // declared in src/common/core/sprites.c
 extern void _freeANSI(char*** ansi, int width, int height);
 
-int AnsiBuilder_gradient0(char*** array, int x, int y, int width, int height, int prefix, int* colors, double* percentages, int numColors, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_gradient0(char*** array, int x, int y, int width, int height, int prefix, int* colors, double* percentages, int numColors, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1739,7 +1743,7 @@ int AnsiBuilder_gradient0(char*** array, int x, int y, int width, int height, in
     return 0;
 }
 
-int AnsiBuilder_gradientForeground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_gradientForeground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
     
     int* colors = (int*) malloc(2 * sizeof(int));
@@ -1755,7 +1759,7 @@ int AnsiBuilder_gradientForeground(char*** array, int x, int y, int width, int h
     percentages[0] = 0.5;
     percentages[1] = 0.5;
 
-    int res = AnsiBuilder_gradient0(array, x, y, width, height, 38, colors, percentages, 2, direction);
+    int res = String2DBuilder_gradient0(array, x, y, width, height, 38, colors, percentages, 2, direction);
     
     free(colors);
     free(percentages);
@@ -1763,7 +1767,7 @@ int AnsiBuilder_gradientForeground(char*** array, int x, int y, int width, int h
     return res;
 }
 
-int AnsiBuilder_gradientBackground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_gradientBackground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
     
     int* colors = (int*) malloc(2 * sizeof(int));
@@ -1779,7 +1783,7 @@ int AnsiBuilder_gradientBackground(char*** array, int x, int y, int width, int h
     percentages[0] = 0.5;
     percentages[1] = 0.5;
 
-    int res = AnsiBuilder_gradient0(array, x, y, width, height, 48, colors, percentages, 2, direction);
+    int res = String2DBuilder_gradient0(array, x, y, width, height, 48, colors, percentages, 2, direction);
 
     free(colors);
     free(percentages);
@@ -1787,7 +1791,7 @@ int AnsiBuilder_gradientBackground(char*** array, int x, int y, int width, int h
     return res;
 }
 
-int AnsiBuilder_multiGradientForeground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientForeground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1798,14 +1802,14 @@ int AnsiBuilder_multiGradientForeground(char*** array, int x, int y, int width, 
     for (int i = 0; i < numColors; i++)
         percentages[i] = percent;
     
-    int res = AnsiBuilder_gradient0(array, x, y, width, height, 38, gradient, percentages, numColors, direction);
+    int res = String2DBuilder_gradient0(array, x, y, width, height, 38, gradient, percentages, numColors, direction);
 
     free(percentages);
 
     return res;
 }
 
-int AnsiBuilder_multiGradientBackground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientBackground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1816,28 +1820,28 @@ int AnsiBuilder_multiGradientBackground(char*** array, int x, int y, int width, 
     for (int i = 0; i < numColors; i++)
         percentages[i] = percent;
     
-    int res = AnsiBuilder_gradient0(array, x, y, width, height, 48, gradient, percentages, numColors, direction);
+    int res = String2DBuilder_gradient0(array, x, y, width, height, 48, gradient, percentages, numColors, direction);
 
     free(percentages);
 
     return res;
 }
 
-int AnsiBuilder_multiGradientsForeground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientsForeground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
-    return AnsiBuilder_gradient0(array, x, y, width, height, 38, gradient, percentages, numColors, direction);
+    return String2DBuilder_gradient0(array, x, y, width, height, 38, gradient, percentages, numColors, direction);
 }
 
-int AnsiBuilder_multiGradientsBackground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientsBackground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
-    return AnsiBuilder_gradient0(array, x, y, width, height, 48, gradient, percentages, numColors, direction);
+    return String2DBuilder_gradient0(array, x, y, width, height, 48, gradient, percentages, numColors, direction);
 }
 
-int AnsiBuilder_gradientForegroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_gradientForegroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
     int width = getAnsiArrayWidth(array);
@@ -1845,10 +1849,10 @@ int AnsiBuilder_gradientForegroundFull(char*** array, int start, int end, enum C
 
     if (width <= 0 || height <= 0) return -1;
 
-    return AnsiBuilder_gradientForeground(array, 0, 0, width, height, start, end, direction);
+    return String2DBuilder_gradientForeground(array, 0, 0, width, height, start, end, direction);
 }
 
-int AnsiBuilder_gradientBackgroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_gradientBackgroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
     int width = getAnsiArrayWidth(array);
@@ -1856,10 +1860,10 @@ int AnsiBuilder_gradientBackgroundFull(char*** array, int start, int end, enum C
 
     if (width <= 0 || height <= 0) return -1;
 
-    return AnsiBuilder_gradientBackground(array, 0, 0, width, height, start, end, direction);
+    return String2DBuilder_gradientBackground(array, 0, 0, width, height, start, end, direction);
 }
 
-int AnsiBuilder_multiGradientForegroundFull(char*** array, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientForegroundFull(char*** array, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
     int width = getAnsiArrayWidth(array);
@@ -1867,10 +1871,10 @@ int AnsiBuilder_multiGradientForegroundFull(char*** array, int numColors, int* g
 
     if (width <= 0 || height <= 0) return -1;
 
-    return AnsiBuilder_multiGradientForeground(array, 0, 0, width, height, numColors, gradient, direction);
+    return String2DBuilder_multiGradientForeground(array, 0, 0, width, height, numColors, gradient, direction);
 }
 
-int AnsiBuilder_multiGradientBackgroundFull(char*** array, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientBackgroundFull(char*** array, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
     int width = getAnsiArrayWidth(array);
@@ -1878,10 +1882,10 @@ int AnsiBuilder_multiGradientBackgroundFull(char*** array, int numColors, int* g
 
     if (width <= 0 || height <= 0) return -1;
 
-    return AnsiBuilder_multiGradientBackground(array, 0, 0, width, height, numColors, gradient, direction);
+    return String2DBuilder_multiGradientBackground(array, 0, 0, width, height, numColors, gradient, direction);
 }
 
-int AnsiBuilder_multiGradientsForegroundFull(char*** array, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientsForegroundFull(char*** array, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
     int width = getAnsiArrayWidth(array);
@@ -1889,7 +1893,7 @@ int AnsiBuilder_multiGradientsForegroundFull(char*** array, int numColors, int* 
 
     if (width <= 0 || height <= 0) return -1;
 
-    return AnsiBuilder_multiGradientsForeground(array, 0, 0, width, height, numColors, gradient, percentages, direction);
+    return String2DBuilder_multiGradientsForeground(array, 0, 0, width, height, numColors, gradient, percentages, direction);
 }
 
 #pragma endregion

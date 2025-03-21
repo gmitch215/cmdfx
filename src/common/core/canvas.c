@@ -41,7 +41,7 @@ void Canvas_setForeground(int rgb) {
     int b = rgb & 0xFF;
 
     char* ansi = malloc(22);
-    sprintf(ansi, "\033[38;2;%d;%d;%dm", r, g, b);
+    snprintf(ansi, 22, "\033[38;2;%d;%d;%dm", r, g, b);
 
     Canvas_setAnsiCurrent(ansi);
     free(ansi);
@@ -53,7 +53,7 @@ void Canvas_setBackground(int rgb) {
     int b = rgb & 0xFF;
 
     char* ansi = malloc(22);
-    sprintf(ansi, "\033[48;2;%d;%d;%dm", r, g, b);
+    snprintf(ansi, 22, "\033[48;2;%d;%d;%dm", r, g, b);
 
     Canvas_setAnsiCurrent(ansi);
     free(ansi);
@@ -63,7 +63,7 @@ void Canvas_setColor8(int color) {
     if (color < 30 || color > 107) return;
 
     char* ansi = malloc(9);
-    sprintf(ansi, "\033[%dm", color);
+    snprintf(ansi, 9, "\033[%dm", color);
 
     Canvas_setAnsiCurrent(ansi);
     free(ansi);
@@ -73,7 +73,7 @@ void Canvas_setForeground256(int color) {
     if (color < 0 || color > 255) return;
 
     char* ansi = malloc(14);
-    sprintf(ansi, "\033[38;5;%dm", color);
+    snprintf(ansi, 14, "\033[38;5;%dm", color);
 
     Canvas_setAnsiCurrent(ansi);
     free(ansi);
@@ -83,7 +83,7 @@ void Canvas_setBackground256(int color) {
     if (color < 0 || color > 255) return;
 
     char* ansi = malloc(14);
-    sprintf(ansi, "\033[48;5;%dm", color);
+    snprintf(ansi, 14, "\033[48;5;%dm", color);
 
     Canvas_setAnsiCurrent(ansi);
     free(ansi);

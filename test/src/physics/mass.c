@@ -9,8 +9,8 @@
 int main() {
     int r = 0;
 
-    char** data = CharBuilder_create(3, 3);
-    CharBuilder_fill(data, 'X');
+    char** data = Char2DBuilder_create(3, 3);
+    Char2DBuilder_fill(data, 'X');
     CmdFX_Sprite* sprite = Sprite_create(data, 0, 0);
     Sprite_draw(2, 2, sprite);
 

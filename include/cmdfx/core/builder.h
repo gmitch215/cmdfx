@@ -11,8 +11,6 @@
 
 #pragma once
 
-#include "cmdfx/core/sprites.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -60,7 +58,7 @@ char** createArrayCopy(char** array);
  * @param height The height of the array.
  * @return The 2D Character Array.
  */
-char** CharBuilder_create(int width, int height);
+char** Char2DBuilder_create(int width, int height);
 
 
 /**
@@ -80,7 +78,7 @@ char** CharBuilder_create(int width, int height);
  * @param c The character to fill the array with.
  * @return The 2D Character Array.
  */
-char** CharBuilder_createFilled(int width, int height, char c);
+char** Char2DBuilder_createFilled(int width, int height, char c);
 
 /**
  * @brief Sets a character in a 2D Character Array.
@@ -94,7 +92,7 @@ char** CharBuilder_createFilled(int width, int height, char c);
  * @param c The character to set.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_setChar(char** array, int x, int y, char c);
+int Char2DBuilder_setChar(char** array, int x, int y, char c);
 
 /**
  * @brief Draws a horizontal line in a 2D Character Array.
@@ -109,7 +107,7 @@ int CharBuilder_setChar(char** array, int x, int y, char c);
  * @param c The character to draw the line with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_hLine(char** array, int x, int y, int width, char c);
+int Char2DBuilder_hLine(char** array, int x, int y, int width, char c);
 
 /**
  * @brief Draws a vertical line in a 2D Character Array.
@@ -124,7 +122,7 @@ int CharBuilder_hLine(char** array, int x, int y, int width, char c);
  * @param c The character to draw the line with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_vLine(char** array, int x, int y, int height, char c);
+int Char2DBuilder_vLine(char** array, int x, int y, int height, char c);
 
 /**
  * @brief Draws a rectangle in a 2D Character Array.
@@ -140,7 +138,7 @@ int CharBuilder_vLine(char** array, int x, int y, int height, char c);
  * @param c The character to draw the rectangle with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_rect(char** array, int x, int y, int width, int height, char c);
+int Char2DBuilder_rect(char** array, int x, int y, int width, int height, char c);
 
 /**
  * @brief Fills a rectangle in a 2D Character Array.
@@ -152,7 +150,7 @@ int CharBuilder_rect(char** array, int x, int y, int width, int height, char c);
  * @param c The character to fill the rectangle with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_fillRect(char** array, int x, int y, int width, int height, char c);
+int Char2DBuilder_fillRect(char** array, int x, int y, int width, int height, char c);
 
 /**
  * @brief Fills the entire 2D Character Array.
@@ -160,7 +158,7 @@ int CharBuilder_fillRect(char** array, int x, int y, int width, int height, char
  * @param c The character to fill the array with.
  * @return 0 if successful, -1 if an error occured.
  */
-int CharBuilder_fill(char** array, char c);
+int Char2DBuilder_fill(char** array, char c);
 
 /**
  * @brief Draws a circle in a 2D Character Array.
@@ -171,7 +169,7 @@ int CharBuilder_fill(char** array, char c);
  * @param c The character to draw the circle with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_circle(char** array, int x, int y, int radius, char c);
+int Char2DBuilder_circle(char** array, int x, int y, int radius, char c);
 
 /**
  * @brief Fills a circle in a 2D Character Array.
@@ -182,7 +180,7 @@ int CharBuilder_circle(char** array, int x, int y, int radius, char c);
  * @param c The character to fill the circle with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_fillCircle(char** array, int x, int y, int radius, char c);
+int Char2DBuilder_fillCircle(char** array, int x, int y, int radius, char c);
 
 /**
  * @brief Draws an ellipse in a 2D Character Array.
@@ -194,7 +192,7 @@ int CharBuilder_fillCircle(char** array, int x, int y, int radius, char c);
  * @param c The character to draw the ellipse with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, char c);
+int Char2DBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, char c);
 
 /**
  * @brief Fills an ellipse in a 2D Character Array.
@@ -206,7 +204,7 @@ int CharBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, ch
  * @param c The character to fill the ellipse with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradius, char c);
+int Char2DBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradius, char c);
 
 /**
  * @brief Draws a line in a 2D Character Array.
@@ -218,7 +216,7 @@ int CharBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradius
  * @param c The character to draw the line with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_line(char** array, int x1, int y1, int x2, int y2, char c);
+int Char2DBuilder_line(char** array, int x1, int y1, int x2, int y2, char c);
 
 /**
  * @brief Draws a polygon in a 2D Character Array.
@@ -235,7 +233,7 @@ int CharBuilder_line(char** array, int x1, int y1, int x2, int y2, char c);
  * @param c The character to draw the polygon with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_polygon(char** array, int x, int y, int sides, int radius, char c);
+int Char2DBuilder_polygon(char** array, int x, int y, int sides, int radius, char c);
 
 /**
  * @brief Fills a polygon in a 2D Character Array.
@@ -252,7 +250,7 @@ int CharBuilder_polygon(char** array, int x, int y, int sides, int radius, char 
  * @param c The character to fill the polygon with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, char c);
+int Char2DBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, char c);
 
 /**
  * @brief Writes text in a 2D Character Array.
@@ -267,7 +265,7 @@ int CharBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, c
  * @param text The text to draw.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_text(char** array, int x, int y, char* text);
+int Char2DBuilder_text(char** array, int x, int y, char* text);
 
 // Utility Functions - Sizing
 
@@ -284,7 +282,7 @@ int CharBuilder_text(char** array, int x, int y, char* text);
  * @param height The new height.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_resize(char** array, int width, int height);
+int Char2DBuilder_resize(char** array, int width, int height);
 
 /**
  * @brief Resizes a 2D Character Array to a specific width and height with padding.
@@ -300,7 +298,7 @@ int CharBuilder_resize(char** array, int width, int height);
  * @param padding The padding character.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_resizeWithPadding(char** array, int width, int height, char padding);
+int Char2DBuilder_resizeWithPadding(char** array, int width, int height, char padding);
 
 /**
  * @brief Centers a 2D Character Array.
@@ -312,7 +310,7 @@ int CharBuilder_resizeWithPadding(char** array, int width, int height, char padd
  * @param array The 2D Character Array.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_center(char** array);
+int Char2DBuilder_center(char** array);
 
 /**
  * @brief Resizes and centers a 2D Character Array.
@@ -327,7 +325,7 @@ int CharBuilder_center(char** array);
  * @param height The new height.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_resizeAndCenter(char** array, int width, int height);
+int Char2DBuilder_resizeAndCenter(char** array, int width, int height);
 
 // Utility Functions - Transformation
 
@@ -341,7 +339,7 @@ int CharBuilder_resizeAndCenter(char** array, int width, int height);
  * @param radians The number of radians to rotate.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_rotate(char** array, double radians);
+int Char2DBuilder_rotate(char** array, double radians);
 
 /**
  * @brief Gets the rotation angle of a 2D Character Array.
@@ -354,7 +352,7 @@ int CharBuilder_rotate(char** array, double radians);
  * @param array The 2D Character Array.
  * @return The rotation angle of the 2D Character Array in radians.
  */
-double CharBuilder_getRotationAngle(char** array);
+double Char2DBuilder_getRotationAngle(char** array);
 
 /**
  * @brief Flips a 2D Character Array horizontally.
@@ -362,7 +360,7 @@ double CharBuilder_getRotationAngle(char** array);
  * @param array The 2D Character Array.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_hFlip(char** array);
+int Char2DBuilder_hFlip(char** array);
 
 /**
  * @brief Flips a 2D Character Array vertically.
@@ -370,7 +368,7 @@ int CharBuilder_hFlip(char** array);
  * @param array The 2D Character Array.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_vFlip(char** array);
+int Char2DBuilder_vFlip(char** array);
 
 /**
  * @brief Transposes a 2D Character Array.
@@ -382,7 +380,7 @@ int CharBuilder_vFlip(char** array);
  * @param array The 2D Character Array.
  * @return The transposed 2D Character Array.
  */
-char** CharBuilder_transpose(char** array);
+char** Char2DBuilder_transpose(char** array);
 
 /**
  * @brief Replaces all instances of a character in a 2D Character Array.
@@ -392,7 +390,7 @@ char** CharBuilder_transpose(char** array);
  * @param replace The character to replace the found character with.
  * @return The number of characters replaced, 0 if none, or -1 if an error occurred.
  */
-int CharBuilder_replaceAll(char** array, char find, char replace);
+int Char2DBuilder_replaceAll(char** array, char find, char replace);
 
 /**
  * @brief Scales a 2D Character Array.
@@ -406,9 +404,51 @@ int CharBuilder_replaceAll(char** array, char find, char replace);
  * @param scale The factor to scale the 2D Character Array by.
  * @return 0 if successful, -1 if an error occurred.
  */
-char** CharBuilder_scale(char** array, double scale);
+char** Char2DBuilder_scale(char** array, double scale);
 
 // Utility Functions - Gradient
+
+/**
+ * @brief Represents a color gradient that can be applied .
+ * 
+ * A color gradient is a smooth transition between two or more colors. 
+ * The gradient can be applied to the foreground or background, and 
+ * can be applied in different directions.
+ */
+enum CmdFX_GradientDirection {
+    /**
+     * @brief A horizontal gradient.
+     */
+    GRADIENT_HORIZONTAL,
+    /**
+     * @brief A horizontal gradient in reverse.
+     */
+    GRADIENT_HORIZONTAL_REVERSE,
+    /**
+     * @brief A vertical gradient.
+     */
+    GRADIENT_VERTICAL,
+    /**
+     * @brief A vertical gradient in reverse.
+     */
+    GRADIENT_VERTICAL_REVERSE,
+    /**
+     * @brief A 45-degree gradient.
+     */
+    GRADIENT_ANGLE_45,
+    /**
+     * @brief A 135-degree gradient.
+     */
+    GRADIENT_ANGLE_135,
+    /**
+     * @brief A radial gradient.
+     */
+    GRADIENT_RADIAL,
+    /**
+     * @brief A conical gradient.
+     */
+    GRADIENT_CONICAL
+};
 
 /**
  * @brief Creates a gradient in a 2D Character Array.
@@ -430,7 +470,7 @@ char** CharBuilder_scale(char** array, double scale);
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_gradient(char** array, int x, int y, int width, int height, char start, char end, enum CmdFX_GradientDirection direction);
+int Char2DBuilder_gradient(char** array, int x, int y, int width, int height, char start, char end, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Creates a multi-gradient in a 2D Character Array.
@@ -452,7 +492,7 @@ int CharBuilder_gradient(char** array, int x, int y, int width, int height, char
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_multiGradient(char** array, int x, int y, int width, int height, int numChars, char* gradient, enum CmdFX_GradientDirection direction);
+int Char2DBuilder_multiGradient(char** array, int x, int y, int width, int height, int numChars, char* gradient, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Creates a multi-gradient in a 2D Character Array with percentages.
@@ -475,7 +515,7 @@ int CharBuilder_multiGradient(char** array, int x, int y, int width, int height,
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_multiGradients(char** array, int x, int y, int width, int height, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction);
+int Char2DBuilder_multiGradients(char** array, int x, int y, int width, int height, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Creates a full gradient in a 2D Character Array.
@@ -492,7 +532,7 @@ int CharBuilder_multiGradients(char** array, int x, int y, int width, int height
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_gradientFull(char** array, char start, char end, enum CmdFX_GradientDirection direction);
+int Char2DBuilder_gradientFull(char** array, char start, char end, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Creates a multi-gradient in a 2D Character Array.
@@ -510,7 +550,7 @@ int CharBuilder_gradientFull(char** array, char start, char end, enum CmdFX_Grad
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_multiGradientFull(char** array, int numChars, char* gradient, enum CmdFX_GradientDirection direction);
+int Char2DBuilder_multiGradientFull(char** array, int numChars, char* gradient, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Creates a multi-gradient in a 2D Character Array with percentages.
@@ -529,7 +569,7 @@ int CharBuilder_multiGradientFull(char** array, int numChars, char* gradient, en
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CharBuilder_multiGradientsFull(char** array, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction);
+int Char2DBuilder_multiGradientsFull(char** array, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction);
 
 #pragma endregion
 
@@ -573,7 +613,7 @@ char*** createAnsiArrayCopy(char*** array);
  * @param height The height of the array.
  * @return The 2D String Array.
  */
-char*** AnsiBuilder_create(int width, int height);
+char*** String2DBuilder_create(int width, int height);
 
 /**
  * @brief Creates a 2D String Array with a specific width and height, filled with a specific string.
@@ -589,7 +629,7 @@ char*** AnsiBuilder_create(int width, int height);
  * @param c The string to fill the array with.
  * @return The 2D String Array.
  */
-char*** AnsiBuilder_createFilled(int width, int height, char* c);
+char*** String2DBuilder_createFilled(int width, int height, char* c);
 
 /**
  * @brief Sets an ANSI code in a 2D String Array.
@@ -612,7 +652,7 @@ char*** AnsiBuilder_createFilled(int width, int height, char* c);
  * @param c The ANSI code to set.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_setAnsi(char*** array, int x, int y, char* c);
+int String2DBuilder_setAnsi(char*** array, int x, int y, char* c);
 
 /**
  * @brief Draws a horizontal line in a 2D String Array.
@@ -627,7 +667,7 @@ int AnsiBuilder_setAnsi(char*** array, int x, int y, char* c);
  * @param c The ANSI code to draw the line with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_hLine(char*** array, int x, int y, int width, char* c);
+int String2DBuilder_hLine(char*** array, int x, int y, int width, char* c);
 
 /**
  * @brief Draws a vertical line in a 2D String Array.
@@ -642,7 +682,7 @@ int AnsiBuilder_hLine(char*** array, int x, int y, int width, char* c);
  * @param c The ANSI to draw the line with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_vLine(char*** array, int x, int y, int height, char* c);
+int String2DBuilder_vLine(char*** array, int x, int y, int height, char* c);
 
 /**
  * @brief Draws a rectangle in a 2D String Array.
@@ -658,7 +698,7 @@ int AnsiBuilder_vLine(char*** array, int x, int y, int height, char* c);
  * @param c The ANSI code to draw the rectangle with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_rect(char*** array, int x, int y, int width, int height, char* c);
+int String2DBuilder_rect(char*** array, int x, int y, int width, int height, char* c);
 
 /**
  * @brief Fills a rectangle in a 2D String Array.
@@ -674,7 +714,7 @@ int AnsiBuilder_rect(char*** array, int x, int y, int width, int height, char* c
  * @param c The ANSI code to fill the rectangle with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_fillRect(char*** array, int x, int y, int width, int height, char* c);
+int String2DBuilder_fillRect(char*** array, int x, int y, int width, int height, char* c);
 
 
 /**
@@ -687,7 +727,7 @@ int AnsiBuilder_fillRect(char*** array, int x, int y, int width, int height, cha
  * @param c The ANSI code to fill the array with.
  * @return 0 if successful, -1 if an error occured.
  */
-int AnsiBuilder_fill(char*** array, char* c);
+int String2DBuilder_fill(char*** array, char* c);
 
 /**
  * @brief Draws a circle in a 2D String Array.
@@ -702,7 +742,7 @@ int AnsiBuilder_fill(char*** array, char* c);
  * @param c The ANSI code to draw the circle with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_circle(char*** array, int x, int y, int radius, char* c);
+int String2DBuilder_circle(char*** array, int x, int y, int radius, char* c);
 
 /**
  * @brief Fills a circle in a 2D String Array.
@@ -717,7 +757,7 @@ int AnsiBuilder_circle(char*** array, int x, int y, int radius, char* c);
  * @param c The ANSI code to fill the circle with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_fillCircle(char*** array, int x, int y, int radius, char* c);
+int String2DBuilder_fillCircle(char*** array, int x, int y, int radius, char* c);
 
 /**
  * @brief Draws an ellipse in a 2D String Array.
@@ -733,7 +773,7 @@ int AnsiBuilder_fillCircle(char*** array, int x, int y, int radius, char* c);
  * @param c The ANSI code to draw the ellipse with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, char* c);
+int String2DBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, char* c);
 
 /**
  * @brief Fills an ellipse in a 2D String Array.
@@ -749,7 +789,7 @@ int AnsiBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, c
  * @param c The ANSI code to fill the ellipse with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradius, char* c);
+int String2DBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradius, char* c);
 
 /**
  * @brief Draws a line in a 2D String Array.
@@ -765,7 +805,7 @@ int AnsiBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradiu
  * @param c The ANSI code to draw the line with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c);
+int String2DBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c);
 
 /**
  * @brief Draws a polygon in a 2D String Array.
@@ -785,7 +825,7 @@ int AnsiBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c);
  * @param c The ANSI code to draw the polygon with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_polygon(char*** array, int x, int y, int sides, int radius, char* c);
+int String2DBuilder_polygon(char*** array, int x, int y, int sides, int radius, char* c);
 
 /**
  * @brief Fills a polygon in a 2D String Array.
@@ -805,7 +845,7 @@ int AnsiBuilder_polygon(char*** array, int x, int y, int sides, int radius, char
  * @param c The ANSI code to fill the polygon with.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, char* c);
+int String2DBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, char* c);
 
 // Utility Functions - Transformation (ANSI)
 
@@ -819,7 +859,7 @@ int AnsiBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, 
  * @param radians The number of radians to rotate.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_rotate(char*** array, double radians);
+int String2DBuilder_rotate(char*** array, double radians);
 
 /**
  * @brief Flips a 2D String Array horizontally.
@@ -827,7 +867,7 @@ int AnsiBuilder_rotate(char*** array, double radians);
  * @param array The 2D String Array.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_hFlip(char*** array);
+int String2DBuilder_hFlip(char*** array);
 
 /**
  * @brief Flips a 2D String Array vertically.
@@ -835,7 +875,7 @@ int AnsiBuilder_hFlip(char*** array);
  * @param array The 2D String Array.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_vFlip(char*** array);
+int String2DBuilder_vFlip(char*** array);
 
 /**
  * @brief Transposes a 2D String Array.
@@ -847,7 +887,7 @@ int AnsiBuilder_vFlip(char*** array);
  * @param array The 2D String Array.
  * @return The transposed 2D String Array.
  */
-char*** AnsiBuilder_transpose(char*** array);
+char*** String2DBuilder_transpose(char*** array);
 
 /**
  * @brief Replaces all instances of an ANSI code in a 2D String Array.
@@ -857,7 +897,7 @@ char*** AnsiBuilder_transpose(char*** array);
  * @param replace The ANSI code to replace the found ANSI code with.
  * @return The number of ANSI codes replaced, 0 if none, or -1 if an error occurred.
  */
-int AnsiBuilder_replaceAll(char*** array, char* find, char* replace);
+int String2DBuilder_replaceAll(char*** array, char* find, char* replace);
 
 /**
  * @brief Scales a 2D String Array.
@@ -871,7 +911,7 @@ int AnsiBuilder_replaceAll(char*** array, char* find, char* replace);
  * @param scale The factor to scale the 2D String Array by.
  * @return 0 if successful, -1 if an error occurred.
  */
-char*** AnsiBuilder_scale(char*** array, double scale);
+char*** String2DBuilder_scale(char*** array, double scale);
 
 // Utility Functions - Gradients (ANSI)
 
@@ -894,7 +934,7 @@ char*** AnsiBuilder_scale(char*** array, double scale);
  * @param direction 
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_gradientForeground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction);
+int String2DBuilder_gradientForeground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Sets a background gradient in a 2D String Array.
@@ -915,7 +955,7 @@ int AnsiBuilder_gradientForeground(char*** array, int x, int y, int width, int h
  * @param direction 
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_gradientBackground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction);
+int String2DBuilder_gradientBackground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Sets a foreground gradient in a 2D String Array.
@@ -937,7 +977,7 @@ int AnsiBuilder_gradientBackground(char*** array, int x, int y, int width, int h
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_multiGradientForeground(char*** array, int x, int y, int width, int height, int numColors, int* colors, enum CmdFX_GradientDirection direction);
+int String2DBuilder_multiGradientForeground(char*** array, int x, int y, int width, int height, int numColors, int* colors, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Sets a background gradient in a 2D String Array.
@@ -959,7 +999,7 @@ int AnsiBuilder_multiGradientForeground(char*** array, int x, int y, int width, 
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_multiGradientBackground(char*** array, int x, int y, int width, int height, int numColors, int* colors, enum CmdFX_GradientDirection direction);
+int String2DBuilder_multiGradientBackground(char*** array, int x, int y, int width, int height, int numColors, int* colors, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Sets a foreground gradient in a 2D String Array.
@@ -982,7 +1022,7 @@ int AnsiBuilder_multiGradientBackground(char*** array, int x, int y, int width, 
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_multiGradientsForeground(char*** array, int x, int y, int width, int height, int numColors, int* colors, double* percentages, enum CmdFX_GradientDirection direction);
+int String2DBuilder_multiGradientsForeground(char*** array, int x, int y, int width, int height, int numColors, int* colors, double* percentages, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Sets a background gradient in a 2D String Array.
@@ -1005,7 +1045,7 @@ int AnsiBuilder_multiGradientsForeground(char*** array, int x, int y, int width,
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_multiGradientsBackground(char*** array, int x, int y, int width, int height, int numColors, int* colors, double* percentages, enum CmdFX_GradientDirection direction);
+int String2DBuilder_multiGradientsBackground(char*** array, int x, int y, int width, int height, int numColors, int* colors, double* percentages, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Sets a background gradient in a 2D String Array.
@@ -1023,7 +1063,7 @@ int AnsiBuilder_multiGradientsBackground(char*** array, int x, int y, int width,
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_gradientForegroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction);
+int String2DBuilder_gradientForegroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Sets a background gradient in a 2D String Array.
@@ -1041,7 +1081,7 @@ int AnsiBuilder_gradientForegroundFull(char*** array, int start, int end, enum C
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_gradientBackgroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction);
+int String2DBuilder_gradientBackgroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Sets a foreground gradient in a 2D String Array.
@@ -1059,7 +1099,7 @@ int AnsiBuilder_gradientBackgroundFull(char*** array, int start, int end, enum C
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_multiGradientForegroundFull(char*** array, int numColors, int* colors, enum CmdFX_GradientDirection direction);
+int String2DBuilder_multiGradientForegroundFull(char*** array, int numColors, int* colors, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Sets a background gradient in a 2D String Array.
@@ -1077,7 +1117,7 @@ int AnsiBuilder_multiGradientForegroundFull(char*** array, int numColors, int* c
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_multiGradientBackgroundFull(char*** array, int numColors, int* colors, enum CmdFX_GradientDirection direction);
+int String2DBuilder_multiGradientBackgroundFull(char*** array, int numColors, int* colors, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Sets a foreground gradient in a 2D String Array.
@@ -1096,7 +1136,7 @@ int AnsiBuilder_multiGradientBackgroundFull(char*** array, int numColors, int* c
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_multiGradientsForegroundFull(char*** array, int numColors, int* colors, double* percentages, enum CmdFX_GradientDirection direction);
+int String2DBuilder_multiGradientsForegroundFull(char*** array, int numColors, int* colors, double* percentages, enum CmdFX_GradientDirection direction);
 
 /**
  * @brief Sets a background gradient in a 2D String Array.
@@ -1115,7 +1155,7 @@ int AnsiBuilder_multiGradientsForegroundFull(char*** array, int numColors, int* 
  * @param direction The direction of the gradient.
  * @return 0 if successful, -1 if an error occurred.
  */
-int AnsiBuilder_multiGradientsBackgroundFull(char*** array, int numColors, int* colors, double* percentages, enum CmdFX_GradientDirection direction);
+int String2DBuilder_multiGradientsBackgroundFull(char*** array, int numColors, int* colors, double* percentages, enum CmdFX_GradientDirection direction);
 
 #pragma endregion
 

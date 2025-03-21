@@ -9,7 +9,7 @@
 int main() {
     int r = 0;
 
-    char** data = CharBuilder_createFilled(3, 3, '#');
+    char** data = Char2DBuilder_createFilled(3, 3, '#');
     CmdFX_Sprite* sprite = Sprite_create(data, 0, 0);
     Sprite_draw(2, 2, sprite);
 

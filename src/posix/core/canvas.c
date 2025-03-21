@@ -76,12 +76,6 @@ int Canvas_getCursorY() {
 }
 
 void Canvas_setCursor(int x, int y) {
-    int width = Canvas_getWidth();
-    int height = Canvas_getHeight();
-
-    if (x < 0 || x > width) return;
-    if (y < 0 || y > height) return;
-
     printf("\033[%d;%dH", y, x);
 }
 

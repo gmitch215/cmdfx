@@ -39,7 +39,7 @@ int main() {
     r |= assert(Engine_getDefaultFrictionCoefficient() == 0.25);
 
     // Engine Tick
-    char** data = CharBuilder_createFilled(5, 5, '@');
+    char** data = Char2DBuilder_createFilled(5, 5, '@');
     CmdFX_Sprite* square = Sprite_create(data, 0, 0);
     Sprite_draw(1, 10, square);
 
