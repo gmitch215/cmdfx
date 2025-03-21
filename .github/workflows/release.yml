@@ -48,6 +48,10 @@ jobs:
           key: ${{ runner.os }}-${{ runner.arch }}-konan
           restore-keys: |
             ${{ runner.os }}-${{ runner.arch }}-konan
+      - name: Setup Maven Settings
+        uses: s4u/maven-settings-action@v3.1.0
+        with:
+          servers: '[{"id": "calcugames", "username": "${{ secrets.MAVEN_USERNAME_CALCUGAMES }}", "password": "${{ secrets.MAVEN_PASSWORD_CALCUGAMES }}"}]'
       - name: Install Doxygen
         uses: ssciwr/doxygen-install@v1
       - name: Set Artifact ID
@@ -72,7 +76,7 @@ jobs:
           sudo cmake --build .
           sudo cmake --build . --config Release --target docs klib
           sudo cmake .
-          sudo cmake --build . --config Release --target install package
+          sudo cmake --build . --config Release --target install package deploy-maven
           sudo rm -rf build/package/_CPack_Packages/
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
@@ -83,7 +87,7 @@ jobs:
           cmake --build .
           cmake --build . --config Release --target docs klib
           cmake .
-          cmake --build . --config Release --target install package
+          cmake --build . --config Release --target install package deploy-maven
           rm .\build\package\_CPack_Packages\ -R -Force
       - name: Archive Package Artifacts
         if: success() || failure()

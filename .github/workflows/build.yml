@@ -116,3 +116,70 @@ jobs:
         run: make docs
       - name: Deploy Doxygen
         run: bash doxygen.sh ${GITHUB_SHA::7}
+  
+  publish:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: 
+          - ubuntu-24.04
+          - windows-2022
+          - macos-13
+          - macos-15
+    
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+      - name: Setup Maven Settings
+        uses: s4u/maven-settings-action@v3.1.0
+        with:
+          servers: '[{"id": "calcugames", "username": "${{ secrets.MAVEN_USERNAME_CALCUGAMES }}", "password": "${{ secrets.MAVEN_PASSWORD_CALCUGAMES }}"}]'
+      - name: Install Kotlin
+        if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
+        uses: fwilhe2/setup-kotlin@main
+        with:
+          version: '2.1.10'
+          install-native: true
+      - name: Setup Konan
+        if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.konan/caches
+            ~/.konan/dependencies
+            ~/.konan/kotlin-native-prebuilt-*
+            /root/.konan/caches
+            /root/.konan/dependencies
+            /root/.konan/kotlin-native-prebuilt-*
+          key: ${{ runner.os }}-${{ runner.arch }}-konan
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-konan
+      - name: Set Artifact ID
+        id: set_artifact_id
+        run: |
+          RUNNER_OS=$(echo ${{ runner.os }} | tr '[:upper:]' '[:lower:]')
+          RUNNER_ARCH=$(echo ${{ runner.arch }} | tr '[:upper:]' '[:lower:]')
+          echo "KN_INSTALL_ARTIFACTID=cmdfx-$RUNNER_OS-$RUNNER_ARCH" >> $GITHUB_ENV
+        shell: bash
+      - name: Link CInterop Command
+        if: ${{ matrix.os == 'ubuntu-24.04' }}
+        run: |
+          sudo ln -s $KOTLIN_NATIVE_HOME/bin/cinterop /usr/local/bin/cinterop
+          sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
+          sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
+      - name: Configure Project
+        run: cmake . -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}"
+        shell: bash
+      - name: Publish Kotlin/Native Library (Posix)
+        if: ${{ matrix.os != 'windows-2022' }}
+        run: |
+          sudo cmake --build . --config Debug
+          sudo cmake --build . --config Debug --target klib deploy-maven
+      - name: Publish Kotlin/Native Library (Windows)
+        if: ${{ matrix.os == 'windows-2022' }}
+        run: |
+          cmake --build . --config Debug
+          cmake --build . --config Debug --target klib deploy-maven
+          
