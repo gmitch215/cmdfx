@@ -389,6 +389,134 @@ int beginCmdFXSceneEngine();
  */
 int endCmdFXSceneEngine();
 
+// Scene Data Manipulation
+
+/**
+ * @brief Sets the data of the scene.
+ * 
+ * This function sets the data of the scene to the specified 2D array of characters. The
+ * width and height of the scene will be set to the width and height of the 2D array. The
+ * data field will be resized to match the new size. If an error occurs, the function will
+ * return `-1`.
+ * 
+ * The scene will be redrawn if it is currently drawn.
+ * 
+ * @param scene The scene to modify.
+ * @param data The 2D array of characters to set.
+ * @return `0` if the scene data was set, or `-1` if an error occurred.
+ */
+int Scene_setData(CmdFX_Scene* scene, char** data);
+
+/**
+ * @brief Sets the character at the specified position in the scene.
+ * 
+ * This function sets the character at the specified position in the scene. The 
+ * position is specified by the X and Y coordinates, where (0, 0) is the top-left 
+ * corner of the scene. If the position is out of bounds, the function will return 
+ * `-1`.
+ * 
+ * If the scene has no data, this function will return `-1`.
+ * 
+ * This function will also redraw the character if the scene is currently drawn.
+ * 
+ * @param scene The scene to modify.
+ * @param x The X position in the scene.
+ * @param y The Y position in the scene.
+ * @param c The character to set.
+ * @return `0` if the character was set, or `-1` if the position is out of bounds.
+ */
+int Scene_setChar(CmdFX_Scene* scene, int x, int y, char c);
+
+/**
+ * @brief Sets the ANSI data of the scene.
+ * 
+ * This function sets the ANSI data to the current ANSI data of the scene. The 
+ * width and height of the scene must match the width and height of the 2D array. 
+ * The ANSI data field will be resized to match the new size. If an error occurs, 
+ * the function will return `-1`.
+ * 
+ * The scene will be redrawn if it is currently drawn.
+ * 
+ * @param scene The scene to modify.
+ * @param ansiData The 2D array of ANSI strings to set.
+ * @return `0` if the scene data was set, or `-1` if an error occurred.
+ */
+int Scene_setAnsiData(CmdFX_Scene* scene, char*** ansiData);
+
+/**
+ * @brief Appends the ANSi data to the current ansi data, setting it if it is not currently set.
+ * 
+ * This function appends the ANSI data to the current ANSI data of the scene. The 
+ * width and height of the scene must match the width and height of the 2D array. 
+ * The ANSI data field will be resized to match the new size. If an error occurs, 
+ * the function will return `-1`.
+ * 
+ * The scene will be redrawn if it is currently drawn.
+ * 
+ * @param scene The scene to modify.
+ * @param ansiData The 2D array of ANSI strings to append.
+ * @return `0` if the scene data was set, or `-1` if an error occurred.
+ */
+int Scene_appendAnsiData(CmdFX_Scene* scene, char*** ansiData);
+
+/**
+ * @brief Fills the foreground of the scene with the specified RGB color.
+ * 
+ * This function fills the foreground of the scene with the specified RGB color. The
+ * position is specified by the X and Y coordinates, where (0, 0) is the top-left
+ * corner of the scene. If the position is out of bounds, the function will return `-1`.
+ * 
+ * @param scene The scene to modify.
+ * @param x The top-left X position in the scene.
+ * @param y The top-left Y position in the scene.
+ * @param width The width of the fill.
+ * @param height The height of the fill.
+ * @param rgb The RGB color to set.
+ * @return `0` if the fill was successful, or `-1` if an error occurred.
+ */
+int Scene_setForeground(CmdFX_Scene* scene, int x, int y, int width, int height, int rgb);
+
+/**
+ * @brief Fills the entirety of the foreground of the scene with the specified RGB color.
+ * 
+ * This function fills the entirety of the foreground of the scene with the specified RGB
+ * color. If an error occurs, the function will return `-1`.
+ * 
+ * @param scene The scene to modify.
+ * @param rgb The RGB color to set.
+ * @return `0` if the fill was successful, or `-1` if an error occurred.
+ */
+int Scene_setForegroundAll(CmdFX_Scene* scene, int rgb);
+
+/**
+ * @brief Fills the background of the scene with the specified RGB color.
+ * 
+ * This function fills the background of the scene with the specified RGB color. The
+ * position is specified by the X and Y coordinates, where (0, 0) is the top-left
+ * corner of the scene. If the position is out of bounds, the function will return `-1`.
+ * 
+ * @param scene The scene to modify.
+ * @param x The top-left X position in the scene.
+ * @param y The top-left Y position in the scene.
+ * @param width The width of the fill.
+ * @param height The height of the fill.
+ * @param rgb The RGB color to set.
+ * @return `0` if the fill was successful, or `-1` if an error occurred.
+ */
+int Scene_setBackground(CmdFX_Scene* scene, int x, int y, int width, int height, int rgb);
+
+/**
+ * @brief Fills the entirety of the background of the scene with the specified RGB color.
+ * 
+ * This function fills the entirety of the background of the scene with the specified RGB
+ * color. If an error occurs, the function will return `-1`.
+ * 
+ * @param scene The scene to modify.
+ * @param rgb The RGB color to set.
+ * @return `0` if the fill was successful, or `-1` if an error occurred.
+ */
+int Scene_setBackgroundAll(CmdFX_Scene* scene, int rgb);
+
 #ifdef __cplusplus
 }
 #endif

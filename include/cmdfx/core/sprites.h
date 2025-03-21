@@ -11,6 +11,8 @@
 
 #pragma once
 
+#include "cmdfx/core/builder.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -631,48 +633,6 @@ int Sprite_setBackgroundAll(CmdFX_Sprite* sprite, int rgb);
 int Sprite_setBackgroundAll256(CmdFX_Sprite* sprite, int color);
 
 // Utility Methods - Color Gradient
-
-/**
- * @brief Represents a color gradient that can be applied to a sprite.
- * 
- * A color gradient is a smooth transition between two or more colors. The
- * gradient can be applied to the foreground or background of a sprite, and
- * can be applied in different directions.
- */
-enum CmdFX_GradientDirection {
-    /**
-     * @brief A horizontal gradient.
-     */
-    GRADIENT_HORIZONTAL,
-    /**
-     * @brief A horizontal gradient in reverse.
-     */
-    GRADIENT_HORIZONTAL_REVERSE,
-    /**
-     * @brief A vertical gradient.
-     */
-    GRADIENT_VERTICAL,
-    /**
-     * @brief A vertical gradient in reverse.
-     */
-    GRADIENT_VERTICAL_REVERSE,
-    /**
-     * @brief A 45-degree gradient.
-     */
-    GRADIENT_ANGLE_45,
-    /**
-     * @brief A 135-degree gradient.
-     */
-    GRADIENT_ANGLE_135,
-    /**
-     * @brief A radial gradient.
-     */
-    GRADIENT_RADIAL,
-    /**
-     * @brief A conical gradient.
-     */
-    GRADIENT_CONICAL
-};
 
 /**
  * @brief Sets a foreground gradient using RGB colors for a specified section of the sprite.
