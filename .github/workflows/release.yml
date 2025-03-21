@@ -76,7 +76,7 @@ jobs:
           sudo cmake --build .
           sudo cmake --build . --config Release --target docs klib
           sudo cmake .
-          sudo cmake --build . --config Release --target install package deploy-maven
+          sudo cmake --build . --config Release --target install package
           sudo rm -rf build/package/_CPack_Packages/
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
@@ -87,8 +87,10 @@ jobs:
           cmake --build .
           cmake --build . --config Release --target docs klib
           cmake .
-          cmake --build . --config Release --target install package deploy-maven
+          cmake --build . --config Release --target install package
           rm .\build\package\_CPack_Packages\ -R -Force
+      - name: Publish Kotlin/Native Library
+        run: cmake --build . --config Release --target deploy-maven
       - name: Archive Package Artifacts
         if: success() || failure()
         uses: actions/upload-artifact@v4
