@@ -21,7 +21,6 @@ jobs:
           - macos-15
 
     runs-on: ${{ matrix.os }}
-    if: ${{ github.event_name != 'pull_request' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -130,6 +129,7 @@ jobs:
     
     needs: build
     runs-on: ${{ matrix.os }}
+    if: ${{ github.event_name != 'pull_request' }}
     steps:
       - uses: actions/checkout@v4
         with:
