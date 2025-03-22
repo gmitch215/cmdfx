@@ -56,23 +56,23 @@ jobs:
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
       - name: Configure Project
-        run: cmake . -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7}
+        run: cmake -B build -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7}
         shell: bash
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
-          sudo cmake --build . --config Debug
-          sudo cmake --build . --config Debug --target klib
-          sudo cmake --build . --config Debug --target install package
+          sudo cmake --build build --config Debug
+          sudo cmake --build build --config Debug --target klib
+          sudo cmake --build build --config Debug --target install package
           sudo rm -rf build/package/_CPack_Packages/
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
           dotnet tool install --global wix --version 5.0.2
           wix extension add --global WixToolset.UI.wixext/5.0.2
-          cmake --build . --config Debug
-          cmake --build . --config Debug --target klib
-          cmake --build . --config Debug --target install package
+          cmake --build build --config Debug
+          cmake --build build --config Debug --target klib
+          cmake --build build --config Debug --target install package
           Get-ChildItem -Path build/package/_CPack_Packages -Recurse | Remove-Item -Recurse -Force
       - name: Archive Package Artifacts
         if: success() || failure()
@@ -111,7 +111,7 @@ jobs:
       - name: Install Doxygen
         uses: ssciwr/doxygen-install@v1
       - name: Configure Project
-        run: cmake .
+        run: cmake -B build
       - name: Build Docs
         run: make docs
       - name: Deploy Doxygen
@@ -172,9 +172,9 @@ jobs:
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
       - name: Configure Project
-        run: cmake . -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}"
+        run: cmake -B build -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}"
         shell: bash
       - name: Publish Kotlin/Native Library
         run: |
-          cmake --build . --config Debug
-          cmake --build . --config Debug --target klib deploy-maven
+          cmake --build build --config Debug
+          cmake --build build --config Debug --target klib deploy-maven

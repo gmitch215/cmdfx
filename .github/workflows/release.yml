@@ -72,25 +72,25 @@ jobs:
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
-          sudo cmake . -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib"
-          sudo cmake --build .
-          sudo cmake --build . --config Release --target docs klib
-          sudo cmake .
-          sudo cmake --build . --config Release --target install package
+          sudo cmake -B build -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib"
+          sudo cmake --build build
+          sudo cmake --build build --config Release --target docs klib
+          sudo cmake -B build
+          sudo cmake --build build --config Release --target install package
           sudo rm -rf build/package/_CPack_Packages/
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
           dotnet tool install --global wix --version 5.0.2
           wix extension add --global WixToolset.UI.wixext/5.0.2
-          cmake . -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib"
-          cmake --build .
-          cmake --build . --config Release --target docs klib
-          cmake .
-          cmake --build . --config Release --target install package
+          cmake -B build -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib"
+          cmake --build build
+          cmake --build build --config Release --target docs klib
+          cmake -B build
+          cmake --build build --config Release --target install package
           rm .\build\package\_CPack_Packages\ -R -Force
       - name: Publish Kotlin/Native Library
-        run: cmake --build . --config Release --target deploy-maven
+        run: cmake --build build --config Release --target deploy-maven
       - name: Archive Package Artifacts
         if: success() || failure()
         uses: actions/upload-artifact@v4
@@ -111,7 +111,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          submodules: 'recursive'
       - name: Extract Version from CMakeLists.txt
         id: get_version
         run: |
