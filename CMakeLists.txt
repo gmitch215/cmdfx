@@ -55,12 +55,25 @@ if (APPLE)
 endif()
 
 # Testing
-enable_testing()
-
-if (WIN32)
+option(TEST_CMDFX "Build tests for ${PROJECT_NAME}" ON)
+if (TEST_CMDFX)
+    enable_testing()
     add_subdirectory(test)
-else()
-    add_subdirectory(test EXCLUDE_FROM_ALL)
+endif()
+
+# Samples
+option(SAMPLES_CMDFX "Build samples for ${PROJECT_NAME}" OFF)
+if (SAMPLES_CMDFX)
+    file(GLOB SAMPLES_SRC ${PROJECT_SOURCE_DIR}/samples/*.c)
+
+    foreach(SAMPLE_SRC ${SAMPLES_SRC})
+        get_filename_component(SAMPLE_NAME ${SAMPLE_SRC} NAME_WE)
+        add_executable(${SAMPLE_NAME} ${SAMPLE_SRC})
+        target_link_libraries(${SAMPLE_NAME} PRIVATE cmdfx)
+        set_target_properties(${SAMPLE_NAME} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin/samples
+        )
+    endforeach()
 endif()
 
 # Documentation

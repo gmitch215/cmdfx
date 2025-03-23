@@ -56,7 +56,7 @@ jobs:
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
       - name: Configure Project
-        run: cmake -B build -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7}
+        run: cmake -B build -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7} -DSAMPLES_CMDFX=ON
         shell: bash
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
@@ -64,7 +64,7 @@ jobs:
           sudo cmake --build build --config Debug
           sudo cmake --build build --config Debug --target klib
           sudo cmake --build build --config Debug --target install package
-          sudo rm -rf build/package/_CPack_Packages/
+          sudo rm -rf build/build/package/_CPack_Packages/
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
@@ -73,20 +73,17 @@ jobs:
           cmake --build build --config Debug
           cmake --build build --config Debug --target klib
           cmake --build build --config Debug --target install package
-          Get-ChildItem -Path build/package/_CPack_Packages -Recurse | Remove-Item -Recurse -Force
+          Get-ChildItem -Path build/build/package/_CPack_Packages -Recurse | Remove-Item -Recurse -Force
       - name: Archive Package Artifacts
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           path: |
-            build/package/*
-            build/cinterop/*
+            build/build/package/*
+            build/build/cinterop/*
           overwrite: true
           if-no-files-found: error
-      - name: Build Test Project (Posix)
-        if: ${{ matrix.os != 'windows-2022' }}
-        run: sudo cmake --build test
       - name: Test Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
         run: ctest -C Debug -T test
@@ -98,7 +95,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-test
-          path: Testing/*
+          path: build/Testing/*
           if-no-files-found: ignore
   
   deploy:
@@ -172,7 +169,7 @@ jobs:
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
       - name: Configure Project
-        run: cmake -B build -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}"
+        run: cmake -B build -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DTEST_CMDFX=OFF
         shell: bash
       - name: Publish Kotlin/Native Library
         run: |

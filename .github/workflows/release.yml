@@ -72,23 +72,23 @@ jobs:
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
-          sudo cmake -B build -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib"
+          sudo cmake -B build -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib" -DTEST_CMDFX=OFF
           sudo cmake --build build
           sudo cmake --build build --config Release --target docs klib
           sudo cmake -B build
           sudo cmake --build build --config Release --target install package
-          sudo rm -rf build/package/_CPack_Packages/
+          sudo rm -rf build/build/package/_CPack_Packages/
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
           dotnet tool install --global wix --version 5.0.2
           wix extension add --global WixToolset.UI.wixext/5.0.2
-          cmake -B build -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib"
+          cmake -B build -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib" -DTEST_CMDFX=OFF
           cmake --build build
           cmake --build build --config Release --target docs klib
           cmake -B build
           cmake --build build --config Release --target install package
-          rm .\build\package\_CPack_Packages\ -R -Force
+          rm .\build\build\package\_CPack_Packages\ -R -Force
       - name: Publish Kotlin/Native Library
         run: cmake --build build --config Release --target deploy-maven
       - name: Archive Package Artifacts
@@ -97,8 +97,8 @@ jobs:
         with:
           name: CmdFX-Release-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           path: |
-            build/package/*
-            build/cinterop/*.klib
+            build/build/package/*
+            build/build/cinterop/*.klib
           overwrite: true
   release:
     needs: build

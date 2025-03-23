@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.16)
 
 include(CTest)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin)
-
 # Tests
 function(add_test_executable folder name)
     set(TEST_NAME "cmdfx-test-${folder}-${name}")
@@ -19,6 +17,10 @@ function(add_test_executable folder name)
         target_compile_options("${TEST_NAME}" PRIVATE --coverage -lm -w)
         target_link_options("${TEST_NAME}" PRIVATE --coverage)
     endif()
+
+    set_target_properties(${TEST_NAME} PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin/tests
+    )
 endfunction()
 
 function(add_manual_test name)
@@ -33,6 +35,10 @@ function(add_manual_test name)
     if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
         target_compile_options("${TEST_NAME}" PRIVATE -lm -w)
     endif()
+
+    set_target_properties(${TEST_NAME} PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin/tests/manual
+    )
 endfunction()
 
 # Automatic Tests
