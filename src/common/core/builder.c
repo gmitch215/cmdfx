@@ -1904,4 +1904,15 @@ int String2DBuilder_multiGradientsForegroundFull(char*** array, int numColors, i
     return String2DBuilder_multiGradientsForeground(array, 0, 0, width, height, numColors, gradient, percentages, direction);
 }
 
+int String2DBuilder_multiGradientsBackgroundFull(char*** array, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+    if (array == 0) return -1;
+
+    int width = getAnsiArrayWidth(array);
+    int height = getAnsiArrayHeight(array);
+
+    if (width <= 0 || height <= 0) return -1;
+
+    return String2DBuilder_multiGradientsBackground(array, 0, 0, width, height, numColors, gradient, percentages, direction);
+}
+
 #pragma endregion
