@@ -824,7 +824,7 @@ void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y) {
     int width = Canvas_getWidth();
     int height = Canvas_getHeight();
     if (width > 0 && height > 0) {
-        if (x + sprite->width > width || y + sprite->height > height) return 0;
+        if (x + sprite->width > width || y + sprite->height > height) return;
     }
 
     Sprite_remove0(sprite);
