@@ -86,10 +86,16 @@ jobs:
           if-no-files-found: error
       - name: Test Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
-        run: ctest -C Debug -T test
+        run: |
+          cd build
+          ctest -C Debug -T test
+          cd ..
       - name: Test Project (Posix)
         if: ${{ matrix.os != 'windows-2022' }}
-        run: sudo ctest -C Debug -T test
+        run: |
+          cd build
+          sudo ctest -C Debug -T test
+          cd ..
       - name: Archive Test Reports
         if: success() || failure()
         uses: actions/upload-artifact@v4
