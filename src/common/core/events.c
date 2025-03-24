@@ -43,11 +43,16 @@ int addCmdFXEventListener(unsigned int id, EventCallback callback) {
     EventCallback** list = _listeners[id];
     unsigned int size = _listenerSizes[id];
 
-    EventCallback* ptr = &callback;
+    EventCallback* ptr = malloc(sizeof(EventCallback));
+    if (!ptr) return -1;
+    *ptr = callback;
 
     if (list == 0) {
         list = malloc(sizeof(EventCallback*));
-        if (!list) return -1;
+        if (!list) {
+            free(ptr);
+            return -1;
+        }
 
         _listeners[id] = list;
         _listenerSizes[id] = 1;
