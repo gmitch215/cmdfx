@@ -210,8 +210,13 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
 int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
     if (sprite->data == 0) return 0;
-    if (x < 0 || y < 0) return 0;
-    if (x + sprite->width > Canvas_getWidth() || y + sprite->height > Canvas_getHeight()) return 0;
+    if (x < 1 || y < 1) return 0;
+
+    int width = Canvas_getWidth();
+    int height = Canvas_getHeight();
+    if (width > 0 && height > 0) {
+        if (x + sprite->width > width || y + sprite->height > height) return 0;
+    }
 
     sprite->x = x;
     sprite->y = y;
@@ -815,7 +820,12 @@ void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y) {
     if (sprite == 0) return;
     if (sprite->id == 0) return;
     if (x < 1 || y < 1) return;
-    if (x + sprite->width > Canvas_getWidth() || y + sprite->height > Canvas_getHeight()) return;
+    
+    int width = Canvas_getWidth();
+    int height = Canvas_getHeight();
+    if (width > 0 && height > 0) {
+        if (x + sprite->width > width || y + sprite->height > height) return 0;
+    }
 
     Sprite_remove0(sprite);
     sprite->x = x;

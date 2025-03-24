@@ -85,8 +85,9 @@ int Engine_setTerminalVelocity(int velocity);
 /**
  * @brief Gets the Y level of the ground for the physics engine.
  * 
- * The default value is the canvas height. The Y level of the ground helps
- * determine when a sprite has landed on the ground.
+ * The default value is the canvas height, because (0, 0) refers to the top
+ * left of the terminal. The Y level of the ground helps determine when a 
+ * sprite has landed on the ground.
  * 
  * @return The Y level of the ground.
  */

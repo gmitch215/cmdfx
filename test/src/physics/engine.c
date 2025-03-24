@@ -45,20 +45,18 @@ int main() {
 
     r |= assert(square->y == 10);
     Engine_tick();
-    r |= assert(square->y == 9);
+    r |= assert(square->y == 11);
     for (int i = 0; i < 10; i++) Engine_tick();
-    r |= assert(square->y == 0);
-    Engine_tick();
-    r |= assert(square->y == 0);
+    r |= assert(square->y == 21);
 
     r |= assert(square->x == 1);
     CmdFX_Vector* impulse = Vector_create(2, 0);
     Sprite_addForce(square, impulse);
     for (int i = 0; i < 10; i++) Engine_tick();
-    r |= assert(square->x == 11);
+    r |= assert(square->x == 21);
     Sprite_removeForce(square, impulse);
     for (int i = 0; i < 10; i++) Engine_tick();
-    r |= assert(square->x == 11);
+    r |= assert(square->x == 21);
 
     Sprite_free(square);
 
