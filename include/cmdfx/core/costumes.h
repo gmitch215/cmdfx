@@ -84,7 +84,9 @@ typedef struct CmdFX_SpriteCostumes {
  * If `costumeCount` is greater 1, the rest of the costumes will be
  * initialized to 0.
  * 
- * There is an internal limit of 128 costumes per sprite.
+ * There is an internal limit of 128 costumes per sprite. If costumes
+ * were already created for the sprite, this will return the pointer
+ * to the costumes.
  * 
  * @param sprite The sprite to create the costume for.
  * @param costumeCount The number of costumes to create.
@@ -105,6 +107,23 @@ CmdFX_SpriteCostumes* Sprite_createCostumes(CmdFX_Sprite* sprite, int costumeCou
  * @return The sprite costumes, or 0 if not created.
  */
 CmdFX_SpriteCostumes* Sprite_getCostumes(CmdFX_Sprite* sprite);
+
+/**
+ * @brief Sets a costume at the specified index.
+ * 
+ * This will set a costume at the specified index, changing the
+ * data and ANSI data the index and freeing it if available.
+ * 
+ * If the index is out of bounds, this method will return `-2`.
+ * If another error occurs, this method will return `-1`.
+ * 
+ * @param sprite The sprite to set the costume for.
+ * @param index The index to set the costume at.
+ * @param costume The data to use for the costume.
+ * @param ansiCostume The ANSI data to use for the costume.
+ * @return 0 if successful, otherwise an error occured.
+ */
+int Sprite_setCostumeAt(CmdFX_Sprite* sprite, int index, char** costume, char*** ansiCostume);
 
 /**
  * @brief Gets the sprite costume at a specific index.

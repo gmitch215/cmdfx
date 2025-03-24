@@ -29,6 +29,8 @@ CmdFX_SpriteCostumes* Sprite_createCostumes(CmdFX_Sprite* sprite, int costumeCou
         _costumeCount *= 2;
     }
 
+    if (_costumes[sprite->uid] != 0) return _costumes[sprite->uid];
+
     CmdFX_SpriteCostumes* spriteCostumes = malloc(sizeof(CmdFX_SpriteCostumes));
     
     spriteCostumes->costumes = (char***) calloc(costumeCount + 1, sizeof(char**));
@@ -48,6 +50,41 @@ CmdFX_SpriteCostumes* Sprite_getCostumes(CmdFX_Sprite* sprite) {
     if (sprite->uid > _costumeCount) return 0;
 
     return _costumes[sprite->uid];
+}
+
+int Sprite_setCostumeAt(CmdFX_Sprite* sprite, int index, char** costume, char*** ansiCostume) {
+    if (sprite == 0) return -1;
+    if (costume == 0) return -1;
+    if (_costumeCount < sprite->uid) return -1;
+
+    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid];
+    if (costumes == 0) return -1;
+    if (index < 0 || costumes->costumeCount < index) return -2;
+
+    char** oldData = costumes->costumes[index];
+    if (oldData != 0) {
+        int height = getArrayHeight(oldData);
+        for (int i = 0; i < height; i++) free(oldData[i]);
+        free(oldData);
+    }
+    costumes->costumes[index] = costume;
+
+    if (ansiCostume != 0) {
+        char*** oldAnsi = costumes->ansiCostumes[index];
+        if (oldAnsi != 0) {
+            int height = getAnsiArrayHeight(oldAnsi);
+            int width = getAnsiArrayWidth(oldAnsi);
+
+            for (int i = 0; i < height; i++) {
+                for (int j = 0; j < width; j++) free(oldAnsi[i][j]);
+                free(oldAnsi[i]);
+            }
+            free(oldAnsi);
+        }
+        costumes->ansiCostumes[index] = ansiCostume;
+    }
+
+    return 0;
 }
 
 char** Sprite_getCharCostume(CmdFX_Sprite* sprite, int costumeIndex) {
