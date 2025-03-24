@@ -42,7 +42,7 @@ function(add_manual_test name)
 endfunction()
 
 # Automatic Tests
-file(GLOB_RECURSE AUTO_TESTS "src/common/*.c" "src/physics/*.c")
+file(GLOB_RECURSE AUTO_TESTS "src/core/*.c" "src/physics/*.c")
 
 foreach(TEST_FILE ${AUTO_TESTS})
     get_filename_component(TEST_NAME ${TEST_FILE} NAME_WE)
