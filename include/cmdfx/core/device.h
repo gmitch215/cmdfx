@@ -32,7 +32,7 @@ extern "C" {
  * On macOS, the application must be added to the "Input Monitoring" permission in the
  * "Security & Privacy" settings. Otherwise, only control keys will be detected.
  * 
- * On Linux, method requires administrator privileges.
+ * On Linux, this method requires administrator privileges.
  * 
  * @return The list of key code of the key being pressed.
  */
@@ -49,7 +49,7 @@ char Device_fromKeyCode(int keyCode);
  * @brief Gets the current mouse button being pressed.
  * 
  * This is a non-blocking method. This method gets the current mouse event. If no mouse button 
- * is being pressed, it will return -1.
+ * is being pressed, all buttons will be 0.
  * 
  * On most systems, the button values are as follows (according to index):
  * - 0: Left mouse button
