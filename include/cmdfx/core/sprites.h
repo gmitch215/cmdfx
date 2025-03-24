@@ -87,8 +87,7 @@ typedef struct CmdFX_Sprite {
      * @brief The unique ID of the sprite.
      * 
      * This is assigned when the sprite is created. It is used to identify the
-     * sprite when editing or removing it. If the sprite is not created, this
-     * value will be 0. This value will not change.
+     * sprite when editing or removing it. This value will not change.
      */
     int uid;
 } CmdFX_Sprite;
