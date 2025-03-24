@@ -6,10 +6,16 @@
  * This is a simple game where you control a square with WASD and change its color with the number keys.
  * 
  * Possible Color Changes:
- * - 1: White (default)
- * - 2: Red
- * - 3: Green
- * - 4: Blue
+ * - 0: White (default)
+ * - 1: Red
+ * - 2: Green
+ * - 3: Blue
+ * - 4: Pink
+ * - 5: Cyan
+ * - 6: Gold
+ * - 7: Orange
+ * - 8: Purple
+ * - 9: Black
  * 
  * @copyright Copyright (c) 2025
  * 
@@ -28,11 +34,6 @@ int onKeyPress(CmdFX_Event* event) {
     CmdFX_KeyEvent* payload = (CmdFX_KeyEvent*) event->data;
     if (square == 0) return 0;
 
-    if (square->x < 0) return 0;
-    if (square->x + square->width >= width) return 0;
-    if (square->y < 0) return 0;
-    if (square->y + square->height >= height) return 0;
-
     char c = payload->keyChar;
     if (c == 'w') {
         Sprite_moveBy(square, 0, -1);
@@ -43,7 +44,6 @@ int onKeyPress(CmdFX_Event* event) {
     } else if (c == 'd') {
         Sprite_moveBy(square, 1, 0);
     }
-
     if (c == 'q') {
         Canvas_showCursor();
         Screen_setEchoEnabled(1);
