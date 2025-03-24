@@ -135,6 +135,8 @@ struct CmdFX_Event;
 
 /**
  * @brief Represents an event callback.
+ * @param event The event that was dispatched.
+ * @return 0 if the event handler was called successfully. Any other integer value if an error occurred.
  */
 typedef int (*EventCallback)(struct CmdFX_Event* event);
 
@@ -206,6 +208,12 @@ int beginCmdFXEventLoop();
  * @return 1 if the event loop was ended successfully, 0 if an error occurred or the event loop is not running.
  */
 int endCmdFXEventLoop();
+
+/**
+ * @brief Removes all event listeners.
+ * @return 1 if all event listeners were removed successfully, 0 if an error occurred.
+ */
+void shutdownCmdFXEvents();
 
 #ifdef __cplusplus
 }
