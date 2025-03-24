@@ -34,6 +34,12 @@ double _calculateGradientFactor(int x, int y, int width, int height, enum CmdFX_
         case GRADIENT_ANGLE_135:
             factor = (double) (width - x - 1 + y) / (width + height - 2);
             break;
+        case GRADIENT_ANGLE_225:
+            factor = (double) (width - x - 1 + height - y - 1) / (width + height - 2);
+            break;
+        case GRADIENT_ANGLE_315:
+            factor = (double) (x + height - y - 1) / (width + height - 2);
+            break;
         case GRADIENT_RADIAL: {
             double centerX = width / 2.0;
             double centerY = height / 2.0;

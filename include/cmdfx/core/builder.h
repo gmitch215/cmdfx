@@ -441,6 +441,14 @@ enum CmdFX_GradientDirection {
      */
     GRADIENT_ANGLE_135,
     /**
+     * @brief A 225-degree gradient.
+     */
+    GRADIENT_ANGLE_225,
+    /**
+     * @brief A 315-degree gradient.
+     */
+    GRADIENT_ANGLE_315,
+    /**
      * @brief A radial gradient.
      */
     GRADIENT_RADIAL,
