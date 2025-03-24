@@ -1069,11 +1069,10 @@ char*** String2DBuilder_create(int width, int height) {
             return 0;
         }
 
-        for (int j = 0; j < width; j++) {
-            char* buf = malloc(1);
-            buf[0] = '\0';
-            array[i][j] = buf;
-        }
+        for (int j = 0; j < width; j++)
+            array[i][j] = 0;
+        
+        array[i][width] = 0;
     }
 
     array[height] = 0;
@@ -1088,8 +1087,11 @@ char*** String2DBuilder_createFilled(int width, int height, char* c) {
     if (array == 0) return 0;
 
     for (int i = 0; i < height; i++)
-        for (int j = 0; j < width; j++)
-            array[i][j] = c;
+        for (int j = 0; j < width; j++) {
+            char* buf = malloc(strlen(c) + 1);
+            strcpy(buf, c);
+            array[i][j] = buf;
+        }
 
     return array;
 }

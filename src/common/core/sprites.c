@@ -14,22 +14,27 @@
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
 
-CmdFX_Sprite** sprites = 0;
-int spriteCount = 0;
+CmdFX_Sprite** _sprites = 0;
+int _spriteCount = 0;
+
+int _spriteUidCounter = 0;
+int* _availableUids = 0;
 
 CmdFX_Sprite** Canvas_getDrawnSprites() {
-    return sprites;
+    return _sprites;
 }
 
 int Canvas_getDrawnSpritesCount() {
-    return spriteCount;
+    return _spriteCount;
 }
 
 CmdFX_Sprite* Canvas_getSpriteAt(int x, int y) {
-    CmdFX_Sprite** matching = malloc(sizeof(CmdFX_Sprite*) * spriteCount);
+    if (x < 0 || y < 0) return 0;
 
-    for (int i = 0; i < spriteCount; i++) {
-        CmdFX_Sprite* sprite = sprites[i];
+    CmdFX_Sprite** matching = malloc(sizeof(CmdFX_Sprite*) * _spriteCount);
+
+    for (int i = 0; i < _spriteCount; i++) {
+        CmdFX_Sprite* sprite = _sprites[i];
         if (sprite->id == 0) continue;
 
         if (x >= sprite->x && x < sprite->x + sprite->width)
@@ -38,7 +43,7 @@ CmdFX_Sprite* Canvas_getSpriteAt(int x, int y) {
     }
 
     CmdFX_Sprite* sprite = 0;
-    for (int i = 0; i < spriteCount; i++) {
+    for (int i = 0; i < _spriteCount; i++) {
         if (matching[i] == 0) continue;
         if (sprite == 0) {
             sprite = matching[i];
@@ -75,7 +80,23 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
     sprite->y = -1;
     sprite->z = z;
     sprite->id = 0;
-    sprite->uid = 0;
+
+    if (_availableUids == 0)
+        sprite->uid = ++_spriteUidCounter;
+    else {
+        sprite->uid = _availableUids[0];
+
+        int s = 0;
+        while (_availableUids[s] != 0) s++;
+        for (int i = 0; i < s; i++)
+            _availableUids[i] = _availableUids[i + 1];
+
+        int* temp = realloc(_availableUids, sizeof(int) * s);
+        if (temp != 0) {
+            _availableUids = temp;
+            _availableUids[s] = 0;
+        }
+    }
 
     _getSpriteDimensions(data, &sprite->width, &sprite->height);
     sprite->data = data;
@@ -97,11 +118,27 @@ void Sprite_free(CmdFX_Sprite* sprite) {
             if (ansi == 0) continue;
 
             int line = 0;
-            while (line != 0) {
+            while (ansi[line] != 0) {
                 free(ansi[line]);
                 line++;
             }
             free(ansi);
+        }
+    }
+
+    // Add UID to available UIDs
+    if (_availableUids == 0) {
+        _availableUids = calloc(2, sizeof(int));
+        if (_availableUids != 0) _availableUids[0] = sprite->uid;
+    } else {
+        int i = 0;
+        while (_availableUids[i] != 0) i++;
+
+        int* temp = realloc(_availableUids, sizeof(int) * (i + 2));
+        if (temp != 0) {
+            _availableUids = temp;
+            _availableUids[i] = sprite->uid;
+            _availableUids[i + 1] = 0;
         }
     }
 
@@ -139,6 +176,9 @@ void Sprite_free(CmdFX_Sprite* sprite) {
 void Sprite_draw0(CmdFX_Sprite* sprite) {
     if (sprite->data == 0) return;
 
+    if (sprite->x < 1 || sprite->y < 1) return;
+    if (sprite->x + sprite->width > Canvas_getWidth() || sprite->y + sprite->height > Canvas_getHeight()) return;
+
     int hasAnsi = sprite->ansi != 0;
     for (int i = 0; i < sprite->height; i++) {
         char* line = sprite->data[i];
@@ -146,7 +186,7 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
 
         for (int j = 0; j < sprite->width; j++) {
             char c = line[j];
-            if (c == 0 || c == ' ') continue;
+            if (c == 0 || c == '\0' || c == ' ') continue;
 
             int x = sprite->x + j;
             int y = sprite->y + i;
@@ -171,12 +211,13 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
     if (sprite->data == 0) return 0;
     if (x < 0 || y < 0) return 0;
+    if (x + sprite->width > Canvas_getWidth() || y + sprite->height > Canvas_getHeight()) return 0;
 
     sprite->x = x;
     sprite->y = y;
 
     if (sprite->id != 0) {
-        CmdFX_Sprite* old = sprites[sprite->id - 1];
+        CmdFX_Sprite* old = _sprites[sprite->id - 1];
 
         // Redraw Sprite
         *old = *sprite;
@@ -188,20 +229,19 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
     Sprite_draw0(sprite);
 
     // Add Sprite to List
-    if (sprites == 0) {
-        sprites = malloc(sizeof(CmdFX_Sprite*) * 2);
-        if (!sprites) return 0;
+    if (_sprites == 0) {
+        _sprites = malloc(sizeof(CmdFX_Sprite*) * 2);
+        if (!_sprites) return 0;
     } else {
-        CmdFX_Sprite** temp = realloc(sprites, sizeof(CmdFX_Sprite*) * (spriteCount + 2));
+        CmdFX_Sprite** temp = realloc(_sprites, sizeof(CmdFX_Sprite*) * (_spriteCount + 2));
         if (!temp) return 0;
 
-        sprites = temp;
+        _sprites = temp;
     }
 
-    sprites[spriteCount] = sprite;
-    sprites[spriteCount + 1] = 0;
-    sprite->id = ++spriteCount;
-    sprite->uid = spriteCount;
+    _sprites[_spriteCount] = sprite;
+    _sprites[_spriteCount + 1] = 0;
+    sprite->id = ++_spriteCount;
 
     return 1;
 }
@@ -211,12 +251,10 @@ void Sprite_remove0(CmdFX_Sprite* sprite) {
         for (int j = 0; j < sprite->width; j++) {
             int x = sprite->x + j;
             int y = sprite->y + i;
-
-            if (Sprite_isOnBottom(sprite, x, y)) {
-                Canvas_setCursor(x, y);
-                Canvas_resetFormat();
-                putchar(' ');
-            }
+            
+            Canvas_setCursor(x, y);
+            Canvas_resetFormat();
+            putchar(' ');
         }
     }
 }
@@ -227,21 +265,22 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
     Sprite_remove0(sprite);
     
     int index = sprite->id - 1;
-    if (sprites[index] == 0) return;
+    if (_sprites[index] == 0) return;
 
-    for (int i = index; i < spriteCount - 1; i++) {
-        sprites[i] = sprites[i + 1];
-        sprites[i]->id--;
+    for (int i = index; i < _spriteCount - 1; i++) {
+        _sprites[i] = _sprites[i + 1];
+        _sprites[i]->id--;
     }
-    sprites[spriteCount - 1] = 0;
+    _sprites[_spriteCount - 1] = 0;
 
-    CmdFX_Sprite** temp = realloc(sprites, sizeof(CmdFX_Sprite*) * spriteCount);
+    CmdFX_Sprite** temp = realloc(_sprites, sizeof(CmdFX_Sprite*) * _spriteCount);
     if (temp)
-        sprites = temp;
+        _sprites = temp;
     else
-        sprites[spriteCount] = 0;
+        _sprites[_spriteCount] = 0;
 
-    spriteCount--;
+    _spriteCount--;
+    sprite->id = 0;
 
     // Reset Physics declarations
     Sprite_removeAllForces(sprite);
@@ -406,15 +445,16 @@ int Sprite_appendAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
     if (sprite->ansi == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
 
+    int ansiSize = strlen(ansi) + 1;
     if (sprite->ansi[y][x] == 0) {
-        char* ansi0 = malloc(strlen(ansi) + 1);
+        char* ansi0 = malloc(ansiSize);
         if (ansi0 == 0) return 0;
 
-        strcpy(ansi0, ansi);
+        strncpy(ansi0, ansi, ansiSize);
 
         sprite->ansi[y][x] = ansi0;
     } else {
-        int size = strlen(sprite->ansi[y][x]) + strlen(ansi) + 1;
+        int size = strlen(sprite->ansi[y][x]) + ansiSize;
         char* ansi0 = realloc(sprite->ansi[y][x], size);
         if (ansi0 == 0) return 0;
 
@@ -455,7 +495,7 @@ int Sprite_setAnsiAll(CmdFX_Sprite* sprite, char* ansi) {
     for (int i = 0; i < sprite->height; i++) {
         for (int j = 0; j < sprite->width; j++) {
             char* ansi0 = malloc(strlen(ansi) + 1);
-            snprintf(ansi0, strlen(ansi) + 1, "%s", ansi);
+            strncpy(ansi0, ansi, strlen(ansi) + 1);
 
             if (sprite->ansi[i][j] != 0) free(sprite->ansi[i][j]);
             sprite->ansi[i][j] = ansi0;
@@ -774,6 +814,8 @@ int Sprite_resizeAndCenter(CmdFX_Sprite* sprite, int width, int height) {
 void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y) {
     if (sprite == 0) return;
     if (sprite->id == 0) return;
+    if (x < 1 || y < 1) return;
+    if (x + sprite->width > Canvas_getWidth() || y + sprite->height > Canvas_getHeight()) return;
 
     Sprite_remove0(sprite);
     sprite->x = x;
@@ -793,7 +835,7 @@ void Sprite_moveBy(CmdFX_Sprite* sprite, int dx, int dy) {
 CmdFX_Sprite** Sprite_getCollidingSprites(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
     if (sprite->id == 0) return 0;
-    if (spriteCount < 2) return 0;
+    if (_spriteCount < 2) return 0;
 
     int collidingCount = 0;
     int allocated = 4;
@@ -801,8 +843,8 @@ CmdFX_Sprite** Sprite_getCollidingSprites(CmdFX_Sprite* sprite) {
     CmdFX_Sprite** colliding = calloc(allocated + 1, sizeof(CmdFX_Sprite*));
     if (!colliding) return 0;
 
-    for (int i = 0; i < spriteCount; i++) {
-        CmdFX_Sprite* other = sprites[i];
+    for (int i = 0; i < _spriteCount; i++) {
+        CmdFX_Sprite* other = _sprites[i];
         if (other->id == 0) continue;
         if (other->id == sprite->id) continue;
 
@@ -843,7 +885,7 @@ int Sprite_isColliding(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
 
 int Sprite_isOnTop(CmdFX_Sprite* sprite, int x, int y) {
     if (sprite == 0) return 0;
-    if (sprite->id == 0) return 0;
+    if (_spriteCount < 2) return 1;
     if (x < sprite->x || y < sprite->y) return 0;
     if (x >= sprite->x + sprite->width || y >= sprite->y + sprite->height) return 0;
 
@@ -899,7 +941,7 @@ int Sprite_setForeground(CmdFX_Sprite* sprite, int x, int y, int rgb) {
     char* ansi = malloc(22);
     snprintf(ansi, 22, "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
 
-    return Sprite_appendAnsi(sprite, x, y, ansi);
+    return Sprite_setAnsi(sprite, x, y, ansi);
 }
 
 int Sprite_setForeground256(CmdFX_Sprite* sprite, int x, int y, int color) {
@@ -910,7 +952,7 @@ int Sprite_setForeground256(CmdFX_Sprite* sprite, int x, int y, int color) {
     char* ansi = malloc(14);
     snprintf(ansi, 14, "\033[38;5;%dm", color);
 
-    return Sprite_appendAnsi(sprite, x, y, ansi);
+    return Sprite_setAnsi(sprite, x, y, ansi);
 }
 
 int Sprite_setForegroundAll(CmdFX_Sprite* sprite, int rgb) {
@@ -920,7 +962,7 @@ int Sprite_setForegroundAll(CmdFX_Sprite* sprite, int rgb) {
     char* ansi = malloc(22);
     snprintf(ansi, 22, "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
 
-    return Sprite_appendAnsiAll(sprite, ansi);
+    return Sprite_setAnsiAll(sprite, ansi);
 }
 
 int Sprite_setForegroundAll256(CmdFX_Sprite* sprite, int color) {
@@ -930,7 +972,7 @@ int Sprite_setForegroundAll256(CmdFX_Sprite* sprite, int color) {
     char* ansi = malloc(14);
     snprintf(ansi, 14, "\033[38;5;%dm", color);
 
-    return Sprite_appendAnsiAll(sprite, ansi);
+    return Sprite_setAnsiAll(sprite, ansi);
 }
 
 int Sprite_setBackground(CmdFX_Sprite* sprite, int x, int y, int rgb) {
@@ -941,7 +983,7 @@ int Sprite_setBackground(CmdFX_Sprite* sprite, int x, int y, int rgb) {
     char* ansi = malloc(22);
     snprintf(ansi, 22, "\033[48;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
 
-    int res = Sprite_appendAnsi(sprite, x, y, ansi);
+    int res = Sprite_setAnsi(sprite, x, y, ansi);
     free(ansi);
 
     return res;
@@ -955,7 +997,7 @@ int Sprite_setBackground256(CmdFX_Sprite* sprite, int x, int y, int color) {
     char* ansi = malloc(14);
     snprintf(ansi, 14, "\033[48;5;%dm", color);
 
-    int res = Sprite_appendAnsi(sprite, x, y, ansi);
+    int res = Sprite_setAnsi(sprite, x, y, ansi);
     free(ansi);
 
     return res;
@@ -968,7 +1010,7 @@ int Sprite_setBackgroundAll(CmdFX_Sprite* sprite, int rgb) {
     char* ansi = malloc(22);
     snprintf(ansi, 22, "\033[48;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
 
-    int res = Sprite_appendAnsiAll(sprite, ansi);
+    int res = Sprite_setAnsiAll(sprite, ansi);
     free(ansi);
 
     return res;
@@ -983,7 +1025,7 @@ int Sprite_setBackgroundAll256(CmdFX_Sprite* sprite, int color) {
 
     snprintf(ansi, 14, "\033[48;5;%dm", color);
 
-    int res = Sprite_appendAnsiAll(sprite, ansi);
+    int res = Sprite_setAnsiAll(sprite, ansi);
     free(ansi);
 
     return res;
