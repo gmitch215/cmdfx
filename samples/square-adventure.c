@@ -25,8 +25,6 @@
 #include <stdio.h>
 
 CmdFX_Sprite* square = 0;
-int width = -1;
-int height = -1;
 
 int running = 1;
 
@@ -34,7 +32,7 @@ int onKeyPress(CmdFX_Event* event) {
     CmdFX_KeyEvent* payload = (CmdFX_KeyEvent*) event->data;
     if (square == 0) return 0;
 
-    char c = payload->keyChar;
+    char c = payload->keyChar; // Get character pressed in key event
     if (c == 'w') {
         Sprite_moveBy(square, 0, -1);
     } else if (c == 'a') {
@@ -44,13 +42,14 @@ int onKeyPress(CmdFX_Event* event) {
     } else if (c == 'd') {
         Sprite_moveBy(square, 1, 0);
     }
-    if (c == 'q') {
+    if (c == 'q') { // When 'Q' is pressed, turn off the application
         Canvas_showCursor();
         Screen_setEchoEnabled(1);
         Screen_setLineBuffered(1);
         running = 0;
     }
 
+    // Change Foreground Color based on number key pressed
     switch (c) {
         case '0':
             Sprite_setForegroundAll(square, 0xFFFFFF);
@@ -88,26 +87,36 @@ int onKeyPress(CmdFX_Event* event) {
 }
 
 int main() {
+    // Main Sample Entrypoint
+
+    // Start with clearing the screen
     Canvas_clearScreen();
+
+    // Then, hide the cursor
     Canvas_hideCursor();
+
+    // Turn off echo and line buffering so we can handle input without
+    // typing anything on the screen
     Screen_setEchoEnabled(0);
     Screen_setLineBuffered(0);
 
-    width = Canvas_getWidth();
-    height = Canvas_getHeight();
+    // Get terminal bounds
+    int width = Canvas_getWidth();
+    int height = Canvas_getHeight();
 
+    // Initialize global sprite to be a 3x3 square of the '#' character
     square = Sprite_create(
         Char2DBuilder_createFilled(3, 3, '#'),
-        String2DBuilder_create(3, 3),
+        String2DBuilder_create(3, 3), // Initialize ANSI codes to be empty (specify no color)
         0
     );
-    Sprite_draw(width / 2, height / 2, square);
-    addCmdFXEventListener(CMDFX_EVENT_KEY, onKeyPress);
+    Sprite_draw(width / 2, height / 2, square); // Draw the square in the middle of the screen
+    addCmdFXEventListener(CMDFX_EVENT_KEY, onKeyPress); // Register the key event listener
 
     printf("Use WASD to move the square and the number keys to change its color.\nPress 'Q' to quit.\n");
 
-    while (running) {}
+    while (running) {} // Hang the application until 'Q' is pressed
 
-    shutdownCmdFXEvents();
+    shutdownCmdFXEvents(); // Once the application is done, free the event listeners
     return 0;
 }
