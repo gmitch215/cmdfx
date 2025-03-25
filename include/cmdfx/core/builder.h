@@ -24,21 +24,68 @@ extern "C" {
  * @param array The 2D Character Array.
  * @return The width of the array.
  */
-int getArrayWidth(char** array);
+int getCharArrayWidth(char** array);
 
 /**
  * @brief Gets the height of a 2D Character Array.
  * @param array The 2D Character Array.
  * @return The height of the array.
  */
-int getArrayHeight(char** array);
+int getCharArrayHeight(char** array);
 
 /**
  * @brief Creates a copy of a 2D Character Array.
  * @param array The 2D Character Array.
  * @return A copy of the array.
  */
-char** createArrayCopy(char** array);
+char** createCharArrayCopy(char** array);
+
+/**
+ * @brief Copies a 2D Character Array.
+ * 
+ * This method creates a copy of a 2D Character Array. The new array
+ * must be freed after use.
+ * 
+ * @param array The 2D Character Array.
+ * @return The copied 2D Character Array.
+ */
+char** Char2DBuilder_copy(char** array);
+
+/**
+ * @brief Checks if two 2D Character Arrays are the same size.
+ * 
+ * This method checks if two 2D Character Arrays are the same size. If the two
+ * arrays are the same size, the method will return 1. If the two arrays are not
+ * the same size, the method will return 0.
+ * 
+ * @param array1 The first 2D Character Array.
+ * @param array2 The second 2D Character Array.
+ * @return 1 if the arrays are the same size, 0 if the arrays are not the same size.
+ */
+int areCharArraysSameSize(char** array1, char** array2);
+
+/**
+ * @brief Compares two 2D Character Arrays.
+ * 
+ * This method compares two 2D Character Arrays. If the two arrays are equal,
+ * the method will return 0. If the two arrays are not equal, the method will
+ * return -1.
+ * 
+ * @param array1 The first 2D Character Array.
+ * @param array2 The second 2D Character Array.
+ * @return 0 if the arrays are equal, -1 if the arrays are not equal.
+ */
+int compareCharArrays(char** array1, char** array2);
+
+/**
+ * @brief Prints a 2D Character Array.
+ * 
+ * This method prints a 2D Character Array to the console.
+ * 
+ * @param array The 2D Character Array.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int printCharArray(char** array);
 
 // Core Functions (Character)
 
@@ -59,7 +106,6 @@ char** createArrayCopy(char** array);
  * @return The 2D Character Array.
  */
 char** Char2DBuilder_create(int width, int height);
-
 
 /**
  * @brief Creates a 2D Character Array with a specific width and height, filled with a specific character.
@@ -590,21 +636,69 @@ int Char2DBuilder_multiGradientsFull(char** array, int numChars, char* gradient,
  * @param array The 2D String Array.
  * @return The width of the array.
  */
-int getAnsiArrayWidth(char*** array);
+int getStringArrayWidth(char*** array);
 
 /**
  * @brief Gets the height of a 2D String Array.
  * @param array The 2D String Array.
  * @return The height of the array.
  */
-int getAnsiArrayHeight(char*** array);
+int getStringArrayHeight(char*** array);
 
 /**
  * @brief Creates a copy of a 2D String Array.
  * @param array The 2D String Array.
  * @return A copy of the 2D Array.
  */
-char*** createAnsiArrayCopy(char*** array);
+char*** createStringArrayCopy(char*** array);
+
+/**
+ * @brief Clears a 2D String Array.
+ * 
+ * This method clears a 2D String Array. The array will be filled with
+ * the space character.
+ * 
+ * @param array The 2D String Array.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int clearStringArray(char*** array);
+
+/**
+ * @brief Checks if two 2D String Arrays are the same size.
+ * 
+ * This method checks if two 2D String Arrays are the same size. If the two
+ * arrays are the same size, the method will return 1. If the two arrays are not
+ * the same size, the method will return 0.
+ * 
+ * @param array1 The first 2D String Array.
+ * @param array2 The second 2D String Array.
+ * @return 1 if the arrays are the same size, 0 if the arrays are not the same size.
+ */
+int areStringArraysSameSize(char*** array1, char*** array2);
+
+/**
+ * @brief Compares two 2D String Arrays.
+ * 
+ * This method compares two 2D String Arrays. If the two arrays are equal,
+ * the method will return 0. If the two arrays are not equal, the method will
+ * return -1.
+ * 
+ * @param array1 The first 2D String Array.
+ * @param array2 The second 2D String Array.
+ * @return 0 if the arrays are equal, -1 if the arrays are not equal.
+ */
+int compareStringArrays(char*** array1, char*** array2);
+
+/**
+ * @brief Prints a 2D String Array.
+ * 
+ * This method prints a 2D String Array. The array will be printed to the
+ * console.
+ * 
+ * @param array The 2D String Array.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int printStringArray(char*** array);
 
 // Core Functions (ANSI)
 

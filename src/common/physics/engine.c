@@ -220,7 +220,6 @@ void Engine_tick() {
         if (sprite->y + dy < ground)
             dy = ground - sprite->y;
         
-        printf("dx: %d, dy: %d\n", dx, dy);
         // Move Sprite
         if (dx != 0 || dy != 0)
             Sprite_moveBy(sprite, dx, -dy); // reverse dy

@@ -55,8 +55,8 @@ CmdFX_Scene* Scene_create(int width, int height) {
 CmdFX_Scene* Scene_createFromData(char** data, char*** ansiData) {
     if (data == 0) return 0;
 
-    int height = getArrayHeight(data);
-    int width = getArrayWidth(data);
+    int height = getCharArrayHeight(data);
+    int width = getCharArrayWidth(data);
 
     if (height < 1 || width < 1) return 0;
 
@@ -69,8 +69,8 @@ CmdFX_Scene* Scene_createFromData(char** data, char*** ansiData) {
     scene->data = data;
 
     if (ansiData != 0) {
-        int ansiHeight = getAnsiArrayHeight(ansiData);
-        int ansiWidth = getAnsiArrayWidth(ansiData);
+        int ansiHeight = getStringArrayHeight(ansiData);
+        int ansiWidth = getStringArrayWidth(ansiData);
     
         if (height != ansiHeight || width != ansiWidth) return 0;
     }
@@ -378,8 +378,8 @@ int Scene_setData(CmdFX_Scene* scene, char** data) {
     if (scene == 0) return -1;
     if (data == 0) return -1;
 
-    int height = getArrayHeight(data);
-    int width = getArrayWidth(data);
+    int height = getCharArrayHeight(data);
+    int width = getCharArrayWidth(data);
 
     if (height < 0 || width < 0) return -1;
 
@@ -445,8 +445,8 @@ int Scene_setAnsiData(CmdFX_Scene* scene, char*** ansiData) {
     if (scene == 0) return -1;
     if (ansiData == 0) return -1;
 
-    int height = getAnsiArrayHeight(ansiData);
-    int width = getAnsiArrayWidth(ansiData);
+    int height = getStringArrayHeight(ansiData);
+    int width = getStringArrayWidth(ansiData);
 
     if (height < 0 || width < 0) return -1;
 
@@ -485,8 +485,8 @@ int Scene_appendAnsiData(CmdFX_Scene* scene, char*** ansiData) {
     if (scene == 0) return -1;
     if (ansiData == 0) return -1;
 
-    int height = getAnsiArrayHeight(ansiData);
-    int width = getAnsiArrayWidth(ansiData);
+    int height = getStringArrayHeight(ansiData);
+    int width = getStringArrayWidth(ansiData);
 
     if (height < 0 || width < 0) return -1;
 

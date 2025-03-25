@@ -109,23 +109,6 @@ void Sprite_free(CmdFX_Sprite* sprite) {
     if (sprite == 0) return;
     if (sprite->id > 0) Sprite_remove(sprite);
 
-    for (int i = 0; i < sprite->height; i++) {
-        if (sprite->data[i] == 0) continue;
-        free(sprite->data[i]);
-
-        if (sprite->ansi != 0) {
-            char** ansi = sprite->ansi[i];
-            if (ansi == 0) continue;
-
-            int line = 0;
-            while (ansi[line] != 0) {
-                free(ansi[line]);
-                line++;
-            }
-            free(ansi);
-        }
-    }
-
     // Add UID to available UIDs
     if (_availableUids == 0) {
         _availableUids = calloc(2, sizeof(int));
@@ -142,21 +125,21 @@ void Sprite_free(CmdFX_Sprite* sprite) {
         }
     }
 
-    // Free Sprite Costumes
+    // Free Sprite Costumes and Data
     CmdFX_SpriteCostumes* costumes = Sprite_getCostumes(sprite);
     if (costumes != 0) {
         for (int i = 0; i < costumes->costumeCount; i++) {
             char** data = costumes->costumes[i];
             if (data != 0) {
-                int height = getArrayHeight(data);
+                int height = getCharArrayHeight(data);
                 for (int j = 0; j < height; j++) free(data[j]);
             }
             free(data);
 
             char*** ansi = costumes->ansiCostumes[i];
             if (ansi != 0) {
-                int height = getAnsiArrayHeight(ansi);
-                int width = getAnsiArrayWidth(ansi);
+                int height = getStringArrayHeight(ansi);
+                int width = getStringArrayWidth(ansi);
                 for (int j = 0; j < height; j++) {
                     for (int k = 0; k < width; k++) free(ansi[j][k]);
                     free(ansi[j]);
@@ -164,12 +147,26 @@ void Sprite_free(CmdFX_Sprite* sprite) {
             }
             free(ansi);
         }
+        free(costumes);
+    } else {
+        char** data = sprite->data;
+        if (data != 0) {
+            int height = getCharArrayHeight(data);
+            for (int i = 0; i < height; i++) free(data[i]);
+        }
+        free(data);
+
+        char*** ansi = sprite->ansi;
+        if (ansi != 0) {
+            int height = getStringArrayHeight(ansi);
+            int width = getStringArrayWidth(ansi);
+            for (int i = 0; i < height; i++) {
+                for (int j = 0; j < width; j++) free(ansi[i][j]);
+                free(ansi[i]);
+            }
+        }
+        free(ansi);
     }
-    free(costumes);
-
-    free(sprite->data);
-    if (sprite->ansi != 0) free(sprite->ansi);
-
     free(sprite);
 }
 

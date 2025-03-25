@@ -21,7 +21,8 @@ CmdFX_SpriteCostumes* Sprite_createCostumes(CmdFX_Sprite* sprite, int costumeCou
         _costumeCount = 4;
     }
 
-    if (_costumeCount < sprite->uid) {
+    int id = sprite->uid - 1;
+    if (_costumeCount < id) {
         CmdFX_SpriteCostumes** temp = realloc(_costumes, _costumeCount * 2 * sizeof(CmdFX_SpriteCostumes));
         if (!temp) return 0;
         for (int i = _costumeCount; i < _costumeCount * 2; i++) temp[i] = 0; // crealloc
@@ -29,17 +30,18 @@ CmdFX_SpriteCostumes* Sprite_createCostumes(CmdFX_Sprite* sprite, int costumeCou
         _costumeCount *= 2;
     }
 
-    if (_costumes[sprite->uid] != 0) return _costumes[sprite->uid];
+    if (_costumes[id] != 0) return _costumes[id];
 
     CmdFX_SpriteCostumes* spriteCostumes = malloc(sizeof(CmdFX_SpriteCostumes));
     
+    spriteCostumes->costumeCount = costumeCount;
     spriteCostumes->costumes = (char***) calloc(costumeCount + 1, sizeof(char**));
     spriteCostumes->ansiCostumes = (char****) calloc(costumeCount + 1, sizeof(char***));
 
-    spriteCostumes->costumes[0] = createArrayCopy(sprite->data);
-    if (sprite->ansi != 0) spriteCostumes->ansiCostumes[0] = createAnsiArrayCopy(sprite->ansi);
+    spriteCostumes->costumes[0] = createCharArrayCopy(sprite->data);
+    if (sprite->ansi != 0) spriteCostumes->ansiCostumes[0] = createStringArrayCopy(sprite->ansi);
 
-    _costumes[sprite->uid] = spriteCostumes;
+    _costumes[id] = spriteCostumes;
     return spriteCostumes;
 }
 
@@ -49,7 +51,7 @@ CmdFX_SpriteCostumes* Sprite_getCostumes(CmdFX_Sprite* sprite) {
     if (_costumes == 0 || _costumeCount == 0) return 0;
     if (sprite->uid > _costumeCount) return 0;
 
-    return _costumes[sprite->uid];
+    return _costumes[sprite->uid - 1];
 }
 
 int Sprite_setCostumeAt(CmdFX_Sprite* sprite, int index, char** costume, char*** ansiCostume) {
@@ -57,23 +59,23 @@ int Sprite_setCostumeAt(CmdFX_Sprite* sprite, int index, char** costume, char***
     if (costume == 0) return -1;
     if (_costumeCount < sprite->uid) return -1;
 
-    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid];
-    if (costumes == 0) return -1;
-    if (index < 0 || costumes->costumeCount < index) return -2;
+    CmdFX_SpriteCostumes* spriteCostumes = _costumes[sprite->uid - 1];
+    if (spriteCostumes == 0) return -1;
+    if (index < 0 || spriteCostumes->costumeCount < index) return -2;
 
-    char** oldData = costumes->costumes[index];
+    char** oldData = spriteCostumes->costumes[index];
     if (oldData != 0) {
-        int height = getArrayHeight(oldData);
+        int height = getCharArrayHeight(oldData);
         for (int i = 0; i < height; i++) free(oldData[i]);
         free(oldData);
     }
-    costumes->costumes[index] = costume;
+    spriteCostumes->costumes[index] = costume;
 
     if (ansiCostume != 0) {
-        char*** oldAnsi = costumes->ansiCostumes[index];
+        char*** oldAnsi = spriteCostumes->ansiCostumes[index];
         if (oldAnsi != 0) {
-            int height = getAnsiArrayHeight(oldAnsi);
-            int width = getAnsiArrayWidth(oldAnsi);
+            int height = getStringArrayHeight(oldAnsi);
+            int width = getStringArrayWidth(oldAnsi);
 
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) free(oldAnsi[i][j]);
@@ -81,7 +83,7 @@ int Sprite_setCostumeAt(CmdFX_Sprite* sprite, int index, char** costume, char***
             }
             free(oldAnsi);
         }
-        costumes->ansiCostumes[index] = ansiCostume;
+        spriteCostumes->ansiCostumes[index] = ansiCostume;
     }
 
     return 0;
@@ -93,7 +95,7 @@ char** Sprite_getCharCostume(CmdFX_Sprite* sprite, int costumeIndex) {
     if (_costumes == 0 || _costumeCount == 0) return 0;
     if (sprite->uid > _costumeCount) return 0;
 
-    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid];
+    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid - 1];
     if (costumes == 0) return 0;
 
     if (costumeIndex < 0 || costumeIndex >= MAX_SPRITE_COSTUMES) return 0;
@@ -108,7 +110,7 @@ char*** Sprite_getAnsiCostume(CmdFX_Sprite* sprite, int costumeIndex) {
     if (_costumes == 0 || _costumeCount == 0) return 0;
     if (sprite->uid > _costumeCount) return 0;
 
-    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid];
+    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid - 1];
     if (costumes == 0) return 0;
 
     if (costumeIndex < 0 || costumeIndex >= MAX_SPRITE_COSTUMES) return 0;
@@ -123,22 +125,15 @@ int Sprite_switchCostumeTo(CmdFX_Sprite* sprite, int costumeIndex) {
     if (_costumes == 0 || _costumeCount == 0) return -1;
     if (sprite->uid > _costumeCount) return -1;
 
-    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid];
-    if (costumes == 0) return -1;
+    CmdFX_SpriteCostumes* spriteCostumes = _costumes[sprite->uid - 1];
+    if (spriteCostumes == 0) return -1;
 
-    if (costumeIndex < 0 || costumeIndex >= costumes->costumeCount) return -1;
-    if (costumes->costumes == 0) return -1;
+    if (costumeIndex < 0 || costumeIndex >= spriteCostumes->costumeCount) return -1;
+    if (spriteCostumes->costumes == 0) return -1;
+    if (spriteCostumes->costumes[costumeIndex] == 0) return -1;
 
-    if (costumes->costumes[costumeIndex] == 0) return -1;
-    if (costumes->ansiCostumes[costumeIndex] == 0) return -1;
-
-    char** tempData = sprite->data;
-    sprite->data = costumes->costumes[costumeIndex];
-    costumes->costumes[costumeIndex] = tempData;
-
-    char*** tempAnsi = sprite->ansi;
-    sprite->ansi = costumes->ansiCostumes[costumeIndex];
-    costumes->ansiCostumes[costumeIndex] = tempAnsi;
+    sprite->data = spriteCostumes->costumes[costumeIndex];
+    sprite->ansi = spriteCostumes->ansiCostumes[costumeIndex];
 
     return 0;
 }
@@ -149,7 +144,7 @@ int Sprite_addCostume(CmdFX_Sprite* sprite, char** costume, char*** ansiCostume)
     if (_costumes == 0 || _costumeCount == 0) return -1;
     if (sprite->uid > _costumeCount) return -1;
 
-    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid];
+    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid - 1];
     if (costumes == 0) return -1;
 
     if (costumes->costumes == 0) return -1;
@@ -171,8 +166,8 @@ int Sprite_addCostume(CmdFX_Sprite* sprite, char** costume, char*** ansiCostume)
                 costumes->ansiCostumes[i + 1] = 0;
             }
 
-            costumes->costumes[i] = createArrayCopy(costume);
-            costumes->ansiCostumes[i] = createAnsiArrayCopy(ansiCostume);
+            costumes->costumes[i] = createCharArrayCopy(costume);
+            costumes->ansiCostumes[i] = createStringArrayCopy(ansiCostume);
             costumes->costumeCount++;
             return 0;
         }
@@ -186,7 +181,7 @@ int Sprite_removeCostume(CmdFX_Sprite* sprite, int costumeIndex) {
     if (_costumes == 0 || _costumeCount == 0) return -1;
     if (sprite->uid > _costumeCount) return -1;
 
-    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid];
+    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid - 1];
     if (costumes == 0) return -1;
 
     if (costumes->costumes == 0) return -1;
@@ -195,7 +190,7 @@ int Sprite_removeCostume(CmdFX_Sprite* sprite, int costumeIndex) {
     if (costumeIndex < 0 || costumeIndex >= costumes->costumeCount) return -1;
 
     if (costumes->costumes[costumeIndex] != 0) {
-        for (int j = 0; j < getArrayHeight(costumes->costumes[costumeIndex]); j++)
+        for (int j = 0; j < getCharArrayHeight(costumes->costumes[costumeIndex]); j++)
             free(costumes->costumes[costumeIndex][j]);
         
         free(costumes->costumes[costumeIndex]);
@@ -203,8 +198,8 @@ int Sprite_removeCostume(CmdFX_Sprite* sprite, int costumeIndex) {
     free(costumes->costumes[costumeIndex]);
 
     if (costumes->ansiCostumes[costumeIndex] != 0) {
-        for (int j = 0; j < getAnsiArrayHeight(costumes->ansiCostumes[costumeIndex]); j++) {
-            for (int i = 0; i < getAnsiArrayWidth(costumes->ansiCostumes[costumeIndex]); i++)
+        for (int j = 0; j < getStringArrayHeight(costumes->ansiCostumes[costumeIndex]); j++) {
+            for (int i = 0; i < getStringArrayWidth(costumes->ansiCostumes[costumeIndex]); i++)
                 free(costumes->ansiCostumes[costumeIndex][j][i]);
             
             free(costumes->ansiCostumes[costumeIndex][j]);
@@ -232,7 +227,7 @@ int Sprite_resetCostumes(CmdFX_Sprite* sprite) {
     if (_costumes == 0 || _costumeCount == 0) return -1;
     if (sprite->uid > _costumeCount) return -1;
 
-    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid];
+    CmdFX_SpriteCostumes* costumes = _costumes[sprite->uid - 1];
     if (costumes == 0) return -1;
 
     if (costumes->costumes == 0) return -1;
@@ -243,7 +238,7 @@ int Sprite_resetCostumes(CmdFX_Sprite* sprite) {
 
     for (int i = 1; i < costumes->costumeCount; i++) {
         if (costumes->costumes[i] != 0) {
-            for (int j = 0; j < getArrayHeight(costumes->costumes[i]); j++)
+            for (int j = 0; j < getCharArrayHeight(costumes->costumes[i]); j++)
                 free(costumes->costumes[i][j]);
             
             free(costumes->costumes[i]);
@@ -251,8 +246,8 @@ int Sprite_resetCostumes(CmdFX_Sprite* sprite) {
         free(costumes->costumes[i]);
 
         if (costumes->ansiCostumes[i] != 0) {
-            for (int j = 0; j < getAnsiArrayHeight(costumes->ansiCostumes[i]); j++) {
-                for (int k = 0; k < getAnsiArrayWidth(costumes->ansiCostumes[i]); k++)
+            for (int j = 0; j < getStringArrayHeight(costumes->ansiCostumes[i]); j++) {
+                for (int k = 0; k < getStringArrayWidth(costumes->ansiCostumes[i]); k++)
                     free(costumes->ansiCostumes[i][j][k]);
                 
                 free(costumes->ansiCostumes[i][j]);

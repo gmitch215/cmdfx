@@ -72,12 +72,12 @@ int _getLower(double factor, double* percentages, int size) {
 
 #pragma region Character Builder
 
-int getArrayWidth(char** array) {
+int getCharArrayWidth(char** array) {
     if (array == 0) return 0;
     return strlen(array[0]);
 }
 
-int getArrayHeight(char** array) {
+int getCharArrayHeight(char** array) {
     if (array == 0) return 0;
     
     int height = 0;
@@ -89,11 +89,11 @@ int getArrayHeight(char** array) {
     return height;
 }
 
-char** createArrayCopy(char** array) {
+char** createCharArrayCopy(char** array) {
     if (array == 0) return 0;
 
-    int height = getArrayHeight(array);
-    int width = getArrayWidth(array);
+    int height = getCharArrayHeight(array);
+    int width = getCharArrayWidth(array);
 
     char** copy = (char**) malloc(sizeof(char*) * (height + 1));
     for (int j = 0; j < height; j++) {
@@ -105,6 +105,54 @@ char** createArrayCopy(char** array) {
 
     copy[height] = 0;
     return copy;
+}
+
+int areCharArraysSameSize(char** array1, char** array2) {
+    if (array1 == 0 || array2 == 0) return 0;
+
+    int width1 = getCharArrayWidth(array1);
+    int height1 = getCharArrayHeight(array1);
+
+    int width2 = getCharArrayWidth(array2);
+    int height2 = getCharArrayHeight(array2);
+
+    return width1 == width2 && height1 == height2;
+}
+
+int compareCharArrays(char** array1, char** array2) {
+    if (array1 == array2) return 0;
+    if (array1 == 0 || array2 == 0) return -1;
+    if (!areCharArraysSameSize(array1, array2)) return -1;
+
+    int height = getCharArrayHeight(array1);
+    int width = getCharArrayWidth(array1);
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            if (array1[y][x] != array2[y][x]) return -1;
+        }
+    }
+
+    return 0;
+}
+
+int printCharArray(char** array) {
+    if (array == 0) {
+        printf("%s", "(null)\n");
+        return 0;
+    }
+
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            printf("%c", array[y][x]);
+        }
+        printf("\n");
+    }
+
+    return 0;
 }
 
 // Core Functions (Character)
@@ -148,8 +196,8 @@ int Char2DBuilder_setChar(char** array, int x, int y, char c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     if (x >= width || y >= height) return -1;
 
@@ -236,8 +284,8 @@ int Char2DBuilder_fillRect(char** array, int x, int y, int width, int height, ch
 int Char2DBuilder_fill(char** array, char c) {
     if (array == 0) return -1;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     return Char2DBuilder_fillRect(array, 0, 0, width, height, c);
 }
@@ -376,8 +424,8 @@ int Char2DBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradi
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     if (x + xradius >= width || y + yradius >= height) return -1;
     if (x - xradius < 0 || y - yradius < 0) return -1;
@@ -551,8 +599,8 @@ int Char2DBuilder_text(char** array, int x, int y, char* text) {
 // Utility Functions - Sizing
 
 int Char2DBuilder_resize0(char** array, int width, int height, char padding) {
-    int oldWidth = getArrayWidth(array);
-    int oldHeight = getArrayHeight(array);
+    int oldWidth = getCharArrayWidth(array);
+    int oldHeight = getCharArrayHeight(array);
 
     char** newArray = Char2DBuilder_create(width, height);
     if (newArray == 0) return -1;
@@ -588,8 +636,8 @@ int Char2DBuilder_resizeWithPadding(char** array, int width, int height, char pa
 }
 
 int Char2DBuilder_center0(char** array) {
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     int x = 0;
     int y = 0;
@@ -645,8 +693,8 @@ int Char2DBuilder_resizeAndCenter(char** array, int width, int height) {
 int Char2DBuilder_rotate(char** array, double radians) {
     if (array == 0) return -1;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -694,8 +742,8 @@ int Char2DBuilder_rotate(char** array, double radians) {
 double Char2DBuilder_getRotationAngle(char** array) {
     if (array == 0) return 0.0;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     if (width <= 0 || height <= 0) return 0.0;
     
@@ -744,8 +792,8 @@ double Char2DBuilder_getRotationAngle(char** array) {
 int Char2DBuilder_hFlip(char** array) {
     if (array == 0) return -1;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -764,8 +812,8 @@ int Char2DBuilder_hFlip(char** array) {
 int Char2DBuilder_vFlip(char** array) {
     if (array == 0) return -1;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -784,8 +832,8 @@ int Char2DBuilder_vFlip(char** array) {
 char** Char2DBuilder_transpose(char** array) {
     if (array == 0) return 0;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     if (width <= 0 || height <= 0) return 0;
 
@@ -820,8 +868,8 @@ char** Char2DBuilder_transpose(char** array) {
 int Char2DBuilder_replaceAll(char** array, char find, char replace) {
     if (array == 0) return -1;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     int count = 0;
     for (int y = 0; y < height; y++) {
@@ -840,8 +888,8 @@ char** Char2DBuilder_scale(char** array, double scale) {
     if (array == 0) return 0;
     if (scale <= 0) return 0;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     if (width <= 0 || height <= 0) return 0;
 
@@ -982,8 +1030,8 @@ int Char2DBuilder_multiGradients(char** array, int x, int y, int width, int heig
 int Char2DBuilder_gradientFull(char** array, char start, char end, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -993,8 +1041,8 @@ int Char2DBuilder_gradientFull(char** array, char start, char end, enum CmdFX_Gr
 int Char2DBuilder_multiGradientFull(char** array, int numChars, char* gradient, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -1004,8 +1052,8 @@ int Char2DBuilder_multiGradientFull(char** array, int numChars, char* gradient, 
 int Char2DBuilder_multiGradientsFull(char** array, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
-    int width = getArrayWidth(array);
-    int height = getArrayHeight(array);
+    int width = getCharArrayWidth(array);
+    int height = getCharArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -1016,7 +1064,7 @@ int Char2DBuilder_multiGradientsFull(char** array, int numChars, char* gradient,
 
 #pragma region ANSI Builder
 
-int getAnsiArrayWidth(char*** array) {
+int getStringArrayWidth(char*** array) {
     if (array == 0) return 0;
 
     int width = 0;
@@ -1028,7 +1076,7 @@ int getAnsiArrayWidth(char*** array) {
     return width;
 }
 
-int getAnsiArrayHeight(char*** array) {
+int getStringArrayHeight(char*** array) {
     if (array == 0) return 0;
 
     int height = 0;
@@ -1040,11 +1088,11 @@ int getAnsiArrayHeight(char*** array) {
     return height;
 }
 
-char*** createAnsiArrayCopy(char*** array) {
+char*** createStringArrayCopy(char*** array) {
     if (array == 0) return 0;
 
-    int height = getAnsiArrayHeight(array);
-    int width = getAnsiArrayWidth(array);
+    int height = getStringArrayHeight(array);
+    int width = getStringArrayWidth(array);
 
     char*** copy = malloc(sizeof(char**) * (height + 1));
     for (int j = 0; j < height; j++) {
@@ -1057,6 +1105,65 @@ char*** createAnsiArrayCopy(char*** array) {
 
     copy[height] = 0;
     return copy;
+}
+
+int clearStringArray(char*** array) {
+    if (array == 0) return -1;
+
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
+
+    for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++)
+            strcpy(array[y][x], " ");
+
+    return 0;
+}
+
+int areStringArraysSameSize(char*** array1, char*** array2) {
+    if (array1 == 0 || array2 == 0) return 0;
+
+    int width1 = getStringArrayWidth(array1);
+    int height1 = getStringArrayHeight(array1);
+
+    int width2 = getStringArrayWidth(array2);
+    int height2 = getStringArrayHeight(array2);
+
+    return width1 == width2 && height1 == height2;
+}
+
+int compareStringArrays(char*** array1, char*** array2) {
+    if (array1 == array2) return 0;
+    if (array1 == 0 || array2 == 0) return -1;
+    if (!areStringArraysSameSize(array1, array2)) return -1;
+
+    int width = getStringArrayWidth(array1);
+    int height = getStringArrayHeight(array1);
+
+    for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++)
+            if (strcmp(array1[y][x], array2[y][x]) != 0) return -1;
+
+    return 0;
+}
+
+int printStringArray(char*** array) {
+    if (array == 0) {
+        printf("%s", "(null)\n");
+        return 0;
+    }
+
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            printf("%s", array[y][x]);
+        }
+        printf("\n");
+    }
+
+    return 0;
 }
 
 // Core Functions (ANSI)
@@ -1106,8 +1213,8 @@ int String2DBuilder_setAnsi(char*** array, int x, int y, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (x >= width || y >= height) return -1;
 
@@ -1195,8 +1302,8 @@ int String2DBuilder_fill(char*** array, char* c) {
     if (array == 0) return -1;
     if (c == 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     return String2DBuilder_fillRect(array, 0, 0, width, height, c);
 }
@@ -1335,8 +1442,8 @@ int String2DBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yr
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (x + xradius >= width || y + yradius >= height) return -1;
     if (x - xradius < 0 || y - yradius < 0) return -1;
@@ -1488,8 +1595,8 @@ int String2DBuilder_fillPolygon(char*** array, int x, int y, int sides, int radi
 int String2DBuilder_rotate(char*** array, double radians) {
     if (array == 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -1538,8 +1645,8 @@ int String2DBuilder_rotate(char*** array, double radians) {
 int String2DBuilder_hFlip(char*** array) {
     if (array == 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -1558,8 +1665,8 @@ int String2DBuilder_hFlip(char*** array) {
 int String2DBuilder_vFlip(char*** array) {
     if (array == 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -1578,8 +1685,8 @@ int String2DBuilder_vFlip(char*** array) {
 char*** String2DBuilder_transpose(char*** array) {
     if (array == 0) return 0;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (width <= 0 || height <= 0) return 0;
 
@@ -1616,8 +1723,8 @@ char*** String2DBuilder_transpose(char*** array) {
 int String2DBuilder_replaceAll(char*** array, char* find, char* replace) {
     if (array == 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     int count = 0;
     for (int y = 0; y < height; y++) {
@@ -1636,8 +1743,8 @@ char*** String2DBuilder_scale(char*** array, double scale) {
     if (array == 0) return 0;
     if (scale <= 0) return 0;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (width <= 0 || height <= 0) return 0;
 
@@ -1852,8 +1959,8 @@ int String2DBuilder_multiGradientsBackground(char*** array, int x, int y, int wi
 int String2DBuilder_gradientForegroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -1863,8 +1970,8 @@ int String2DBuilder_gradientForegroundFull(char*** array, int start, int end, en
 int String2DBuilder_gradientBackgroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -1874,8 +1981,8 @@ int String2DBuilder_gradientBackgroundFull(char*** array, int start, int end, en
 int String2DBuilder_multiGradientForegroundFull(char*** array, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -1885,8 +1992,8 @@ int String2DBuilder_multiGradientForegroundFull(char*** array, int numColors, in
 int String2DBuilder_multiGradientBackgroundFull(char*** array, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -1896,8 +2003,8 @@ int String2DBuilder_multiGradientBackgroundFull(char*** array, int numColors, in
 int String2DBuilder_multiGradientsForegroundFull(char*** array, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
@@ -1907,8 +2014,8 @@ int String2DBuilder_multiGradientsForegroundFull(char*** array, int numColors, i
 int String2DBuilder_multiGradientsBackgroundFull(char*** array, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
     if (array == 0) return -1;
 
-    int width = getAnsiArrayWidth(array);
-    int height = getAnsiArrayHeight(array);
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
 
     if (width <= 0 || height <= 0) return -1;
 
