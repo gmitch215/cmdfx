@@ -169,9 +169,9 @@ if (INSTALL_CMDFX)
     
     # Documentation Components
     if (DOCS_CMDFX)
-        if (EXISTS "${PROJECT_SOURCE_DIR}/build/docs/html")
+        if (EXISTS "${CMAKE_CURRENT_BINARY_DIR}/build/docs/html")
             install(DIRECTORY
-                "${PROJECT_SOURCE_DIR}/build/docs/html"
+                "${CMAKE_CURRENT_BINARY_DIR}/build/docs/html"
                 DESTINATION ${CMAKE_INSTALL_DOCDIR}
                 COMPONENT htmlDocs
             )
