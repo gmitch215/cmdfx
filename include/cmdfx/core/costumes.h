@@ -202,6 +202,17 @@ int Sprite_removeCostume(CmdFX_Sprite* sprite, int costumeIndex);
  */
 int Sprite_resetCostumes(CmdFX_Sprite* sprite);
 
+/**
+ * @brief Gets the current index of the sprite costume.
+ * 
+ * This method gets the current index of the sprite costume. If the
+ * sprite costumes are not created, the method will return -1.
+ * 
+ * @param sprite The sprite to get the current costume index for.
+ * @return The current costume index, or -1 if not valid.
+ */
+int Sprite_getCurrentCostumeIndex(CmdFX_Sprite* sprite);
+
 #ifdef __cplusplus
 }
 #endif

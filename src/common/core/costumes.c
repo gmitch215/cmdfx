@@ -260,3 +260,28 @@ int Sprite_resetCostumes(CmdFX_Sprite* sprite) {
     costumes->costumeCount = 1;
     return 0;
 }
+
+int Sprite_getCurrentCostumeIndex(CmdFX_Sprite* sprite) {
+    if (sprite == 0) return -1;
+    if (sprite->data == 0) return -1;
+    if (_costumes == 0 || _costumeCount == 0) return -1;
+    if (sprite->uid > _costumeCount) return -1;
+
+    CmdFX_SpriteCostumes* spriteCostumes = _costumes[sprite->uid - 1];
+    if (spriteCostumes == 0) return -1;
+
+    if (spriteCostumes->costumes == 0) return -1;
+    if (spriteCostumes->ansiCostumes == 0) return -1;
+
+    for (int i = 0; i < spriteCostumes->costumeCount; i++) {
+        char** data = spriteCostumes->costumes[i];
+        if (compareCharArrays(data, sprite->data) != 0) continue;
+
+        char*** ansi = spriteCostumes->ansiCostumes[i];
+        if (compareStringArrays(ansi, sprite->ansi) != 0) continue;
+
+        return i;
+    }
+
+    return -1;
+}
