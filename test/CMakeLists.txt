@@ -19,7 +19,7 @@ function(add_test_executable folder name)
     endif()
 
     set_target_properties(${TEST_NAME} PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin/tests
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin/tests/${folder}
     )
 endfunction()
 
