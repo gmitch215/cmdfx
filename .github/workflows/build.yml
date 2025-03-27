@@ -90,12 +90,18 @@ jobs:
           cd build
           ctest -C Debug -T test
           cd ..
+        env:
+          CTEST_PARALLEL_LEVEL: 0
+          CTEST_OUTPUT_ON_FAILURE: 1
       - name: Test Project (Posix)
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
           cd build
           sudo ctest -C Debug -T test
           cd ..
+        env:
+          CTEST_PARALLEL_LEVEL: 0
+          CTEST_OUTPUT_ON_FAILURE: 1
       - name: Archive Test Reports
         if: success() || failure()
         uses: actions/upload-artifact@v4
