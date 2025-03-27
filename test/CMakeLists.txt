@@ -11,7 +11,9 @@ function(add_test_executable folder name)
     target_include_directories("${TEST_NAME}" PRIVATE "${PROJECT_SOURCE_DIR}/include")
 
     add_dependencies("${TEST_NAME}" cmdfx)
-    add_test(NAME ${folder}/${name} COMMAND "${TEST_NAME}")
+
+    string(REPLACE "_" "/" TEST_EXECUTABLE_NAME ${name})
+    add_test(NAME ${folder}/${TEST_EXECUTABLE_NAME} COMMAND "${TEST_NAME}")
 
     if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
         target_compile_options("${TEST_NAME}" PRIVATE --coverage -lm -w)
