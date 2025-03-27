@@ -98,7 +98,7 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
         }
     }
 
-    _getSpriteDimensions(data, &sprite->width, &sprite->height);
+    if (data != 0) _getSpriteDimensions(data, &sprite->width, &sprite->height);
     sprite->data = data;
     sprite->ansi = ansi;
 
@@ -283,6 +283,8 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
 
     _spriteCount--;
     sprite->id = 0;
+    sprite->x = -1;
+    sprite->y = -1;
 
     // Reset Physics declarations
     Sprite_removeAllForces(sprite);
