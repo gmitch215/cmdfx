@@ -18,12 +18,14 @@
 #include "cmdfx/core/util.h"
 #include "cmdfx/core/device.h"
 #include "cmdfx/core/costumes.h"
+#include "cmdfx/core/scenes.h"
 
 #include "cmdfx/core/animation/canvas.h"
 #include "cmdfx/core/animation/sprites.h"
 
 // Physics Engine
 
+#include "cmdfx/physics/engine.h"
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
 #include "cmdfx/physics/util.h"
