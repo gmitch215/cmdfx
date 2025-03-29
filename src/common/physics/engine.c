@@ -146,6 +146,7 @@ void Engine_tick() {
     int count = Canvas_getDrawnSpritesCount();
 
     int ground = Engine_getGroundY();
+    int width = Canvas_getWidth();
     int terminalVelocity = Engine_getTerminalVelocity();
     int forceOfGravity = Engine_getForceOfGravity();
 
@@ -218,11 +219,16 @@ void Engine_tick() {
 
         // Ensure Sprite stays in bounds
         if (sprite->x + dx < 0) dx = -sprite->x;
-        if (sprite->x + dx + sprite->width > Canvas_getWidth()) dx = Canvas_getWidth() - (sprite->x + sprite->width);
         if (sprite->y + dy < 0) dy = -sprite->y;
-        if (sprite->y + dy >= ground) dy = ground - sprite->y;
+
+        if (width != 0)
+            if (sprite->x + dx + sprite->width > width) dx = width - (sprite->x + sprite->width);
+        
+        if (ground != 0)
+            if (sprite->y + dy + sprite->height > ground) dy = ground - sprite->y;
 
         // Move Sprite
+        printf("dx: %d, dy: %d\n", dx, dy);
         if (dx != 0 || dy != 0)
             Sprite_moveBy(sprite, dx, -dy); // reverse dy
     }
