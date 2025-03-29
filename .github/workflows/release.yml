@@ -69,7 +69,7 @@ jobs:
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/cinterop /usr/local/bin/cinterop
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
-      - name: Build Project (Linux/MacOS)
+      - name: Build Project (Posix)
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
           sudo cmake -B build -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib" -DTEST_CMDFX=OFF
@@ -89,7 +89,11 @@ jobs:
           cmake -B build
           cmake --build build --config Release --target install package
           rm .\build\build\package\_CPack_Packages\ -R -Force
-      - name: Publish Kotlin/Native Library
+      - name: Publish Kotlin/Native Library (Posix)
+        if: ${{ matrix.os != 'windows-2022' }}
+        run: sudo cmake --build build --config Release --target deploy-maven
+      - name: Publish Kotlin/Native Library (Windows)
+        if: ${{ matrix.os == 'windows-2022' }}
         run: cmake --build build --config Release --target deploy-maven
       - name: Archive Package Artifacts
         if: success() || failure()
