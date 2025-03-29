@@ -109,14 +109,14 @@ int Sprite_resetFrictionCoefficient(CmdFX_Sprite* sprite);
 // Impulse Functions
 
 /**
- * @brief Adds an impulse to a sprite.
+ * @brief Adds a temporary force to a sprite.
  * 
  * @param sprite The sprite to use.
- * @param force The impulse to add.
- * @param duration The duration of the impulse, in milliseconds.
+ * @param force The force to add.
+ * @param duration The duration of the force, in milliseconds.
  * @return 0 if successful, -1 if an error occurred.
  */
-int Sprite_addImpulse(CmdFX_Sprite* sprite, CmdFX_Vector* force, int duration);
+int Sprite_addForceFor(CmdFX_Sprite* sprite, CmdFX_Vector* force, int duration);
 
 #ifdef __cplusplus
 }

@@ -217,9 +217,11 @@ void Engine_tick() {
         if (dy < -terminalVelocity) dy = -terminalVelocity;
 
         // Ensure Sprite stays in bounds
-        if (sprite->y + dy < ground)
-            dy = ground - sprite->y;
-        
+        if (sprite->x + dx < 0) dx = -sprite->x;
+        if (sprite->x + dx + sprite->width > Canvas_getWidth()) dx = Canvas_getWidth() - (sprite->x + sprite->width);
+        if (sprite->y + dy < 0) dy = -sprite->y;
+        if (sprite->y + dy >= ground) dy = ground - sprite->y;
+
         // Move Sprite
         if (dx != 0 || dy != 0)
             Sprite_moveBy(sprite, dx, -dy); // reverse dy
