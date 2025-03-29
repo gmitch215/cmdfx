@@ -49,19 +49,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ runner.arch }}-konan
       - name: Setup Maven Settings
+        if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: s4u/maven-settings-action@v3.1.0
         with:
           servers: '[{"id": "calcugames", "username": "${{ secrets.MAVEN_USERNAME_CALCUGAMES }}", "password": "${{ secrets.MAVEN_PASSWORD_CALCUGAMES }}"}]'
       - name: Install Doxygen
         uses: ssciwr/doxygen-install@v1
       - name: Set Artifact ID
+        if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         id: set_artifact_id
         run: |
-          VERSION=$(grep -Po '(?<=set\(PROJECT_VERSION ")[^"]*' CMakeLists.txt)
           RUNNER_OS=$(echo ${{ runner.os }} | tr '[:upper:]' '[:lower:]')
           RUNNER_ARCH=$(echo ${{ runner.arch }} | tr '[:upper:]' '[:lower:]')
           echo "KN_INSTALL_ARTIFACTID=cmdfx-$RUNNER_OS-$RUNNER_ARCH" >> $GITHUB_ENV
-          echo "KN_CINTEROP_FILE_NAME=cmdfx-$VERSION-$RUNNER_OS-$RUNNER_ARCH" >> $GITHUB_ENV
         shell: bash
       - name: Link CInterop Command
         if: ${{ matrix.os == 'ubuntu-24.04' }}
@@ -90,7 +90,7 @@ jobs:
           cmake --build build --config Release --target install package
           rm .\build\build\package\_CPack_Packages\ -R -Force
       - name: Publish Kotlin/Native Library (Posix)
-        if: ${{ matrix.os != 'windows-2022' }}
+        if: ${{ matrix.os != 'windows-2022' && matrix.os != 'ubuntu-24.04-arm' }}
         run: sudo cmake --build build --config Release --target deploy-maven
       - name: Publish Kotlin/Native Library (Windows)
         if: ${{ matrix.os == 'windows-2022' }}

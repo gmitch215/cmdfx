@@ -93,6 +93,10 @@ if (DOCS_CMDFX)
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/docs
             COMMENT "Generating API documentation with Doxygen"
             VERBATIM)
+    else()
+        add_custom_target(docs
+            COMMAND ${CMAKE_COMMAND} -E echo "Doxygen not found, skipping documentation generation"
+            VERBATIM)
     endif()
 endif()
 
