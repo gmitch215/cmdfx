@@ -26,7 +26,7 @@ void* _addSpriteImpulse(void* arg) {
     return 0;
 }
 
-int Sprite_addImpulse(CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration) {
+int Sprite_addForceFor(CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration) {
     if (sprite == 0) return -1;
     if (sprite->id == 0) return -1;
     if (vector == 0) return -1;
