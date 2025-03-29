@@ -29,6 +29,11 @@ jobs:
         if: ${{ matrix.os == 'windows-2022' }}
         with:
           dotnet-version: '9'
+      - name: Install WiX
+        if: ${{ matrix.os == 'windows-2022' }}
+        run: |
+          dotnet tool install --global wix --version 5.0.2
+          wix extension add --global WixToolset.UI.wixext/5.0.2
       - name: Install Kotlin
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: fwilhe2/setup-kotlin@main
@@ -68,8 +73,6 @@ jobs:
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
-          dotnet tool install --global wix --version 5.0.2
-          wix extension add --global WixToolset.UI.wixext/5.0.2
           cmake --build build --config Debug
           cmake --build build --config Debug --target klib
           cmake --build build --config Debug --target install package
@@ -144,6 +147,7 @@ jobs:
         with:
           submodules: 'recursive'
       - name: Setup Maven Settings
+        if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: s4u/maven-settings-action@v3.1.0
         with:
           servers: '[{"id": "calcugames", "username": "${{ secrets.MAVEN_USERNAME_CALCUGAMES }}", "password": "${{ secrets.MAVEN_PASSWORD_CALCUGAMES }}"}]'
