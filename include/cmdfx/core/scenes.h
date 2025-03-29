@@ -137,6 +137,24 @@ int Scene_getDrawnScenesCount();
 CmdFX_Scene* Scene_create(int width, int height);
 
 /**
+ * @brief Creates a filled scene with a specified width, height, and character.
+ * 
+ * This function creates a new scene with the specified width and height. The scene
+ * will be filled with the specified character. The ANSI data will be set to the
+ * specified ANSI string.
+ * 
+ * The width and height parameters must be greater than 0. If either parameter is less
+ * than or equal to 0, the function will return `NULL`.
+ * 
+ * @param width The width of the scene.
+ * @param height The height of the scene.
+ * @param c The character to fill the scene with.
+ * @param ansi The ANSI string to fill the scene with.
+ * @return A pointer to the newly created scene, or `NULL` if the scene could not be created.
+ */
+CmdFX_Scene* Scene_createFilled(int width, int height, char c, char* ansi, int z);
+
+/**
  * @brief Creates a scene from a 2D array of characters and ANSI strings.
  * 
  * This function creates a new scene from the specified 2D array of characters and ANSI

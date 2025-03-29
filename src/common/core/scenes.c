@@ -52,6 +52,23 @@ CmdFX_Scene* Scene_create(int width, int height) {
     return scene;
 }
 
+CmdFX_Scene* Scene_createFilled(int width, int height, char c, char* ansi, int z) {
+    if (width < 1 || height < 1) return 0;
+
+    CmdFX_Scene* scene = Scene_create(width, height);
+    if (scene == 0) return 0;
+
+    for (int i = 0; i < height; i++)
+        for (int j = 0; j < width; j++) {
+            scene->data[i][j] = c;
+            if (ansi != 0) scene->ansiData[i][j] = ansi;
+        }
+
+    scene->z = z;
+
+    return scene;
+}
+
 CmdFX_Scene* Scene_createFromData(char** data, char*** ansiData) {
     if (data == 0) return 0;
 
@@ -149,8 +166,13 @@ CmdFX_Scene* Scene_getSceneAt(int x, int y) {
     if (x < 0 || y < 0) return 0;
     if (_drawnScenes == 0) return 0;
     if (_drawnScenesCount == 0) return 0;
-    if (x >= Canvas_getWidth() || y >= Canvas_getHeight()) return 0;
-    if (x >= Canvas_getWidth() || y >= Canvas_getHeight()) return 0;
+
+    int width = Canvas_getWidth();
+    int height = Canvas_getHeight();
+
+    if (width > 0 && height > 0) {
+        if (x >= width || y >= height) return 0;
+    }
 
     CmdFX_Scene** stack = malloc(sizeof(CmdFX_Scene*) * _drawnScenesCount);
     if (stack == 0) return 0;
@@ -205,19 +227,45 @@ int Scene_isOnBottom(CmdFX_Scene* scene) {
     if (scene == 0) return -1;
     if (scene->x == -1 && scene->y == -1) return 0;
 
-    CmdFX_Scene* bottom = Scene_getSceneAt(scene->x, scene->y);
-    if (bottom == 0) return 0;
-
-    return bottom == scene ? 1 : 0;
+    return Scene_isOnBottomAt(scene, scene->x, scene->y);
 }
 
 int Scene_isOnBottomAt(CmdFX_Scene* scene, int x, int y) {
-    if (scene == 0) return -1;
-    if (x < 0 || y < 0) return -1;
+    if (scene == 0) return 0;
+    if (x < 0 || y < 0) return 0;
 
-    CmdFX_Scene* bottom = Scene_getSceneAt(x, y);
-    if (bottom == 0) return 0;
+    if (_drawnScenesCount == 0) return 0;
+    if (_drawnScenes == 0) return 0;
+    if (scene->x == -1 && scene->y == -1) return 0;
 
+    CmdFX_Scene** bottomScenes = calloc(_drawnScenesCount, sizeof(CmdFX_Scene*));
+    if (bottomScenes == 0) return 0;
+
+    int c = 0;
+    for (int i = 0; i < _drawnScenesCount; i++) {
+        CmdFX_Scene* scene = _drawnScenes[i];
+        if (scene == 0) continue;
+        if (scene->x == -1 && scene->y == -1) continue;
+
+        if (x >= scene->x && x < scene->x + scene->width && y >= scene->y && y < scene->y + scene->height) {
+            bottomScenes[c++] = scene;
+        }
+    }
+
+    CmdFX_Scene* bottom = bottomScenes[0];
+    if (bottom == 0 || c == 0) {
+        free(bottomScenes);
+        return 0;
+    }
+
+    for (int i = 1; i < c; i++) {
+        CmdFX_Scene* scene = bottomScenes[i];
+        if (scene->z < bottom->z) bottom = scene;
+    }
+
+    printf("count: %d\n", c);
+
+    free(bottomScenes);
     return bottom == scene ? 1 : 0;
 }
 
