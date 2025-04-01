@@ -9,6 +9,7 @@
 
 CmdFX_Scene** _drawnScenes = 0;
 int _drawnScenesCount = 0;
+int** _drawnSceneBounds = 0;
 
 CmdFX_Scene** Scene_getDrawnScenes() {
     return _drawnScenes;
@@ -400,7 +401,6 @@ int Scene_free(CmdFX_Scene* scene) {
 }
 
 CmdFX_Scene** _registeredScenes = 0;
-int** _drawnSceneBounds = 0;
 
 CmdFX_Scene** Scene_getRegisteredScenes() {
     return _registeredScenes;
