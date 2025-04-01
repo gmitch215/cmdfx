@@ -5,6 +5,7 @@
 #include "cmdfx/core/canvas.h"
 #include "cmdfx/core/builder.h"
 #include "cmdfx/core/scenes.h"
+#include "cmdfx/core/util.h"
 
 CmdFX_Scene** _drawnScenes = 0;
 int _drawnScenesCount = 0;
@@ -116,18 +117,20 @@ int Scene_clear(CmdFX_Scene* scene) {
     return 0;
 }
 
-void Scene_draw0(CmdFX_Scene* scene, int x, int y) {
-    int width = scene->width;
-    int height = scene->height;
-    
-    for (int i = 0; i < height; i++)
-        for (int j = 0; j < width; j++) {
+void Scene_draw0(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y2) {
+    int _x1 = clamp_i(x1, 0, scene->width);
+    int _y1 = clamp_i(y1, 0, scene->height);
+    int _x2 = clamp_i(x2, 0, scene->width);
+    int _y2 = clamp_i(y2, 0, scene->height);
+
+    for (int i = _x1; i < _y2; i++)
+        for (int j = _x2; j < _x2; j++) {
             char c = scene->data[i][j];
             if (c == 0) break;
             if (c == ' ') continue;
 
-            int cx = x + j;
-            int cy = y + i;
+            int cx = (x + j) - x1;
+            int cy = (y + i) - y1;
 
             if (!Scene_isOnTopAt(scene, cx, cy)) continue;
 
@@ -141,15 +144,7 @@ void Scene_draw0(CmdFX_Scene* scene, int x, int y) {
         }
 }
 
-int Scene_draw(CmdFX_Scene* scene, int x, int y) {
-    if (scene == 0) return -1;
-    if (x < 0 || y < 0) return -1;
-
-    if (scene->x != -1 && scene->y != -1) Scene_remove(scene);
-    scene->x = x;
-    scene->y = y;
-    Scene_draw0(scene, x, y);
-    
+void Scene_draw1(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y2) {
     if (_drawnScenes == 0) {
         _drawnScenes = (CmdFX_Scene**) malloc(sizeof(CmdFX_Scene*));
     } else {
@@ -159,6 +154,43 @@ int Scene_draw(CmdFX_Scene* scene, int x, int y) {
     _drawnScenes[_drawnScenesCount] = scene;
     _drawnScenesCount++;
 
+    if (scene->uid > -1) {
+        if (_drawnSceneBounds == 0) {
+            _drawnSceneBounds = (int**) calloc(MAX_REGISTERED_SCENES, sizeof(int*));
+        }
+
+        int* bounds = (int*) calloc(4, sizeof(int));
+        bounds[0] = x1;
+        bounds[1] = y1;
+        bounds[2] = x2;
+        bounds[3] = y2;
+        _drawnSceneBounds[scene->uid] = bounds;
+    }
+}
+
+int Scene_draw(CmdFX_Scene* scene, int x, int y) {
+    if (scene == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    if (scene->x != -1 && scene->y != -1) Scene_remove(scene);
+
+    scene->x = x;
+    scene->y = y;
+    Scene_draw0(scene, x, y, 0, 0, scene->width, scene->height);
+    Scene_draw1(scene, x, y, 0, 0, scene->width, scene->height);
+    return 0;
+}
+
+int Scene_drawPortion(CmdFX_Scene* scene, int x, int y, int sx, int sy, int width, int height) {
+    if (scene == 0) return -1;
+    if (x < 0 || y < 0) return -1;
+
+    if (scene->x != -1 && scene->y != -1) Scene_remove(scene);
+
+    scene->x = x;
+    scene->y = y;
+    Scene_draw0(scene, x, y, sx, sy, width, height);
+    Scene_draw1(scene, x, y, sx, sy, width, height);
     return 0;
 }
 
@@ -272,6 +304,13 @@ int Scene_isOnBottomAt(CmdFX_Scene* scene, int x, int y) {
 void Scene_remove0(CmdFX_Scene* scene) {
     int width = scene->width;
     int height = scene->height;
+    if (scene->uid > -1 && _drawnSceneBounds != 0) {
+        int* bounds = _drawnSceneBounds[scene->uid];
+        if (bounds != 0) {
+            width = bounds[2] - bounds[0];
+            height = bounds[3] - bounds[1];
+        }
+    }
 
     for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++) {
@@ -294,6 +333,12 @@ int Scene_remove(CmdFX_Scene* scene) {
             for (int j = i; j < _drawnScenesCount - 1; j++)
                 _drawnScenes[j] = _drawnScenes[j + 1];
 
+            if (scene->uid > -1 && _drawnSceneBounds != 0) {
+                free(_drawnSceneBounds[scene->uid]);
+                _drawnSceneBounds[scene->uid] = 0;
+            }
+
+            _drawnScenes[_drawnScenesCount - 1] = 0;
             _drawnScenesCount--;
             break;
         }
@@ -345,11 +390,17 @@ int Scene_free(CmdFX_Scene* scene) {
     }
     free(scene->ansiData);
 
+    if (scene->uid > -1 && _drawnSceneBounds != 0) {
+        free(_drawnSceneBounds[scene->uid]);
+        _drawnSceneBounds[scene->uid] = 0;
+    }
+
     free(scene);
     return 0;
 }
 
 CmdFX_Scene** _registeredScenes = 0;
+int** _drawnSceneBounds = 0;
 
 CmdFX_Scene** Scene_getRegisteredScenes() {
     return _registeredScenes;
@@ -408,6 +459,28 @@ int Scene_switchToRegistered(int uid, int x, int y) {
     return Scene_switchTo(_registeredScenes[uid], x, y);
 }
 
+int Scene_scroll(int uid, int dx, int dy) {
+    if (uid < 0 || uid >= MAX_REGISTERED_SCENES) return -1;
+    if (_registeredScenes == 0) return -1;
+    if (_registeredScenes[uid] == 0) return -1;
+
+    CmdFX_Scene* scene = _registeredScenes[uid];
+    if (scene->x == -1 && scene->y == -1) return -1;
+
+    int* bounds = _drawnSceneBounds[uid];
+    if (bounds == 0) return -1;
+
+    int x1 = clamp_i(bounds[0] + dx, 0, scene->width); bounds[0] = x1;
+    int y1 = clamp_i(bounds[1] + dy, 0, scene->height); bounds[1] = y1;
+    int x2 = clamp_i(bounds[2] + dx, 0, scene->width); bounds[2] = x2;
+    int y2 = clamp_i(bounds[3] + dy, 0, scene->height); bounds[3] = y2;
+
+    Scene_remove0(scene);
+    Scene_draw0(scene, scene->x, scene->y, x1, y1, x2, y2);
+
+    return 0;
+}
+
 void tickCmdFXSceneEngine() {
     if (_registeredScenes == 0) return;
 
@@ -416,7 +489,21 @@ void tickCmdFXSceneEngine() {
         if (scene == 0) continue;
         if (scene->x == -1 && scene->y == -1) continue;
 
-        Scene_draw0(scene, scene->x, scene->y);
+        int* bounds = _drawnSceneBounds[scene->uid];
+        int x1, y1, x2, y2;
+        if (bounds != 0) {
+            x1 = bounds[0];
+            y1 = bounds[1];
+            x2 = bounds[2];
+            y2 = bounds[3];
+        } else {
+            x1 = 0;
+            y1 = 0;
+            x2 = scene->width;
+            y2 = scene->height;
+        }
+
+        Scene_draw0(scene, scene->x, scene->y, x1, y1, x2, y2);
     }
 }
 
@@ -466,7 +553,7 @@ int Scene_setData(CmdFX_Scene* scene, char** data) {
     scene->height = height;
 
     if (cx != -1 && cy != -1) {
-        Scene_draw0(scene, cx, cy);
+        Scene_draw0(scene, cx, cy, 0, 0, width, height);
         scene->x = cx;
         scene->y = cy;
     }
@@ -521,7 +608,7 @@ int Scene_setAnsiData(CmdFX_Scene* scene, char*** ansiData) {
     scene->height = height;
 
     if (cx != -1 && cy != -1) {
-        Scene_draw0(scene, cx, cy);
+        Scene_draw0(scene, cx, cy, 0, 0, width, height);
         scene->x = cx;
         scene->y = cy;
     }
@@ -575,7 +662,7 @@ int Scene_appendAnsiData(CmdFX_Scene* scene, char*** ansiData) {
     scene->height = height;
 
     if (cx != -1 && cy != -1) {
-        Scene_draw0(scene, cx, cy);
+        Scene_draw0(scene, cx, cy, 0, 0, width, height);
         scene->x = cx;
         scene->y = cy;
     }
@@ -610,7 +697,7 @@ int Scene_setForeground(CmdFX_Scene* scene, int x, int y, int width, int height,
         }
 
     if (cx != -1 && cy != -1) {
-        Scene_draw0(scene, cx, cy);
+        Scene_draw0(scene, cx, cy, 0, 0, width, height);
         scene->x = cx;
         scene->y = cy;
     }
@@ -650,7 +737,7 @@ int Scene_setBackground(CmdFX_Scene* scene, int x, int y, int width, int height,
         }
 
     if (cx != -1 && cy != -1) {
-        Scene_draw0(scene, cx, cy);
+        Scene_draw0(scene, cx, cy, 0, 0, width, height);
         scene->x = cx;
         scene->y = cy;
     }

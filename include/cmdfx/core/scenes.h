@@ -201,6 +201,29 @@ int Scene_clear(CmdFX_Scene* scene);
 int Scene_draw(CmdFX_Scene* scene, int x, int y);
 
 /**
+ * @brief Draws a portion of a scene at the specified position on the screen.
+ * 
+ * This function draws a portion of the specified scene at the specified position on the
+ * screen. The portion is defined by the specified x, y, width, and height parameters.
+ * The scene will be drawn using the Canvas API, which means that it will disappear if a
+ * Sprite is drawn over it. The Scene Engine will automatically redraw the scene each
+ * frame if necessary.
+ * 
+ * The x and y parameters must be greater than or equal to 0. If either parameter is
+ * less than 0, the function will return `-1`.
+ * 
+ * @param scene The scene to draw.
+ * @param x The x-coordinate of the top-left corner of the scene.
+ * @param y The y-coordinate of the top-left corner of the scene.
+ * @param sx The x-coordinate of the top-left corner of the portion to draw.
+ * @param sy The y-coordinate of the top-left corner of the portion to draw.
+ * @param width The width of the portion to draw.
+ * @param height The height of the portion to draw. 
+ * @return `0` if the scene was drawn successfully, or `-1` if an error occurred.
+ */
+int Scene_drawPortion(CmdFX_Scene* scene, int x, int y, int sx, int sy, int width, int height);
+
+/**
  * @brief Gets the scene at the specified position on the screen.
  * 
  * This function gets the top-most scene at the specified position on the screen. 
@@ -377,6 +400,23 @@ int Scene_drawRegistered(int uid, int x, int y);
  * @return `0` if the scene was switched to successfully, or `-1` if an error occurred.
  */
 int Scene_switchToRegistered(int uid, int x, int y);
+
+/**
+ * @brief Scrolls the scene by the specified amount.
+ * 
+ * This function scrolls the scene by the specified amount. The amount is specified by
+ * the `dx` and `dy` parameters, which represent the amount to scroll in the x and y
+ * directions, respectively.
+ * 
+ * Scrolling refers to moving (redrawing) the specified draw bounds over by the values 
+ * of `dx` and `dy`. This is useful for creating scrolling effects in the scene.
+ * 
+ * @param uid The unique identifier of the scene to scroll.
+ * @param dx The amount to scroll in the x direction.
+ * @param dy The amount to scroll in the y direction.
+ * @return `0` if the scene was scrolled successfully, `-1` if an error occurred.
+ */
+int Scene_scroll(int uid, int dx, int dy);
 
 /**
  * @brief Ticks the CmdFX Scene Engine.
