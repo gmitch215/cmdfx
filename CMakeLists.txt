@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.30)
 
-set(PROJECT_VERSION "0.1.3")
+set(PROJECT_VERSION "0.1.4")
 project(cmdfx 
     LANGUAGES C 
     VERSION ${PROJECT_VERSION}
@@ -9,7 +9,7 @@ project(cmdfx
 )
 set(PROJECT_DOCUMENTATION "https://gmitch215.github.io/cmdfx")
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD 17)
 
 # Sources
 file(GLOB_RECURSE COMMON_SRC ${PROJECT_SOURCE_DIR}/src/common/*.c)
