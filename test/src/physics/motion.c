@@ -15,8 +15,8 @@ int main() {
     r |= assert(sprite->x == 1);
     r |= assert(sprite->y == 1);
 
-    Sprite_setVelocityX(sprite, 2);
-    Sprite_setVelocityY(sprite, -3);
+    r |= assert(Sprite_setVelocityX(sprite, 2) == 0);
+    r |= assert(Sprite_setVelocityY(sprite, -3) == 0);
     Engine_applyMotion(sprite);
 
     r |= assert(Sprite_getVelocityX(sprite) == 2);
@@ -24,8 +24,8 @@ int main() {
     r |= assert(sprite->x == 3);
     r |= assert(sprite->y == 4);
 
-    Sprite_setAccelerationX(sprite, 1);
-    Sprite_setAccelerationY(sprite, -2);
+    r |= assert(Sprite_setAccelerationX(sprite, 1) == 0);
+    r |= assert(Sprite_setAccelerationY(sprite, -2) == 0);
     Engine_applyMotion(sprite);
 
     r |= assert(Sprite_getAccelerationX(sprite) == 1);
