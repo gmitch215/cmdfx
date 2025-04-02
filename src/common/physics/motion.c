@@ -201,7 +201,8 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
 
     // Check Ground
     if (ground > 0 && sprite->y - dy >= ground) { // dy is reversed
-        dy = ground - sprite->y;
+        dy = sprite->y - ground; // Adjust dy to stop at the ground
+        motion[1] = 0; // reset y velocity
         motion[3] = 0; // reset y acceleration
     }
 
