@@ -12,7 +12,7 @@ int count = 1;
 int assertTrue(int condition) {
     printf("#%d: %s\n", count, condition ? "PASS" : "FAIL");
     if (!condition) {
-        printf("#%d: expected true but was false\n", count);
+        printf("#%d: had true, wanted false\n", count);
         count++;
         return 1;
     }
@@ -24,7 +24,7 @@ int assertTrue(int condition) {
 int assertFalse(int condition) {
     printf("#%d: %s\n", count, !condition ? "PASS" : "FAIL");
     if (condition) {
-        printf("#%d: expected false but was true\n", count);
+        printf("#%d: had false, wanted true\n", count);
         count++;
         return 1;
     }
@@ -36,7 +36,7 @@ int assertFalse(int condition) {
 int assertNull(void* ptr) {
     printf("#%d: %s\n", count, ptr == 0 ? "PASS" : "FAIL");
     if (ptr != 0) {
-        printf("#%d: expected pointer <%p> to be null\n", count, ptr);
+        printf("#%d: why is <%p> not null\n", count, ptr);
         count++;
         return 1;
     }
@@ -48,7 +48,7 @@ int assertNull(void* ptr) {
 int assertNotNull(void* ptr) {
     printf("#%d: %s\n", count, ptr != 0 ? "PASS" : "FAIL");
     if (ptr == 0) {
-        printf("#%d: expected pointer to not be null\n", count);
+        printf("#%d: this pointer shouldn't be null bro\n", count);
         count++;
         return 1;
     }
@@ -60,7 +60,7 @@ int assertNotNull(void* ptr) {
 int assertEquals(int a, int b) {
     printf("#%d: %s\n", count, a == b ? "PASS" : "FAIL");
     if (a != b) {
-        printf("#%d: expected <%d> but was <%d>\n", count, a, b);
+        printf("#%d: had <%d>, wanted <%d>\n", count, a, b);
         count++;
         return 1;
     }
@@ -72,7 +72,7 @@ int assertEquals(int a, int b) {
 int assertFloatEquals(float a, float b) {
     printf("#%d: %s\n", count, fabs(a - b) < 0.0001f ? "PASS" : "FAIL");
     if (fabs(a - b) >= 0.0001f) {
-        printf("#%d: expected <%f> but was <%f>\n", count, a, b);
+        printf("#%d: had <%f>, wanted <%f>\n", count, a, b);
         count++;
         return 1;
     }
@@ -84,7 +84,7 @@ int assertFloatEquals(float a, float b) {
 int assertDoubleEquals(double a, double b) {
     printf("#%d: %s\n", count, fabs(a - b) < 0.0001 ? "PASS" : "FAIL");
     if (fabs(a - b) >= 0.0001) {
-        printf("#%d: expected <%f> but was <%f>\n", count, a, b);
+        printf("#%d: had <%f>, wanted <%f>\n", count, a, b);
         count++;
         return 1;
     }
@@ -96,7 +96,7 @@ int assertDoubleEquals(double a, double b) {
 int assertNotEquals(int a, int b) {
     printf("#%d: %s\n", count, a != b ? "PASS" : "FAIL");
     if (a == b) {
-        printf("#%d: expected <%d> to not equal <%d>\n", count, a, b);
+        printf("#%d: had <%d>, didn't want <%d>\n", count, a, b);
         count++;
         return 1;
     }
@@ -108,7 +108,7 @@ int assertNotEquals(int a, int b) {
 int assertGreaterThan(int a, int b) {
     printf("#%d: %s\n", count, a > b ? "PASS" : "FAIL");
     if (a <= b) {
-        printf("#%d: expected <%d> to be greater than <%d>\n", count, a, b);
+        printf("#%d: wanted <%d> to be greater than <%d>\n", count, a, b);
         count++;
         return 1;
     }
@@ -120,7 +120,7 @@ int assertGreaterThan(int a, int b) {
 int assertLessThan(int a, int b) {
     printf("#%d: %s\n", count, a < b ? "PASS" : "FAIL");
     if (a >= b) {
-        printf("#%d: expected <%d> to be less than <%d>\n", count, a, b);
+        printf("#%d: wanted <%d> to be less than <%d>\n", count, a, b);
         count++;
         return 1;
     }
