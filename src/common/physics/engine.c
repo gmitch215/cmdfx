@@ -4,6 +4,7 @@
 
 #include "cmdfx/core/canvas.h"
 #include "cmdfx/core/sprites.h"
+#include "cmdfx/physics/motion.h"
 #include "cmdfx/physics/engine.h"
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
@@ -12,7 +13,7 @@ CmdFX_Sprite** _staticSprites = 0;
 int _staticSpriteCount = 0;
 
 int Sprite_isStatic(CmdFX_Sprite* sprite) {
-    if (sprite == 0) return -1;
+    if (sprite == 0) return 0;
 
     for (int i = 0; i < _staticSpriteCount; i++) {
         if (_staticSprites[i] == sprite) return 1;
@@ -38,12 +39,21 @@ int Sprite_setStatic(CmdFX_Sprite* sprite, int isStatic) {
         _staticSprites[_staticSpriteCount] = sprite;
         _staticSpriteCount++;
     } else {
+        int c = 0;
         for (int i = 0; i < _staticSpriteCount; i++) {
             if (_staticSprites[i] == sprite) {
                 _staticSprites[i] = 0;
+                c = i;
                 break;
             }
         }
+
+        for (int j = c; j < _staticSpriteCount - 1; j++) {
+            _staticSprites[j] = _staticSprites[j + 1];
+        }
+
+        _staticSprites[_staticSpriteCount - 1] = 0;
+        _staticSpriteCount--;
     }
 
     return 0;
@@ -141,45 +151,57 @@ int Engine_cleanup() {
     return 0;
 }
 
-void Engine_tick() {
+CmdFX_Sprite** Engine_tick() {
     CmdFX_Sprite** sprites = Canvas_getDrawnSprites();
+    if (sprites == 0) return 0;
+
     int count = Canvas_getDrawnSpritesCount();
+    if (count < 1) return 0;
 
     int ground = Engine_getGroundY();
     int width = Canvas_getWidth();
-    int terminalVelocity = Engine_getTerminalVelocity();
     int forceOfGravity = Engine_getForceOfGravity();
 
+    CmdFX_Sprite** modified = calloc(count - _staticSpriteCount + 1, sizeof(CmdFX_Sprite*));
+    if (modified == 0) return 0;
+
+    int c = 0;
     for (int i = 0; i < count; i++) {
         CmdFX_Sprite* sprite = sprites[i];
 
         // Skip Static Sprites
         if (Sprite_isStatic(sprite)) continue;
+        
+        // persist velocity
+        int dvx = Sprite_getVelocityX(sprite); // Δvx
+        int dvy = Sprite_getVelocityY(sprite); // Δvy
 
-        int dx = 0, dy = 0;
+        // don't persist acceleration
+        int dax = 0; // Δax
+        int day = 0; // Δay
 
         // Apply Forces
         CmdFX_Vector* netForce = Sprite_getNetForce(sprite);
         if (netForce != 0) {
-            dx = netForce->x;
-            dy = netForce->y;
+            dax = netForce->x;
+            day = netForce->y;
         }
         free(netForce);
 
         // Apply Friction
         double frictionCoefficient = Sprite_getFrictionCoefficient(sprite);
         if (sprite->y == ground) {
-            if (dx > 0) {
-                dx -= frictionCoefficient;
-                if (dx < 0) dx = 0;
-            } else if (dx < 0) {
-                dx += frictionCoefficient;
-                if (dx > 0) dx = 0;
+            if (dax > 0) {
+                dax -= frictionCoefficient;
+                if (dax < 0) dax = 0;
+            } else if (dax < 0) {
+                dax += frictionCoefficient;
+                if (dax > 0) dax = 0;
             }
         }
 
         // Apply Gravity
-        dy -= forceOfGravity;
+        day -= forceOfGravity;
 
         // Collision Forces
         CmdFX_Sprite** colliding = Sprite_getCollidingSprites(sprite);
@@ -200,36 +222,28 @@ void Engine_tick() {
                 int u2y = otherForce->y;
                 
                 // dx = v1x, dy = v1y
-                int v1x = (((m1 - m2) * dx) + (2 * m2 * u2x)) / (m1 + m2);
-                int v1y = (((m1 - m2) * dy) + (2 * m2 * u2y)) / (m1 + m2);
-                int v2x = (((m2 - m1) * u2x) + (2 * m1 * dx)) / (m1 + m2);
-                int v2y = (((m2 - m1) * u2y) + (2 * m1 * dy)) / (m1 + m2);
+                int v1x = (((m1 - m2) * dax) + (2 * m2 * u2x)) / (m1 + m2);
+                int v1y = (((m1 - m2) * day) + (2 * m2 * u2y)) / (m1 + m2);
+                int v2x = (((m2 - m1) * u2x) + (2 * m1 * dax)) / (m1 + m2);
+                int v2y = (((m2 - m1) * u2y) + (2 * m1 * day)) / (m1 + m2);
 
-                dx = v1x;
-                dy = v1y;
+                dvx = v1x;
+                dvy = v1y;
                 
                 free(otherForce);
             }
             free(colliding);
         }
 
-        // Check Terminal Velocity
-        if (dy > terminalVelocity) dy = terminalVelocity;
-        if (dy < -terminalVelocity) dy = -terminalVelocity;
+        // Apply Motion
+        Sprite_setVelocityX(sprite, dvx);
+        Sprite_setVelocityY(sprite, dvy);
+        Sprite_setAccelerationX(sprite, dax);
+        Sprite_setAccelerationY(sprite, day);
 
-        // Ensure Sprite stays in bounds
-        if (sprite->x + dx < 0) dx = -sprite->x;
-        if (sprite->y + dy < 0) dy = -sprite->y;
-
-        if (width != 0)
-            if (sprite->x + dx + sprite->width > width) dx = width - (sprite->x + sprite->width);
-        
-        if (ground != 0)
-            if (sprite->y + dy + sprite->height > ground) dy = ground - sprite->y;
-
-        // Move Sprite
-        printf("dx: %d, dy: %d\n", dx, dy);
-        if (dx != 0 || dy != 0)
-            Sprite_moveBy(sprite, dx, -dy); // reverse dy
+        modified[c++] = sprite;
     }
+
+    modified[c] = 0;
+    return modified;
 }

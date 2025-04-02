@@ -4,8 +4,14 @@
 #include "cmdfx/core/sprites.h"
 #include "cmdfx/core/builder.h"
 #include "cmdfx/physics/force.h"
+#include "cmdfx/physics/motion.h"
 #include "cmdfx/physics/engine.h"
 #include "../test.h"
+
+void tick(CmdFX_Sprite* sprite) {
+    free(Engine_tick());
+    Engine_applyMotion(sprite);
+}
 
 int main() {
     int r = 0;
@@ -44,19 +50,22 @@ int main() {
     Sprite_draw(1, 10, square);
 
     r |= assert(square->y == 10);
-    Engine_tick();
+    tick(square);
     r |= assert(square->y == 11);
-    for (int i = 0; i < 10; i++) Engine_tick();
-    r |= assert(square->y == 21);
+    for (int i = 0; i < 10; i++) tick(square);
+    r |= assert(square->y == 75);
 
     r |= assert(square->x == 1);
-    CmdFX_Vector* impulse = Vector_create(2, 0);
-    Sprite_addForce(square, impulse);
-    for (int i = 0; i < 10; i++) Engine_tick();
-    r |= assert(square->x == 21);
-    Sprite_removeForce(square, impulse);
-    for (int i = 0; i < 10; i++) Engine_tick();
-    r |= assert(square->x == 21);
+    CmdFX_Vector* force = Vector_create(2, 0); // ax = 2, ay = -1
+    Sprite_addForce(square, force);
+    for (int i = 0; i < 10; i++) tick(square);
+    r |= assert(square->x == 111);
+    r |= assert(square->y == 175);
+
+    Sprite_removeForce(square, force); // x velocity remains as 20
+    for (int i = 0; i < 10; i++) tick(square);
+    r |= assert(square->x == 311);
+    r |= assert(square->y == 275);
 
     Sprite_free(square);
 

@@ -177,11 +177,14 @@ int Engine_start();
 /**
  * @brief Ticks the physics engine.
  * 
- * 
  * This method ticks the physcis engine, if it is running.
  * This is automatically called once per frame.
+ * 
+ * @return An array of all sprites that were modified by the engine.
+ * The array is terminated with a `NULL` pointer. The array is automatically
+ * freed by the engine, so it should not be freed by the caller.
  */
-void Engine_tick();
+CmdFX_Sprite** Engine_tick();
 
 /**
  * @brief Cleans up the physics engine.

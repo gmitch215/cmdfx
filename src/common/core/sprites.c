@@ -11,6 +11,7 @@
 #include "cmdfx/core/util.h"
 #include "cmdfx/core/builder.h"
 #include "cmdfx/core/costumes.h"
+#include "cmdfx/physics/motion.h"
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
 
@@ -287,6 +288,7 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
     sprite->y = -1;
 
     // Reset Physics declarations
+    Sprite_resetAllMotion(sprite);
     Sprite_removeAllForces(sprite);
     Sprite_resetMass(sprite);
     Sprite_resetFrictionCoefficient(sprite);
@@ -819,6 +821,7 @@ void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y) {
     if (sprite == 0) return;
     if (sprite->id == 0) return;
     if (x < 1 || y < 1) return;
+    if (sprite->x == x && sprite->y == y) return;
     
     int width = Canvas_getWidth();
     int height = Canvas_getHeight();
