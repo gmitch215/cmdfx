@@ -17,8 +17,28 @@
 
 // Core Events
 
-int _prevWidth = 0;
-int _prevHeight = 0;
+int _prevWidth = -1;
+int _prevHeight = -1;
+
+int Canvas_getWidth() {
+    if (_prevWidth == -1) {
+        struct winsize w;
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+        _prevWidth = w.ws_col;
+    }
+
+    return _prevWidth;
+}
+
+int Canvas_getHeight() {
+    if (_prevHeight == -1) {
+        struct winsize w;
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+        _prevHeight = w.ws_row;
+    }
+
+    return _prevHeight;
+}
 
 void posix_checkResizeEvent(int sig) {
     struct winsize ws;

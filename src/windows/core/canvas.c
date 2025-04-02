@@ -3,28 +3,6 @@
 
 #include "cmdfx/core/canvas.h"
 
-int Canvas_getWidth() {
-    int width = 0;
-
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
-        width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-    }
-    
-    return width;
-}
-
-int Canvas_getHeight() {
-    int height = 0;
-
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
-        height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
-    }
-
-    return height;
-}
-
 int Canvas_getCursorX() {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {

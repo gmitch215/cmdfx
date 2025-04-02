@@ -13,8 +13,34 @@
 
 // Core Events
 
-int _prevWidth = 0;
-int _prevHeight = 0;
+int _prevWidth = -1;
+int _prevHeight = -1;
+
+int Canvas_getWidth() {
+    if (_prevWidth == -1) {
+        CONSOLE_SCREEN_BUFFER_INFO csbi;
+        if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
+            _prevWidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+        } else {
+            _prevWidth = 0;
+        }
+    }
+
+    return _prevWidth;
+}
+
+int Canvas_getHeight() {
+    if (_prevHeight == -1) {
+        CONSOLE_SCREEN_BUFFER_INFO csbi;
+        if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
+            _prevHeight = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+        } else {
+            _prevHeight = 0;
+        }
+    }
+
+    return _prevHeight;
+}
 
 void win_checkResizeEvent() {
     CONSOLE_SCREEN_BUFFER_INFO csbi;

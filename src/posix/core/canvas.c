@@ -6,20 +6,6 @@
 
 #include "cmdfx/core/canvas.h"
 
-int Canvas_getWidth() {
-    struct winsize w;
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-
-    return w.ws_col;
-}
-
-int Canvas_getHeight() {
-    struct winsize w;
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-
-    return w.ws_row;
-}
-
 int _Canvas_getPos(int *y, int *x) {
     char buf[30] = {0};
     int ret, i, pow;
