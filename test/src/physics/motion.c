@@ -8,6 +8,8 @@
 int main() {
     int r = 0;
 
+    Engine_setGroundY(0);
+
     char** data = Char2DBuilder_createFilled(4, 4, '&');
     CmdFX_Sprite* sprite = Sprite_create(data, 0, 0);
     Sprite_draw(1, 1, sprite);
