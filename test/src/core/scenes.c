@@ -12,34 +12,34 @@ int main() {
     data[3][4] = '@';
     CmdFX_Scene* scene = Scene_createFromData(data, 0);
 
-    r |= assert(scene->width == 10);
-    r |= assert(scene->height == 5);
-    r |= assert(scene->x == -1);
-    r |= assert(scene->y == -1);
+    r |= assertEquals(scene->width, 10);
+    r |= assertEquals(scene->height, 5);
+    r |= assertEquals(scene->x, -1);
+    r |= assertEquals(scene->y, -1);
 
-    r |= assert(compareCharArrays(scene->data, data) == 0);
-    r |= assert(scene->ansiData == 0);
-    r |= assert(scene->z == 0);
+    r |= assertCharArraysMatch(scene->data, data);
+    r |= assertPointersMatch(scene->ansiData, 0);
+    r |= assertEquals(scene->z, 0);
 
     Scene_draw(scene, 0, 0);
 
-    r |= assert(scene->x == 0);
-    r |= assert(scene->y == 0);
+    r |= assertEquals(scene->x, 0);
+    r |= assertEquals(scene->y, 0);
 
     Scene_remove(scene);
     Scene_draw(scene, 10, 10);
     scene->z = 2;
 
-    r |= assert(scene->x == 10);
-    r |= assert(scene->y == 10);
-    r |= assert(scene->z == 2);
+    r |= assertEquals(scene->x, 10);
+    r |= assertEquals(scene->y, 10);
+    r |= assertEquals(scene->z, 2);
 
-    r |= assert(Scene_getSceneAt(10, 10) == scene);
-    r |= assert(Scene_getSceneAt(10, 11) == scene);
-    r |= assert(Scene_getSceneAt(10 + scene->width, 10 + scene->height) == 0);
+    r |= assertPointersMatch(Scene_getSceneAt(10, 10), scene);
+    r |= assertPointersMatch(Scene_getSceneAt(10, 11), scene);
+    r |= assertPointersMatch(Scene_getSceneAt(10 + scene->width, 10 + scene->height), 0);
 
-    r |= assert(Scene_getDrawnScenesCount() == 1);
-    r |= assert(Scene_getDrawnScenes()[0] == scene);
+    r |= assertEquals(Scene_getDrawnScenesCount(), 1);
+    r |= assertPointersMatch(Scene_getDrawnScenes()[0], scene);
 
     Scene_free(scene);
 

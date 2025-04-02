@@ -14,20 +14,20 @@ int main() {
     CmdFX_Sprite* sprite = Sprite_create(data, 0, 0);
     Sprite_draw(2, 2, sprite);
 
-    r |= assert(Sprite_getDefaultMass(sprite) == 9);
+    r |= assertEquals(Sprite_getDefaultMass(sprite), 9);
 
     Engine_setCharacterMass('X', 2);
     
-    r |= assert(Sprite_getDefaultMass(sprite) == 18);
+    r |= assertEquals(Sprite_getDefaultMass(sprite), 18);
 
     Sprite_setMass(sprite, 10);
     Sprite_getMass(sprite);
 
-    r |= assert(Sprite_getMass(sprite) == 10);
+    r |= assertEquals(Sprite_getMass(sprite), 10);
 
     Sprite_resetMass(sprite);
 
-    r |= assert(Sprite_getMass(sprite) == 18);
+    r |= assertEquals(Sprite_getMass(sprite), 18);
 
     Sprite_free(sprite);
     Engine_cleanup();

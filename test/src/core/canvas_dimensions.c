@@ -8,8 +8,8 @@ int main() {
     
     int r = 0;
 
-    r |= assert(Canvas_getWidth() > 0);
-    r |= assert(Canvas_getHeight() > 0);
+    r |= assertGreaterThan(Canvas_getWidth(), 0);
+    r |= assertGreaterThan(Canvas_getHeight(), 0);
 
     return 0;
 }

@@ -12,28 +12,28 @@ int main() {
     CmdFX_Sprite* sprite = Sprite_create(data, 0, 0);
     Sprite_draw(1, 1, sprite);
 
-    r |= assert(sprite->x == 1);
-    r |= assert(sprite->y == 1);
+    r |= assertEquals(sprite->x, 1);
+    r |= assertEquals(sprite->y, 1);
 
-    r |= assert(Sprite_setVelocityX(sprite, 2) == 0);
-    r |= assert(Sprite_setVelocityY(sprite, -3) == 0);
+    r |= assertEquals(Sprite_setVelocityX(sprite, 2), 0);
+    r |= assertEquals(Sprite_setVelocityY(sprite, -3), 0);
     Engine_applyMotion(sprite);
 
-    r |= assert(Sprite_getVelocityX(sprite) == 2);
-    r |= assert(Sprite_getVelocityY(sprite) == -3);
-    r |= assert(sprite->x == 3);
-    r |= assert(sprite->y == 4);
+    r |= assertEquals(Sprite_getVelocityX(sprite), 2);
+    r |= assertEquals(Sprite_getVelocityY(sprite), -3);
+    r |= assertEquals(sprite->x, 3);
+    r |= assertEquals(sprite->y, 4);
 
-    r |= assert(Sprite_setAccelerationX(sprite, 1) == 0);
-    r |= assert(Sprite_setAccelerationY(sprite, -2) == 0);
+    r |= assertEquals(Sprite_setAccelerationX(sprite, 1), 0);
+    r |= assertEquals(Sprite_setAccelerationY(sprite, -2), 0);
     Engine_applyMotion(sprite);
 
-    r |= assert(Sprite_getAccelerationX(sprite) == 1);
-    r |= assert(Sprite_getAccelerationY(sprite) == -2);
-    r |= assert(Sprite_getVelocityX(sprite) == 3);
-    r |= assert(Sprite_getVelocityY(sprite) == -5);
-    r |= assert(sprite->x == 6);
-    r |= assert(sprite->y == 9);
+    r |= assertEquals(Sprite_getAccelerationX(sprite), 1);
+    r |= assertEquals(Sprite_getAccelerationY(sprite), -2);
+    r |= assertEquals(Sprite_getVelocityX(sprite), 3);
+    r |= assertEquals(Sprite_getVelocityY(sprite), -5);
+    r |= assertEquals(sprite->x, 6);
+    r |= assertEquals(sprite->y, 9);
 
     Sprite_free(sprite);
 
