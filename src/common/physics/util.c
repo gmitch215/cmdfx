@@ -6,7 +6,7 @@
 
 // Vectors
 
-CmdFX_Vector* Vector_create(int x, int y) {
+CmdFX_Vector* Vector_create(double x, double y) {
     CmdFX_Vector* v = malloc(sizeof(CmdFX_Vector));
     if (v == 0) return 0;
 

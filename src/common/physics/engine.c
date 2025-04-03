@@ -61,13 +61,13 @@ int Sprite_setStatic(CmdFX_Sprite* sprite, int isStatic) {
 
 // Engine Declarations
 
-int _forceOfGravity = 1;
+double _forceOfGravity = 1.0;
 
-int Engine_getForceOfGravity() {
+double Engine_getForceOfGravity() {
     return _forceOfGravity;
 }
 
-int Engine_setForceOfGravity(int force) {
+int Engine_setForceOfGravity(double force) {
     if (force < 0) return -1;
 
     _forceOfGravity = force;
@@ -75,14 +75,14 @@ int Engine_setForceOfGravity(int force) {
     return 0;
 }
 
-int _terminalVelocity = 10;
+double _terminalVelocity = 10;
 
-int Engine_getTerminalVelocity() {
+double Engine_getTerminalVelocity() {
     return _terminalVelocity;
 }
 
-int Engine_setTerminalVelocity(int velocity) {
-    if (velocity < 0) return -1;
+int Engine_setTerminalVelocity(double velocity) {
+    if (velocity < 0.0) return -1;
 
     _terminalVelocity = velocity;
 
@@ -173,12 +173,12 @@ CmdFX_Sprite** Engine_tick() {
         if (Sprite_isStatic(sprite)) continue;
         
         // persist velocity
-        int dvx = Sprite_getVelocityX(sprite); // Δvx
-        int dvy = Sprite_getVelocityY(sprite); // Δvy
+        double dvx = Sprite_getVelocityX(sprite); // Δvx
+        double dvy = Sprite_getVelocityY(sprite); // Δvy
 
         // don't persist acceleration
-        int dax = 0; // Δax
-        int day = 0; // Δay
+        double dax = 0.0; // Δax
+        double day = 0.0; // Δay
 
         // Apply Forces
         CmdFX_Vector* netForce = Sprite_getNetForce(sprite);
@@ -188,20 +188,9 @@ CmdFX_Sprite** Engine_tick() {
         }
         free(netForce);
 
-        // Apply Friction
-        double frictionCoefficient = Sprite_getFrictionCoefficient(sprite);
-        if (sprite->y == ground) {
-            if (dax > 0) {
-                dax -= frictionCoefficient;
-                if (dax < 0) dax = 0;
-            } else if (dax < 0) {
-                dax += frictionCoefficient;
-                if (dax > 0) dax = 0;
-            }
-        }
-
         // Apply Gravity
-        day -= forceOfGravity;
+        if (sprite->y + sprite->height < ground)
+            day -= forceOfGravity;
 
         // Collision Forces
         CmdFX_Sprite** colliding = Sprite_getCollidingSprites(sprite);
@@ -233,6 +222,18 @@ CmdFX_Sprite** Engine_tick() {
                 free(otherForce);
             }
             free(colliding);
+        }
+
+        // Apply Friction
+        double frictionCoefficient = Sprite_getFrictionCoefficient(sprite);
+        if (sprite->y + sprite->height >= ground && dvx != 0) {
+            if (dvx > 0) {
+                dax -= frictionCoefficient * forceOfGravity;
+                if (dvx + dax < 0) dax = -dvx; // ensure no negative acceleration
+            } else if (dvx < 0) {
+                dax += frictionCoefficient * forceOfGravity;
+                if (dvx + dax > 0) dax = -dvx; // ensure no negative acceleration
+            }
         }
 
         // Apply Motion

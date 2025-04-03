@@ -44,32 +44,32 @@ int Sprite_setStatic(CmdFX_Sprite* sprite, int isStatic);
  * @brief Gets the force of gravity, in characters per second squared.
  * 
  * This method returns the force of gravity, in characters per second squared.
- * The default value is 1 c/s^2.
+ * The default value is 1.0 c/s^2.
  * 
  * @return The force of gravity, in c/s^2.
  */
-int Engine_getForceOfGravity();
+double Engine_getForceOfGravity();
 
 /**
  * @brief Sets the force of gravity, in characters per second squared.
  * 
  * This method sets the force of gravity, in characters per second squared.
- * The default value is 1 c/s^2.
+ * The default value is 1.0 c/s^2.
  * 
  * @param force The force of gravity, in c/s^2.
  * @return 0 if successful, -1 if an error occurred.
  */
-int Engine_setForceOfGravity(int force);
+int Engine_setForceOfGravity(double force);
 
 /**
  * @brief Gets the terminal velocity, in characters per second.
  * 
  * This method returns the terminal velocity, in characters per second.
- * The default value is 10 c/s.
+ * The default value is 10.0 c/s.
  * 
  * @return The terminal velocity, in c/s.
  */
-int Engine_getTerminalVelocity();
+double Engine_getTerminalVelocity();
 
 /**
  * @brief Sets the terminal velocity, in characters per second.
@@ -80,7 +80,7 @@ int Engine_getTerminalVelocity();
  * @param velocity 
  * @return 0 if successful, -1 if an error occurred.
  */
-int Engine_setTerminalVelocity(int velocity);
+int Engine_setTerminalVelocity(double velocity);
 
 /**
  * @brief Gets the Y level of the ground for the physics engine.

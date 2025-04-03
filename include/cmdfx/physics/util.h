@@ -23,11 +23,11 @@ typedef struct CmdFX_Vector {
     /**
      * @brief The x coordinate.
      */
-    int x;
+    double x;
     /**
      * @brief The y coordinate.
      */
-    int y;
+    double y;
 } CmdFX_Vector;
 
 /**
@@ -40,7 +40,7 @@ typedef struct CmdFX_Vector {
  * @param y The y coordinate.
  * @return The new 2D Vector.
  */
-CmdFX_Vector* Vector_create(int x, int y);
+CmdFX_Vector* Vector_create(double x, double y);
 
 /**
  * @brief Adds two 2D Vectors.
