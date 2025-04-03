@@ -15,9 +15,11 @@
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
 
+#define _SPRITE_DRAWN_MUTEX 0
 CmdFX_Sprite** _sprites = 0;
 int _spriteCount = 0;
 
+#define _SPRITE_UID_MUTEX 1
 int _spriteUidCounter = 0;
 int* _availableUids = 0;
 
@@ -82,6 +84,8 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
     sprite->z = z;
     sprite->id = 0;
 
+    CmdFX_tryLockMutex(_SPRITE_UID_MUTEX);
+
     if (_availableUids == 0)
         sprite->uid = ++_spriteUidCounter;
     else {
@@ -99,6 +103,8 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
         }
     }
 
+    CmdFX_tryUnlockMutex(_SPRITE_UID_MUTEX);
+
     if (data != 0) _getSpriteDimensions(data, &sprite->width, &sprite->height);
     sprite->data = data;
     sprite->ansi = ansi;
@@ -111,6 +117,7 @@ void Sprite_free(CmdFX_Sprite* sprite) {
     if (sprite->id > 0) Sprite_remove(sprite);
 
     // Add UID to available UIDs
+    CmdFX_tryLockMutex(_SPRITE_UID_MUTEX);
     if (_availableUids == 0) {
         _availableUids = calloc(2, sizeof(int));
         if (_availableUids != 0) _availableUids[0] = sprite->uid;
@@ -125,6 +132,7 @@ void Sprite_free(CmdFX_Sprite* sprite) {
             _availableUids[i + 1] = 0;
         }
     }
+    CmdFX_tryUnlockMutex(_SPRITE_UID_MUTEX);
 
     // Free Sprite Costumes and Data
     CmdFX_SpriteCostumes* costumes = Sprite_getCostumes(sprite);
@@ -205,6 +213,8 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
     fflush(stdout);
 }
 
+#define _SPRITE_POSITION_MUTEX 2
+
 int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
     if (sprite->data == 0) return 0;
@@ -216,8 +226,10 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
         if (x + sprite->width > width || y + sprite->height > height) return 0;
     }
 
+    CmdFX_tryLockMutex(_SPRITE_POSITION_MUTEX);
     sprite->x = x;
     sprite->y = y;
+    CmdFX_tryUnlockMutex(_SPRITE_POSITION_MUTEX);
 
     if (sprite->id != 0) {
         CmdFX_Sprite* old = _sprites[sprite->id - 1];
@@ -232,6 +244,7 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
     Sprite_draw0(sprite);
 
     // Add Sprite to List
+    CmdFX_tryLockMutex(_SPRITE_DRAWN_MUTEX);
     if (_sprites == 0) {
         _sprites = malloc(sizeof(CmdFX_Sprite*) * 2);
         if (!_sprites) return 0;
@@ -245,6 +258,7 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
     _sprites[_spriteCount] = sprite;
     _sprites[_spriteCount + 1] = 0;
     sprite->id = ++_spriteCount;
+    CmdFX_tryUnlockMutex(_SPRITE_DRAWN_MUTEX);
 
     return 1;
 }
@@ -260,12 +274,15 @@ void Sprite_remove0(CmdFX_Sprite* sprite) {
             putchar(' ');
         }
     }
+    fflush(stdout);
 }
 
 void Sprite_remove(CmdFX_Sprite* sprite) {
     if (sprite->id == 0) return;
 
     Sprite_remove0(sprite);
+
+    CmdFX_tryLockMutex(_SPRITE_DRAWN_MUTEX);
     
     int index = sprite->id - 1;
     if (_sprites[index] == 0) return;
@@ -284,8 +301,12 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
 
     _spriteCount--;
     sprite->id = 0;
+
+    CmdFX_tryLockMutex(_SPRITE_POSITION_MUTEX);
     sprite->x = -1;
     sprite->y = -1;
+    CmdFX_tryUnlockMutex(_SPRITE_POSITION_MUTEX);
+    CmdFX_tryUnlockMutex(_SPRITE_DRAWN_MUTEX);
 
     // Reset Physics declarations
     Sprite_resetAllMotion(sprite);
@@ -296,10 +317,13 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
 
 // Utility Methods - Sprite Builder
 
+#define _SPRITE_DATA_MUTEX 3
+
 int Sprite_setData(CmdFX_Sprite* sprite, char** data) {
     if (sprite == 0) return 0;
     if (data == 0) return 0;
 
+    CmdFX_tryLockMutex(_SPRITE_DATA_MUTEX);
     int width = 0;
     int height = 0;
     _getSpriteDimensions(data, &width, &height);
@@ -340,6 +364,7 @@ int Sprite_setData(CmdFX_Sprite* sprite, char** data) {
         }
     }
 
+    CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
     return 1;
 }
 
@@ -348,7 +373,9 @@ int Sprite_setChar(CmdFX_Sprite* sprite, int x, int y, char c) {
     if (sprite->data == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
 
+    CmdFX_tryLockMutex(_SPRITE_DATA_MUTEX);
     sprite->data[y][x] = c;
+    CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
 
     // Redraw Character if Drawn
     if (sprite->id != 0)
@@ -829,15 +856,20 @@ void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y) {
         if (x + sprite->width > width || y + sprite->height > height) return;
     }
 
+    CmdFX_tryLockMutex(_SPRITE_POSITION_MUTEX);
+
     Sprite_remove0(sprite);
     sprite->x = x;
     sprite->y = y;
     Sprite_draw0(sprite);
+
+    CmdFX_tryUnlockMutex(_SPRITE_POSITION_MUTEX);
 }
 
 void Sprite_moveBy(CmdFX_Sprite* sprite, int dx, int dy) {
     if (sprite == 0) return;
     if (sprite->id == 0) return;
+    if (dx == 0 && dy == 0) return;
 
     Sprite_moveTo(sprite, sprite->x + dx, sprite->y + dy);
 }
