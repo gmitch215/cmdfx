@@ -16,12 +16,14 @@
 #include "cmdfx/physics/mass.h"
 
 #define _SPRITE_DRAWN_MUTEX 0
-CmdFX_Sprite** _sprites = 0;
-int _spriteCount = 0;
+static CmdFX_Sprite** _sprites = 0;
+static int _spriteCount = 0;
 
 #define _SPRITE_UID_MUTEX 1
-int _spriteUidCounter = 0;
-int* _availableUids = 0;
+static int _spriteUidCounter = 0;
+
+static int* _takenUids = 0;
+static int _takenUidsCount = 0;
 
 CmdFX_Sprite** Canvas_getDrawnSprites() {
     return _sprites;
@@ -85,22 +87,26 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
     sprite->id = 0;
 
     CmdFX_tryLockMutex(_SPRITE_UID_MUTEX);
-
-    if (_availableUids == 0)
-        sprite->uid = ++_spriteUidCounter;
-    else {
-        sprite->uid = _availableUids[0];
-
-        int s = 0;
-        while (_availableUids[s] != 0) s++;
-        for (int i = 0; i < s; i++)
-            _availableUids[i] = _availableUids[i + 1];
-
-        int* temp = realloc(_availableUids, sizeof(int) * s);
-        if (temp != 0) {
-            _availableUids = temp;
-            _availableUids[s] = 0;
+    sprite->uid = ++_spriteUidCounter;
+    if (_takenUids == 0) {
+        _takenUids = calloc(1, sizeof(int));
+        if (_takenUids == 0) {
+            CmdFX_tryUnlockMutex(_SPRITE_UID_MUTEX);
+            free(sprite);
+            return 0;
         }
+        _takenUidsCount++;
+        _takenUids[0] = sprite->uid;
+    } else {
+        int* temp = realloc(_takenUids, sizeof(int) * (_takenUidsCount + 1));
+        if (temp == 0) {
+            CmdFX_tryUnlockMutex(_SPRITE_UID_MUTEX);
+            free(sprite);
+            return 0;
+        }
+        _takenUids = temp;
+        _takenUids[_takenUidsCount - 1] = sprite->uid;
+        _takenUidsCount++;
     }
 
     CmdFX_tryUnlockMutex(_SPRITE_UID_MUTEX);
@@ -116,20 +122,25 @@ void Sprite_free(CmdFX_Sprite* sprite) {
     if (sprite == 0) return;
     if (sprite->id > 0) Sprite_remove(sprite);
 
-    // Add UID to available UIDs
+    // Remove UID from Taken UIDs
     CmdFX_tryLockMutex(_SPRITE_UID_MUTEX);
-    if (_availableUids == 0) {
-        _availableUids = calloc(2, sizeof(int));
-        if (_availableUids != 0) _availableUids[0] = sprite->uid;
-    } else {
-        int i = 0;
-        while (_availableUids[i] != 0) i++;
+    if (_takenUids != 0) {
+        for (int i = 0; i < _takenUidsCount; i++) {
+            if (_takenUids[i] == sprite->uid) {
+                _takenUids[i] = 0;
+                for (int j = i + 1; j < _takenUidsCount; j++) {
+                    if (_takenUids[j] == 0) break;
+                    _takenUids[j - 1] = _takenUids[j];
+                }
+                _takenUids[_takenUidsCount - 1] = 0;
+                _takenUidsCount--;
+                break;
+            }
+        }
 
-        int* temp = realloc(_availableUids, sizeof(int) * (i + 2));
-        if (temp != 0) {
-            _availableUids = temp;
-            _availableUids[i] = sprite->uid;
-            _availableUids[i + 1] = 0;
+        if (_takenUidsCount == 0) {
+            free(_takenUids);
+            _takenUids = 0;
         }
     }
     CmdFX_tryUnlockMutex(_SPRITE_UID_MUTEX);
@@ -300,6 +311,11 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
         _sprites[_spriteCount] = 0;
 
     _spriteCount--;
+    if (_spriteCount == 0) {
+        free(_sprites);
+        _sprites = 0;
+    }
+
     sprite->id = 0;
 
     CmdFX_tryLockMutex(_SPRITE_POSITION_MUTEX);
