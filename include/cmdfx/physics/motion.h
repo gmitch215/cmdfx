@@ -110,7 +110,7 @@ int Sprite_resetAllMotion(CmdFX_Sprite* sprite);
  * @brief Whether motion debugging is enabled.
  * 
  * If motion debugging is enabled, the physics engine will print
- * all sprite motion updates to the console at (2, <sprite id + 1>).
+ * all sprite motion updates to the console at (3, <sprite id + 1>).
  * 
  * @return 1 if motion debugging is enabled, 0 if motion debugging is disabled.
  */
@@ -120,7 +120,7 @@ int Engine_isMotionDebugEnabled();
  * @brief Enables motion debugging.
  * 
  * This method enables motion debugging, which will print all
- * sprite motion updates to the console at (2, <sprite id + 1>).
+ * sprite motion updates to the console at (3, <sprite id + 1>).
  * 
  * @return 0 if successful, -1 if an error occurred.
  */

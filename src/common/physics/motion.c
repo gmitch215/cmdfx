@@ -276,7 +276,7 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
     }
 
     if (_motionDebugEnabled) {
-        Canvas_setCursor(2, sprite->id + 1);
+        Canvas_setCursor(3, sprite->id + 1);
         printf("sprite #%d | vx: %.2f, vy: %.2f, ax: %.2f, ay: %.2f -- dx: %.2f, dy: %.2f -- x: %d -> %.2f, y: %d -> %.2f -- lvx: %.2f, lvy: %.2f", sprite->id, motion[0], motion[1], motion[2], motion[3], dx, dy, sprite->x, sprite->x + dx, sprite->y, sprite->y - dy, leftoverX, leftoverY);
     }
 

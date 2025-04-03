@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
     CmdFX_initThreadSafe();
 
     Canvas_hLine(0, Engine_getGroundY(), Canvas_getWidth(), '-');
-    Canvas_hLine(0, 0, Canvas_getWidth(), '-');
+    Canvas_hLine(0, 1, Canvas_getWidth(), '-');
     Sprite_draw(2, Canvas_getHeight() - sprite->height - 1, sprite);
     Engine_start();
 
