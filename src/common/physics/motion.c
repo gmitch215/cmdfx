@@ -257,12 +257,15 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
     double leftoverX = dx - dx0;
     double leftoverY = dy - dy0;
 
+    double lvx = 0.0, lvy = 0.0;
     if (leftoverX != 0.0 || leftoverY != 0.0) {
         _checkLeftovers(sprite);
         if (_leftovers[id] == 0) return;
         double* leftovers = _leftovers[id];
         leftovers[0] += leftoverX;
         leftovers[1] += leftoverY;
+        lvx = leftovers[0];
+        lvy = leftovers[1];
 
         if (fabs(leftovers[0]) > 1.0) {
             dx0 += (int) floor(leftovers[0]);
@@ -277,7 +280,7 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
 
     if (_motionDebugEnabled) {
         Canvas_setCursor(3, sprite->id + 1);
-        printf("sprite #%d | vx: %.2f, vy: %.2f, ax: %.2f, ay: %.2f -- dx: %.2f, dy: %.2f -- x: %d -> %.2f, y: %d -> %.2f -- lvx: %.2f, lvy: %.2f", sprite->id, motion[0], motion[1], motion[2], motion[3], dx, dy, sprite->x, sprite->x + dx, sprite->y, sprite->y - dy, leftoverX, leftoverY);
+        printf("sprite #%d | vx: %.2f, vy: %.2f, ax: %.2f, ay: %.2f -- dx: %.2f, dy: %.2f -- x: %d -> %.2f, y: %d -> %.2f -- lvx: %.2f, lvy: %.2f", sprite->id, motion[0], motion[1], motion[2], motion[3], dx, dy, sprite->x, sprite->x + dx, sprite->y, sprite->y - dy, lvx, lvy);
     }
 
     // Move Sprite
