@@ -119,7 +119,7 @@ jobs:
       - name: Configure Project
         run: cmake -B build
       - name: Build Docs
-        run: make docs
+        run: cmake --build build --target docs
       - name: Deploy Doxygen
         run: bash doxygen.sh ${GITHUB_SHA::7}
   
