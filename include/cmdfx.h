@@ -29,3 +29,4 @@
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
 #include "cmdfx/physics/util.h"
+#include "cmdfx/physics/motion.h"
