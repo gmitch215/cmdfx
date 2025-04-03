@@ -3,3 +3,4 @@
 build/
 Testing/
 .cmake/
+.DS_Store
