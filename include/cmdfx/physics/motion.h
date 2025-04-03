@@ -32,14 +32,14 @@
  * @param sprite The sprite to use.
  * @return The motion array of the sprite, or `0` if the sprite has no motion array or an error occurred.
  */
-int* Sprite_getMotion(CmdFX_Sprite* sprite);
+double* Sprite_getMotion(CmdFX_Sprite* sprite);
 
 /**
  * @brief Gets the X velocity of a sprite.
  * @param sprite The sprite to use.
  * @return The X velocity of the sprite.
  */
-int Sprite_getVelocityX(CmdFX_Sprite* sprite);
+double Sprite_getVelocityX(CmdFX_Sprite* sprite);
 
 /**
  * @brief Sets the X velocity of a sprite.
@@ -47,14 +47,14 @@ int Sprite_getVelocityX(CmdFX_Sprite* sprite);
  * @param velocity The X velocity to set.
  * @return 0 if successful, -1 if an error occurred.
  */
-int Sprite_setVelocityX(CmdFX_Sprite* sprite, int velocity);
+int Sprite_setVelocityX(CmdFX_Sprite* sprite, double velocity);
 
 /**
  * @brief Gets the Y velocity of a sprite.
  * @param sprite The sprite to use.
  * @return The Y velocity of the sprite.
  */
-int Sprite_getVelocityY(CmdFX_Sprite* sprite);
+double Sprite_getVelocityY(CmdFX_Sprite* sprite);
 
 /**
  * @brief Sets the Y velocity of a sprite.
@@ -62,14 +62,14 @@ int Sprite_getVelocityY(CmdFX_Sprite* sprite);
  * @param velocity The Y velocity to set.
  * @return 0 if successful, -1 if an error occurred.
  */
-int Sprite_setVelocityY(CmdFX_Sprite* sprite, int velocity);
+int Sprite_setVelocityY(CmdFX_Sprite* sprite, double velocity);
 
 /**
  * @brief Gets the X acceleration of a sprite.
  * @param sprite The sprite to use.
  * @return The X acceleration of the sprite.
  */
-int Sprite_getAccelerationX(CmdFX_Sprite* sprite);
+double Sprite_getAccelerationX(CmdFX_Sprite* sprite);
 
 /**
  * @brief Sets the X acceleration of a sprite.
@@ -77,14 +77,14 @@ int Sprite_getAccelerationX(CmdFX_Sprite* sprite);
  * @param acceleration The X acceleration to set.
  * @return 0 if successful, -1 if an error occurred.
  */
-int Sprite_setAccelerationX(CmdFX_Sprite* sprite, int acceleration);
+int Sprite_setAccelerationX(CmdFX_Sprite* sprite, double acceleration);
 
 /**
  * @brief Gets the Y acceleration of a sprite.
  * @param sprite The sprite to use.
  * @return The Y acceleration of the sprite.
  */
-int Sprite_getAccelerationY(CmdFX_Sprite* sprite);
+double Sprite_getAccelerationY(CmdFX_Sprite* sprite);
 
 /**
  * @brief Sets the Y acceleration of a sprite.
@@ -92,7 +92,7 @@ int Sprite_getAccelerationY(CmdFX_Sprite* sprite);
  * @param acceleration The Y acceleration to set.
  * @return 0 if successful, -1 if an error occurred.
  */
-int Sprite_setAccelerationY(CmdFX_Sprite* sprite, int acceleration);
+int Sprite_setAccelerationY(CmdFX_Sprite* sprite, double acceleration);
 
 /**
  * @brief Resets all motion of a sprite.
@@ -105,6 +105,36 @@ int Sprite_setAccelerationY(CmdFX_Sprite* sprite, int acceleration);
  * @return 0 if successful, -1 if an error occurred.
  */
 int Sprite_resetAllMotion(CmdFX_Sprite* sprite);
+
+/**
+ * @brief Whether motion debugging is enabled.
+ * 
+ * If motion debugging is enabled, the physics engine will print
+ * all sprite motion updates to the console at (2, <sprite id + 1>).
+ * 
+ * @return 1 if motion debugging is enabled, 0 if motion debugging is disabled.
+ */
+int Engine_isMotionDebugEnabled();
+
+/**
+ * @brief Enables motion debugging.
+ * 
+ * This method enables motion debugging, which will print all
+ * sprite motion updates to the console at (2, <sprite id + 1>).
+ * 
+ * @return 0 if successful, -1 if an error occurred.
+ */
+void Engine_enableMotionDebug();
+
+/**
+ * @brief Disables motion debugging.
+ * 
+ * This method disables motion debugging, which will stop printing
+ * all sprite motion updates to the console.
+ * 
+ * @return 0 if successful, -1 if an error occurred.
+ */
+void Engine_disableMotionDebug();
 
 /**
  * @brief Applies the motion of a sprite.
