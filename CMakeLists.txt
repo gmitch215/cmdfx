@@ -181,9 +181,9 @@ if (INSTALL_CMDFX)
             )
         endif()
 
-        if (EXISTS "${PROJECT_SOURCE_DIR}/build/docs/latex")
+        if (EXISTS "${CMAKE_CURRENT_BINARY_DIR}/build/docs/latex")
             install(DIRECTORY
-                "${PROJECT_SOURCE_DIR}/build/docs/latex"
+                "${CMAKE_CURRENT_BINARY_DIR}/build/docs/latex"
                 DESTINATION ${CMAKE_INSTALL_DOCDIR}
                 COMPONENT latexDocs
             )
