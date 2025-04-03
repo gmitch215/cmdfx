@@ -10,14 +10,14 @@
 
 // Impulse Functions
 
-typedef struct _WinImpulsePayload {
+typedef struct _WinForcePayload {
     CmdFX_Sprite* sprite;
     CmdFX_Vector* vector;
     int duration;
-} _WinImpulsePayload;
+} _WinForcePayload;
 
-unsigned __stdcall _addSpriteImpulse(void* arg) {
-    _WinImpulsePayload* payload = (_WinImpulsePayload*) arg;
+unsigned __stdcall _addSpriteForce(void* arg) {
+    _WinForcePayload* payload = (_WinForcePayload*) arg;
 
     Sprite_addForce(payload->sprite, payload->vector);
     Sleep(payload->duration);
@@ -33,20 +33,20 @@ int Sprite_addForceFor(CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration)
     if (vector == 0) return -1;
     if (duration <= 0) return -1;
 
-    _WinImpulsePayload* payload = malloc(sizeof(_WinImpulsePayload));
+    _WinForcePayload* payload = malloc(sizeof(_WinForcePayload));
     if (payload == 0) return -1;
 
     payload->sprite = sprite;
     payload->vector = vector;
     payload->duration = duration;
 
-    uintptr_t impulseThread;
-    impulseThread = _beginthreadex(NULL, 0, _addSpriteImpulse, payload, 0, NULL);
-    if (impulseThread == 0) {
-        perror("Failed to start new thread to launch impulse.\n");
+    uintptr_t forceThread;
+    forceThread = _beginthreadex(NULL, 0, _addSpriteForce, payload, 0, NULL);
+    if (forceThread == 0) {
+        perror("Failed to start new thread to launch force payload.\n");
         exit(EXIT_FAILURE);
     }
-    CloseHandle((HANDLE) impulseThread);
+    CloseHandle((HANDLE) forceThread);
 
     return 0;
 }

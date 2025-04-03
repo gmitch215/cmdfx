@@ -7,6 +7,7 @@
 #include <time.h>
 
 #include "cmdfx/core/util.h"
+#include "cmdfx/core/canvas.h"
 #include "cmdfx/physics/motion.h"
 #include "cmdfx/physics/engine.h"
 
@@ -17,6 +18,7 @@ void* Engine_applyMotion0(void* arg) {
     if (sprite == 0) return 0;
 
     Engine_applyMotion(sprite);
+    fflush(stdout);
     return 0;
 }
 
@@ -39,7 +41,7 @@ void* _physicsLoop(void* data) {
             pthread_detach(thread);
             i++;
         }
-        
+
         free(modified);
         sleepNanos(sleep);
     }

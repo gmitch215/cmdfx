@@ -16,6 +16,7 @@ unsigned __stdcall Engine_applyMotion0(void* arg) {
     if (sprite == 0) return 0;
 
     Engine_applyMotion(sprite);
+    fflush(stdout);
     return 0;
 }
 
