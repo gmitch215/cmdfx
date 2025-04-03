@@ -49,3 +49,96 @@ void sleepNanos(unsigned long long nanos) {
     WaitForSingleObject(timer, INFINITE);
     CloseHandle(timer);
 }
+
+// Multithreading
+
+static void** _mutexes = 0;
+static int _threadSafeEnabled = 0;
+
+void* _createMutex() {
+    HANDLE mutex = CreateMutex(NULL, FALSE, NULL);
+    if (mutex == NULL) {
+        fprintf(stderr, "Failed to create mutex\n");
+        return NULL;
+    }
+    return (void*) mutex;
+}
+
+int _destroyMutex(void* mutex) {
+    if (mutex == NULL) return -1;
+
+    HANDLE m = (HANDLE) mutex;
+    if (!CloseHandle(m)) {
+        fprintf(stderr, "Failed to destroy mutex\n");
+        return -1;
+    }
+    return 0;
+}
+
+int CmdFX_initThreadSafe() {
+    if (_mutexes != 0) return -1;
+    
+    _mutexes = calloc(MAX_INTERNAL_CMDFX_MUTEXES, sizeof(void*));
+    if (_mutexes == 0) return -1;
+
+    for (int i = 0; i < MAX_INTERNAL_CMDFX_MUTEXES; i++) {
+        _mutexes[i] = _createMutex();
+        if (_mutexes[i] == 0) {
+            for (int j = 0; j < i; j++) _destroyMutex(_mutexes[j]);
+            free(_mutexes);
+            return -1;
+        }
+    }
+    
+    return 0;
+}
+
+int CmdFX_isThreadSafeEnabled() {
+    return _threadSafeEnabled;
+}
+
+int CmdFX_destroyThreadSafe() {
+    if (_mutexes == 0) return -1;
+    
+    for (int i = 0; i < MAX_INTERNAL_CMDFX_MUTEXES; i++) {
+        if (_mutexes[i] != 0) _destroyMutex(_mutexes[i]);
+    }
+    
+    free(_mutexes);
+    _mutexes = 0;
+    
+    return 0;
+}
+
+void* CmdFX_getInternalMutex(int index) {
+    if (!_threadSafeEnabled) return 0;
+    if (index < 0 || index >= MAX_INTERNAL_CMDFX_MUTEXES) return 0;   
+    if (_mutexes == 0) return 0;
+    
+    return _mutexes[index];
+}
+
+int CmdFX_lockMutex(void* mutex) {
+    if (!_threadSafeEnabled) return -1;
+    if (mutex == NULL) return -1;
+
+    HANDLE m = (HANDLE) mutex;
+    DWORD result = WaitForSingleObject(m, INFINITE);
+    if (result == WAIT_FAILED) {
+        fprintf(stderr, "Failed to lock mutex\n");
+        return -1;
+    }
+    return 0;
+}
+
+int CmdFX_unlockMutex(void* mutex) {
+    if (!_threadSafeEnabled) return -1;
+    if (mutex == NULL) return -1;
+
+    HANDLE m = (HANDLE) mutex;
+    if (!ReleaseMutex(m)) {
+        fprintf(stderr, "Failed to unlock mutex\n");
+        return -1;
+    }
+    return 0;
+}

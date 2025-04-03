@@ -121,3 +121,25 @@ int lerp_color(int rgb1, int rgb2, double t) {
 
     return hsv_to_rgb(h, s, v);
 }
+
+// Multithreading
+
+void CmdFX_tryLockMutex(int id) {
+    if (!CmdFX_isThreadSafeEnabled()) return;
+    if (id < 0 || id >= MAX_INTERNAL_CMDFX_MUTEXES) return;
+
+    void* mutex = CmdFX_getInternalMutex(id);
+    if (mutex == 0) return;
+
+    CmdFX_lockMutex(mutex);
+}
+
+void CmdFX_tryUnlockMutex(int id) {
+    if (!CmdFX_isThreadSafeEnabled()) return;
+    if (id < 0 || id >= MAX_INTERNAL_CMDFX_MUTEXES) return;
+
+    void* mutex = CmdFX_getInternalMutex(id);
+    if (mutex == 0) return;
+
+    CmdFX_unlockMutex(mutex);
+}
