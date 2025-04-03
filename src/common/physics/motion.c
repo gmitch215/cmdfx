@@ -241,13 +241,13 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
     if (sprite->x + dx <= 0) {
         dx = -sprite->x;
     }
-    if (sprite->x + sprite->width + dx >= width) {
+    if (width > 0 && sprite->x + sprite->width + dx >= width) {
         dx = width - sprite->width - sprite->x;
     }
     if (sprite->y - dy <= 0) {
         dy = sprite->y;
     }
-    if (sprite->y + sprite->height - dy >= ground) {
+    if (ground > 0 && sprite->y + sprite->height - dy >= ground) {
         dy = -ground + sprite->height + sprite->y;
     }
 

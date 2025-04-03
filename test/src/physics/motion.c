@@ -17,23 +17,23 @@ int main() {
     r |= assertEquals(sprite->x, 1);
     r |= assertEquals(sprite->y, 1);
 
-    r |= assertEquals(Sprite_setVelocityX(sprite, 2), 0);
-    r |= assertEquals(Sprite_setVelocityY(sprite, -3), 0);
+    r |= assertTrue(!Sprite_setVelocityX(sprite, 2.0));
+    r |= assertTrue(!Sprite_setVelocityY(sprite, -3.0));
     Engine_applyMotion(sprite);
 
-    r |= assertEquals(Sprite_getVelocityX(sprite), 2);
-    r |= assertEquals(Sprite_getVelocityY(sprite), -3);
+    r |= assertDoubleEquals(Sprite_getVelocityX(sprite), 2.0);
+    r |= assertDoubleEquals(Sprite_getVelocityY(sprite), -3.0);
     r |= assertEquals(sprite->x, 3);
     r |= assertEquals(sprite->y, 4);
 
-    r |= assertEquals(Sprite_setAccelerationX(sprite, 1), 0);
-    r |= assertEquals(Sprite_setAccelerationY(sprite, -2), 0);
+    r |= assertTrue(!Sprite_setAccelerationX(sprite, 1.0));
+    r |= assertTrue(!Sprite_setAccelerationY(sprite, -2.0));
     Engine_applyMotion(sprite);
 
-    r |= assertEquals(Sprite_getAccelerationX(sprite), 1);
-    r |= assertEquals(Sprite_getAccelerationY(sprite), -2);
-    r |= assertEquals(Sprite_getVelocityX(sprite), 3);
-    r |= assertEquals(Sprite_getVelocityY(sprite), -5);
+    r |= assertDoubleEquals(Sprite_getAccelerationX(sprite), 1.0);
+    r |= assertDoubleEquals(Sprite_getAccelerationY(sprite), -2.0);
+    r |= assertDoubleEquals(Sprite_getVelocityX(sprite), 3.0);
+    r |= assertDoubleEquals(Sprite_getVelocityY(sprite), -5.0);
     r |= assertEquals(sprite->x, 6);
     r |= assertEquals(sprite->y, 9);
 

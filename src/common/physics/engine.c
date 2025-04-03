@@ -189,7 +189,7 @@ CmdFX_Sprite** Engine_tick() {
         free(netForce);
 
         // Apply Gravity
-        if (sprite->y + sprite->height < ground)
+        if (ground == 0 || sprite->y + sprite->height < ground)
             day -= forceOfGravity;
 
         // Collision Forces
