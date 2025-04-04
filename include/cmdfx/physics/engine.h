@@ -146,7 +146,7 @@ int Engine_setDefaultFrictionCoefficient(double coefficient);
  * 
  * @return The default mass of a character.
  */
-int Engine_getCharacterMass(char c);
+double Engine_getCharacterMass(char c);
 
 /**
  * @brief Sets the default mass of a character.
@@ -163,12 +163,15 @@ int Engine_getCharacterMass(char c);
  * @param mass The default mass of the character.
  * @return 0 if successful, -1 if an error occured.
  */
-int Engine_setCharacterMass(char c, int mass);
+int Engine_setCharacterMass(char c, double mass);
 
 // Engine
 
 /**
  * @brief Starts up the physics engine.
+ * 
+ * This method starts up the physics engine. This method will automatically
+ * enable thread safety if it is not already enabled.
  * 
  * @return 0 if successful, -1 if an error occured.
  */
