@@ -1274,7 +1274,9 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>ASCII_NINE</b> [8][5]
 </div><div class="memdoc">
 
 <p>Gets the cursor position. </p>
-<p>On POSIX, this method uses the <code>ESC[6n</code> ANSI code to get the cursor position. This can make the method more expensive than on Windows, where the cursor position is stored internally. On Windows, this method uses the <code>GetConsoleScreenBufferInfo</code> function to get the cursor position. </p><dl class="section return"><dt>Returns</dt><dd>The cursor position. </dd></dl>
+<p>On POSIX, this method uses the <code>ESC[6n</code> ANSI code to get the cursor position. This can make the method more expensive than on Windows, where the cursor position is stored internally. This method is therefore not thread safe on POSIX platforms.</p>
+<p>On Windows, this method uses the <code>GetConsoleScreenBufferInfo</code> function to get the cursor position.</p>
+<dl class="section return"><dt>Returns</dt><dd>The cursor position. </dd></dl>
 
 </div>
 </div>
@@ -1294,7 +1296,8 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>ASCII_NINE</b> [8][5]
 </div><div class="memdoc">
 
 <p>Gets the cursor position. </p>
-<p>On POSIX, this method uses the <code>ESC[6n</code> ANSI code to get the cursor position. This can make the method more expensive than on Windows, where the cursor position is stored internally. On Windows, this method uses the <code>GetConsoleScreenBufferInfo</code> function to get the cursor position. </p><dl class="section return"><dt>Returns</dt><dd>The cursor position. </dd></dl>
+<p>On POSIX, this method uses the <code>ESC[6n</code> ANSI code to get the cursor position. This can make the method more expensive than on Windows, where the cursor position is stored internally. This method is therefore not thread safe on POSIX platforms.</p>
+<p>On Windows, this method uses the <code>GetConsoleScreenBufferInfo</code> function to get the cursor position. </p><dl class="section return"><dt>Returns</dt><dd>The cursor position. </dd></dl>
 
 </div>
 </div>
