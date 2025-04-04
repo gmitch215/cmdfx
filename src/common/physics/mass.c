@@ -45,6 +45,7 @@ int Sprite_setMass(CmdFX_Sprite* sprite, double mass) {
     if (_masses == 0) {
         _masses = calloc(id + 1, sizeof(double));
         if (_masses == 0) return -1;
+        _massesCount++;
     }
 
     if (_massesCount < id) {
