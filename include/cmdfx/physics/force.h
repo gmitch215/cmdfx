@@ -28,6 +28,14 @@ extern "C" {
 CmdFX_Vector** Sprite_getAllForces(CmdFX_Sprite* sprite);
 
 /**
+ * @brief Gets the number of forces acting on a sprite.
+ * 
+ * @param sprite The sprite to use.
+ * @return The number of forces acting on the sprite.
+ */
+int Sprite_getAllForcesCount(CmdFX_Sprite* sprite);
+
+/**
  * @brief Gets the net force acting on a sprite.
  * 
  * This creates a new vector that is the sum of all the forces acting on the sprite.
