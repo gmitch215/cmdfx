@@ -150,6 +150,7 @@ CmdFX_Scene* Scene_create(int width, int height);
  * @param height The height of the scene.
  * @param c The character to fill the scene with.
  * @param ansi The ANSI string to fill the scene with.
+ * @param z The Z index of the scene.
  * @return A pointer to the newly created scene, or `NULL` if the scene could not be created.
  */
 CmdFX_Scene* Scene_createFilled(int width, int height, char c, char* ansi, int z);

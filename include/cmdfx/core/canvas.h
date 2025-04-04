@@ -47,9 +47,11 @@ void Canvas_setCursor(int x, int y);
  * 
  * On POSIX, this method uses the `ESC[6n` ANSI code to get the cursor position. This can
  * make the method more expensive than on Windows, where the cursor position is stored
- * internally.
+ * internally. This method is therefore not thread safe on POSIX platforms.
+ * 
  * On Windows, this method uses the `GetConsoleScreenBufferInfo` function to get
  * the cursor position.
+ * 
  * @return The cursor position.
  */
 int Canvas_getCursorX();
@@ -59,7 +61,8 @@ int Canvas_getCursorX();
  * 
  * On POSIX, this method uses the `ESC[6n` ANSI code to get the cursor position. This can
  * make the method more expensive than on Windows, where the cursor position is stored
- * internally.
+ * internally. This method is therefore not thread safe on POSIX platforms.
+ * 
  * On Windows, this method uses the `GetConsoleScreenBufferInfo` function to get
  * the cursor position.
  * @return The cursor position.

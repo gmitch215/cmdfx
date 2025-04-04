@@ -211,7 +211,6 @@ int endCmdFXEventLoop();
 
 /**
  * @brief Removes all event listeners.
- * @return 1 if all event listeners were removed successfully, 0 if an error occurred.
  */
 void shutdownCmdFXEvents();
 
