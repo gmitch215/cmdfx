@@ -132,6 +132,8 @@ int main() {
 }
 ```
 
+More examples can be found in the [samples directory](/samples).
+
 ## 📝 Contributing
 
 If you would like to contribute to cmdfx, please see the [contributing guidelines](CONTRIBUTING.md). All contributions are welcome!
