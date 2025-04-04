@@ -26,7 +26,7 @@ extern "C" {
  * @param sprite The sprite to use.
  * @return The default mass of the sprite.
  */
-int Sprite_getDefaultMass(CmdFX_Sprite* sprite);
+double Sprite_getDefaultMass(CmdFX_Sprite* sprite);
 
 /**
  * @brief Gets the mass of a sprite.
@@ -37,7 +37,7 @@ int Sprite_getDefaultMass(CmdFX_Sprite* sprite);
  * @param sprite The sprite to use.
  * @return The mass of the sprite. 
  */
-int Sprite_getMass(CmdFX_Sprite* sprite);
+double Sprite_getMass(CmdFX_Sprite* sprite);
 
 /**
  * @brief Sets the mass of a sprite.
@@ -50,7 +50,7 @@ int Sprite_getMass(CmdFX_Sprite* sprite);
  * @param mass The mass of the sprite.
  * @return The mass of the sprite.
  */
-int Sprite_setMass(CmdFX_Sprite* sprite, int mass);
+int Sprite_setMass(CmdFX_Sprite* sprite, double mass);
 
 /**
  * @brief Resets the mass of a sprite

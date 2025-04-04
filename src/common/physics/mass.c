@@ -4,11 +4,11 @@
 #include "cmdfx/physics/engine.h"
 #include "cmdfx/physics/mass.h"
 
-int Sprite_getDefaultMass(CmdFX_Sprite* sprite) {
+double Sprite_getDefaultMass(CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
     if (sprite->data == 0) return -1;
 
-    int mass = 0;
+    double mass = 0;
     for (int i = 0; i < sprite->height; i++) {
         if (sprite->data[i] == 0) break;
         for (int j = 0; j < sprite->width; j++) {
@@ -21,37 +21,21 @@ int Sprite_getDefaultMass(CmdFX_Sprite* sprite) {
     return mass;
 }
 
-int* _masses = 0;
+double* _masses = 0;
 int _massesCount = 0;
 
-int Sprite_getMass(CmdFX_Sprite* sprite) {
+double Sprite_getMass(CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
     if (sprite->uid == 0) return -1;
+    if (_masses == 0) return Sprite_getDefaultMass(sprite);
+    if (_massesCount == 0) return Sprite_getDefaultMass(sprite);
+    if (sprite->uid > _massesCount) return Sprite_getDefaultMass(sprite);
 
     int id = sprite->uid - 1;
-    if (_masses == 0) {
-        _masses = calloc(id + 1, sizeof(int));
-        if (_masses == 0) return -1;
-        return Sprite_getDefaultMass(sprite);
-    }
-
-    if (_massesCount < id) {
-        int* temp = realloc(_masses, sizeof(int) * (id + 1));
-        if (temp == 0) return -1;
-        _masses = temp;
-        for (int i = _massesCount; i < id; i++) _masses[i] = 0;
-
-        _massesCount = id + 1;
-        return Sprite_getDefaultMass(sprite);
-    }
-
-    if (_masses[id] == 0) 
-        return Sprite_getDefaultMass(sprite);
-
     return _masses[id];
 }
 
-int Sprite_setMass(CmdFX_Sprite* sprite, int mass) {
+int Sprite_setMass(CmdFX_Sprite* sprite, double mass) {
     if (sprite == 0) return -1;
     if (sprite->uid == 0) return -1;
     if (mass == -1) return Sprite_resetMass(sprite);
@@ -59,12 +43,12 @@ int Sprite_setMass(CmdFX_Sprite* sprite, int mass) {
 
     int id = sprite->uid - 1;
     if (_masses == 0) {
-        _masses = calloc(id + 1, sizeof(int));
+        _masses = calloc(id + 1, sizeof(double));
         if (_masses == 0) return -1;
     }
 
     if (_massesCount < id) {
-        int* temp = realloc(_masses, sizeof(int) * (id + 1));
+        double* temp = realloc(_masses, sizeof(double) * (id + 1));
         if (temp == 0) return -1;
 
         _masses = temp;
@@ -82,33 +66,25 @@ int Sprite_setMass(CmdFX_Sprite* sprite, int mass) {
 int Sprite_resetMass(CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
     if (sprite->uid == 0) return -1;
+    if (_masses == 0) return 0;
+    if (_massesCount == 0) return 0;
 
     int id = sprite->uid - 1;
-    if (_masses == 0) {
-        _masses = calloc(id + 1, sizeof(int));
-        if (_masses == 0) return -1;
-        return 0;
-    }
+    if (_massesCount < id) return 0;
+    if (_masses[id] == 0) return 0;
 
-    if (_massesCount < id) {
-        int* temp = realloc(_masses, sizeof(int) * (id + 1));
-        if (temp == 0) return -1;
-        _masses = temp;
-        for (int i = _massesCount; i < id; i++) _masses[i] = 0;
-
-        _massesCount = id + 1;
-        return 0;
-    }
     _masses[id] = 0;
-
-    int count = Canvas_getDrawnSpritesCount();
-    if (_massesCount != count) {
-        int* temp = realloc(_masses, sizeof(int) * count);
-        if (temp == 0) return -1;
-        for (int i = _massesCount; i < count; i++) temp[i] = 0;
-
-        _masses = temp;
-        _massesCount = count;
+    int allZero = 1;
+    for (int i = 0; i < _massesCount; i++)
+        if (_masses[i] != 0) {
+            allZero = 0;
+            break;
+        }
+    
+    if (allZero) {
+        free(_masses);
+        _masses = 0;
+        _massesCount = 0;
     }
 
     return 0;
