@@ -7,6 +7,7 @@
 #include "cmdfx/core/scenes.h"
 #include "cmdfx/core/util.h"
 
+#define _CANVAS_MUTEX 7
 CmdFX_Scene** _drawnScenes = 0;
 int _drawnScenesCount = 0;
 int** _drawnSceneBounds = 0;
@@ -124,6 +125,8 @@ void Scene_draw0(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y
     int _x2 = clamp_i(x2, 0, scene->width);
     int _y2 = clamp_i(y2, 0, scene->height);
 
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
+    
     for (int i = _x1; i < _y2; i++)
         for (int j = _x2; j < _x2; j++) {
             char c = scene->data[i][j];
@@ -140,9 +143,12 @@ void Scene_draw0(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y
 
             if (scene->ansiData != 0) {
                 char* ansi = scene->ansiData[i][j];
-                if (ansi != 0) printf("%s", ansi);
+                if (ansi != 0) Canvas_setAnsiCurrent(ansi);
             }
         }
+    
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Scene_draw1(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y2) {

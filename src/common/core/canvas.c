@@ -5,25 +5,37 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+#include "cmdfx/core/util.h"
 #include "cmdfx/core/canvas.h"
 
 // Core Functions
+
+#define _CANVAS_MUTEX 7
 
 void Canvas_setChar(int x, int y, char c) {
     if (x < 0) return;
     if (y < 0) return;
 
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     Canvas_setCursor(x, y);
     putchar(c);
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_setAnsiCurrent(const char* ansi) {
+    if (ansi == 0) return;
+
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("%s", ansi);
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_setAnsi(int x, int y, const char* ansi) {
     if (x < 0) return;
     if (y < 0) return;
+    if (ansi == 0) return;
 
     Canvas_setCursor(x, y);
     Canvas_setAnsiCurrent(ansi);
@@ -32,141 +44,229 @@ void Canvas_setAnsi(int x, int y, const char* ansi) {
 // Utility Functions
 
 void Canvas_resetFormat() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[0m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_setForeground(int rgb) {
+    if (rgb < 0) return;
+
     int r = (rgb >> 16) & 0xFF;
     int g = (rgb >> 8) & 0xFF;
     int b = rgb & 0xFF;
+
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
 
     char* ansi = malloc(22);
     snprintf(ansi, 22, "\033[38;2;%d;%d;%dm", r, g, b);
-
     Canvas_setAnsiCurrent(ansi);
     free(ansi);
+
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_setBackground(int rgb) {
+    if (rgb < 0) return;
+
     int r = (rgb >> 16) & 0xFF;
     int g = (rgb >> 8) & 0xFF;
     int b = rgb & 0xFF;
 
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
+
     char* ansi = malloc(22);
     snprintf(ansi, 22, "\033[48;2;%d;%d;%dm", r, g, b);
-
     Canvas_setAnsiCurrent(ansi);
     free(ansi);
+
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_setColor8(int color) {
     if (color < 30 || color > 107) return;
 
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
+
     char* ansi = malloc(9);
     snprintf(ansi, 9, "\033[%dm", color);
-
     Canvas_setAnsiCurrent(ansi);
     free(ansi);
+
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_setForeground256(int color) {
     if (color < 0 || color > 255) return;
 
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
+
     char* ansi = malloc(14);
     snprintf(ansi, 14, "\033[38;5;%dm", color);
-
     Canvas_setAnsiCurrent(ansi);
     free(ansi);
+
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_setBackground256(int color) {
     if (color < 0 || color > 255) return;
 
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
+
     char* ansi = malloc(14);
     snprintf(ansi, 14, "\033[48;5;%dm", color);
-
     Canvas_setAnsiCurrent(ansi);
     free(ansi);
+
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableBold() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[1m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableBold() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[22m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableDim() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[2m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableDim() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[22m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableItalic() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[3m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableItalic() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[23m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableUnderline() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[4m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableUnderline() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[24m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableBlink() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[5m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableBlink() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[25m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableInvert() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[7m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableInvert() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[27m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableHidden() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[8m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableHidden() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[28m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableStrikethrough() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[9m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableStrikethrough() {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\033[29m");
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 // Utility Functions - Shapes
 
 void Canvas_hLine(int x, int y, int width, char c) {
+    if (width < 1) return;
+    if (x < 0) return;
+    if (y < 0) return;
+
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
+
     for (int i = 0; i < width; i++) {
         Canvas_setCursor(x + i, y);
         putchar(c);
     }
+
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_vLine(int x, int y, int height, char c) {
+    if (height < 1) return;
+    if (x < 0) return;
+    if (y < 0) return;
+
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
+
     for (int i = 0; i < height; i++) {
         Canvas_setCursor(x, y + i);
         putchar(c);
     }
+
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_rect(int x, int y, int width, int height, char c) {
@@ -398,17 +498,35 @@ void Canvas_fillPolygon(int x, int y, int sides, int radius, char c) {
 // Utility Functions - Text
 
 void Canvas_drawText(int x, int y, char* text) {
+    if (x < 0) return;
+    if (y < 0) return;
+    if (text == 0) return;
+
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
+
     Canvas_setCursor(x, y);
     printf("%s", text);
+    fflush(stdout);
+    
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_drawAscii(int x, int y, char ascii[8][5]) {
+    if (x < 0) return;
+    if (y < 0) return;
+    if (ascii == 0) return;
+
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
+
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 5; j++) {
             Canvas_setCursor(x + j, y + i);
             putchar(ascii[i][j]);
         }
     }
+
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 #pragma region ASCII Art
@@ -1184,6 +1302,7 @@ void _initAsciiText() {
 }
 
 void Canvas_drawAsciiText(int x, int y, char character, const char* text) {
+    if (x < 0 || y < 0) return;
     if (!text) return;
     if (strlen(text) == 0) return;
 

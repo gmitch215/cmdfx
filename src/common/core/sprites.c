@@ -190,11 +190,15 @@ void Sprite_free(CmdFX_Sprite* sprite) {
     free(sprite);
 }
 
+#define _CANVAS_MUTEX 7
+
 void Sprite_draw0(CmdFX_Sprite* sprite) {
     if (sprite->data == 0) return;
 
     if (sprite->x < 1 || sprite->y < 1) return;
     if (sprite->x + sprite->width > Canvas_getWidth() || sprite->y + sprite->height > Canvas_getHeight()) return;
+
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
 
     int hasAnsi = sprite->ansi != 0;
     for (int i = 0; i < sprite->height; i++) {
@@ -222,6 +226,8 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
         }
     }
     fflush(stdout);
+
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 #define _SPRITE_POSITION_MUTEX 2
@@ -256,6 +262,7 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
 
     // Add Sprite to List
     CmdFX_tryLockMutex(_SPRITE_DRAWN_MUTEX);
+    
     if (_sprites == 0) {
         _sprites = malloc(sizeof(CmdFX_Sprite*) * 2);
         if (!_sprites) return 0;
@@ -269,23 +276,28 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
     _sprites[_spriteCount] = sprite;
     _sprites[_spriteCount + 1] = 0;
     sprite->id = ++_spriteCount;
+
     CmdFX_tryUnlockMutex(_SPRITE_DRAWN_MUTEX);
 
     return 1;
 }
 
 void Sprite_remove0(CmdFX_Sprite* sprite) {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
+
     for (int i = 0; i < sprite->height; i++) {
         for (int j = 0; j < sprite->width; j++) {
             int x = sprite->x + j;
             int y = sprite->y + i;
             
             Canvas_setCursor(x, y);
-            Canvas_resetFormat();
+            printf("\033[0m");
             putchar(' ');
         }
     }
     fflush(stdout);
+
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Sprite_remove(CmdFX_Sprite* sprite) {
@@ -293,10 +305,10 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
 
     Sprite_remove0(sprite);
 
-    CmdFX_tryLockMutex(_SPRITE_DRAWN_MUTEX);
-    
     int index = sprite->id - 1;
     if (_sprites[index] == 0) return;
+
+    CmdFX_tryLockMutex(_SPRITE_DRAWN_MUTEX);
 
     for (int i = index; i < _spriteCount - 1; i++) {
         _sprites[i] = _sprites[i + 1];
@@ -322,6 +334,7 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
     sprite->x = -1;
     sprite->y = -1;
     CmdFX_tryUnlockMutex(_SPRITE_POSITION_MUTEX);
+    
     CmdFX_tryUnlockMutex(_SPRITE_DRAWN_MUTEX);
 
     // Reset Physics declarations
@@ -405,6 +418,8 @@ int Sprite_fillChar(CmdFX_Sprite* sprite, int x, int y, int width, int height, c
     if (sprite->data == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
 
+    CmdFX_tryLockMutex(_SPRITE_DATA_MUTEX);
+
     for (int i = y; i < y + height; i++) {
         if (i >= sprite->height) break;
         for (int j = x; j < x + width; j++) {
@@ -412,6 +427,8 @@ int Sprite_fillChar(CmdFX_Sprite* sprite, int x, int y, int width, int height, c
             sprite->data[i][j] = c;
         }
     }
+
+    CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
 
     // Redraw Sprite if Drawn
     if (sprite->id != 0) Sprite_draw0(sprite);
@@ -424,6 +441,8 @@ int Sprite_fillCharEmpty(CmdFX_Sprite* sprite, int x, int y, int width, int heig
     if (sprite->data == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
 
+    CmdFX_tryLockMutex(_SPRITE_DATA_MUTEX);
+
     for (int i = y; i < y + height; i++) {
         if (i >= sprite->height) break;
         for (int j = x; j < x + width; j++) {
@@ -432,6 +451,8 @@ int Sprite_fillCharEmpty(CmdFX_Sprite* sprite, int x, int y, int width, int heig
             if (data == 0 || data == ' ') sprite->data[i][j] = c;
         }
     }
+
+    CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
 
     // Redraw Sprite if Drawn
     if (sprite->id != 0) Sprite_draw0(sprite);
@@ -443,11 +464,15 @@ int Sprite_fillCharAll(CmdFX_Sprite* sprite, char c) {
     if (sprite == 0) return 0;
     if (sprite->data == 0) return 0;
 
+    CmdFX_tryLockMutex(_SPRITE_DATA_MUTEX);
+
     for (int i = 0; i < sprite->height; i++) {
         for (int j = 0; j < sprite->width; j++) {
             sprite->data[i][j] = c;
         }
     }
+
+    CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
 
     // Redraw Sprite if Drawn
     if (sprite->id != 0) Sprite_draw0(sprite);
@@ -459,12 +484,16 @@ int Sprite_fillCharAllEmpty(CmdFX_Sprite* sprite, char c) {
     if (sprite == 0) return 0;
     if (sprite->data == 0) return 0;
 
+    CmdFX_tryLockMutex(_SPRITE_DATA_MUTEX);
+
     for (int i = 0; i < sprite->height; i++) {
         for (int j = 0; j < sprite->width; j++) {
             char data = sprite->data[i][j];
             if (data == 0 || data == ' ') sprite->data[i][j] = c;
         }
     }
+
+    CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
 
     // Redraw Sprite if Drawn
     if (sprite->id != 0) Sprite_draw0(sprite);
@@ -477,6 +506,8 @@ int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
     if (sprite->ansi == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
 
+    CmdFX_tryLockMutex(_SPRITE_DATA_MUTEX);
+
     char* ansi0 = malloc(strlen(ansi) + 1);
     if (ansi0 == 0) return 0;
 
@@ -484,6 +515,8 @@ int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
 
     if (sprite->ansi[y][x] != 0) free(sprite->ansi[y][x]);
     sprite->ansi[y][x] = ansi0;
+
+    CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
     
     return 1;
 }
@@ -493,6 +526,8 @@ int Sprite_appendAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
     if (ansi == 0) return 0;
     if (sprite->ansi == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
+
+    CmdFX_tryLockMutex(_SPRITE_DATA_MUTEX);
 
     int ansiSize = strlen(ansi) + 1;
     if (sprite->ansi[y][x] == 0) {
@@ -511,6 +546,8 @@ int Sprite_appendAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
         strcat(sprite->ansi[y][x], ansi);
     }
 
+    CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
+
     return 1;
 }
 
@@ -518,6 +555,8 @@ int Sprite_fillAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi, int width, i
     if (sprite == 0) return 0;
     if (sprite->ansi == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
+
+    CmdFX_tryLockMutex(_SPRITE_DATA_MUTEX);
 
     for (int i = y; i < y + height; i++) {
         if (i >= sprite->height) break;
@@ -530,6 +569,8 @@ int Sprite_fillAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi, int width, i
             sprite->ansi[i][j] = ansi0;
         }
     }
+
+    CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
 
     // Redraw Sprite if Drawn
     if (sprite->id != 0) Sprite_draw0(sprite);
@@ -937,10 +978,10 @@ int Sprite_isColliding(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
     if (sprite1->id == 0 || sprite2->id == 0) return 0;
     if (sprite1->id == sprite2->id) return 0;
 
-    return sprite1->x < sprite2->x + sprite2->width &&
-        sprite1->x + sprite1->width > sprite2->x &&
-        sprite1->y < sprite2->y + sprite2->height &&
-        sprite1->y + sprite1->height > sprite2->y;
+    return sprite1->x <= sprite2->x + sprite2->width &&
+        sprite1->x + sprite1->width >= sprite2->x &&
+        sprite1->y <= sprite2->y + sprite2->height &&
+        sprite1->y + sprite1->height >= sprite2->y;
 }
 
 int Sprite_isOnTop(CmdFX_Sprite* sprite, int x, int y) {

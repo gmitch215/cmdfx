@@ -4,7 +4,10 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+#include "cmdfx/core/util.h"
 #include "cmdfx/core/canvas.h"
+
+#define _CANVAS_MUTEX 7
 
 int _Canvas_getPos(int *y, int *x) {
     char buf[30] = {0};
@@ -62,6 +65,9 @@ int Canvas_getCursorY() {
 }
 
 void Canvas_setCursor(int x, int y) {
+    if (x < 0) return;
+    if (y < 0) return;
+
     printf("\033[%d;%dH", y, x);
 }
 
@@ -69,14 +75,20 @@ int _cursorShown = 1;
 
 void Canvas_hideCursor() {
     if (!_cursorShown) return;
+
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\e[?25l");
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
    
     _cursorShown = 0;
 }
 
 void Canvas_showCursor() {
     if (_cursorShown) return;
+
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\e[?25h");
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 
     _cursorShown = 1;
 }
