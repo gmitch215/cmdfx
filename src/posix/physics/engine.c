@@ -30,16 +30,18 @@ void* _physicsLoop(void* data) {
     while (_physicsRunning) {
         CmdFX_Sprite** modified = Engine_tick();
 
-        int i = 0;
-        while (modified[i] != 0) {
-            pthread_t thread;
-            if (pthread_create(&thread, NULL, Engine_applyMotion0, modified[i]) != 0) {
-                fprintf(stderr, "Failed to start physics engine thread for an inside sprite.\n");
-                exit(EXIT_FAILURE);
-            }
+        if (modified != 0) {
+            int i = 0;
+            while (modified[i] != 0) {
+                pthread_t thread;
+                if (pthread_create(&thread, NULL, Engine_applyMotion0, modified[i]) != 0) {
+                    fprintf(stderr, "Failed to start physics engine thread for an inside sprite.\n");
+                    exit(EXIT_FAILURE);
+                }
 
-            pthread_detach(thread);
-            i++;
+                pthread_detach(thread);
+                i++;
+            }
         }
 
         free(modified);
@@ -51,6 +53,9 @@ void* _physicsLoop(void* data) {
 
 int Engine_start() {
     if (_physicsRunning) return -1;
+
+    if (!CmdFX_isThreadSafeEnabled())
+        CmdFX_initThreadSafe();
 
     pthread_t physicsEngineThread;
     if (pthread_create(&physicsEngineThread, 0, _physicsLoop, 0) != 0) {
@@ -65,8 +70,10 @@ int Engine_start() {
 
 int Engine_end() {
     if (!_physicsRunning) return -1;
-
     _physicsRunning = 0;
+    
+    if (CmdFX_isThreadSafeEnabled())
+        CmdFX_destroyThreadSafe();
 
     return Engine_cleanup();
 }

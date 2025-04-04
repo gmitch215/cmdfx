@@ -5,6 +5,7 @@
 #include "cmdfx/core/canvas.h"
 #include "cmdfx/core/sprites.h"
 #include "cmdfx/core/util.h"
+#include "cmdfx/physics/mass.h"
 #include "cmdfx/physics/engine.h"
 #include "cmdfx/physics/motion.h"
 
@@ -15,10 +16,10 @@
 static double** _motion = 0;
 static int _motionCount = 0;
 
-#define _SPRITE_MOTION_MUTEX 3
+#define _SPRITE_MOTION_MUTEX 4
+#define _CANVAS_MUTEX 7
 
 void _checkMotion(CmdFX_Sprite* sprite) {
-    CmdFX_tryLockMutex(_SPRITE_MOTION_MUTEX);
     if (_motion == 0) {
         _motionCount = Canvas_getDrawnSpritesCount();
         _motion = calloc(_motionCount, sizeof(double*));
@@ -41,7 +42,6 @@ void _checkMotion(CmdFX_Sprite* sprite) {
         _motion[id] = calloc(4, sizeof(double));
         if (_motion[id] == 0) return;
     }
-    CmdFX_tryUnlockMutex(_SPRITE_MOTION_MUTEX);
 }
 
 double* Sprite_getMotion(CmdFX_Sprite* sprite) {
@@ -70,14 +70,15 @@ int Sprite_setVelocityX(CmdFX_Sprite* sprite, double velocity) {
     if (sprite == 0) return -1;
     if (sprite->id == 0) return -1;
 
+    CmdFX_tryLockMutex(_SPRITE_MOTION_MUTEX);
+
     _checkMotion(sprite);
     if (_motion == 0) return -1;
 
     int id = sprite->id - 1;
     if (_motion[id] == 0) return -1;
-
-    CmdFX_tryLockMutex(_SPRITE_MOTION_MUTEX);
     _motion[id][0] = velocity;
+
     CmdFX_tryUnlockMutex(_SPRITE_MOTION_MUTEX);
     return 0;
 }
@@ -98,14 +99,15 @@ int Sprite_setVelocityY(CmdFX_Sprite* sprite, double velocity) {
     if (sprite == 0) return -1;
     if (sprite->id == 0) return -1;
 
+    CmdFX_tryLockMutex(_SPRITE_MOTION_MUTEX);
+
     _checkMotion(sprite);
     if (_motion == 0) return -1;
 
     int id = sprite->id - 1;
     if (_motion[id] == 0) return -1;
-
-    CmdFX_tryLockMutex(_SPRITE_MOTION_MUTEX);
     _motion[id][1] = velocity;
+    
     CmdFX_tryUnlockMutex(_SPRITE_MOTION_MUTEX);
     return 0;
 }
@@ -119,23 +121,22 @@ double Sprite_getAccelerationX(CmdFX_Sprite* sprite) {
     int id = sprite->id - 1;
     if (_motion[id] == 0) return 0;
 
-    CmdFX_tryLockMutex(_SPRITE_MOTION_MUTEX);
     return _motion[id][2];
-    CmdFX_tryUnlockMutex(_SPRITE_MOTION_MUTEX);
 }
 
 int Sprite_setAccelerationX(CmdFX_Sprite* sprite, double acceleration) {
     if (sprite == 0) return -1;
     if (sprite->id == 0) return -1;
 
+    CmdFX_tryLockMutex(_SPRITE_MOTION_MUTEX);
+
     _checkMotion(sprite);
     if (_motion == 0) return -1;
 
     int id = sprite->id - 1;
     if (_motion[id] == 0) return -1;
-
-    CmdFX_tryLockMutex(_SPRITE_MOTION_MUTEX);
     _motion[id][2] = acceleration;
+    
     CmdFX_tryUnlockMutex(_SPRITE_MOTION_MUTEX);
     return 0;
 }
@@ -156,14 +157,15 @@ int Sprite_setAccelerationY(CmdFX_Sprite* sprite, double acceleration) {
     if (sprite == 0) return -1;
     if (sprite->id == 0) return -1;
 
+    CmdFX_tryLockMutex(_SPRITE_MOTION_MUTEX);
+
     _checkMotion(sprite);
     if (_motion == 0) return -1;
 
     int id = sprite->id - 1;
     if (_motion[id] == 0) return -1;
-
-    CmdFX_tryLockMutex(_SPRITE_MOTION_MUTEX);
     _motion[id][3] = acceleration;
+
     CmdFX_tryUnlockMutex(_SPRITE_MOTION_MUTEX);
     return 0;
 }
@@ -257,15 +259,12 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
     double leftoverX = dx - dx0;
     double leftoverY = dy - dy0;
 
-    double lvx = 0.0, lvy = 0.0;
     if (leftoverX != 0.0 || leftoverY != 0.0) {
         _checkLeftovers(sprite);
         if (_leftovers[id] == 0) return;
         double* leftovers = _leftovers[id];
         leftovers[0] += leftoverX;
         leftovers[1] += leftoverY;
-        lvx = leftovers[0];
-        lvy = leftovers[1];
 
         if (fabs(leftovers[0]) > 1.0) {
             dx0 += (int) floor(leftovers[0]);
@@ -279,8 +278,17 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
     }
 
     if (_motionDebugEnabled) {
+        double mass = Sprite_getMass(sprite);
+        
+        CmdFX_tryLockMutex(_CANVAS_MUTEX);
+
         Canvas_setCursor(3, sprite->id + 1);
-        printf("sprite #%d | vx: %.2f, vy: %.2f, ax: %.2f, ay: %.2f -- dx: %.2f, dy: %.2f -- x: %d -> %.2f, y: %d -> %.2f -- lvx: %.2f, lvy: %.2f", sprite->id, motion[0], motion[1], motion[2], motion[3], dx, dy, sprite->x, sprite->x + dx, sprite->y, sprite->y - dy, lvx, lvy);
+        printf("\033[0m");
+        printf("sprite #%d | mass: %.2f | vx: %.2f, vy: %.2f, ax: %.2f, ay: %.2f -- dx: %.2f, dy: %.2f -- x: %d -> %.2f, y: %d -> %.2f", sprite->id, mass, motion[0], motion[1], motion[2], motion[3], dx, dy, sprite->x, sprite->x + dx, sprite->y, sprite->y - dy);
+        fflush(stdout);
+        Canvas_setCursor(0, 0);
+
+        CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
     }
 
     // Move Sprite

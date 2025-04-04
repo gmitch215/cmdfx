@@ -28,16 +28,18 @@ unsigned __stdcall _physicsLoop(void* arg) {
     while (_physicsRunning) {
         CmdFX_Sprite** modified = Engine_tick();
 
-        int i = 0;
-        while (modified[i] != 0) {
-            uintptr_t handle = _beginthreadex(NULL, 0, Engine_applyMotion0, modified[i], 0, NULL);
-            if (handle == 0) {
-                perror("Failed to start physics engine thread for an inside sprite.\n");
-                exit(EXIT_FAILURE);
-            }
+        if (modified != 0) {
+            int i = 0;
+            while (modified[i] != 0) {
+                uintptr_t handle = _beginthreadex(NULL, 0, Engine_applyMotion0, modified[i], 0, NULL);
+                if (handle == 0) {
+                    perror("Failed to start physics engine thread for an inside sprite.\n");
+                    exit(EXIT_FAILURE);
+                }
 
-            CloseHandle((HANDLE) handle);
-            i++;
+                CloseHandle((HANDLE) handle);
+                i++;
+            }
         }
 
         free(modified);

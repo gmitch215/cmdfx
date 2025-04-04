@@ -44,8 +44,10 @@ int Sprite_addForceFor(CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration)
     forceThread = _beginthreadex(NULL, 0, _addSpriteForce, payload, 0, NULL);
     if (forceThread == 0) {
         perror("Failed to start new thread to launch force payload.\n");
+        free(payload);
         exit(EXIT_FAILURE);
     }
+    WaitForSingleObject((HANDLE) forceThread, INFINITE);
     CloseHandle((HANDLE) forceThread);
 
     return 0;

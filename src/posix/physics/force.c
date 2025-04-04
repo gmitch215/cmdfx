@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <time.h>
 
+#include "cmdfx/core/util.h"
 #include "cmdfx/core/sprites.h"
 #include "cmdfx/physics/util.h"
 #include "cmdfx/physics/force.h"
@@ -13,19 +14,14 @@
 typedef struct _PosixForcePayload {
     CmdFX_Sprite* sprite;
     CmdFX_Vector* vector;
-    time_t sec;
-    time_t nsec;
+    unsigned long msec;
 } _PosixForcePayload;
 
 void* _addSpriteForce(void* arg) {
     _PosixForcePayload* payload = (_PosixForcePayload*) arg;
 
-    struct timespec ts;
-    ts.tv_sec = payload->sec;
-    ts.tv_nsec = payload->nsec;
-
     Sprite_addForce(payload->sprite, payload->vector);
-    nanosleep(&ts, NULL);
+    sleepMillis(payload->msec);
     Sprite_removeForce(payload->sprite, payload->vector);
 
     free(payload);
@@ -43,15 +39,15 @@ int Sprite_addForceFor(CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration)
 
     payload->sprite = sprite;
     payload->vector = vector;
-    payload->sec = duration / 1000;
-    payload->nsec = (duration % 1000) * 1000000;
+    payload->msec = (unsigned long) duration;
 
     pthread_t forceThread;
     if (pthread_create(&forceThread, 0, _addSpriteForce, payload) != 0) {
         fprintf(stderr, "Failed to start new thread to launch force payload.\n");
+        free(payload);
         exit(1);
     }
-    pthread_detach(forceThread);
+    pthread_join(forceThread, NULL);
 
     return 0;
 }

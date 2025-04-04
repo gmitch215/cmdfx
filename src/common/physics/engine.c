@@ -9,8 +9,8 @@
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
 
-CmdFX_Sprite** _staticSprites = 0;
-int _staticSpriteCount = 0;
+static CmdFX_Sprite** _staticSprites = 0;
+static int _staticSpriteCount = 0;
 
 int Sprite_isStatic(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
@@ -61,7 +61,7 @@ int Sprite_setStatic(CmdFX_Sprite* sprite, int isStatic) {
 
 // Engine Declarations
 
-double _forceOfGravity = 1.0;
+static double _forceOfGravity = 1.0;
 
 double Engine_getForceOfGravity() {
     return _forceOfGravity;
@@ -75,7 +75,7 @@ int Engine_setForceOfGravity(double force) {
     return 0;
 }
 
-double _terminalVelocity = 10;
+static double _terminalVelocity = 10;
 
 double Engine_getTerminalVelocity() {
     return _terminalVelocity;
@@ -89,7 +89,7 @@ int Engine_setTerminalVelocity(double velocity) {
     return 0;
 }
 
-int _groundY = -1;
+static int _groundY = -1;
 
 int Engine_getGroundY() {
     if (_groundY == -1) return Canvas_getHeight();
@@ -107,7 +107,7 @@ int Engine_setGroundY(int y) {
 
 // Engine Defaults
 
-double _defaultFrictionCoefficient = 0.25;
+static double _defaultFrictionCoefficient = 0.25;
 
 double Engine_getDefaultFrictionCoefficient() {
     return _defaultFrictionCoefficient;
@@ -121,19 +121,19 @@ int Engine_setDefaultFrictionCoefficient(double coefficient) {
     return 0;
 }
 
-int* _characterMasses = 0;
+static double* _characterMasses = 0;
 
-int Engine_getCharacterMass(char c) {
+double Engine_getCharacterMass(char c) {
     if (_characterMasses == 0) return 1;
 
-    return _characterMasses[(int) c] + 1;
+    return _characterMasses[(int) c] + 1.0;
 }
 
-int Engine_setCharacterMass(char c, int mass) {
+int Engine_setCharacterMass(char c, double mass) {
     if (mass < 1) return -1;
     
     if (_characterMasses == 0) {
-        _characterMasses = calloc(256, sizeof(int));
+        _characterMasses = calloc(256, sizeof(double));
         if (_characterMasses == 0) return -1;
     }
 
@@ -146,7 +146,16 @@ int Engine_setCharacterMass(char c, int mass) {
 
 int Engine_cleanup() {
     // cleanup loose variables
-    if (_characterMasses != 0) free(_characterMasses);
+    if (_characterMasses != 0) {
+        free(_characterMasses);
+        _characterMasses = 0;
+    }
+
+    if (_staticSprites != 0) {
+        free(_staticSprites);
+        _staticSprites = 0;
+        _staticSpriteCount = 0;
+    }
 
     return 0;
 }
@@ -199,30 +208,31 @@ CmdFX_Sprite** Engine_tick() {
                 CmdFX_Sprite* other = colliding[j];
                 if (Sprite_isStatic(other)) continue;
 
-                CmdFX_Vector* otherForce = Sprite_getNetForce(other);
+                // Prevent double processing
+                if (sprite->id >= other->id) continue;
 
                 // m1u1 + m2u2 = m1v1 + m2v2
                 // v1 = ((m1 – m2)u1 + 2(m2u2)) / (m1 + m2)
                 // v2 = ((m2 – m1)u2 + 2(m1u1)) / (m1 + m2)
                 
-                int m1 = Sprite_getMass(sprite);
-                int m2 = Sprite_getMass(other);
-                int u2x = otherForce->x;
-                int u2y = otherForce->y;
+                double m1 = Sprite_getMass(sprite);
+                double m2 = Sprite_getMass(other);
+                double u2x = Sprite_getVelocityX(other);
+                double u2y = Sprite_getVelocityY(other);
                 
                 // dx = v1x, dy = v1y
-                int v1x = (((m1 - m2) * dax) + (2 * m2 * u2x)) / (m1 + m2);
-                int v1y = (((m1 - m2) * day) + (2 * m2 * u2y)) / (m1 + m2);
-                int v2x = (((m2 - m1) * u2x) + (2 * m1 * dax)) / (m1 + m2);
-                int v2y = (((m2 - m1) * u2y) + (2 * m1 * day)) / (m1 + m2);
+                double v1x = (((m1 - m2) * dvx) + (2.0 * m2 * u2x)) / (m1 + m2);
+                double v1y = (((m1 - m2) * dvy) + (2.0 * m2 * u2y)) / (m1 + m2);
+                double v2x = (((m2 - m1) * u2x) + (2.0 * m1 * dvx)) / (m1 + m2);
+                double v2y = (((m2 - m1) * u2y) + (2.0 * m1 * dvy)) / (m1 + m2);
 
                 dvx = v1x;
                 dvy = v1y;
-                
-                free(otherForce);
+                Sprite_setVelocityX(other, v2x);
+                Sprite_setVelocityY(other, v2y);
             }
-            free(colliding);
         }
+        free(colliding);
 
         // Apply Friction
         double frictionCoefficient = Sprite_getFrictionCoefficient(sprite);
