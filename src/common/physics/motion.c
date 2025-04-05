@@ -170,6 +170,85 @@ int Sprite_setAccelerationY(CmdFX_Sprite* sprite, double acceleration) {
     return 0;
 }
 
+int Sprite_isAboutToCollide(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
+    if (sprite1 == sprite2) return 0;
+    if (sprite1 == 0) return 0;
+    if (sprite2 == 0) return 0;
+
+    if (sprite1->id == 0 || sprite2->id == 0) return 0;
+    if (sprite1->id == sprite2->id) return 0;
+
+    if (Sprite_isColliding(sprite1, sprite2)) return 1;
+
+    double* motion1 = Sprite_getMotion(sprite1);
+    double* motion2 = Sprite_getMotion(sprite2);
+    if (motion1 == 0 || motion2 == 0) return 0; // not colliding + no motion = not about to ollide
+
+    double dx1 = motion1[0] + motion1[2];
+    double dy1 = motion1[1] + motion1[3];
+    double dx2 = motion2[0] + motion2[2];
+    double dy2 = motion2[1] + motion2[3];
+
+    if (sprite1->x <= sprite2->x + sprite2->width + dx2 &&
+        sprite1->x + sprite1->width + dx1 >= sprite2->x &&
+        sprite1->y <= sprite2->y + sprite2->height + dy2 &&
+        sprite1->y + sprite1->height + dy1 >= sprite2->y) {
+        return 1;
+    }
+    
+    if (sprite2->x <= sprite1->x + sprite1->width + dx1 &&
+        sprite2->x + sprite2->width + dx2 >= sprite1->x &&
+        sprite2->y <= sprite1->y + sprite1->height + dy1 &&
+        sprite2->y + sprite2->height + dy2 >= sprite1->y) {
+        return 1;
+    }
+
+    return 0;
+}
+
+CmdFX_Sprite** Sprite_getAboutToCollideSprites(CmdFX_Sprite* sprite) {
+    if (sprite == 0) return 0;
+    if (sprite->id == 0) return 0;
+
+    CmdFX_Sprite** sprites = Canvas_getDrawnSprites();
+    if (sprites == 0) return 0;
+
+    int spriteCount = Canvas_getDrawnSpritesCount();
+    if (spriteCount < 2) return 0;
+
+    int collidingCount = 0;
+    int allocated = 4;
+
+    CmdFX_Sprite** colliding = calloc(allocated + 1, sizeof(CmdFX_Sprite*));
+    if (!colliding) return 0;
+
+    for (int i = 0; i < spriteCount; i++) {
+        CmdFX_Sprite* other = sprites[i];
+        if (other->id == 0) continue;
+        if (other->id == sprite->id) continue;
+
+        if (Sprite_isAboutToCollide(sprite, other)) {
+            if (collidingCount >= allocated) {
+                allocated *= 2;
+                CmdFX_Sprite** temp = realloc(colliding, sizeof(CmdFX_Sprite*) * (allocated + 1));
+                if (!temp) {
+                    free(colliding);
+                    return 0;
+                }
+                colliding = temp;
+
+                // crealloc
+                for (int j = collidingCount; j < allocated + 1; j++) colliding[j] = 0;
+            }
+
+            colliding[collidingCount++] = other;
+        }
+    }
+
+    colliding[collidingCount] = 0;
+    return colliding;
+}
+
 // Engine Application
 
 static int _motionDebugEnabled = 0;

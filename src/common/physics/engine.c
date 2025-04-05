@@ -157,6 +157,8 @@ int Engine_cleanup() {
         _staticSpriteCount = 0;
     }
 
+    Sprite_clearAllForces();
+
     return 0;
 }
 
@@ -202,7 +204,7 @@ CmdFX_Sprite** Engine_tick() {
             day -= forceOfGravity;
 
         // Collision Forces
-        CmdFX_Sprite** colliding = Sprite_getCollidingSprites(sprite);
+        CmdFX_Sprite** colliding = Sprite_getAboutToCollideSprites(sprite);
         if (colliding != 0) {
             for (int j = 0; colliding[j] != 0; j++) {
                 CmdFX_Sprite* other = colliding[j];

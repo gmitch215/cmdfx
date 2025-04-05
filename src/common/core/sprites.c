@@ -972,6 +972,7 @@ CmdFX_Sprite** Sprite_getCollidingSprites(CmdFX_Sprite* sprite) {
 }
 
 int Sprite_isColliding(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
+    if (sprite1 == sprite2) return 0;
     if (sprite1 == 0) return 0;
     if (sprite2 == 0) return 0;
 

@@ -95,6 +95,30 @@ double Sprite_getAccelerationY(CmdFX_Sprite* sprite);
 int Sprite_setAccelerationY(CmdFX_Sprite* sprite, double acceleration);
 
 /**
+ * @brief Whether a sprite is about to collide with another sprite.
+ * 
+ * This method checks if the sprite is about to collide with another
+ * sprite based on its velocity and acceleration.
+ * 
+ * @param sprite1 The sprite to use.
+ * @param sprite2 The other sprite to check against.
+ * @return 1 if the sprite is about to collide with the other sprite, 0 if not.
+ */
+int Sprite_isAboutToCollide(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2);
+
+/**
+ * @brief Gets all of the sprites the sprite is about to collide with.
+ * 
+ * This array gets all of the sprites this sprite is about to collide
+ * with based on its velocity and acceleration. It will include
+ * all sprites in `Sprite_getCollidingSprites` that are not static.
+ * 
+ * @param sprite The sprite to use.
+ * @return A null-terminated array of sprites that are about to collide with the sprite, or `0` if none.
+ */
+CmdFX_Sprite** Sprite_getAboutToCollideSprites(CmdFX_Sprite* sprite);
+
+/**
  * @brief Resets all motion of a sprite.
  * 
  * This method resets all motion of a sprite, including its velocity and
