@@ -28,6 +28,11 @@ int main(int argc, char** argv) {
         speed = atof(argv[1]);
         if (speed > 0) CmdFX_setTickSpeed((int) (CmdFX_getTickSpeed() * speed));
     }
+    double friction = Engine_getDefaultFrictionCoefficient();
+    if (argc > 2) {
+        friction = atof(argv[2]);
+        if (friction >= 0) Engine_setDefaultFrictionCoefficient(friction);
+    }
 
     Canvas_clearScreen();
     Canvas_hideCursor();
@@ -42,17 +47,14 @@ int main(int argc, char** argv) {
     
     Engine_start();
 
-    CmdFX_Vector* velocity1 = Vector_create(2.5, 1);
-    CmdFX_Vector* velocity2 = Vector_create(-2, 0);
+    CmdFX_Vector* velocity1 = Vector_create(3.0, 0);
+    CmdFX_Vector* velocity2 = Vector_create(-2.5, 0);
 
     Sprite_addForceFor(sprite1, velocity1, 300 / speed);
     Sprite_addForceFor(sprite2, velocity2, 300 / speed);
     sleepMillis(10000 / speed);
 
     Engine_end();
-
-    free(velocity1);
-    free(velocity2);
     Sprite_free(sprite1);
     Sprite_free(sprite2);
 
