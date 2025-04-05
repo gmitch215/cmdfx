@@ -47,7 +47,6 @@ int Sprite_addForceFor(CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration)
         free(payload);
         exit(EXIT_FAILURE);
     }
-    WaitForSingleObject((HANDLE) forceThread, INFINITE);
     CloseHandle((HANDLE) forceThread);
 
     return 0;

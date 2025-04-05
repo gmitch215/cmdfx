@@ -79,6 +79,16 @@ int Sprite_removeForce(CmdFX_Sprite* sprite, CmdFX_Vector* force);
 int Sprite_removeAllForces(CmdFX_Sprite* sprite);
 
 /**
+ * @brief Removes all forces for every sprite and frees the array.
+ * 
+ * This will free all forces in the sprite's force array, and then free
+ * the array itself.
+ * 
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int Sprite_clearAllForces();
+
+/**
  * @brief Gets the friction coefficient of a sprite.
  * 
  * The friction coefficient is a value between 0 and 1 that determines

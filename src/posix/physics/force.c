@@ -47,7 +47,7 @@ int Sprite_addForceFor(CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration)
         free(payload);
         exit(1);
     }
-    pthread_join(forceThread, NULL);
+    pthread_detach(forceThread);
 
     return 0;
 }

@@ -133,16 +133,6 @@ int Sprite_addForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
     return 0;
 }
 
-void _checkForceArraysRemoved() {
-    if (_forcesSize == 0) {
-        free(_forces);
-        _forces = 0;
-
-        free(_forcesCounts);
-        _forcesCounts = 0;
-    }
-}
-
 int Sprite_removeForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
     if (sprite == 0) return -1;
     if (sprite->id == 0) return -1;
@@ -162,7 +152,6 @@ int Sprite_removeForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
         _forces[id] = 0;
         _forcesCounts[id] = 0;
         _forcesSize--;
-        _checkForceArraysRemoved();
 
         CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);
         return 0;
@@ -201,7 +190,32 @@ int Sprite_removeAllForces(CmdFX_Sprite* sprite) {
     free(_forces[id]);
     _forces[id] = 0;
     _forcesSize--;
-    _checkForceArraysRemoved();
+    
+    CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);
+
+    return 0;
+}
+
+int Sprite_clearAllForces() {
+    if (_forces == 0) return -1;
+    if (_forcesCounts == 0) return -1;
+
+    CmdFX_tryLockMutex(_SPRITE_FORCE_MUTEX);
+
+    for (int i = 0; i < _forcesSize; i++) {
+        int size = _forcesCounts[i];
+        if (_forces[i] != 0)
+            for (int j = 0; j < size; j++) free(_forces[i][j]);
+        
+        free(_forces[i]);
+        _forces[i] = 0;
+    }
+
+    free(_forces);
+    _forces = 0;
+
+    free(_forcesCounts);
+    _forcesCounts = 0;
 
     CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);
 
