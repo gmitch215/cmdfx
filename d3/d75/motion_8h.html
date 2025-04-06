@@ -132,6 +132,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a0f8e2ef3f4d207636c823f10b81aa145" id="r_a0f8e2ef3f4d207636c823f10b81aa145"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f8e2ef3f4d207636c823f10b81aa145">Sprite_setAccelerationY</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite, double acceleration)</td></tr>
 <tr class="memdesc:a0f8e2ef3f4d207636c823f10b81aa145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Y acceleration of a sprite.  <br /></td></tr>
 <tr class="separator:a0f8e2ef3f4d207636c823f10b81aa145"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a5830fef0de212241f28ff1b4410f3d" id="r_a3a5830fef0de212241f28ff1b4410f3d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a5830fef0de212241f28ff1b4410f3d">Sprite_isAboutToCollide</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite1, <a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite2)</td></tr>
+<tr class="memdesc:a3a5830fef0de212241f28ff1b4410f3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether a sprite is about to collide with another sprite.  <br /></td></tr>
+<tr class="separator:a3a5830fef0de212241f28ff1b4410f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fe30c900822d43e1103328cb86380a8" id="r_a7fe30c900822d43e1103328cb86380a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7fe30c900822d43e1103328cb86380a8">Sprite_getAboutToCollideSprites</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:a7fe30c900822d43e1103328cb86380a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all of the sprites the sprite is about to collide with.  <br /></td></tr>
+<tr class="separator:a7fe30c900822d43e1103328cb86380a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbb6404ad97905a79f11b848902a444a" id="r_acbb6404ad97905a79f11b848902a444a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbb6404ad97905a79f11b848902a444a">Sprite_resetAllMotion</a> (<a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *sprite)</td></tr>
 <tr class="memdesc:acbb6404ad97905a79f11b848902a444a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets all motion of a sprite.  <br /></td></tr>
 <tr class="separator:acbb6404ad97905a79f11b848902a444a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -241,6 +247,33 @@ Functions</h2></td></tr>
 <p>Whether motion debugging is enabled. </p>
 <p>If motion debugging is enabled, the physics engine will print all sprite motion updates to the console at (3, &lt;sprite id + 1&gt;).</p>
 <dl class="section return"><dt>Returns</dt><dd>1 if motion debugging is enabled, 0 if motion debugging is disabled. </dd></dl>
+
+</div>
+</div>
+<a id="a7fe30c900822d43e1103328cb86380a8" name="a7fe30c900822d43e1103328cb86380a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fe30c900822d43e1103328cb86380a8">&#9670;&#160;</a></span>Sprite_getAboutToCollideSprites()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> ** Sprite_getAboutToCollideSprites </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets all of the sprites the sprite is about to collide with. </p>
+<p>This array gets all of the sprites this sprite is about to collide with based on its velocity and acceleration. It will include all sprites in <code>Sprite_getCollidingSprites</code> that are not static.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>The sprite to use. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A null-terminated array of sprites that are about to collide with the sprite, or <code>0</code> if none. </dd></dl>
 
 </div>
 </div>
@@ -379,6 +412,38 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The Y velocity of the sprite. </dd></dl>
+
+</div>
+</div>
+<a id="a3a5830fef0de212241f28ff1b4410f3d" name="a3a5830fef0de212241f28ff1b4410f3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a5830fef0de212241f28ff1b4410f3d">&#9670;&#160;</a></span>Sprite_isAboutToCollide()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Sprite_isAboutToCollide </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a> *</td>          <td class="paramname"><span class="paramname"><em>sprite2</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether a sprite is about to collide with another sprite. </p>
+<p>This method checks if the sprite is about to collide with another sprite based on its velocity and acceleration.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite1</td><td>The sprite to use. </td></tr>
+    <tr><td class="paramname">sprite2</td><td>The other sprite to check against. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the sprite is about to collide with the other sprite, 0 if not. </dd></dl>
 
 </div>
 </div>
