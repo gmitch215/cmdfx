@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include <stdbool.h>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -23,7 +24,6 @@ static int _spriteCount = 0;
 static int _spriteUidCounter = 0;
 
 static int* _takenUids = 0;
-static int _takenUidsCount = 0;
 
 CmdFX_Sprite** Canvas_getDrawnSprites() {
     return _sprites;
@@ -87,26 +87,58 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
     sprite->id = 0;
 
     CmdFX_tryLockMutex(_SPRITE_UID_MUTEX);
-    sprite->uid = ++_spriteUidCounter;
+
+    printf("create counter: %d\n", _spriteUidCounter);
     if (_takenUids == 0) {
+        sprite->uid = ++_spriteUidCounter;
+
         _takenUids = calloc(1, sizeof(int));
         if (_takenUids == 0) {
             CmdFX_tryUnlockMutex(_SPRITE_UID_MUTEX);
             free(sprite);
             return 0;
         }
-        _takenUidsCount++;
+        _spriteUidCounter++;
         _takenUids[0] = sprite->uid;
     } else {
-        int* temp = realloc(_takenUids, sizeof(int) * (_takenUidsCount + 1));
+        printf("takenUids: \n");
+        bool* present = calloc(_spriteUidCounter + 1, sizeof(bool));
+        
+        int j = -1; 
+        for (int i = 0; i < _spriteUidCounter; i++) {
+            int uid = _takenUids[i];
+            if (uid >= 1 && uid <= _spriteUidCounter) {
+                present[uid] = true;
+            }
+        }
+    
+        // Find the first missing number in the range [1, _spriteUidCounter]
+        for (int i = 1; i <= _spriteUidCounter; i++) {
+            if (!present[i]) {
+                free(present);
+                j = i;
+                break;
+            }
+        }
+        if (j == -1) {
+            j = _spriteUidCounter + 1;
+            free(present);
+        }
+
+        // j = lowest available UID
+        sprite->uid = j;
+        if (_spriteUidCounter < j) 
+            _spriteUidCounter = j; // if j is greater than the current counter, update counter
+
+        int* temp = realloc(_takenUids, sizeof(int) * (_spriteUidCounter + 1));
         if (temp == 0) {
             CmdFX_tryUnlockMutex(_SPRITE_UID_MUTEX);
             free(sprite);
             return 0;
         }
         _takenUids = temp;
-        _takenUids[_takenUidsCount - 1] = sprite->uid;
-        _takenUidsCount++;
+        _takenUids[_spriteUidCounter - 1] = sprite->uid;
+        _spriteUidCounter++;
     }
 
     CmdFX_tryUnlockMutex(_SPRITE_UID_MUTEX);
@@ -125,22 +157,51 @@ void Sprite_free(CmdFX_Sprite* sprite) {
     // Remove UID from Taken UIDs
     CmdFX_tryLockMutex(_SPRITE_UID_MUTEX);
     if (_takenUids != 0) {
-        for (int i = 0; i < _takenUidsCount; i++) {
+        printf("freeing sprite->uid: %d\n", sprite->uid);
+        for (int i = 0; i < _spriteUidCounter; i++) {
+            printf("comparing takenUids[%d]: %d with sprite->uid: %d\n", i, _takenUids[i], sprite->uid);
             if (_takenUids[i] == sprite->uid) {
                 _takenUids[i] = 0;
-                for (int j = i + 1; j < _takenUidsCount; j++) {
-                    if (_takenUids[j] == 0) break;
-                    _takenUids[j - 1] = _takenUids[j];
-                }
-                _takenUids[_takenUidsCount - 1] = 0;
-                _takenUidsCount--;
                 break;
             }
         }
 
-        if (_takenUidsCount == 0) {
+        int allZero = 1;
+        for (int i = 0; i < _spriteUidCounter; i++) {
+            if (_takenUids[i] != 0) {
+                allZero = 0;
+                break;
+            }
+        }
+
+        if (_spriteUidCounter == 0 || allZero) {
             free(_takenUids);
             _takenUids = 0;
+            _spriteUidCounter = 0;
+        }
+    }
+
+    // Perform resize check
+    if (_spriteUidCounter > 24) {
+        int zeroCount = 0;
+        for (int i = 0; i < _spriteUidCounter; i++) {
+            if (_takenUids[i] == 0) zeroCount++;
+        }
+
+        if (zeroCount > 0) {
+            int* temp = realloc(_takenUids, sizeof(int) * (_spriteUidCounter - zeroCount));
+            if (temp != 0) {
+                _takenUids = temp;
+                for (int i = 0; i < _spriteUidCounter; i++)
+                    if (_takenUids[i] == 0) {
+                        for (int j = i; j < _spriteUidCounter - 1; j++) {
+                            _takenUids[j] = _takenUids[j + 1];
+                        }
+                        break;
+                    }
+                
+                _spriteUidCounter -= zeroCount;
+            }
         }
     }
     CmdFX_tryUnlockMutex(_SPRITE_UID_MUTEX);
