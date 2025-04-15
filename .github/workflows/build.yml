@@ -66,15 +66,11 @@ jobs:
       - name: Build Project (Linux/MacOS)
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
-          sudo cmake --build build --config Debug
-          sudo cmake --build build --config Debug --target klib
           sudo cmake --build build --config Debug --target install package
           sudo rm -rf build/build/package/_CPack_Packages/
       - name: Build Project (Windows)
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
-          cmake --build build --config Debug
-          cmake --build build --config Debug --target klib
           cmake --build build --config Debug --target install package
           Get-ChildItem -Path build/build/package/_CPack_Packages -Recurse | Remove-Item -Recurse -Force
       - name: Archive Package Artifacts
@@ -182,6 +178,4 @@ jobs:
         run: cmake -B build -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DTEST_CMDFX=OFF
         shell: bash
       - name: Publish Kotlin/Native Library
-        run: |
-          cmake --build build --config Debug
-          cmake --build build --config Debug --target klib deploy-maven
+        run: cmake --build build --config Debug --target klib deploy-maven

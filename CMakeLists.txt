@@ -152,22 +152,8 @@ if (INSTALL_CMDFX)
     )
 
     # Library Components
-
-    ## Core Library
-    install(FILES "${PROJECT_SOURCE_DIR}/include/cmdfx.h"
+    install(DIRECTORY "${PROJECT_SOURCE_DIR}/include/"
             DESTINATION include
-            COMPONENT library
-    )
-    install(DIRECTORY
-            "${PROJECT_SOURCE_DIR}/include/cmdfx/core/"
-            DESTINATION include/cmdfx/core
-            COMPONENT library
-    )
-
-    ## Physics Engine
-    install(DIRECTORY
-            "${PROJECT_SOURCE_DIR}/include/cmdfx/physics/"
-            DESTINATION include/cmdfx/physics
             COMPONENT library
     )
     
