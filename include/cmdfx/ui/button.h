@@ -194,6 +194,8 @@ int Button_show(CmdFX_Button* button);
  * The position is specified by the x and y coordinates. If there are no
  * buttons at the given position, this function returns NULL.
  * 
+ * The array must freed after use. The array is terminated with a NULL pointer.
+ * 
  * @param x The x position to check.
  * @param y The y position to check.
  * @return An array of pointers to the buttons at the given position, or NULL if no buttons are found.
@@ -212,6 +214,23 @@ CmdFX_Button** Canvas_getAllButtonsAt(int x, int y);
  * @return A pointer to the button at the given position, or NULL if no button is found.
  */
 CmdFX_Button* Canvas_getButtonAt(int x, int y);
+
+/**
+ * @brief Sets the data for a button.
+ * 
+ * This function sets the data for the given button. The data is specified
+ * by the data and ansi parameters. The data is a string that is displayed
+ * on the button, and the ansi parameter is an array of ANSI escape codes
+ * that are applied to the data.
+ * 
+ * This will also redraw the button if it is currently shown.
+ * 
+ * @param button The button to set the data for.
+ * @param data The data to set for the button.
+ * @param ansi The ANSI escape codes to apply to the data.
+ * @return 0 if successful, else -1
+ */
+int Button_setData(CmdFX_Button* button, char** data, char*** ansi);
 
 #ifdef __cplusplus
 }

@@ -100,16 +100,17 @@ void win_checkMouseEvent() {
             dispatchCmdFXEvent(&event);
 
             // button events
-            if (buttons[i] == 1 && _prevButtons[i] == 0) {
-                CmdFX_Button** buttons = Canvas_getAllButtonsAt(x, y);
+            CmdFX_Button** allButtons = Canvas_getAllButtonsAt(x, y);
+            if (allButtons != 0) {
                 int j = 0;
-                while (buttons[j] != 0) {
-                    CmdFX_Button* button = buttons[j];
+                while (allButtons[j] != 0) {
+                    CmdFX_Button* button = allButtons[j];
                     CmdFX_ButtonCallback callback = *button->callback;
                     callback(button, &mouseEvent, time);
                     j++;
                 }
             }
+            free(allButtons);
 
             _prevButtons[i] = buttons[i];
             _prevMouseX = x;

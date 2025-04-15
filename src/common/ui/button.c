@@ -3,6 +3,7 @@
 
 #include "cmdfx/core/sprites.h"
 #include "cmdfx/core/util.h"
+#include "cmdfx/core/builder.h"
 #include "cmdfx/physics/engine.h"
 #include "cmdfx/ui/button.h"
 
@@ -169,5 +170,35 @@ CmdFX_Button* Canvas_getButtonAt(int x, int y) {
     }
 
     free(matching);
+    return 0;
+}
+
+int Button_setData(CmdFX_Button* button, char** data, char*** ansi) {
+    if (button == 0) return -1;
+    if (button->sprite == 0) return -1;
+    if (data == 0) return -1;
+
+    CmdFX_Sprite* sprite = button->sprite;
+    for (int i = 0; i < sprite->height; i++) {
+        if (sprite->data[i] == 0) continue;
+        free(sprite->data[i]);
+    }
+    free(sprite->data);
+    sprite->data = data;
+
+    if (ansi != 0) {
+        int height = getStringArrayHeight(sprite->ansi);
+        int width = getStringArrayWidth(sprite->ansi);
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) free(sprite->ansi[i][j]);
+            free(sprite->ansi[i]);
+        }
+        free(sprite->ansi);
+        
+        sprite->ansi = ansi;
+    }
+
+    if (Sprite_draw(button->x, button->y, sprite) != 0) return -1;
+
     return 0;
 }
