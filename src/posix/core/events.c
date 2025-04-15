@@ -5,8 +5,6 @@
 #include <signal.h>
 #include <sys/ioctl.h>
 #include <time.h>
-
-#define __USE_XOPEN_EXTENDED
 #include <signal.h>
 
 #include "cmdfx/core/canvas.h"
@@ -14,6 +12,7 @@
 #include "cmdfx/core/util.h"
 #include "cmdfx/core/screen.h"
 #include "cmdfx/core/device.h"
+#include "cmdfx/ui/button.h"
 
 // Core Events
 
@@ -94,9 +93,22 @@ void posix_checkMouseEvent() {
 
     for (int i = 0; i < 3; i++) {
         if (buttons[i] != _prevButtons[i] || x != _prevMouseX || y != _prevMouseY) {
+            unsigned long long time = currentTimeMillis();
             CmdFX_MouseEvent mouseEvent = {i, buttons[i], _prevMouseX, x, _prevMouseY, y};
-            CmdFX_Event event = {CMDFX_EVENT_MOUSE, currentTimeMillis(), &mouseEvent};
+            CmdFX_Event event = {CMDFX_EVENT_MOUSE, time, &mouseEvent};
             dispatchCmdFXEvent(&event);
+
+            // button events
+            if (buttons[i] == 1 && _prevButtons[i] == 0) {
+                CmdFX_Button** buttons = Canvas_getAllButtonsAt(x, y);
+                int j = 0;
+                while (buttons[j] != 0) {
+                    CmdFX_Button* button = buttons[j];
+                    CmdFX_ButtonCallback callback = *button->callback;
+                    callback(button, &mouseEvent, time);
+                    j++;
+                }
+            }
 
             _prevButtons[i] = buttons[i];
             _prevMouseX = x;

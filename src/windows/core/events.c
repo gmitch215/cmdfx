@@ -10,6 +10,7 @@
 #include "cmdfx/core/util.h"
 #include "cmdfx/core/screen.h"
 #include "cmdfx/core/device.h"
+#include "cmdfx/ui/button.h"
 
 // Core Events
 
@@ -97,6 +98,18 @@ void win_checkMouseEvent() {
             CmdFX_MouseEvent mouseEvent = {i, buttons[i], _prevMouseX, x, _prevMouseY, y};
             CmdFX_Event event = {CMDFX_EVENT_MOUSE, currentTimeMillis(), &mouseEvent};
             dispatchCmdFXEvent(&event);
+
+            // button events
+            if (buttons[i] == 1 && _prevButtons[i] == 0) {
+                CmdFX_Button** buttons = Canvas_getAllButtonsAt(x, y);
+                int j = 0;
+                while (buttons[j] != 0) {
+                    CmdFX_Button* button = buttons[j];
+                    CmdFX_ButtonCallback callback = *button->callback;
+                    callback(button, &mouseEvent, time);
+                    j++;
+                }
+            }
 
             _prevButtons[i] = buttons[i];
             _prevMouseX = x;

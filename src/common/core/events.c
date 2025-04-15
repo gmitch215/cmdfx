@@ -5,13 +5,13 @@
 
 #define MAX_LISTENERS 1024
 
-EventCallback*** _listeners = 0;
+CmdFX_EventCallback*** _listeners = 0;
 unsigned int* _listenerSizes = 0;
 
 void initCmdFXEvents() {
     if (_listeners != 0) return;
 
-    _listeners = calloc(MAX_LISTENERS, sizeof(EventCallback**));
+    _listeners = calloc(MAX_LISTENERS, sizeof(CmdFX_EventCallback**));
     _listenerSizes = calloc(MAX_LISTENERS, sizeof(unsigned int));
 
     if (!_listeners || !_listenerSizes) {
@@ -26,7 +26,7 @@ void shutdownCmdFXEvents() {
     if (_listeners == 0) return;
 
     for (int i = 0; i < MAX_LISTENERS; i++) {
-        EventCallback** list = _listeners[i];
+        CmdFX_EventCallback** list = _listeners[i];
         if (list == 0) continue;
 
         free(list);
@@ -36,19 +36,19 @@ void shutdownCmdFXEvents() {
     _listeners = 0;
 }
 
-int addCmdFXEventListener(unsigned int id, EventCallback callback) {
+int addCmdFXEventListener(unsigned int id, CmdFX_EventCallback callback) {
     if (id >= MAX_LISTENERS) return -1;
 
     initCmdFXEvents();
-    EventCallback** list = _listeners[id];
+    CmdFX_EventCallback** list = _listeners[id];
     unsigned int size = _listenerSizes[id];
 
-    EventCallback* ptr = malloc(sizeof(EventCallback));
+    CmdFX_EventCallback* ptr = malloc(sizeof(CmdFX_EventCallback));
     if (!ptr) return -1;
     *ptr = callback;
 
     if (list == 0) {
-        list = malloc(sizeof(EventCallback*));
+        list = malloc(sizeof(CmdFX_EventCallback*));
         if (!list) {
             free(ptr);
             return -1;
@@ -67,7 +67,7 @@ int addCmdFXEventListener(unsigned int id, EventCallback callback) {
         }
 
     unsigned int newSize = size + 1;
-    EventCallback** newList = realloc(list, sizeof(EventCallback*) * newSize);
+    CmdFX_EventCallback** newList = realloc(list, sizeof(CmdFX_EventCallback*) * newSize);
     if (!newList) return -1;
 
     _listeners[id] = newList;
@@ -76,7 +76,7 @@ int addCmdFXEventListener(unsigned int id, EventCallback callback) {
     return size;
 }
 
-EventCallback* getCmdFXEventListener(unsigned int eventId, unsigned int listenerId) {
+CmdFX_EventCallback* getCmdFXEventListener(unsigned int eventId, unsigned int listenerId) {
     if (eventId >= MAX_LISTENERS) return 0;
     if (_listeners == 0) return 0;
 
@@ -87,7 +87,7 @@ int removeCmdFXEventListener(unsigned int eventId, unsigned int listenerId) {
     if (eventId >= MAX_LISTENERS) return 0;
     if (_listeners == 0) return 1;
 
-    EventCallback** list = _listeners[eventId];
+    CmdFX_EventCallback** list = _listeners[eventId];
     unsigned int size = _listenerSizes[eventId];
     if (list == 0 || listenerId >= size || list[listenerId] == 0) return 0;
 
@@ -107,7 +107,7 @@ int removeCmdFXEventListener(unsigned int eventId, unsigned int listenerId) {
         _listeners[eventId] = NULL;
         _listenerSizes[eventId] = 0;
     } else {
-        EventCallback** newList = realloc(list, sizeof(EventCallback*) * nonNullCount);
+        CmdFX_EventCallback** newList = realloc(list, sizeof(CmdFX_EventCallback*) * nonNullCount);
         if (newList || nonNullCount == 0) {
             _listeners[eventId] = newList;
             _listenerSizes[eventId] = nonNullCount;
@@ -117,22 +117,22 @@ int removeCmdFXEventListener(unsigned int eventId, unsigned int listenerId) {
     return 1;
 }
 
-const EventCallback** dispatchCmdFXEvent(CmdFX_Event* event) {
+const CmdFX_EventCallback** dispatchCmdFXEvent(CmdFX_Event* event) {
     if (!event || event->id >= MAX_LISTENERS) return 0;
 
-    EventCallback** list = _listeners[event->id];
+    CmdFX_EventCallback** list = _listeners[event->id];
     unsigned int size = _listenerSizes[event->id];
 
     if (!list) return 0;
 
-    const EventCallback** called = malloc(sizeof(EventCallback*) * (size + 1));
+    const CmdFX_EventCallback** called = malloc(sizeof(CmdFX_EventCallback*) * (size + 1));
     if (!called) return 0;
 
     unsigned int count = 0;
 
     for (unsigned int i = 0; i < size; i++) {
         if (list[i] != 0) {
-            EventCallback callback = *list[i];
+            CmdFX_EventCallback callback = *list[i];
             int result = callback(event);
             if (result == 0)
                 called[count++] = list[i];

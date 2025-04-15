@@ -138,7 +138,7 @@ struct CmdFX_Event;
  * @param event The event that was dispatched.
  * @return 0 if the event handler was called successfully. Any other integer value if an error occurred.
  */
-typedef int (*EventCallback)(struct CmdFX_Event* event);
+typedef int (*CmdFX_EventCallback)(struct CmdFX_Event* event);
 
 /**
  * @brief The main event structure for CmdFX.
@@ -170,7 +170,7 @@ typedef struct CmdFX_Event {
  * @param callback The event callback.
  * @return A unique ID for the event listener, or -1 if an error occurred.
  */
-int addCmdFXEventListener(unsigned int id, EventCallback callback);
+int addCmdFXEventListener(unsigned int id, CmdFX_EventCallback callback);
 
 /**
  * @brief Gets an event listener.
@@ -178,7 +178,7 @@ int addCmdFXEventListener(unsigned int id, EventCallback callback);
  * @param listenerId The ID of the event listener to retrieve.
  * @return The event listener, or NULL if the listener does not exist.
  */
-EventCallback* getCmdFXEventListener(unsigned int eventId, unsigned int listenerId);
+CmdFX_EventCallback* getCmdFXEventListener(unsigned int eventId, unsigned int listenerId);
 
 /**
  * @brief Removes an event listener.
@@ -193,7 +193,7 @@ int removeCmdFXEventListener(unsigned int eventId, unsigned int listenerId);
  * @param event The event to dispatch.
  * @return Addresses of the event listeners that were called.
  */
-const EventCallback** dispatchCmdFXEvent(CmdFX_Event* event);
+const CmdFX_EventCallback** dispatchCmdFXEvent(CmdFX_Event* event);
 
 /**
  * @brief Starts the event loop for CmdFX. 
