@@ -27,7 +27,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.1.4</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.2.0</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -149,27 +149,27 @@ typedef struct CmdFX_KeyEvent&#160;</td><td class="memItemRight" valign="bottom"
 typedef struct CmdFX_MouseEvent&#160;</td><td class="memItemRight" valign="bottom"><b>CmdFX_MouseEvent</b></td></tr>
 <tr class="memdesc:aa0c254b686f1f5697858c7cd6d208955"><td class="mdescLeft">&#160;</td><td class="mdescRight">The payload for the <code>CMDFX_EVENT_MOUSE</code> event. <br /></td></tr>
 <tr class="separator:aa0c254b686f1f5697858c7cd6d208955"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbcfbfd42cc9a596e41e5aacca028a90" id="r_acbcfbfd42cc9a596e41e5aacca028a90"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbcfbfd42cc9a596e41e5aacca028a90">EventCallback</a>) (struct <a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *event)</td></tr>
-<tr class="memdesc:acbcfbfd42cc9a596e41e5aacca028a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an event callback.  <br /></td></tr>
-<tr class="separator:acbcfbfd42cc9a596e41e5aacca028a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86d49bda93f27aee6de70fea98fd702b" id="r_a86d49bda93f27aee6de70fea98fd702b"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86d49bda93f27aee6de70fea98fd702b">CmdFX_EventCallback</a>) (struct <a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *event)</td></tr>
+<tr class="memdesc:a86d49bda93f27aee6de70fea98fd702b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an event callback.  <br /></td></tr>
+<tr class="separator:a86d49bda93f27aee6de70fea98fd702b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad753e020a986c3524414898a23e32451" id="r_ad753e020a986c3524414898a23e32451"><td class="memItemLeft" align="right" valign="top">typedef struct CmdFX_Event&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad753e020a986c3524414898a23e32451">CmdFX_Event</a></td></tr>
 <tr class="memdesc:ad753e020a986c3524414898a23e32451"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main event structure for CmdFX.  <br /></td></tr>
 <tr class="separator:ad753e020a986c3524414898a23e32451"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af4b24a1bdd4d06c316cfb3f41f365253" id="r_af4b24a1bdd4d06c316cfb3f41f365253"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4b24a1bdd4d06c316cfb3f41f365253">addCmdFXEventListener</a> (unsigned int id, <a class="el" href="#acbcfbfd42cc9a596e41e5aacca028a90">EventCallback</a> callback)</td></tr>
-<tr class="memdesc:af4b24a1bdd4d06c316cfb3f41f365253"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an event listener.  <br /></td></tr>
-<tr class="separator:af4b24a1bdd4d06c316cfb3f41f365253"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c9db523d5c4eac0a008ce7599824d6f" id="r_a1c9db523d5c4eac0a008ce7599824d6f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#acbcfbfd42cc9a596e41e5aacca028a90">EventCallback</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c9db523d5c4eac0a008ce7599824d6f">getCmdFXEventListener</a> (unsigned int eventId, unsigned int listenerId)</td></tr>
-<tr class="memdesc:a1c9db523d5c4eac0a008ce7599824d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an event listener.  <br /></td></tr>
-<tr class="separator:a1c9db523d5c4eac0a008ce7599824d6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a421ba39081fb6e69df15be3265a04341" id="r_a421ba39081fb6e69df15be3265a04341"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a421ba39081fb6e69df15be3265a04341">addCmdFXEventListener</a> (unsigned int id, <a class="el" href="#a86d49bda93f27aee6de70fea98fd702b">CmdFX_EventCallback</a> callback)</td></tr>
+<tr class="memdesc:a421ba39081fb6e69df15be3265a04341"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an event listener.  <br /></td></tr>
+<tr class="separator:a421ba39081fb6e69df15be3265a04341"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a833015ab90af0b1ae21c0c7a792c950d" id="r_a833015ab90af0b1ae21c0c7a792c950d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a86d49bda93f27aee6de70fea98fd702b">CmdFX_EventCallback</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a833015ab90af0b1ae21c0c7a792c950d">getCmdFXEventListener</a> (unsigned int eventId, unsigned int listenerId)</td></tr>
+<tr class="memdesc:a833015ab90af0b1ae21c0c7a792c950d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an event listener.  <br /></td></tr>
+<tr class="separator:a833015ab90af0b1ae21c0c7a792c950d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67cadcc13f6596823cc8c9837a7c2f86" id="r_a67cadcc13f6596823cc8c9837a7c2f86"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67cadcc13f6596823cc8c9837a7c2f86">removeCmdFXEventListener</a> (unsigned int eventId, unsigned int listenerId)</td></tr>
 <tr class="memdesc:a67cadcc13f6596823cc8c9837a7c2f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an event listener.  <br /></td></tr>
 <tr class="separator:a67cadcc13f6596823cc8c9837a7c2f86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6c7d9a15562277086e44473feca0a66" id="r_ac6c7d9a15562277086e44473feca0a66"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="#acbcfbfd42cc9a596e41e5aacca028a90">EventCallback</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6c7d9a15562277086e44473feca0a66">dispatchCmdFXEvent</a> (<a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *event)</td></tr>
-<tr class="memdesc:ac6c7d9a15562277086e44473feca0a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispatches an event.  <br /></td></tr>
-<tr class="separator:ac6c7d9a15562277086e44473feca0a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4de547f5dd0c2689740f7a9270935225" id="r_a4de547f5dd0c2689740f7a9270935225"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="#a86d49bda93f27aee6de70fea98fd702b">CmdFX_EventCallback</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4de547f5dd0c2689740f7a9270935225">dispatchCmdFXEvent</a> (<a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *event)</td></tr>
+<tr class="memdesc:a4de547f5dd0c2689740f7a9270935225"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispatches an event.  <br /></td></tr>
+<tr class="separator:a4de547f5dd0c2689740f7a9270935225"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51e8fb80e4bfc3a6b2c299081936961c" id="r_a51e8fb80e4bfc3a6b2c299081936961c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51e8fb80e4bfc3a6b2c299081936961c">beginCmdFXEventLoop</a> ()</td></tr>
 <tr class="memdesc:a51e8fb80e4bfc3a6b2c299081936961c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the event loop for CmdFX.  <br /></td></tr>
 <tr class="separator:a51e8fb80e4bfc3a6b2c299081936961c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -282,14 +282,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>shutdownCmdFXEvents</
 
 </div>
 </div>
-<a id="acbcfbfd42cc9a596e41e5aacca028a90" name="acbcfbfd42cc9a596e41e5aacca028a90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbcfbfd42cc9a596e41e5aacca028a90">&#9670;&#160;</a></span>EventCallback</h2>
+<a id="a86d49bda93f27aee6de70fea98fd702b" name="a86d49bda93f27aee6de70fea98fd702b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86d49bda93f27aee6de70fea98fd702b">&#9670;&#160;</a></span>CmdFX_EventCallback</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef int(* EventCallback) (struct <a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *event)</td>
+          <td class="memname">typedef int(* CmdFX_EventCallback) (struct <a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *event)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -306,8 +306,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>shutdownCmdFXEvents</
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="af4b24a1bdd4d06c316cfb3f41f365253" name="af4b24a1bdd4d06c316cfb3f41f365253"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4b24a1bdd4d06c316cfb3f41f365253">&#9670;&#160;</a></span>addCmdFXEventListener()</h2>
+<a id="a421ba39081fb6e69df15be3265a04341" name="a421ba39081fb6e69df15be3265a04341"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a421ba39081fb6e69df15be3265a04341">&#9670;&#160;</a></span>addCmdFXEventListener()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,7 +320,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>shutdownCmdFXEvents</
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#acbcfbfd42cc9a596e41e5aacca028a90">EventCallback</a></td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="#a86d49bda93f27aee6de70fea98fd702b">CmdFX_EventCallback</a></td>          <td class="paramname"><span class="paramname"><em>callback</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -357,14 +357,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>shutdownCmdFXEvents</
 
 </div>
 </div>
-<a id="ac6c7d9a15562277086e44473feca0a66" name="ac6c7d9a15562277086e44473feca0a66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6c7d9a15562277086e44473feca0a66">&#9670;&#160;</a></span>dispatchCmdFXEvent()</h2>
+<a id="a4de547f5dd0c2689740f7a9270935225" name="a4de547f5dd0c2689740f7a9270935225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4de547f5dd0c2689740f7a9270935225">&#9670;&#160;</a></span>dispatchCmdFXEvent()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="#acbcfbfd42cc9a596e41e5aacca028a90">EventCallback</a> ** dispatchCmdFXEvent </td>
+          <td class="memname">const <a class="el" href="#a86d49bda93f27aee6de70fea98fd702b">CmdFX_EventCallback</a> ** dispatchCmdFXEvent </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
           <td></td>
@@ -403,14 +403,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>shutdownCmdFXEvents</
 
 </div>
 </div>
-<a id="a1c9db523d5c4eac0a008ce7599824d6f" name="a1c9db523d5c4eac0a008ce7599824d6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c9db523d5c4eac0a008ce7599824d6f">&#9670;&#160;</a></span>getCmdFXEventListener()</h2>
+<a id="a833015ab90af0b1ae21c0c7a792c950d" name="a833015ab90af0b1ae21c0c7a792c950d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a833015ab90af0b1ae21c0c7a792c950d">&#9670;&#160;</a></span>getCmdFXEventListener()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#acbcfbfd42cc9a596e41e5aacca028a90">EventCallback</a> * getCmdFXEventListener </td>
+          <td class="memname"><a class="el" href="#a86d49bda93f27aee6de70fea98fd702b">CmdFX_EventCallback</a> * getCmdFXEventListener </td>
           <td>(</td>
           <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>eventId</em></span>, </td>
         </tr>

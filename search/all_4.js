@@ -22,7 +22,6 @@ var searchData=
   ['engine_5fstart_19',['Engine_start',['../d1/d55/engine_8h.html#ab7906d41524c9a982c099c0cf4203e1b',1,'engine.h']]],
   ['engine_5ftick_20',['Engine_tick',['../d1/d55/engine_8h.html#aa6bb52fc894d772814e84b1712865249',1,'engine.h']]],
   ['event_5ftick_21',['EVENT_TICK',['../db/dd2/events_8h.html#a11c8bd88e341ec4bdaf647a94cea4119',1,'events.h']]],
-  ['eventcallback_22',['EventCallback',['../db/dd2/events_8h.html#acbcfbfd42cc9a596e41e5aacca028a90',1,'events.h']]],
-  ['events_2eh_23',['events.h',['../db/dd2/events_8h.html',1,'']]],
-  ['examples_24',['🚀 Examples',['../index.html#autotoc_md8',1,'']]]
+  ['events_2eh_22',['events.h',['../db/dd2/events_8h.html',1,'']]],
+  ['examples_23',['🚀 Examples',['../index.html#autotoc_md8',1,'']]]
 ];
