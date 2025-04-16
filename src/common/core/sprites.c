@@ -705,7 +705,6 @@ CmdFX_Sprite* Sprite_createFilled(int width, int height, char c, char* ansi, int
     }
 
     CmdFX_Sprite* sprite = Sprite_create(data, ansiData, z);
-    Sprite_fillCharAll(sprite, c);
     if (ansi != 0) 
         Sprite_setAnsiAll(sprite, ansi);
 
