@@ -88,7 +88,6 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
 
     CmdFX_tryLockMutex(_SPRITE_UID_MUTEX);
 
-    printf("create counter: %d\n", _spriteUidCounter);
     if (_takenUids == 0) {
         sprite->uid = ++_spriteUidCounter;
 
@@ -157,9 +156,7 @@ void Sprite_free(CmdFX_Sprite* sprite) {
     // Remove UID from Taken UIDs
     CmdFX_tryLockMutex(_SPRITE_UID_MUTEX);
     if (_takenUids != 0) {
-        printf("freeing sprite->uid: %d\n", sprite->uid);
         for (int i = 0; i < _spriteUidCounter; i++) {
-            printf("comparing takenUids[%d]: %d with sprite->uid: %d\n", i, _takenUids[i], sprite->uid);
             if (_takenUids[i] == sprite->uid) {
                 _takenUids[i] = 0;
                 break;
