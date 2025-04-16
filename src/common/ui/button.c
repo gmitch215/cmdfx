@@ -47,6 +47,15 @@ CmdFX_Button* Button_create(CmdFX_Sprite* sprite, CmdFX_ButtonCallback callback)
     return button;
 }
 
+CmdFX_Button* Button_createFilled(int width, int height, char c, char* ansi, int z, CmdFX_ButtonCallback callback) {
+    if (width < 0 || height < 0) return 0;
+
+    CmdFX_Sprite* sprite = Sprite_createFilled(width, height, c, ansi, z);
+    if (sprite == 0) return 0;
+
+    return Button_create(sprite, callback);
+}
+
 void Button_free(CmdFX_Button* button) {
     if (button == 0) return;
     

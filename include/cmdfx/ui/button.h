@@ -116,6 +116,23 @@ int Canvas_getRegisteredButtonsCount();
 CmdFX_Button* Button_create(CmdFX_Sprite* sprite, CmdFX_ButtonCallback callback);
 
 /**
+ * @brief Creates a new filled button.
+ * 
+ * This function creates a new filled button with the given width, height,
+ * character, and callback function. The button is not added to the UI manager,
+ * so it must be added manually.
+ * 
+ * @param width The width of the button.
+ * @param height The height of the button.
+ * @param c The character to use for the button.
+ * @param ansi The ANSI color codes to use for the button.
+ * @param z The Z-index of the button.
+ * @param callback The callback function to call when the button is clicked.
+ * @return CmdFX_Button* A pointer to the newly created filled button.
+ */
+CmdFX_Button* Button_createFilled(int width, int height, char c, char* ansi, int z, CmdFX_ButtonCallback callback);
+
+/**
  * @brief Frees the memory associated with a button.
  * 
  * This function frees the memory associated with the given button. The
