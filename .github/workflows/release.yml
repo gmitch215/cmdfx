@@ -78,6 +78,7 @@ jobs:
         if: ${{ matrix.os != 'windows-2022' }}
         run: |
           cmake -B build -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib" -DTEST_CMDFX=OFF
+          cmake --build build --config Release
           cmake --build build --config Release --target docs klib
           cmake -B build
           cmake --build build --config Release --target package
