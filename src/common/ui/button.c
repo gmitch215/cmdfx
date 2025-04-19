@@ -43,6 +43,8 @@ CmdFX_Button* Button_create(CmdFX_Sprite* sprite, CmdFX_ButtonCallback callback)
 
     *ptr = callback;
     button->callback = ptr;
+    button->type = 0;
+    button->extra = 0;
 
     return button;
 }
@@ -209,5 +211,31 @@ int Button_setData(CmdFX_Button* button, char** data, char*** ansi) {
 
     if (Sprite_draw(button->x, button->y, sprite) != 0) return -1;
 
+    return 0;
+}
+
+int Button_moveTo(CmdFX_Button* button, int x, int y) {
+    if (button == 0) return -1;
+    if (button->sprite == 0) return -1;
+
+    CmdFX_tryLockMutex(_BUTTON_POSITION_MUTEX);
+    button->x = x;
+    button->y = y;
+    CmdFX_tryUnlockMutex(_BUTTON_POSITION_MUTEX);
+
+    Sprite_moveTo(button->sprite, x, y);
+    return 0;
+}
+
+int Button_moveBy(CmdFX_Button* button, int dx, int dy) {
+    if (button == 0) return -1;
+    if (button->sprite == 0) return -1;
+
+    CmdFX_tryLockMutex(_BUTTON_POSITION_MUTEX);
+    button->x += dx;
+    button->y += dy;
+    CmdFX_tryUnlockMutex(_BUTTON_POSITION_MUTEX);
+
+    Sprite_moveBy(button->sprite, dx, dy);
     return 0;
 }

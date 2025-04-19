@@ -30,3 +30,8 @@
 #include "cmdfx/physics/mass.h"
 #include "cmdfx/physics/util.h"
 #include "cmdfx/physics/motion.h"
+
+// UI Manager
+
+#include "cmdfx/ui/button.h"
+#include "cmdfx/ui/switch.h"

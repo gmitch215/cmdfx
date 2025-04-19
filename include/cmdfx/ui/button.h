@@ -72,6 +72,23 @@ typedef struct CmdFX_Button {
      */
     int id;
     /**
+     * @brief A unique type of the button.
+     * 
+     * This is used to identify the type of button. This value is set when the
+     * button is created and can be used to store any additional data that is needed
+     * for the button. It should not be changed by the user.
+     */
+    int type;
+    /**
+     * @brief A pointer to extra data associated with this button.
+     * 
+     * This is implementation-specific and used internally by the UI manager
+     * to help determine what to do with the button. This value is set when the
+     * button is created and can be used to store any additional data that is needed
+     * for the button. It should not be changed by the user.
+     */
+    void* extra;
+    /**
      * @brief The callback function to be called when the button is clicked.
      * 
      * This function is called when the button is clicked. The function
@@ -248,6 +265,34 @@ CmdFX_Button* Canvas_getButtonAt(int x, int y);
  * @return 0 if successful, else -1
  */
 int Button_setData(CmdFX_Button* button, char** data, char*** ansi);
+
+/**
+ * @brief Moves the button to the given position.
+ * 
+ * This function moves the button to the given position. The position is
+ * specified by the x and y coordinates. The button will be rendered at
+ * the new position.
+ * 
+ * @param button The button to move.
+ * @param x The x position to move the button to.
+ * @param y The y position to move the button to.
+ * @return 0 if successful, else -1
+ */
+int Button_moveTo(CmdFX_Button* button, int x, int y);
+
+/**
+ * @brief Moves the button by the given offset.
+ * 
+ * This function moves the button by the given offset. The offset is
+ * specified by the x and y coordinates. The button will be rendered at
+ * the new position.
+ * 
+ * @param button The button to move.
+ * @param dx The x offset to move the button by.
+ * @param dy The y offset to move the button by.
+ * @return 0 if successful, else -1
+ */
+int Button_moveBy(CmdFX_Button* button, int dx, int dy);
 
 #ifdef __cplusplus
 }

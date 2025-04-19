@@ -13,6 +13,7 @@
 #include "cmdfx/core/screen.h"
 #include "cmdfx/core/device.h"
 #include "cmdfx/ui/button.h"
+#include "cmdfx/ui/switch.h"
 
 // Core Events
 
@@ -106,6 +107,15 @@ void posix_checkMouseEvent() {
                     CmdFX_Button* button = allButtons[j];
                     CmdFX_ButtonCallback callback = *button->callback;
                     callback(button, &mouseEvent, time);
+
+                    switch (button->type) {
+                        case CMDFX_BUTTON_TYPE_SWITCH:
+                            Switch_toggleState(button);
+                            break;
+                        default:
+                            break;
+                    }
+
                     j++;
                 }
             }
