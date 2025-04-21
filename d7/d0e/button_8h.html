@@ -162,6 +162,12 @@ Functions</h2></td></tr>
 <tr class="memitem:af7bbcd91cae275e248cb840256318233" id="r_af7bbcd91cae275e248cb840256318233"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7bbcd91cae275e248cb840256318233">Button_setData</a> (<a class="el" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a> *button, char **data, char ***ansi)</td></tr>
 <tr class="memdesc:af7bbcd91cae275e248cb840256318233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the data for a button.  <br /></td></tr>
 <tr class="separator:af7bbcd91cae275e248cb840256318233"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a630d0d17a893f1298572bd13ad72ed8d" id="r_a630d0d17a893f1298572bd13ad72ed8d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a630d0d17a893f1298572bd13ad72ed8d">Button_moveTo</a> (<a class="el" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a> *button, int x, int y)</td></tr>
+<tr class="memdesc:a630d0d17a893f1298572bd13ad72ed8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the button to the given position.  <br /></td></tr>
+<tr class="separator:a630d0d17a893f1298572bd13ad72ed8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1e6c279e8af0d40ce27f9c82fea18fe" id="r_af1e6c279e8af0d40ce27f9c82fea18fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1e6c279e8af0d40ce27f9c82fea18fe">Button_moveBy</a> (<a class="el" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a> *button, int dx, int dy)</td></tr>
+<tr class="memdesc:af1e6c279e8af0d40ce27f9c82fea18fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the button by the given offset.  <br /></td></tr>
+<tr class="separator:af1e6c279e8af0d40ce27f9c82fea18fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Button declarations for the CmdFX UI Library. </p>
@@ -416,6 +422,82 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if the button is hidden, 0 otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="af1e6c279e8af0d40ce27f9c82fea18fe" name="af1e6c279e8af0d40ce27f9c82fea18fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1e6c279e8af0d40ce27f9c82fea18fe">&#9670;&#160;</a></span>Button_moveBy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Button_moveBy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a> *</td>          <td class="paramname"><span class="paramname"><em>button</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dy</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Moves the button by the given offset. </p>
+<p>This function moves the button by the given offset. The offset is specified by the x and y coordinates. The button will be rendered at the new position.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">button</td><td>The button to move. </td></tr>
+    <tr><td class="paramname">dx</td><td>The x offset to move the button by. </td></tr>
+    <tr><td class="paramname">dy</td><td>The y offset to move the button by. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, else -1 </dd></dl>
+
+</div>
+</div>
+<a id="a630d0d17a893f1298572bd13ad72ed8d" name="a630d0d17a893f1298572bd13ad72ed8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a630d0d17a893f1298572bd13ad72ed8d">&#9670;&#160;</a></span>Button_moveTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Button_moveTo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a> *</td>          <td class="paramname"><span class="paramname"><em>button</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Moves the button to the given position. </p>
+<p>This function moves the button to the given position. The position is specified by the x and y coordinates. The button will be rendered at the new position.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">button</td><td>The button to move. </td></tr>
+    <tr><td class="paramname">x</td><td>The x position to move the button to. </td></tr>
+    <tr><td class="paramname">y</td><td>The y position to move the button to. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, else -1 </dd></dl>
 
 </div>
 </div>

@@ -113,6 +113,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ab0d4fbe33b5234698a8b1afc77e88dd2" id="r_ab0d4fbe33b5234698a8b1afc77e88dd2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0d4fbe33b5234698a8b1afc77e88dd2">id</a></td></tr>
 <tr class="memdesc:ab0d4fbe33b5234698a8b1afc77e88dd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique ID of the button.  <br /></td></tr>
 <tr class="separator:ab0d4fbe33b5234698a8b1afc77e88dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a3b820b36c65594f1060e2c158a54c1" id="r_a2a3b820b36c65594f1060e2c158a54c1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a3b820b36c65594f1060e2c158a54c1">type</a></td></tr>
+<tr class="memdesc:a2a3b820b36c65594f1060e2c158a54c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">A unique type of the button.  <br /></td></tr>
+<tr class="separator:a2a3b820b36c65594f1060e2c158a54c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c6dc8b2795dd763f2bc0f73925e67df" id="r_a5c6dc8b2795dd763f2bc0f73925e67df"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c6dc8b2795dd763f2bc0f73925e67df">extra</a></td></tr>
+<tr class="memdesc:a5c6dc8b2795dd763f2bc0f73925e67df"><td class="mdescLeft">&#160;</td><td class="mdescRight">A pointer to extra data associated with this button.  <br /></td></tr>
+<tr class="separator:a5c6dc8b2795dd763f2bc0f73925e67df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79ee55dd335b57e9d4f1f0c58da43fce" id="r_a79ee55dd335b57e9d4f1f0c58da43fce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d7/d0e/button_8h.html#a86077073d8162f15d2b2b89de3a1bd7c">CmdFX_ButtonCallback</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79ee55dd335b57e9d4f1f0c58da43fce">callback</a></td></tr>
 <tr class="memdesc:a79ee55dd335b57e9d4f1f0c58da43fce"><td class="mdescLeft">&#160;</td><td class="mdescRight">The callback function to be called when the button is clicked.  <br /></td></tr>
 <tr class="separator:a79ee55dd335b57e9d4f1f0c58da43fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,6 +141,23 @@ Public Attributes</h2></td></tr>
 
 <p>The callback function to be called when the button is clicked. </p>
 <p>This function is called when the button is clicked. The function should take a pointer to the button and a pointer to the mouse event as parameters. The function should return nothing. </p>
+
+</div>
+</div>
+<a id="a5c6dc8b2795dd763f2bc0f73925e67df" name="a5c6dc8b2795dd763f2bc0f73925e67df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c6dc8b2795dd763f2bc0f73925e67df">&#9670;&#160;</a></span>extra</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* CmdFX_Button::extra</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A pointer to extra data associated with this button. </p>
+<p>This is implementation-specific and used internally by the UI manager to help determine what to do with the button. This value is set when the button is created and can be used to store any additional data that is needed for the button. It should not be changed by the user. </p>
 
 </div>
 </div>
@@ -170,6 +193,23 @@ Public Attributes</h2></td></tr>
 
 <p>The sprite associated with this button. </p>
 <p>This sprite is used to render the button on the screen. All buttons are static sprites, meaning they are not affected by the physics engine. </p>
+
+</div>
+</div>
+<a id="a2a3b820b36c65594f1060e2c158a54c1" name="a2a3b820b36c65594f1060e2c158a54c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a3b820b36c65594f1060e2c158a54c1">&#9670;&#160;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CmdFX_Button::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A unique type of the button. </p>
+<p>This is used to identify the type of button. This value is set when the button is created and can be used to store any additional data that is needed for the button. It should not be changed by the user. </p>
 
 </div>
 </div>

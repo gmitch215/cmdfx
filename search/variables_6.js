@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['keychar_0',['keyChar',['../dc/d1b/structCmdFX__KeyEvent.html#a1b65fd38eb393f0e6c3dc0633c52a449',1,'CmdFX_KeyEvent']]],
-  ['keycode_1',['keyCode',['../dc/d1b/structCmdFX__KeyEvent.html#a4ed739ac79d21622f1ecb05876dfa426',1,'CmdFX_KeyEvent']]]
+  ['id_0',['id',['../dc/d5b/structCmdFX__Event.html#a652d5ecc75171b7232a5c42b2970788e',1,'CmdFX_Event::id'],['../d7/d39/structCmdFX__Sprite.html#a6f07d86d5e4a98d24ddf38cd12811855',1,'CmdFX_Sprite::id'],['../de/d45/structCmdFX__Button.html#ab0d4fbe33b5234698a8b1afc77e88dd2',1,'CmdFX_Button::id']]]
 ];

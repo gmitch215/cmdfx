@@ -164,5 +164,9 @@ var searchData=
   ['string2dbuilder_5fsetansi_161',['String2DBuilder_setAnsi',['../d5/d78/builder_8h.html#a401f04744b090faebeb31e71189da5b0',1,'builder.h']]],
   ['string2dbuilder_5ftranspose_162',['String2DBuilder_transpose',['../d5/d78/builder_8h.html#ae2fbb5a1d8f59d4a399d564fc5a370ce',1,'builder.h']]],
   ['string2dbuilder_5fvflip_163',['String2DBuilder_vFlip',['../d5/d78/builder_8h.html#a485c4f42a633755b9048667ce5fa73a6',1,'builder.h']]],
-  ['string2dbuilder_5fvline_164',['String2DBuilder_vLine',['../d5/d78/builder_8h.html#a71ce572bdc716c23c62903eb6c91020c',1,'builder.h']]]
+  ['string2dbuilder_5fvline_164',['String2DBuilder_vLine',['../d5/d78/builder_8h.html#a71ce572bdc716c23c62903eb6c91020c',1,'builder.h']]],
+  ['switch_2eh_165',['switch.h',['../d2/dff/switch_8h.html',1,'']]],
+  ['switch_5fgetstate_166',['Switch_getState',['../d2/dff/switch_8h.html#a592f2e4705e5c6d46841800f4543a7d0',1,'switch.h']]],
+  ['switch_5fsetstate_167',['Switch_setState',['../d2/dff/switch_8h.html#a9177fbc1455b469a738bb30b1fe266c1',1,'switch.h']]],
+  ['switch_5ftogglestate_168',['Switch_toggleState',['../d2/dff/switch_8h.html#aa394b593ae2f471a4e6dafe4dd45f971',1,'switch.h']]]
 ];
