@@ -107,7 +107,7 @@ void win_checkMouseEvent() {
                 while (allButtons[j] != 0) {
                     CmdFX_Button* button = allButtons[j];
                     CmdFX_ButtonCallback callback = *button->callback;
-                    callback(button, &mouseEvent, time);
+                    callback(button, &mouseEvent, currentTimeMillis());
 
                     switch (button->type) {
                         case CMDFX_BUTTON_TYPE_SWITCH:
