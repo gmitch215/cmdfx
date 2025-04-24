@@ -96,8 +96,9 @@ void win_checkMouseEvent() {
 
     for (int i = 0; i < 3; i++) {
         if (buttons[i] != _prevButtons[i] || x != _prevMouseX || y != _prevMouseY) {
+            unsigned long time = currentTimeMillis();
             CmdFX_MouseEvent mouseEvent = {i, buttons[i], _prevMouseX, x, _prevMouseY, y};
-            CmdFX_Event event = {CMDFX_EVENT_MOUSE, currentTimeMillis(), &mouseEvent};
+            CmdFX_Event event = {CMDFX_EVENT_MOUSE, time, &mouseEvent};
             dispatchCmdFXEvent(&event);
 
             // button events
@@ -107,7 +108,7 @@ void win_checkMouseEvent() {
                 while (allButtons[j] != 0) {
                     CmdFX_Button* button = allButtons[j];
                     CmdFX_ButtonCallback callback = *button->callback;
-                    callback(button, &mouseEvent, currentTimeMillis());
+                    callback(button, &mouseEvent, time);
 
                     CmdFX_ButtonEvent buttonEvent = {&mouseEvent, button};
                     CmdFX_Event buttonEventStruct = {CMDFX_EVENT_BUTTON_CLICK, time, &buttonEvent};
