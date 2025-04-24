@@ -116,6 +116,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/df9/structCmdFX__MouseEvent.html">CmdFX_MouseEvent</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The payload for the <code>CMDFX_EVENT_MOUSE</code> event.  <a href="../../df/df9/structCmdFX__MouseEvent.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc0/structCmdFX__ButtonEvent.html">CmdFX_ButtonEvent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a button is clicked.  <a href="../../d3/dc0/structCmdFX__ButtonEvent.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main event structure for CmdFX.  <a href="../../dc/d5b/structCmdFX__Event.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,6 +137,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ae1be137ad0c382cb53b2f5f48e68676e" id="r_ae1be137ad0c382cb53b2f5f48e68676e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1be137ad0c382cb53b2f5f48e68676e">CMDFX_EVENT_MOUSE</a>&#160;&#160;&#160;2</td></tr>
 <tr class="memdesc:ae1be137ad0c382cb53b2f5f48e68676e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the mouse is moved or clicked.  <br /></td></tr>
 <tr class="separator:ae1be137ad0c382cb53b2f5f48e68676e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b422d8f5b6acec16e4623d37779c182" id="r_a2b422d8f5b6acec16e4623d37779c182"><td class="memItemLeft" align="right" valign="top"><a id="a2b422d8f5b6acec16e4623d37779c182" name="a2b422d8f5b6acec16e4623d37779c182"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CMDFX_EVENT_BUTTON_CLICK</b>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a2b422d8f5b6acec16e4623d37779c182"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -149,6 +155,9 @@ typedef struct CmdFX_KeyEvent&#160;</td><td class="memItemRight" valign="bottom"
 typedef struct CmdFX_MouseEvent&#160;</td><td class="memItemRight" valign="bottom"><b>CmdFX_MouseEvent</b></td></tr>
 <tr class="memdesc:aa0c254b686f1f5697858c7cd6d208955"><td class="mdescLeft">&#160;</td><td class="mdescRight">The payload for the <code>CMDFX_EVENT_MOUSE</code> event. <br /></td></tr>
 <tr class="separator:aa0c254b686f1f5697858c7cd6d208955"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8481d7fd98511ecd8b5cd97988492347" id="r_a8481d7fd98511ecd8b5cd97988492347"><td class="memItemLeft" align="right" valign="top">typedef struct CmdFX_ButtonEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8481d7fd98511ecd8b5cd97988492347">CmdFX_ButtonEvent</a></td></tr>
+<tr class="memdesc:a8481d7fd98511ecd8b5cd97988492347"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a button is clicked.  <br /></td></tr>
+<tr class="separator:a8481d7fd98511ecd8b5cd97988492347"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86d49bda93f27aee6de70fea98fd702b" id="r_a86d49bda93f27aee6de70fea98fd702b"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86d49bda93f27aee6de70fea98fd702b">CmdFX_EventCallback</a>) (struct <a class="el" href="../../dc/d5b/structCmdFX__Event.html">CmdFX_Event</a> *event)</td></tr>
 <tr class="memdesc:a86d49bda93f27aee6de70fea98fd702b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an event callback.  <br /></td></tr>
 <tr class="separator:a86d49bda93f27aee6de70fea98fd702b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -258,6 +267,23 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>shutdownCmdFXEvents</
 </div>
 </div>
 <h2 class="groupheader">Typedef Documentation</h2>
+<a id="a8481d7fd98511ecd8b5cd97988492347" name="a8481d7fd98511ecd8b5cd97988492347"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8481d7fd98511ecd8b5cd97988492347">&#9670;&#160;</a></span>CmdFX_ButtonEvent</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct CmdFX_ButtonEvent CmdFX_ButtonEvent</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called when a button is clicked. </p>
+<p>The data is a pointer to a <code>struct <a class="el" href="../../d3/dc0/structCmdFX__ButtonEvent.html" title="Called when a button is clicked.">CmdFX_ButtonEvent</a></code>. </p>
+
+</div>
+</div>
 <a id="ad753e020a986c3524414898a23e32451" name="ad753e020a986c3524414898a23e32451"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad753e020a986c3524414898a23e32451">&#9670;&#160;</a></span>CmdFX_Event</h2>
 
