@@ -107,6 +107,10 @@ void posix_checkMouseEvent() {
                     CmdFX_Button* button = allButtons[j];
                     CmdFX_ButtonCallback callback = *button->callback;
                     callback(button, &mouseEvent, time);
+                    
+                    CmdFX_ButtonEvent buttonEvent = {&mouseEvent, button};
+                    CmdFX_Event buttonEventStruct = {CMDFX_EVENT_BUTTON_CLICK, time, &buttonEvent};
+                    dispatchCmdFXEvent(&buttonEventStruct);
 
                     switch (button->type) {
                         case CMDFX_BUTTON_TYPE_SWITCH:

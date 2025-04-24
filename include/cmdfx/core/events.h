@@ -131,6 +131,29 @@ typedef struct CmdFX_MouseEvent {
 
 #pragma endregion
 
+#define CMDFX_EVENT_BUTTON_CLICK 3
+
+/**
+ * @brief Called when a button is clicked.
+ * 
+ * The data is a pointer to a `struct CmdFX_ButtonEvent`.
+ */
+typedef struct CmdFX_ButtonEvent {
+    /**
+     * @brief The mouse event that triggered the button event.
+     * 
+     * This is a pointer to the mouse event that triggered the button event.
+     * This event is also passed to the event callback.
+     */
+    CmdFX_MouseEvent* mouseEvent;
+    /**
+     * @brief The button that was clicked.
+     * 
+     * This is a pointer to the button that was clicked.
+     */
+    void* button;
+} CmdFX_ButtonEvent;
+
 struct CmdFX_Event;
 
 /**

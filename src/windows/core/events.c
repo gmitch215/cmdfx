@@ -109,6 +109,10 @@ void win_checkMouseEvent() {
                     CmdFX_ButtonCallback callback = *button->callback;
                     callback(button, &mouseEvent, currentTimeMillis());
 
+                    CmdFX_ButtonEvent buttonEvent = {&mouseEvent, button};
+                    CmdFX_Event buttonEventStruct = {CMDFX_EVENT_BUTTON_CLICK, time, &buttonEvent};
+                    dispatchCmdFXEvent(&buttonEventStruct);
+
                     switch (button->type) {
                         case CMDFX_BUTTON_TYPE_SWITCH:
                             Switch_toggleState(button);
