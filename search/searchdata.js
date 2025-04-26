@@ -2,7 +2,7 @@ var indexSectionsWithContent =
 {
   0: "abcdefghiklmnprstuvwxyz🍎📋📝📦🚀",
   1: "c",
-  2: "bcdefmsu",
+  2: "bcdefkmpsu",
   3: "abcdeghlprstvw",
   4: "abcdehikmnpstuwxyz",
   5: "c",

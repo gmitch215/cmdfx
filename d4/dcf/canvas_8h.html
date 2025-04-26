@@ -240,6 +240,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ab3a898d8ec78ef3bce7d047c996a88d4" id="r_ab3a898d8ec78ef3bce7d047c996a88d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3a898d8ec78ef3bce7d047c996a88d4">Canvas_fillPolygon</a> (int x, int y, int sides, int radius, char c)</td></tr>
 <tr class="memdesc:ab3a898d8ec78ef3bce7d047c996a88d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills a polygon with a character.  <br /></td></tr>
 <tr class="separator:ab3a898d8ec78ef3bce7d047c996a88d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a7d9d4b478918cdb6d080ab04539676" id="r_a9a7d9d4b478918cdb6d080ab04539676"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a7d9d4b478918cdb6d080ab04539676">Canvas_quad</a> (int x, int y, int x1, int y1, int x2, int y2, char c)</td></tr>
+<tr class="memdesc:a9a7d9d4b478918cdb6d080ab04539676"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a quadratic Bezier curve.  <br /></td></tr>
+<tr class="separator:a9a7d9d4b478918cdb6d080ab04539676"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a652215ac8ef9958f7333d5b8a483eaf3" id="r_a652215ac8ef9958f7333d5b8a483eaf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a652215ac8ef9958f7333d5b8a483eaf3">Canvas_cubic</a> (int x, int y, int x1, int y1, int x2, int y2, int x3, int y3, char c)</td></tr>
+<tr class="memdesc:a652215ac8ef9958f7333d5b8a483eaf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a cubic Bezier curve.  <br /></td></tr>
+<tr class="separator:a652215ac8ef9958f7333d5b8a483eaf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afed5e2e830e4f6cb9e872db2155846e1" id="r_afed5e2e830e4f6cb9e872db2155846e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afed5e2e830e4f6cb9e872db2155846e1">Canvas_arc</a> (int x, int y, int rx, int ry, double xrot, int arcflag, int sweepflag, int dx, int dy, char c)</td></tr>
+<tr class="memdesc:afed5e2e830e4f6cb9e872db2155846e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws an elliptical arc.  <br /></td></tr>
+<tr class="separator:afed5e2e830e4f6cb9e872db2155846e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62866368ba85d33ad2c72a3c697138e1" id="r_a62866368ba85d33ad2c72a3c697138e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62866368ba85d33ad2c72a3c697138e1">Canvas_drawText</a> (int x, int y, char *text)</td></tr>
 <tr class="memdesc:a62866368ba85d33ad2c72a3c697138e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws text at the current cursor position.  <br /></td></tr>
 <tr class="separator:a62866368ba85d33ad2c72a3c697138e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -515,6 +524,85 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>ASCII_NINE</b> [8][5]
 <dl class="section date"><dt>Date</dt><dd>2025-01-20</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="afed5e2e830e4f6cb9e872db2155846e1" name="afed5e2e830e4f6cb9e872db2155846e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afed5e2e830e4f6cb9e872db2155846e1">&#9670;&#160;</a></span>Canvas_arc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Canvas_arc </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>ry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>xrot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>arcflag</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sweepflag</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dy</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draws an elliptical arc. </p>
+<p>This method draws an elliptical arc from the current position to the specified coordinates. The X and Y coordinates are the center of the ellipse.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Y coordinate. </td></tr>
+    <tr><td class="paramname">rx</td><td>The x radius of the ellipse. </td></tr>
+    <tr><td class="paramname">ry</td><td>The y radius of the ellipse. </td></tr>
+    <tr><td class="paramname">xrot</td><td>The rotation of the ellipse in degrees. </td></tr>
+    <tr><td class="paramname">arcflag</td><td>1 if the arc is greater than 180 degrees, 0 otherwise. </td></tr>
+    <tr><td class="paramname">sweepflag</td><td>1 if the arc is drawn in a positive-angle direction, 0 otherwise. </td></tr>
+    <tr><td class="paramname">dx</td><td>The x coordinate of the end point. </td></tr>
+    <tr><td class="paramname">dy</td><td>The y coordinate of the end point. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to draw the arc with. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a1ed5c973f3774467d94e3fe9e76fa84d" name="a1ed5c973f3774467d94e3fe9e76fa84d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1ed5c973f3774467d94e3fe9e76fa84d">&#9670;&#160;</a></span>Canvas_circle()</h2>
 
@@ -574,6 +662,79 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>ASCII_NINE</b> [8][5]
 
 <p>Clears the screen. </p>
 <p>This method uses a <code>system</code> call to clear the screen. </p>
+
+</div>
+</div>
+<a id="a652215ac8ef9958f7333d5b8a483eaf3" name="a652215ac8ef9958f7333d5b8a483eaf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a652215ac8ef9958f7333d5b8a483eaf3">&#9670;&#160;</a></span>Canvas_cubic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Canvas_cubic </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x3</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y3</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draws a cubic Bezier curve. </p>
+<p>This method draws a cubic Bezier curve from the current position to the specified coordinates. The X and Y coordinates are the control points of the curve.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Y coordinate. </td></tr>
+    <tr><td class="paramname">x1</td><td>The x coordinate of the first control point. </td></tr>
+    <tr><td class="paramname">y1</td><td>The y coordinate of the first control point. </td></tr>
+    <tr><td class="paramname">x2</td><td>The x coordinate of the second control point. </td></tr>
+    <tr><td class="paramname">y2</td><td>The y coordinate of the second control point. </td></tr>
+    <tr><td class="paramname">x3</td><td>The x coordinate of the end point. </td></tr>
+    <tr><td class="paramname">y3</td><td>The y coordinate of the end point. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to draw the curve with. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1515,6 +1676,67 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>ASCII_NINE</b> [8][5]
     <tr><td class="paramname">sides</td><td>Number of sides. </td></tr>
     <tr><td class="paramname">radius</td><td>Radius of the polygon. </td></tr>
     <tr><td class="paramname">c</td><td>The character to draw the polygon with. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9a7d9d4b478918cdb6d080ab04539676" name="a9a7d9d4b478918cdb6d080ab04539676"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a7d9d4b478918cdb6d080ab04539676">&#9670;&#160;</a></span>Canvas_quad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Canvas_quad </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draws a quadratic Bezier curve. </p>
+<p>This method draws a quadratic Bezier curve from the current position to the specified coordinates. The X and Y coordinates are the control point of the curve.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Y coordinate. </td></tr>
+    <tr><td class="paramname">x1</td><td>The x coordinate of the control point. </td></tr>
+    <tr><td class="paramname">y1</td><td>The y coordinate of the control point. </td></tr>
+    <tr><td class="paramname">x2</td><td>The x coordinate of the end point. </td></tr>
+    <tr><td class="paramname">y2</td><td>The y coordinate of the end point. </td></tr>
+    <tr><td class="paramname">c</td><td>The character to draw the curve with. </td></tr>
   </table>
   </dd>
 </dl>
