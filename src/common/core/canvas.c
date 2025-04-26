@@ -5,6 +5,10 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 #include "cmdfx/core/util.h"
 #include "cmdfx/core/canvas.h"
 
@@ -493,6 +497,108 @@ void Canvas_fillPolygon(int x, int y, int sides, int radius, char c) {
 
     free(vx);
     free(vy);
+}
+
+void Canvas_quad(int x, int y, int x1, int y1, int x2, int y2, char c) {
+    if (x < 0 || y < 0) return;
+
+    double t;
+    for (t = 0; t <= 1; t += 0.01) {
+        double xt = (1 - t) * (1 - t) * x + 2 * (1 - t) * t * x1 + t * t * x2;
+        double yt = (1 - t) * (1 - t) * y + 2 * (1 - t) * t * y1 + t * t * y2;
+        Canvas_setChar((int)xt, (int)yt, c);
+    }
+}
+
+void Canvas_cubic(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3, char c) {
+    if (x < 0 || y < 0) return;
+
+    double t;
+    for (t = 0; t <= 1; t += 0.01) {
+        double xt = (1 - t) * (1 - t) * (1 - t) * x + 
+                    3 * (1 - t) * (1 - t) * t * x1 + 
+                    3 * (1 - t) * t * t * x2 + 
+                    t * t * t * x3;
+        double yt = (1 - t) * (1 - t) * (1 - t) * y + 
+                    3 * (1 - t) * (1 - t) * t * y1 + 
+                    3 * (1 - t) * t * t * y2 + 
+                    t * t * t * y3;
+        Canvas_setChar((int)xt, (int)yt, c);
+    }
+}
+
+void Canvas_arc(int x1, int y1, int rx, int ry, double xrot, int arcflag, int sweepflag, int x2, int y2, char c) {
+    if (rx == 0) return;
+    if (ry == 0) return;
+    if (x1 < 0) return;
+    if (y1 < 0) return;
+    if (x2 < 0) return;
+    if (y2 < 0) return;
+    if (arcflag < 0) return;
+    if (arcflag > 1) return;
+    if (sweepflag < 0) return;
+    if (sweepflag > 1) return;
+
+    double phi = xrot * M_PI / 180.0;
+    double cosp = cos(phi);
+    double sinp = sin(phi);
+
+    // Step 1: Compute (x1', y1')
+    double dx = (x1 - x2) / 2.0;
+    double dy = (y1 - y2) / 2.0;
+    double x1p = cosp * dx + sinp * dy;
+    double y1p = -sinp * dx + cosp * dy;
+
+    // Ensure radii are large enough
+    double rx2 = rx * rx;
+    double ry2 = ry * ry;
+    double x1p2 = x1p * x1p;
+    double y1p2 = y1p * y1p;
+    double lambda = (x1p2 / rx2) + (y1p2 / ry2);
+    if (lambda > 1) {
+        double scale = sqrt(lambda);
+        rx *= scale;
+        ry *= scale;
+        rx2 = rx * rx;
+        ry2 = ry * ry;
+    }
+
+    // Step 2: Compute (cx', cy')
+    double sign = (arcflag == sweepflag) ? -1 : 1;
+    double num = rx2 * ry2 - rx2 * y1p2 - ry2 * x1p2;
+    double denom = rx2 * y1p2 + ry2 * x1p2;
+    double factor = sign * sqrt(fmax(0, num / denom));
+    double cxp = factor * (rx * y1p) / ry;
+    double cyp = factor * (-ry * x1p) / rx;
+
+    // Step 3: Compute (cx, cy)
+    double cx = cosp * cxp - sinp * cyp + (x1 + x2) / 2.0;
+    double cy = sinp * cxp + cosp * cyp + (y1 + y2) / 2.0;
+
+    // Step 4: Compute start and sweep angles
+    double theta1 = atan2((y1p - cyp) / ry, (x1p - cxp) / rx);
+    double theta2 = atan2((-y1p - cyp) / ry, (-x1p - cxp) / rx) - theta1;
+    if (sweepflag && theta2 < 0) theta2 += 2 * M_PI;
+    else if (!sweepflag && theta2 > 0) theta2 -= 2 * M_PI;
+
+    // Step 5: Draw arc as line segments
+    int prevX = x1;
+    int prevY = y1;
+
+    for (int i = 1; i <= 100; i++) {
+        double t = (double) i / 100;
+        double angle = theta1 + t * theta2;
+        double xt = rx * cos(angle);
+        double yt = ry * sin(angle);
+
+        // Rotate and translate back
+        double x = cosp * xt - sinp * yt + cx;
+        double y = sinp * xt + cosp * yt + cy;
+
+        Canvas_line(prevX, prevY, (int) (x + 0.5), (int) (y + 0.5), c);
+        prevX = (int) (x + 0.5);
+        prevY = (int) (y + 0.5);
+    }
 }
 
 // Utility Functions - Text

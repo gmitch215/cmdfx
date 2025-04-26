@@ -438,6 +438,61 @@ void Canvas_polygon(int x, int y, int sides, int radius, char c);
  */
 void Canvas_fillPolygon(int x, int y, int sides, int radius, char c);
 
+/**
+ * @brief Draws a quadratic Bezier curve.
+ * 
+ * This method draws a quadratic Bezier curve from the current position to the
+ * specified coordinates. The X and Y coordinates are the control point of the
+ * curve.
+ * 
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param x1 The x coordinate of the control point.
+ * @param y1 The y coordinate of the control point.
+ * @param x2 The x coordinate of the end point.
+ * @param y2 The y coordinate of the end point.
+ * @param c The character to draw the curve with.
+ */
+void Canvas_quad(int x, int y, int x1, int y1, int x2, int y2, char c);
+
+/**
+ * @brief Draws a cubic Bezier curve.
+ * 
+ * This method draws a cubic Bezier curve from the current position to the
+ * specified coordinates. The X and Y coordinates are the control points of the
+ * curve.
+ * 
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param x1 The x coordinate of the first control point.
+ * @param y1 The y coordinate of the first control point.
+ * @param x2 The x coordinate of the second control point.
+ * @param y2 The y coordinate of the second control point.
+ * @param x3 The x coordinate of the end point.
+ * @param y3 The y coordinate of the end point.
+ * @param c The character to draw the curve with.
+ */
+void Canvas_cubic(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3, char c);
+
+/**
+ * @brief Draws an elliptical arc.
+ * 
+ * This method draws an elliptical arc from the current position to the
+ * specified coordinates. The X and Y coordinates are the center of the ellipse.
+ * 
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @param rx The x radius of the ellipse.
+ * @param ry The y radius of the ellipse.
+ * @param xrot The rotation of the ellipse in degrees.
+ * @param arcflag 1 if the arc is greater than 180 degrees, 0 otherwise.
+ * @param sweepflag 1 if the arc is drawn in a positive-angle direction, 0 otherwise.
+ * @param dx The x coordinate of the end point.
+ * @param dy The y coordinate of the end point.
+ * @param c The character to draw the arc with.
+ */
+void Canvas_arc(int x, int y, int rx, int ry, double xrot, int arcflag, int sweepflag, int dx, int dy, char c);
+
 // Utility Functions - Text
 
 /**

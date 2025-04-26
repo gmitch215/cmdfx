@@ -36,3 +36,4 @@
 #include "cmdfx/ui/button.h"
 #include "cmdfx/ui/switch.h"
 #include "cmdfx/ui/keys.h"
+#include "cmdfx/ui/path.h"
