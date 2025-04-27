@@ -66,7 +66,7 @@ typedef struct CmdFX_Button {
      * 
      * This is assigned when it is on the screen. It is used to identify the
      * button when editing or removing it. This value is identical to the
-     * value of `sprite->id - 1`, but will not change if the sprite is removed.
+     * value of `sprite->id - 1`.
      * 
      * If the button is removed or not on the screen, this value will be `-1`.
      */
@@ -189,8 +189,8 @@ int Button_remove(CmdFX_Button* button);
  * @brief Checks if a button is hidden.
  * 
  * This function checks if the given button is hidden from the UI manager.
- * A button is considered hidden if it is not rendered on the screen and
- * does not respond to mouse events.
+ * A button is considered hidden if it is not rendered on the screen but
+ * still responds to mouse events.
  * 
  * @param button The button to check.
  * @return 1 if the button is hidden, 0 otherwise.

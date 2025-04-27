@@ -18,8 +18,9 @@ extern "C" {
 /**
  * @brief Represents the maximum number of registered scenes that can be stored.
  * 
- * The maximum number of registered scenes that can be stored is 256. This is the maximum
- * number of scenes that can be registered with the Scene Engine at any given time.
+ * This is the maximum number of scenes that can be registered with the Scene Engine
+ * at any given time. Registered scenes are stored in a static array, which is used to
+ * keep track of additional data scenes may have, such as buttons.
  */
 #define MAX_REGISTERED_SCENES 1024
 
@@ -351,6 +352,18 @@ CmdFX_Scene** Scene_getRegisteredScenes();
  * @return The number of registered scenes.
  */
 int Scene_getRegisteredScenesCount();
+
+/**
+ * @brief Gets a registered scene by its unique identifier.
+ * 
+ * This function gets the registered scene with the specified unique identifier. The
+ * unique identifier is the same as the `uid` field of the scene. If the scene is not
+ * registered, the function will return `NULL`.
+ * 
+ * @param uid The unique identifier of the scene to get.
+ * @return A pointer to the registered scene, or `NULL` if the scene was not found.
+ */
+CmdFX_Scene* Scene_getRegisteredScene(int uid);
 
 /**
  * @brief Registers a scene with the Scene Engine.

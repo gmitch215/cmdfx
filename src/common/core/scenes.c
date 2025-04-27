@@ -6,6 +6,8 @@
 #include "cmdfx/core/builder.h"
 #include "cmdfx/core/scenes.h"
 #include "cmdfx/core/util.h"
+#include "cmdfx/ui/button.h"
+#include "cmdfx/ui/scenes.h"
 
 #define _CANVAS_MUTEX 7
 CmdFX_Scene** _drawnScenes = 0;
@@ -127,12 +129,13 @@ void Scene_draw0(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y
 
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
     
-    for (int i = _x1; i < _y2; i++)
-        for (int j = _x2; j < _x2; j++) {
+    for (int i = _y1; i < _y2; i++)
+        for (int j = _x1; j < _x2; j++) {
             char c = scene->data[i][j];
             if (c == 0) break;
             if (c == ' ') continue;
 
+            // original values ensure that the scene is drawn in the correct position
             int cx = (x + j) - x1;
             int cy = (y + i) - y1;
 
@@ -146,6 +149,27 @@ void Scene_draw0(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y
                 if (ansi != 0) Canvas_setAnsiCurrent(ansi);
             }
         }
+    
+    // draw buttons on the scene
+    CmdFX_Button** buttons = Scene_getButtons(scene->uid);
+    int buttonCount = Scene_getButtonsCount(scene->uid);
+    for (int i = 0; i < buttonCount; i++) {
+        CmdFX_Button* button = buttons[i];
+        if (button == 0) continue;
+
+        int* coords = Scene_getButtonCoordinates(scene->uid, button);
+        if (coords == 0) continue;
+
+        // original values ensure that the scene is drawn in the correct position
+        int bx = (coords[0] + x) - x1;
+        int by = (coords[1] + y) - y1;
+
+        if (bx < 0 || by < 0) continue;
+        if (bx >= scene->width || by >= scene->height) continue;
+
+        Canvas_setCursor(bx, by);
+        Button_draw(bx, by, button);
+    }
     
     fflush(stdout);
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
@@ -309,6 +333,7 @@ int Scene_isOnBottomAt(CmdFX_Scene* scene, int x, int y) {
 }
 
 void Scene_remove0(CmdFX_Scene* scene) {
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     int width = scene->width;
     int height = scene->height;
     if (scene->uid > -1 && _drawnSceneBounds != 0) {
@@ -325,6 +350,19 @@ void Scene_remove0(CmdFX_Scene* scene) {
             putchar(' ');
             printf("\033[0m");
         }
+    
+    // remove buttons on the scene
+    CmdFX_Button** buttons = Scene_getButtons(scene->uid);
+    int buttonCount = Scene_getButtonsCount(scene->uid);
+    for (int i = 0; i < buttonCount; i++) {
+        CmdFX_Button* button = buttons[i];
+        if (button == 0) continue;
+        if (button->id == -1) continue; // button already removed
+        Button_remove(button);
+    }
+    
+    fflush(stdout);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 int Scene_remove(CmdFX_Scene* scene) {
@@ -402,6 +440,12 @@ int Scene_free(CmdFX_Scene* scene) {
         _drawnSceneBounds[scene->uid] = 0;
     }
 
+    // remove buttons on the scene
+    Scene_removeAllButtons(scene->uid);
+
+    // unregister scene
+    Scene_unregister(scene);
+
     free(scene);
     return 0;
 }
@@ -418,6 +462,16 @@ int Scene_getRegisteredScenesCount() {
         if (_registeredScenes[i] != 0) n++;
     
     return n;
+}
+
+CmdFX_Scene* Scene_getRegisteredScene(int uid) {
+    if (uid < 0 || uid >= MAX_REGISTERED_SCENES) return 0;
+    if (_registeredScenes == 0) return 0;
+    
+    for (int i = 0; i < MAX_REGISTERED_SCENES; i++)
+        if (_registeredScenes[i] != 0 && _registeredScenes[i]->uid == uid) return _registeredScenes[i];
+    
+    return 0;
 }
 
 int Scene_register(CmdFX_Scene* scene) {
