@@ -13,12 +13,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: 
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
-          - windows-2022
-          - macos-13
-          - macos-15
+        include:
+          - os: ubuntu-24.04
+            id: linuxx64
+          - os: ubuntu-24.04-arm
+            id: linuxarm64
+          - os: windows-2025
+            id: mingwx64
+          - os: macos-13
+            id: macosx64
+          - os: macos-15
+            id: macosarm64
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -26,11 +31,11 @@ jobs:
         with:
           submodules: 'recursive'
       - uses: actions/setup-dotnet@v4
-        if: ${{ matrix.os == 'windows-2022' }}
+        if: ${{ matrix.os == 'windows-2025' }}
         with:
           dotnet-version: '9'
       - name: Install WiX
-        if: ${{ matrix.os == 'windows-2022' }}
+        if: ${{ matrix.os == 'windows-2025' }}
         run: |
           dotnet tool install --global wix --version 5.0.2
           wix extension add --global WixToolset.UI.wixext/5.0.2
@@ -38,7 +43,7 @@ jobs:
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: fwilhe2/setup-kotlin@main
         with:
-          version: '2.1.10'
+          version: '2.1.20'
           install-native: true
       - name: Setup Konan
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
@@ -60,43 +65,35 @@ jobs:
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/cinterop /usr/local/bin/cinterop
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
-      - name: Configure Project
+      - name: Configure Project (Posix)
+        if: ${{ matrix.os != 'windows-2025' }}
         run: cmake -B build -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7} -DSAMPLES_CMDFX=ON
         shell: bash
-      - name: Build Project (Linux/MacOS)
-        if: ${{ matrix.os != 'windows-2022' }}
+      - name: Configure Project (Windows)
+        if: ${{ matrix.os == 'windows-2025' }}
+        run: cmake -B build -G "MinGW Makefiles" -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7} -DSAMPLES_CMDFX=ON
+        shell: bash
+      - name: Build Project
         run: |
-          sudo cmake --build build --config Debug --target install package
-          sudo rm -rf build/build/package/_CPack_Packages/
-      - name: Build Project (Windows)
-        if: ${{ matrix.os == 'windows-2022' }}
-        run: |
-          cmake --build build --config Debug
-          cmake --build build --config Debug --target klib
-          cmake --build build --config Debug --target install package
-          Get-ChildItem -Path build/build/package/_CPack_Packages -Recurse | Remove-Item -Recurse -Force
+          cmake --build build --config Debug --target package
+          rm -rf build/package/_CPack_Packages/
+        shell: bash
       - name: Archive Package Artifacts
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           path: |
-            build/build/package/*
-            build/build/cinterop/*
+            build/package/*
+            build/cinterop/*
           overwrite: true
           if-no-files-found: error
-      - name: Test Project (Windows)
-        if: ${{ matrix.os == 'windows-2022' }}
+      - name: Test Project
         run: |
           cd build
           ctest -C Debug -T test -j0 --output-on-failure
           cd ..
-      - name: Test Project (Posix)
-        if: ${{ matrix.os != 'windows-2022' }}
-        run: |
-          cd build
-          sudo ctest -C Debug -T test -j0 --output-on-failure
-          cd ..
+        shell: bash
       - name: Archive Test Reports
         if: success() || failure()
         uses: actions/upload-artifact@v4
@@ -127,7 +124,7 @@ jobs:
       matrix:
         os: 
           - ubuntu-24.04
-          - windows-2022
+          - windows-2025
           - macos-13
           - macos-15
     
@@ -147,7 +144,7 @@ jobs:
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: fwilhe2/setup-kotlin@main
         with:
-          version: '2.1.10'
+          version: '2.1.20'
           install-native: true
       - name: Setup Konan
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
@@ -163,23 +160,13 @@ jobs:
           key: ${{ runner.os }}-${{ runner.arch }}-konan
           restore-keys: |
             ${{ runner.os }}-${{ runner.arch }}-konan
-      - name: Set Artifact ID
-        id: set_artifact_id
-        run: |
-          RUNNER_OS=$(echo ${{ runner.os }} | tr '[:upper:]' '[:lower:]')
-          RUNNER_ARCH=$(echo ${{ runner.arch }} | tr '[:upper:]' '[:lower:]')
-          echo "KN_INSTALL_ARTIFACTID=cmdfx-$RUNNER_OS-$RUNNER_ARCH" >> $GITHUB_ENV
+      - name: Configure Project (Posix)
+        if: ${{ matrix.os != 'windows-2025' }}
+        run: cmake -B build -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="${{ matrix.id }}" -DTEST_CMDFX=OFF -DDEPLOY_CMDFX=ON
         shell: bash
-      - name: Link CInterop Command
-        if: ${{ matrix.os == 'ubuntu-24.04' }}
-        run: |
-          sudo ln -s $KOTLIN_NATIVE_HOME/bin/cinterop /usr/local/bin/cinterop
-          sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
-          sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
-      - name: Configure Project
-        run: cmake -B build -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="${{ env.KN_INSTALL_ARTIFACTID }}" -DTEST_CMDFX=OFF
+      - name: Configure Project (Windows)
+        if: ${{ matrix.os == 'windows-2025' }}
+        run: cmake -B build -G "MinGW Makefiles" -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="${{ matrix.id }}" -DTEST_CMDFX=OFF -DDEPLOY_CMDFX=ON
         shell: bash
       - name: Publish Kotlin/Native Library
-        run: |
-          cmake --build build --config Debug
-          cmake --build build --config Debug --target klib deploy-maven
+        run: cmake --build build --config Debug

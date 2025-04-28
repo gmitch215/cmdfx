@@ -34,7 +34,7 @@ target_include_directories(cmdfx PUBLIC
 )
 
 set_target_properties(cmdfx PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
 
 # Libraries
@@ -71,7 +71,7 @@ if (SAMPLES_CMDFX)
         add_executable(${SAMPLE_NAME} ${SAMPLE_SRC})
         target_link_libraries(${SAMPLE_NAME} PRIVATE cmdfx)
         set_target_properties(${SAMPLE_NAME} PROPERTIES
-            RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin/samples
+            RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/samples
         )
     endforeach()
 endif()
@@ -84,7 +84,7 @@ if (DOCS_CMDFX)
 
     if (DOXYGEN_FOUND)
         set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
-        set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/build/Doxyfile.in)
+        set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile.in)
     
         configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
     
@@ -159,17 +159,17 @@ if (INSTALL_CMDFX)
     
     # Documentation Components
     if (DOCS_CMDFX)
-        if (EXISTS "${CMAKE_CURRENT_BINARY_DIR}/build/docs/html")
+        if (EXISTS "${CMAKE_BINARY_DIR}/docs/html")
             install(DIRECTORY
-                "${CMAKE_CURRENT_BINARY_DIR}/build/docs/html"
+                "${CMAKE_BINARY_DIR}/docs/html"
                 DESTINATION ${CMAKE_INSTALL_DOCDIR}
                 COMPONENT htmlDocs
             )
         endif()
 
-        if (EXISTS "${CMAKE_CURRENT_BINARY_DIR}/build/docs/latex")
+        if (EXISTS "${CMAKE_BINARY_DIR}/docs/latex")
             install(DIRECTORY
-                "${CMAKE_CURRENT_BINARY_DIR}/build/docs/latex"
+                "${CMAKE_BINARY_DIR}/docs/latex"
                 DESTINATION ${CMAKE_INSTALL_DOCDIR}
                 COMPONENT latexDocs
             )
@@ -207,7 +207,7 @@ if (PACKAGE_CMDFX)
     endif()
 
     set(CPACK_THREADS 0) # Use all available threads
-    set(CPACK_PACKAGE_DIRECTORY "${CMAKE_BINARY_DIR}/build/package")
+    set(CPACK_PACKAGE_DIRECTORY "${CMAKE_BINARY_DIR}/package")
     set(CPACK_PACKAGE_CHECKSUM SHA256)
 
     if (DEFINED PROJECT_VERSION_SUFFIX)
@@ -281,17 +281,21 @@ if (PACKAGE_CMDFX)
 endif()
 
 # Kotlin/Native Bindings
-if (APPLE OR WIN32 OR ARCHITECTURE STREQUAL "x64")
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/CMakeKt")
 
+if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang" AND (APPLE OR WIN32 OR ARCHITECTURE STREQUAL "x64"))
+    include(FetchContent)
+    FetchContent_Declare(
+        CMakeKt
+        GIT_REPOSITORY https://github.com/gmitch215/cmakekt.git
+        GIT_TAG        master
+    )
+    FetchContent_MakeAvailable(CMakeKt)
+    list(APPEND CMAKE_MODULE_PATH "${cmakekt_SOURCE_DIR}")
+
+    set(KN_CINTEROP_FOLDER "${CMAKE_BINARY_DIR}/cinterop")
     set(KN_DEFINITION_PACKAGE "dev.gmitch215.cmdfx")
     set(KN_INSTALL_GROUPID "dev.gmitch215")
-
-    if (WIN32)
-        set(KN_DEFINITION_LIBRARIES "cmdfx.lib")
-    else()
-        set(KN_DEFINITION_LIBRARIES "libcmdfx.a")
-    endif()
+    set(KN_DEFINITION_LIBRARIES "libcmdfx.a")
 
     if (DEFINED PROJECT_VERSION_SUFFIX)
         set(KN_PROJECT_VERSION "${PROJECT_VERSION}-${PROJECT_VERSION_SUFFIX}")
@@ -302,7 +306,13 @@ if (APPLE OR WIN32 OR ARCHITECTURE STREQUAL "x64")
     endif()
     set(MAVEN_REMOTE_ID "calcugames")
 
-    include(CMakeKt OPTIONAL)
+    include(CMakeKt)
+    add_klib_binary(cmdfx)
+
+    option(DEPLOY_CMDFX "Deploy Kotlin/Native bindings for ${PROJECT_NAME}" OFF)
+    if (DEPLOY_CMDFX)
+        add_maven_deployment(cmdfx "${MAVEN_REMOTE_URL}" "${MAVEN_REMOTE_ID}")
+    endif()
 else()
     add_custom_target(klib COMMAND echo "Kotlin/Native bindings are not supported on this platform" VERBATIM)
 endif()

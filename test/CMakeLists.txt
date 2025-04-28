@@ -21,7 +21,7 @@ function(add_test_executable folder name)
     endif()
 
     set_target_properties(${TEST_NAME} PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin/tests/${folder}
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/tests/${folder}
     )
 endfunction()
 
@@ -39,7 +39,7 @@ function(add_manual_test name)
     endif()
 
     set_target_properties(${TEST_NAME} PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin/tests/manual
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/tests/manual
     )
 endfunction()
 

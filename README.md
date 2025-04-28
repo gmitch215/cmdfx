@@ -63,6 +63,20 @@ For a full method list, check out the [documentation](https://gmitch215.github.i
 
 You can download the latest release of cmdfx from the [releases page](https://github.com/gmitch215/cmdfx/releases).
 
+### Kotlin/Native
+
+If you are using Kotlin/Native, you can add cmdfx as a dependency in your `build.gradle.kts` file:
+
+```kotlin
+repositories {
+    maven("https://repo.calcugames.xyz/repository/maven-releases/")
+}
+
+dependencies {
+    implementation("dev.gmitch215.cmdfx:cmdfx:<version>")
+}
+```
+
 ## 🚀 Examples
 
 ```c
