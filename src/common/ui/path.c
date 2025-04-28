@@ -32,6 +32,7 @@ int Canvas_path(const char* path, char ch) {
 
         Canvas_setCursor(x, y); // reset cursor to current position
         switch (c) {
+            #pragma region Path Commands
             case CMDFX_PATH_COMMAND_MOVETO_ABSOLUTE: {
                 i += 2; // move to x coordinate from M
                 int fromX = path[i];
@@ -522,8 +523,12 @@ int Canvas_path(const char* path, char ch) {
                 Canvas_arc(x, y, rx, ry, xrot, arcflag, sweepflag, x + dx2, y + dy2, ch);
                 break;
             }
-            default:
+            default: {
                 break;
+            }
+            #pragma endregion
         }
     }
+
+    return 0;
 }

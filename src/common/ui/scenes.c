@@ -29,9 +29,9 @@ int Scene_getButtonsCount(int uid) {
 int* Scene_getButtonCoordinates(int uid, CmdFX_Button* button) {
     if (uid < 0 || uid >= MAX_REGISTERED_SCENES) return 0;
     if (button == 0) return 0;
+    if (_sceneButtonCoordinates == 0) return 0;
     if (Scene_getRegisteredScene(uid) == 0) return 0;
 
-    _checkSceneButtons(uid);
     int count = _sceneButtonsCount[uid];
     for (int i = 0; i < count; i++) {
         if (_sceneButtons[uid][i] == button) {
@@ -55,7 +55,7 @@ void _checkSceneButtons(int uid) {
     }
 
     if (_sceneButtonCoordinates == 0) {
-        _sceneButtonCoordinates = (int***) calloc(MAX_REGISTERED_SCENES, sizeof(int*));
+        _sceneButtonCoordinates = (int***) calloc(MAX_REGISTERED_SCENES, sizeof(int**));
     }
 
     if (_sceneButtonCoordinates[uid] == 0) {
