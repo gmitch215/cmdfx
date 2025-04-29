@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -84,7 +86,7 @@ typedef struct CmdFX_KeyEvent {
      * 
      * The state is 1 if the key is pressed, or 0 if the key is released.
      */
-    int state;
+    bool state;
 } CmdFX_KeyEvent;
 
 /**
@@ -110,7 +112,7 @@ typedef struct CmdFX_MouseEvent {
     /**
      * @brief Whether the button was pressed or released.
      */
-    int state;
+    bool state;
     /**
      * @brief The previous x position of the mouse.
      */

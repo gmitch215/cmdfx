@@ -11,6 +11,8 @@
 
 #pragma once
 
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -36,7 +38,7 @@ extern "C" {
  * 
  * @return The list of key code of the key being pressed.
  */
-int* Device_getKeyboardKeysPressed();
+bool* Device_getKeyboardKeysPressed();
 
 /**
  * @brief Converts a key code to a character.
@@ -62,7 +64,7 @@ char Device_fromKeyCode(int keyCode);
  * 
  * @return The list of mouse button code of the button being pressed.
  */
-int* Device_getMouseButtonsPressed();
+bool* Device_getMouseButtonsPressed();
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <pthread.h>
 #include <unistd.h>
 #include <signal.h>
@@ -57,14 +58,14 @@ void posix_checkResizeEvent(int sig) {
     }
 }
 
-int* _prevKeys = 0;
+static bool* _prevKeys = 0;
 
 void posix_checkKeyEvent() {
-    int* keys = Device_getKeyboardKeysPressed();
+    bool* keys = Device_getKeyboardKeysPressed();
     if (keys == 0) return;
 
     if (_prevKeys == 0)
-        _prevKeys = (int*) calloc(256, sizeof(int));
+        _prevKeys = (bool*) calloc(256, sizeof(bool));
 
     for (int i = 0; i < 256; i++) {
         if (keys[i] != _prevKeys[i]) {
@@ -78,16 +79,16 @@ void posix_checkKeyEvent() {
     free(keys);
 }
 
-int* _prevButtons = 0;
+static bool* _prevButtons = 0;
 int _prevMouseX = -1;
 int _prevMouseY = -1;
 
 void posix_checkMouseEvent() {
-    int* buttons = Device_getMouseButtonsPressed();
+    bool* buttons = Device_getMouseButtonsPressed();
     if (buttons == 0) return;
 
     if (_prevButtons == 0)
-        _prevButtons = (int*) calloc(3, sizeof(int));
+        _prevButtons = (bool*) calloc(3, sizeof(bool));
 
     int x, y;
     Screen_getMousePos(&x, &y);

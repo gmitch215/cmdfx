@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
@@ -73,11 +74,11 @@ char Device_fromKeyCode(int keyCode) {
     return '\0';
 }
 
-int* Device_getKeyboardKeysPressed() {
+bool* Device_getKeyboardKeysPressed() {
     char* eventFile = find_linux_event("keyboard");
     if (!eventFile) return 0;
 
-    int* keys = (int*) calloc(256, sizeof(int));
+    bool* keys = (bool*) calloc(256, sizeof(bool));
     if (!keys) return 0;
 
     int fd = open(eventFile, O_RDONLY | O_NONBLOCK);
@@ -105,7 +106,7 @@ int* Device_getKeyboardKeysPressed() {
 
     while (state > 0) {
         if (event.type == EV_KEY) {
-            keys[event.code] = event.value;
+            keys[event.code] = (bool) event.value;
         }
 
         state = read(fd, &event, sizeof(event));
@@ -116,11 +117,11 @@ int* Device_getKeyboardKeysPressed() {
     return keys;
 }
 
-int* Device_getMouseButtonsPressed() {
+bool* Device_getMouseButtonsPressed() {
     char* eventFile = find_linux_event("mouse");
     if (!eventFile) return 0;
 
-    int* buttons = (int*) calloc(3, sizeof(int));
+    bool* buttons = (bool*) calloc(3, sizeof(bool));
     if (!buttons) {
         free(eventFile);
         return 0;

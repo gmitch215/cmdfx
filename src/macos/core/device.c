@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include <ApplicationServices/ApplicationServices.h>
 #include <Carbon/Carbon.h>
 
 #include "cmdfx/core/device.h"
 
-int* Device_getKeyboardKeysPressed() {
-    int* keys = (int*) calloc(256, sizeof(int)); 
+bool* Device_getKeyboardKeysPressed() {
+    bool* keys = (bool*) calloc(256, sizeof(bool)); 
 
     for (int key = 0; key < 256; key++) {
         if (CGEventSourceKeyState(kCGEventSourceStateHIDSystemState, key)) {
@@ -38,8 +39,8 @@ char Device_fromKeyCode(int keyCode) {
     return (char) unicode;
 }
 
-int* Device_getMouseButtonsPressed() {
-    int* buttons = (int*) calloc(3, sizeof(int));
+bool* Device_getMouseButtonsPressed() {
+    bool* buttons = (bool*) calloc(3, sizeof(bool));
 
     if (CGEventSourceButtonState(kCGEventSourceStateHIDSystemState, kCGMouseButtonLeft)) buttons[0] = 1;
     if (CGEventSourceButtonState(kCGEventSourceStateHIDSystemState, kCGMouseButtonRight)) buttons[1] = 1;

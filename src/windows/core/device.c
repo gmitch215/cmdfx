@@ -1,10 +1,11 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <windows.h>
 
 #include "cmdfx/core/device.h"
 
-int* Device_getKeyboardKeysPressed() {
-    int* keys = (int*) calloc(256, sizeof(int)); 
+bool* Device_getKeyboardKeysPressed() {
+    bool* keys = (bool*) calloc(256, sizeof(bool)); 
 
     for (int key = 8; key < 256; key++) {
         if (GetAsyncKeyState(key) & 0x8000) {
@@ -28,8 +29,8 @@ char Device_fromKeyCode(int keyCode) {
     return '\0';
 }
 
-int* Device_getMouseButtonsPressed() {
-    int* buttons = (int*) calloc(3, sizeof(int));
+bool* Device_getMouseButtonsPressed() {
+    bool* buttons = (bool*) calloc(3, sizeof(bool));
 
     if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) buttons[0] = 1;
     if (GetAsyncKeyState(VK_RBUTTON) & 0x8000) buttons[1] = 1;

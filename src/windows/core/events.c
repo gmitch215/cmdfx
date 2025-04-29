@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <windows.h>
 #include <process.h>
 #include <time.h>
@@ -63,12 +64,12 @@ void win_checkResizeEvent() {
     }
 }
 
-int* _prevKeys = 0;
+static bool* _prevKeys = 0;
 
 void win_checkKeyEvent() {
-    int* keys = Device_getKeyboardKeysPressed();
+    bool* keys = Device_getKeyboardKeysPressed();
     if (_prevKeys == 0)
-        _prevKeys = (int*) calloc(256, sizeof(int));
+        _prevKeys = (bool*) calloc(256, sizeof(bool));
 
     for (int i = 0; i < 256; i++) {
         if (keys[i] != _prevKeys[i]) {
@@ -82,14 +83,14 @@ void win_checkKeyEvent() {
     free(keys);
 }
 
-int* _prevButtons = 0;
+static bool* _prevButtons = 0;
 int _prevMouseX = -1;
 int _prevMouseY = -1;
 
 void win_checkMouseEvent() {
-    int* buttons = Device_getMouseButtonsPressed();
+    bool* buttons = Device_getMouseButtonsPressed();
     if (_prevButtons == 0)
-        _prevButtons = (int*) calloc(3, sizeof(int));
+        _prevButtons = (bool*) calloc(3, sizeof(bool));
 
     int x, y;
     Screen_getMousePos(&x, &y);
