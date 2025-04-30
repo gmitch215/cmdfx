@@ -154,7 +154,17 @@ $(function(){ initResizable(false); });
 <h2><a class="anchor" id="autotoc_md7"></a>
 📦 Installation</h2>
 <p>You can download the latest release of cmdfx from the <a href="https://github.com/gmitch215/cmdfx/releases">releases page</a>.</p>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h3><a class="anchor" id="autotoc_md8"></a>
+Kotlin/Native</h3>
+<p>If you are using Kotlin/Native, you can add cmdfx as a dependency in your <code>build.gradle.kts</code> file:</p>
+<div class="fragment"><div class="line">repositories {</div>
+<div class="line">    maven(&quot;https://repo.calcugames.xyz/repository/maven-releases/&quot;)</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line">dependencies {</div>
+<div class="line">    implementation(&quot;dev.gmitch215.cmdfx:cmdfx:&lt;version&gt;&quot;)</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
 🚀 Examples</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="d9/de4/cmdfx_8h.html">cmdfx.h</a>&gt;</span></div>
 <div class="line"> </div>
@@ -227,12 +237,12 @@ $(function(){ initResizable(false); });
 <div class="line">}</div>
 <div class="ttc" id="acanvas_8h_html_aca51ba946072e7eb5cc52f3c3ae6ce96"><div class="ttname"><a href="d4/dcf/canvas_8h.html#aca51ba946072e7eb5cc52f3c3ae6ce96">Canvas_clearScreen</a></div><div class="ttdeci">void Canvas_clearScreen()</div><div class="ttdoc">Clears the screen.</div></div>
 <div class="ttc" id="aevents_8h_html_a421ba39081fb6e69df15be3265a04341"><div class="ttname"><a href="db/dd2/events_8h.html#a421ba39081fb6e69df15be3265a04341">addCmdFXEventListener</a></div><div class="ttdeci">int addCmdFXEventListener(unsigned int id, CmdFX_EventCallback callback)</div><div class="ttdoc">Adds an event listener.</div></div>
-<div class="ttc" id="aevents_8h_html_a633e456ae66e1bd3632b95ba7ccad01a"><div class="ttname"><a href="db/dd2/events_8h.html#a633e456ae66e1bd3632b95ba7ccad01a">CMDFX_EVENT_RESIZE</a></div><div class="ttdeci">#define CMDFX_EVENT_RESIZE</div><div class="ttdoc">Called when the terminal is resized.</div><div class="ttdef"><b>Definition</b> events.h:37</div></div>
-<div class="ttc" id="astructCmdFX__Event_html"><div class="ttname"><a href="dc/d5b/structCmdFX__Event.html">CmdFX_Event</a></div><div class="ttdoc">The main event structure for CmdFX.</div><div class="ttdef"><b>Definition</b> events.h:172</div></div>
-<div class="ttc" id="astructCmdFX__Event_html_ab39c464eb100ffb342a8d0b400befc03"><div class="ttname"><a href="dc/d5b/structCmdFX__Event.html#ab39c464eb100ffb342a8d0b400befc03">CmdFX_Event::data</a></div><div class="ttdeci">void * data</div><div class="ttdoc">A pointer to the data associated with the event.</div><div class="ttdef"><b>Definition</b> events.h:184</div></div>
-<div class="ttc" id="astructCmdFX__ResizeEvent_html"><div class="ttname"><a href="dc/d75/structCmdFX__ResizeEvent.html">CmdFX_ResizeEvent</a></div><div class="ttdoc">The payload for the CMDFX_EVENT_RESIZE event.</div><div class="ttdef"><b>Definition</b> events.h:42</div></div>
+<div class="ttc" id="aevents_8h_html_a633e456ae66e1bd3632b95ba7ccad01a"><div class="ttname"><a href="db/dd2/events_8h.html#a633e456ae66e1bd3632b95ba7ccad01a">CMDFX_EVENT_RESIZE</a></div><div class="ttdeci">#define CMDFX_EVENT_RESIZE</div><div class="ttdoc">Called when the terminal is resized.</div><div class="ttdef"><b>Definition</b> events.h:39</div></div>
+<div class="ttc" id="astructCmdFX__Event_html"><div class="ttname"><a href="dc/d5b/structCmdFX__Event.html">CmdFX_Event</a></div><div class="ttdoc">The main event structure for CmdFX.</div><div class="ttdef"><b>Definition</b> events.h:174</div></div>
+<div class="ttc" id="astructCmdFX__Event_html_ab39c464eb100ffb342a8d0b400befc03"><div class="ttname"><a href="dc/d5b/structCmdFX__Event.html#ab39c464eb100ffb342a8d0b400befc03">CmdFX_Event::data</a></div><div class="ttdeci">void * data</div><div class="ttdoc">A pointer to the data associated with the event.</div><div class="ttdef"><b>Definition</b> events.h:186</div></div>
+<div class="ttc" id="astructCmdFX__ResizeEvent_html"><div class="ttname"><a href="dc/d75/structCmdFX__ResizeEvent.html">CmdFX_ResizeEvent</a></div><div class="ttdoc">The payload for the CMDFX_EVENT_RESIZE event.</div><div class="ttdef"><b>Definition</b> events.h:44</div></div>
 </div><!-- fragment --><p>More examples can be found in the <a href="/samples">samples directory</a>.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md10"></a>
 📝 Contributing</h2>
 <p>If you would like to contribute to cmdfx, please see the <a class="el" href="d2/dfc/md__2home_2runner_2work_2cmdfx_2cmdfx_2CONTRIBUTING.html">contributing guidelines</a>. All contributions are welcome! </p>
 </div></div><!-- PageDoc -->
