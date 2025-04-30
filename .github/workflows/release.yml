@@ -28,11 +28,20 @@ jobs:
         if: ${{ matrix.os == 'windows-2022' }}
         with:
           dotnet-version: '9'
-      - name: Install WiX
+      - name: Setup Global Dotnet Tool Cache
+        if: ${{ matrix.os == 'windows-2025' }}
+        uses: actions/cache@v4
+        with:
+          path: ~/.dotnet/tools
+          key: ${{ runner.os }}-${{ runner.arch }}-dotnet-tools
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-dotnet-tools
+      - name: Install WiX & NSIS
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
           dotnet tool install --global wix --version 5.0.2
           wix extension add --global WixToolset.UI.wixext/5.0.2
+          choco install nsis
       - name: Install Kotlin
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: fwilhe2/setup-kotlin@main
