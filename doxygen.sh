@@ -6,7 +6,7 @@ if [ ! -d "docs" ]; then
   mkdir docs
 fi;
 
-cp -Rfv build/build/docs/html/* ./docs/
+cp -Rfv build/docs/html/* ./docs/
 
 git switch -f gh-pages
 

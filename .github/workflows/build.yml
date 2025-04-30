@@ -139,11 +139,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: 
-          - ubuntu-24.04
-          - windows-2025
-          - macos-13
-          - macos-15
+        include: 
+          - os: ubuntu-24.04
+            id: linuxx64
+          - os: windows-2025
+            id: mingwx64
+          - os: macos-13
+            id: macosx64
+          - os: macos-15
+            id: macosarm64
     
     needs: build
     runs-on: ${{ matrix.os }}
@@ -179,11 +183,11 @@ jobs:
             ${{ runner.os }}-${{ runner.arch }}-konan
       - name: Configure Project (Posix)
         if: ${{ matrix.os != 'windows-2025' }}
-        run: cmake -B build -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="${{ matrix.id }}" -DTEST_CMDFX=OFF -DDEPLOY_CMDFX=ON
+        run: cmake -B build -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="cmdfx-${{ matrix.id }}" -DTEST_CMDFX=OFF -DDEPLOY_CMDFX=ON
         shell: bash
       - name: Configure Project (Windows)
         if: ${{ matrix.os == 'windows-2025' }}
-        run: cmake -B build -G "MinGW Makefiles" -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="${{ matrix.id }}" -DTEST_CMDFX=OFF -DDEPLOY_CMDFX=ON
+        run: cmake -B build -G "MinGW Makefiles" -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="cmdfx-${{ matrix.id }}" -DTEST_CMDFX=OFF -DDEPLOY_CMDFX=ON
         shell: bash
       - name: Publish Kotlin/Native Library
         run: cmake --build build --config Debug
