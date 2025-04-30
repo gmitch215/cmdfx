@@ -97,7 +97,15 @@ jobs:
             build/cinterop/*
           overwrite: true
           if-no-files-found: error
-      - name: Test Project
+      - name: Test Project (Posix)
+        if: ${{ matrix.os != 'windows-2025' }}
+        run: |
+          cd build
+          sudo ctest -C Debug -T test -j0 --output-on-failure
+          cd ..
+        shell: bash
+      - name: Test Project (Windows)
+        if: ${{ matrix.os == 'windows-2025' }}
         run: |
           cd build
           ctest -C Debug -T test -j0 --output-on-failure
