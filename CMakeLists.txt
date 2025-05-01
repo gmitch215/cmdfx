@@ -287,7 +287,8 @@ endif()
 
 # Kotlin/Native Bindings
 
-if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang" AND (APPLE OR WIN32 OR ARCHITECTURE STREQUAL "x64"))
+option(KN_CMDFX "Build Kotlin/Native bindings for ${PROJECT_NAME}" ON)
+if (KN_CMDFX AND CMAKE_C_COMPILER_ID MATCHES "GNU|Clang" AND (APPLE OR WIN32 OR ARCHITECTURE STREQUAL "x64"))
     include(FetchContent)
     FetchContent_Declare(
         CMakeKt
@@ -318,6 +319,4 @@ if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang" AND (APPLE OR WIN32 OR ARCHITECTURE 
     if (DEPLOY_CMDFX)
         add_maven_deployment(cmdfx "${MAVEN_REMOTE_URL}" "${MAVEN_REMOTE_ID}")
     endif()
-else()
-    add_custom_target(klib COMMAND echo "Kotlin/Native bindings are not supported on this platform" VERBATIM)
 endif()
