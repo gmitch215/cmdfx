@@ -68,12 +68,30 @@ You can download the latest release of cmdfx from the [releases page](https://gi
 If you are using Kotlin/Native, you can add cmdfx as a dependency in your `build.gradle.kts` file:
 
 ```kotlin
+plugins {
+    kotlin("multiplatform") version "<version>"
+}
+
 repositories {
     maven("https://repo.calcugames.xyz/repository/maven-releases/")
 }
 
-dependencies {
-    implementation("dev.gmitch215.cmdfx:cmdfx:<version>")
+kotlin {
+    // Define your targets here
+    macosArm64()
+    mingwX64()
+
+    sourceSets {
+        // for example, if you are using macOS arm64
+        macosArm64Main.dependencies {
+            implementation("dev.gmitch215.cmdfx:cmdfx-macosarm64:<version>@klib")
+        }
+
+        // or, if you are using windows
+        mingwX64Main.dependencies {
+            implementation("dev.gmitch215.cmdfx:cmdfx-mingwx64:<version>@klib")
+        }
+    }
 }
 ```
 

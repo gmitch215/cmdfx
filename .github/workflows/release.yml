@@ -30,7 +30,7 @@ jobs:
         with:
           submodules: 'recursive'
       - uses: actions/setup-dotnet@v4
-        if: ${{ matrix.os == 'windows-2022' }}
+        if: ${{ matrix.os == 'windows-2025' }}
         with:
           dotnet-version: '9'
       - name: Setup Global Dotnet Tool Cache
@@ -42,7 +42,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ runner.arch }}-dotnet-tools
       - name: Install WiX & NSIS
-        if: ${{ matrix.os == 'windows-2022' }}
+        if: ${{ matrix.os == 'windows-2025' }}
         run: |
           dotnet tool install --global wix --version 5.0.2
           wix extension add --global WixToolset.UI.wixext/5.0.2
@@ -74,14 +74,6 @@ jobs:
           servers: '[{"id": "calcugames", "username": "${{ secrets.MAVEN_USERNAME_CALCUGAMES }}", "password": "${{ secrets.MAVEN_PASSWORD_CALCUGAMES }}"}]'
       - name: Install Doxygen
         uses: ssciwr/doxygen-install@v1
-      - name: Set Artifact ID
-        if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
-        id: set_artifact_id
-        run: |
-          RUNNER_OS=$(echo ${{ runner.os }} | tr '[:upper:]' '[:lower:]')
-          RUNNER_ARCH=$(echo ${{ runner.arch }} | tr '[:upper:]' '[:lower:]')
-          echo "KN_INSTALL_ARTIFACTID=cmdfx-$RUNNER_OS-$RUNNER_ARCH" >> $GITHUB_ENV
-        shell: bash
       - name: Link CInterop Command
         if: ${{ matrix.os == 'ubuntu-24.04' }}
         run: |
@@ -89,28 +81,24 @@ jobs:
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
       - name: Build Project
-        if: ${{ matrix.os != 'windows-2022' }}
+        if: ${{ matrix.os != 'windows-2025' }}
         run: |
-          cmake -B build -DKN_INSTALL_ARTIFACTID="cmdfx-${{ matrix.id }}" -DKN_CINTEROP_FILE_NAME="${{ env.KN_CINTEROP_FILE_NAME }}.klib" -DTEST_CMDFX=OFF
+          cmake -B build -DKN_INSTALL_ARTIFACTID="cmdfx-${{ matrix.id }}" -DTEST_CMDFX=OFF
           cmake --build build --config Release --target docs
           cmake -B build
           cmake --build build --config Release --target package
           rm -rf build/package/_CPack_Packages/
         shell: bash
-      - name: Publish Kotlin/Native Library (Posix)
-        if: ${{ matrix.os != 'windows-2022' && matrix.os != 'ubuntu-24.04-arm' }}
-        run: cmake --build build --config Release --target deploy-maven
-      - name: Publish Kotlin/Native Library (Windows)
-        if: ${{ matrix.os == 'windows-2022' }}
-        run: cmake --build build --config Release --target deploy-maven
+      - name: Publish Kotlin/Native Library
+        run: |
+          cmake -B build -DDEPLOY_CMDFX=ON
+          cmake --build build --config Release
       - name: Archive Package Artifacts
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: CmdFX-Release-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
-          path: |
-            build/package/*
-            build/cinterop/*.klib
+          path: build/package/*
           overwrite: true
   release:
     needs: build
