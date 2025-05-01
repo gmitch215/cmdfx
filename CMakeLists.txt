@@ -126,6 +126,11 @@ if (INSTALL_CMDFX)
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         INCLUDES DESTINATION include
     )
+    
+    export(EXPORT cmdfxTargets
+        FILE ${CMAKE_BINARY_DIR}/${PROJECT_NAME}Targets.cmake
+        NAMESPACE ${PROJECT_NAME}::
+    )
     install(EXPORT cmdfxTargets
         FILE ${PROJECT_NAME}Targets.cmake
         NAMESPACE ${PROJECT_NAME}::
