@@ -157,12 +157,30 @@ $(function(){ initResizable(false); });
 <h3><a class="anchor" id="autotoc_md8"></a>
 Kotlin/Native</h3>
 <p>If you are using Kotlin/Native, you can add cmdfx as a dependency in your <code>build.gradle.kts</code> file:</p>
-<div class="fragment"><div class="line">repositories {</div>
+<div class="fragment"><div class="line">plugins {</div>
+<div class="line">    kotlin(&quot;multiplatform&quot;) version &quot;&lt;version&gt;&quot;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line">repositories {</div>
 <div class="line">    maven(&quot;https://repo.calcugames.xyz/repository/maven-releases/&quot;)</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line">dependencies {</div>
-<div class="line">    implementation(&quot;dev.gmitch215.cmdfx:cmdfx:&lt;version&gt;&quot;)</div>
+<div class="line">kotlin {</div>
+<div class="line">    // Define your targets here</div>
+<div class="line">    macosArm64()</div>
+<div class="line">    mingwX64()</div>
+<div class="line"> </div>
+<div class="line">    sourceSets {</div>
+<div class="line">        // for example, if you are using macOS arm64</div>
+<div class="line">        macosArm64Main.dependencies {</div>
+<div class="line">            implementation(&quot;dev.gmitch215.cmdfx:cmdfx-macosarm64:&lt;version&gt;@klib&quot;)</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        // or, if you are using windows</div>
+<div class="line">        mingwX64Main.dependencies {</div>
+<div class="line">            implementation(&quot;dev.gmitch215.cmdfx:cmdfx-mingwx64:&lt;version&gt;@klib&quot;)</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
 <div class="line">}</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
 🚀 Examples</h2>
