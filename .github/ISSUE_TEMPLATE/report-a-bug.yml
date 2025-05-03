@@ -1,0 +1,68 @@
+name: Report a Bug
+description: Report a cmdfx Bug.
+labels: ['unconfirmed bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a cmdfx bug. Please take time to fill out the information below.
+  - type: dropdown
+    attributes:
+      label: Bug Type
+      description: What type of bug are you trying to report?
+      multiple: true
+      options:
+        - Compatibility Issues
+        - Console Errors
+        - Incorrect Documentation
+        - Authentication
+        - Other Unexpected Behavior
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: CmdFX Version
+      description: What version of cmdfx are you using?
+      placeholder: |
+        Ex: "1.0.0"
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Description
+      placeholder: |
+        Ex: "Display not working"
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: What you expect the library to do.
+      placeholder: |
+        Ex: "Should display a triangle"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Actual Behavior
+      description: What does the library do? What are the error messages shown?
+      placeholder: |
+        Ex: "Terminal is blank"
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        In the box below, you can attach any relevant info or files that may help us solve the bug.
+        If you think this issue is relevant to any other issues, please mention it here.
+  - type: textarea
+    attributes:
+      label: Additional Information
+      description: Any additional information that may help us solve the bug.
+      placeholder: |
+        Ex: "Tested on Microsoft Edge"
+    validations:
+      required: false
