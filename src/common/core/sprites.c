@@ -100,7 +100,6 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
         _spriteUidCounter++;
         _takenUids[0] = sprite->uid;
     } else {
-        printf("takenUids: \n");
         bool* present = calloc(_spriteUidCounter + 1, sizeof(bool));
         
         int j = -1; 
