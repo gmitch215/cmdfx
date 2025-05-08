@@ -132,3 +132,26 @@ int CmdFX_unlockMutex(void* mutex) {
     
     return 0;
 }
+
+unsigned long CmdFX_launchThread(void (*func)(void*), void* arg) {
+    if (!_threadSafeEnabled) return -1;
+    
+    pthread_t thread;
+    if (pthread_create(&thread, 0, (void* (*)(void*))func, arg) != 0) return -1;
+    
+    return thread;
+}
+
+int CmdFX_joinThread(unsigned long thread) {
+    if (!_threadSafeEnabled) return -1;
+    
+    pthread_join(thread, 0);
+    return 0;
+}
+
+int CmdFX_detachThread(unsigned long thread) {
+    if (!_threadSafeEnabled) return -1;
+    
+    pthread_detach(thread);
+    return 0;
+}

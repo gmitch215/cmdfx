@@ -247,6 +247,51 @@ void CmdFX_tryLockMutex(int id);
  */
 void CmdFX_tryUnlockMutex(int id);
 
+/**
+ * @brief Launches a thread.
+ * 
+ * This method launches a thread that runs the specified function
+ * with the specified argument.
+ * 
+ * To run the thread in the background, use the `CmdFX_detachThread`
+ * function. You must call `CmdFX_initThreadSafe` before using this
+ * function.
+ * 
+ * @param func The function to run in the thread.
+ * @param arg The argument to pass to the function.
+ * @return The ID of the thread if successful, -1 if an error occurred.
+ */
+unsigned long CmdFX_launchThread(void (*func)(void*), void* arg);
+
+/**
+ * @brief Joins a thread.
+ * 
+ * This method joins a thread, blocking the calling thread until
+ * the specified thread has completed its execution.
+ * 
+ * You must call `CmdFX_initThreadSafe` before using this
+ * function.
+ * 
+ * @param thread The ID of the thread to join.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CmdFX_joinThread(unsigned long thread);
+
+/**
+ * @brief Detaches a thread.
+ * 
+ * This method detaches a thread, allowing it to run independently
+ * of the main thread. The calling thread will not block until the
+ * detached thread has completed its execution.
+ * 
+ * You must call `CmdFX_initThreadSafe` before using this
+ * function.
+ * 
+ * @param thread The ID of the thread to detach.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int CmdFX_detachThread(unsigned long thread);
+
 #ifdef __cplusplus
 }
 #endif
