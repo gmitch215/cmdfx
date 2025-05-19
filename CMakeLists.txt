@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.30)
 
 set(PROJECT_VERSION "0.2.1")
 project(cmdfx 
-    LANGUAGES C 
+    LANGUAGES C CXX
     VERSION ${PROJECT_VERSION}
     DESCRIPTION "Lightweight game engine for your terminal"
     HOMEPAGE_URL "https://github.com/gmitch215/cmdfx"
