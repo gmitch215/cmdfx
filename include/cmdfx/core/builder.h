@@ -41,17 +41,6 @@ int getCharArrayHeight(char** array);
 char** createCharArrayCopy(char** array);
 
 /**
- * @brief Copies a 2D Character Array.
- * 
- * This method creates a copy of a 2D Character Array. The new array
- * must be freed after use.
- * 
- * @param array The 2D Character Array.
- * @return The copied 2D Character Array.
- */
-char** Char2DBuilder_copy(char** array);
-
-/**
  * @brief Checks if two 2D Character Arrays are the same size.
  * 
  * This method checks if two 2D Character Arrays are the same size. If the two
@@ -457,7 +446,7 @@ char** Char2DBuilder_scale(char** array, double scale);
 /**
  * @brief Represents a color gradient that can be applied .
  * 
- * A color gradient is a smooth transition between two or more colors. 
+ * A color gradient is a smooth trStringtion between two or more colors. 
  * The gradient can be applied to the foreground or background, and 
  * can be applied in different directions.
  */
@@ -627,9 +616,9 @@ int Char2DBuilder_multiGradientsFull(char** array, int numChars, char* gradient,
 
 #pragma endregion
 
-#pragma region ANSI Builder
+#pragma region String Builder
 
-// Utility Functions - General (ANSI)
+// Utility Functions - General (String)
 
 /**
  * @brief Gets the width of a 2D String Array.
@@ -700,13 +689,10 @@ int compareStringArrays(char*** array1, char*** array2);
  */
 int printStringArray(char*** array);
 
-// Core Functions (ANSI)
+// Core Functions (String)
 
 /**
  * @brief Creates a 2D String Array with a specific width and height.
- * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
  * 
  * This method creates an array with a specific width and height. The
  * array will be initialized with the space character.
@@ -720,9 +706,6 @@ char*** String2DBuilder_create(int width, int height);
 /**
  * @brief Creates a 2D String Array with a specific width and height, filled with a specific string.
  * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
- * 
  * This method creates an array with a specific width and height. The
  * array will be initialized with the specified string.
  * 
@@ -734,12 +717,9 @@ char*** String2DBuilder_create(int width, int height);
 char*** String2DBuilder_createFilled(int width, int height, char* c);
 
 /**
- * @brief Sets an ANSI code in a 2D String Array.
+ * @brief Sets a string in a 2D String Array.
  * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
- * 
- * This method sets an ANSI code at the specified x and y
+ * This method sets a string at the specified x and y
  * coordinates. If the x or y coordinate is out of bounds, the method will return -1.
  * 
  * The values at `array[height]` will be set  to 0 for null termination. 
@@ -751,22 +731,19 @@ char*** String2DBuilder_createFilled(int width, int height, char* c);
  * @param array The 2D String Array.
  * @param x The x coordinate.
  * @param y The y coordinate
- * @param c The ANSI code to set.
+ * @param c The String to set.
  * @return 0 if successful, -1 if an error occurred.
  */
-int String2DBuilder_setAnsi(char*** array, int x, int y, char* c);
+int String2DBuilder_setString(char*** array, int x, int y, char* c);
 
 /**
  * @brief Draws a horizontal line in a 2D String Array.
- * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
  * 
  * @param array The string array.
  * @param x The x coordinate.
  * @param y The y coordinate.
  * @param width The width of the line.
- * @param c The ANSI code to draw the line with.
+ * @param c The String to draw the line with.
  * @return 0 if successful, -1 if an error occurred.
  */
 int String2DBuilder_hLine(char*** array, int x, int y, int width, char* c);
@@ -774,14 +751,11 @@ int String2DBuilder_hLine(char*** array, int x, int y, int width, char* c);
 /**
  * @brief Draws a vertical line in a 2D String Array.
  * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
- * 
  * @param array The string array.
  * @param x The x coordinate.
  * @param y The y coordinate.
  * @param height The height of the line.
- * @param c The ANSI to draw the line with.
+ * @param c The String to draw the line with.
  * @return 0 if successful, -1 if an error occurred.
  */
 int String2DBuilder_vLine(char*** array, int x, int y, int height, char* c);
@@ -789,15 +763,12 @@ int String2DBuilder_vLine(char*** array, int x, int y, int height, char* c);
 /**
  * @brief Draws a rectangle in a 2D String Array.
  * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
- * 
  * @param array The string array.
  * @param x The x coordinate.
  * @param y The y coordinate.
  * @param width The width of the rectangle.
  * @param height The height of the rectangle.
- * @param c The ANSI code to draw the rectangle with.
+ * @param c The String to draw the rectangle with.
  * @return 0 if successful, -1 if an error occurred.
  */
 int String2DBuilder_rect(char*** array, int x, int y, int width, int height, char* c);
@@ -805,15 +776,12 @@ int String2DBuilder_rect(char*** array, int x, int y, int width, int height, cha
 /**
  * @brief Fills a rectangle in a 2D String Array.
  * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
- * 
  * @param array The string array.
  * @param x The x coordinate.
  * @param y The y coordinate.
  * @param width The width of the rectangle.
  * @param height The height of the rectangle.
- * @param c The ANSI code to fill the rectangle with.
+ * @param c The String to fill the rectangle with.
  * @return 0 if successful, -1 if an error occurred.
  */
 int String2DBuilder_fillRect(char*** array, int x, int y, int width, int height, char* c);
@@ -822,11 +790,8 @@ int String2DBuilder_fillRect(char*** array, int x, int y, int width, int height,
 /**
  * @brief Fills the entire 2D String Array.
  * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
- * 
  * @param array The string array.
- * @param c The ANSI code to fill the array with.
+ * @param c The String to fill the array with.
  * @return 0 if successful, -1 if an error occured.
  */
 int String2DBuilder_fill(char*** array, char* c);
@@ -834,14 +799,11 @@ int String2DBuilder_fill(char*** array, char* c);
 /**
  * @brief Draws a circle in a 2D String Array.
  * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
- * 
  * @param array The string array.
  * @param x The x coordinate.
  * @param y The y coordinate.
  * @param radius The radius of the circle.
- * @param c The ANSI code to draw the circle with.
+ * @param c The String to draw the circle with.
  * @return 0 if successful, -1 if an error occurred.
  */
 int String2DBuilder_circle(char*** array, int x, int y, int radius, char* c);
@@ -849,14 +811,11 @@ int String2DBuilder_circle(char*** array, int x, int y, int radius, char* c);
 /**
  * @brief Fills a circle in a 2D String Array.
  * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
- * 
  * @param array The string array.
  * @param x The x coordinate.
  * @param y The y coordinate.
  * @param radius The radius of the circle.
- * @param c The ANSI code to fill the circle with.
+ * @param c The String to fill the circle with.
  * @return 0 if successful, -1 if an error occurred.
  */
 int String2DBuilder_fillCircle(char*** array, int x, int y, int radius, char* c);
@@ -864,15 +823,12 @@ int String2DBuilder_fillCircle(char*** array, int x, int y, int radius, char* c)
 /**
  * @brief Draws an ellipse in a 2D String Array.
  * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
- * 
  * @param array The string array.
  * @param x The x coordinate.
  * @param y The y coordinate.
  * @param xradius The x radius of the ellipse.
  * @param yradius The y radius of the ellipse.
- * @param c The ANSI code to draw the ellipse with.
+ * @param c The String to draw the ellipse with.
  * @return 0 if successful, -1 if an error occurred.
  */
 int String2DBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, char* c);
@@ -880,15 +836,12 @@ int String2DBuilder_ellipse(char*** array, int x, int y, int xradius, int yradiu
 /**
  * @brief Fills an ellipse in a 2D String Array.
  * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
- * 
  * @param array The string array.
  * @param x The x coordinate.
  * @param y The y coordinate.
  * @param xradius The x radius of the ellipse.
  * @param yradius The y radius of the ellipse.
- * @param c The ANSI code to fill the ellipse with.
+ * @param c The String to fill the ellipse with.
  * @return 0 if successful, -1 if an error occurred.
  */
 int String2DBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradius, char* c);
@@ -896,24 +849,18 @@ int String2DBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yr
 /**
  * @brief Draws a line in a 2D String Array.
  * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
- * 
  * @param array The string array.
  * @param x1 The x coordinate of the first point.
  * @param y1 The y coordinate of the first point.
  * @param x2 The x coordinate of the second point.
  * @param y2 The y coordinate of the second point.
- * @param c The ANSI code to draw the line with.
+ * @param c The String to draw the line with.
  * @return 0 if successful, -1 if an error occurred.
  */
 int String2DBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c);
 
 /**
  * @brief Draws a polygon in a 2D String Array.
- * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
  * 
  * This method draws a polygon in a 2D String Array. If the x or y coordinate
  * is out of bounds, the method will return -1. If the polygon goes out of bounds,
@@ -924,16 +871,13 @@ int String2DBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c)
  * @param y The y coordinate.
  * @param sides The number of sides of the polygon.
  * @param radius The radius of the polygon.
- * @param c The ANSI code to draw the polygon with.
+ * @param c The String to draw the polygon with.
  * @return 0 if successful, -1 if an error occurred.
  */
 int String2DBuilder_polygon(char*** array, int x, int y, int sides, int radius, char* c);
 
 /**
  * @brief Fills a polygon in a 2D String Array.
- * 
- * Like all methods in AnsiBuilder, this does **not** append anything to the string.
- * You will need to input the full ANSI code, like "\033[31m" for red text.
  * 
  * This method fills a polygon in a 2D String Array. If the x or y coordinate
  * is out of bounds, the method will return -1. If the polygon goes out of bounds,
@@ -944,12 +888,12 @@ int String2DBuilder_polygon(char*** array, int x, int y, int sides, int radius, 
  * @param y The y coordinate.
  * @param sides The number of sides of the polygon.
  * @param radius The radius of the polygon.
- * @param c The ANSI code to fill the polygon with.
+ * @param c The String to fill the polygon with.
  * @return 0 if successful, -1 if an error occurred.
  */
 int String2DBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, char* c);
 
-// Utility Functions - Transformation (ANSI)
+// Utility Functions - Transformation (String)
 
 /**
  * @brief Rotates a 2D String Array.
@@ -992,12 +936,12 @@ int String2DBuilder_vFlip(char*** array);
 char*** String2DBuilder_transpose(char*** array);
 
 /**
- * @brief Replaces all instances of an ANSI code in a 2D String Array.
+ * @brief Replaces all instances of an String in a 2D String Array.
  * 
  * @param array The 2D String Array.
- * @param find The ANSI code to find.
- * @param replace The ANSI code to replace the found ANSI code with.
- * @return The number of ANSI codes replaced, 0 if none, or -1 if an error occurred.
+ * @param find The String to find.
+ * @param replace The String to replace the found String with.
+ * @return The number of Strings replaced, 0 if none, or -1 if an error occurred.
  */
 int String2DBuilder_replaceAll(char*** array, char* find, char* replace);
 
@@ -1015,7 +959,7 @@ int String2DBuilder_replaceAll(char*** array, char* find, char* replace);
  */
 char*** String2DBuilder_scale(char*** array, double scale);
 
-// Utility Functions - Gradients (ANSI)
+// Utility Functions - Gradients (String)
 
 /**
  * @brief Sets a foreground gradient in a 2D String Array.

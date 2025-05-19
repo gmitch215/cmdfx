@@ -1209,7 +1209,7 @@ char*** String2DBuilder_createFilled(int width, int height, char* c) {
     return array;
 }
 
-int String2DBuilder_setAnsi(char*** array, int x, int y, char* c) {
+int String2DBuilder_setString(char*** array, int x, int y, char* c) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1325,14 +1325,14 @@ int String2DBuilder_circle(char*** array, int x, int y, int radius, char* c) {
     int d = 1 - radius;
 
     while (x1 <= y1) {
-        String2DBuilder_setAnsi(array, x + x1, y + y1, c);
-        String2DBuilder_setAnsi(array, x - x1, y + y1, c);
-        String2DBuilder_setAnsi(array, x + x1, y - y1, c);
-        String2DBuilder_setAnsi(array, x - x1, y - y1, c);
-        String2DBuilder_setAnsi(array, x + y1, y + x1, c);
-        String2DBuilder_setAnsi(array, x - y1, y + x1, c);
-        String2DBuilder_setAnsi(array, x + y1, y - x1, c);
-        String2DBuilder_setAnsi(array, x - y1, y - x1, c);
+        String2DBuilder_setString(array, x + x1, y + y1, c);
+        String2DBuilder_setString(array, x - x1, y + y1, c);
+        String2DBuilder_setString(array, x + x1, y - y1, c);
+        String2DBuilder_setString(array, x - x1, y - y1, c);
+        String2DBuilder_setString(array, x + y1, y + x1, c);
+        String2DBuilder_setString(array, x - y1, y + x1, c);
+        String2DBuilder_setString(array, x + y1, y - x1, c);
+        String2DBuilder_setString(array, x - y1, y - x1, c);
 
         if (d < 0) {
             d += 2 * x1 + 3;
@@ -1364,10 +1364,10 @@ int String2DBuilder_fillCircle(char*** array, int x, int y, int radius, char* c)
         int y1Sq = y1 * y1;
         int x1 = 0;
         while (x1 * x1 + y1Sq <= radiusSq) {
-            String2DBuilder_setAnsi(array, x + x1, y + y1, c);
-            String2DBuilder_setAnsi(array, x - x1, y + y1, c);
-            String2DBuilder_setAnsi(array, x + x1, y - y1, c);
-            String2DBuilder_setAnsi(array, x - x1, y - y1, c);
+            String2DBuilder_setString(array, x + x1, y + y1, c);
+            String2DBuilder_setString(array, x - x1, y + y1, c);
+            String2DBuilder_setString(array, x + x1, y - y1, c);
+            String2DBuilder_setString(array, x - x1, y - y1, c);
             x1++;
         }
     }
@@ -1399,10 +1399,10 @@ int String2DBuilder_ellipse(char*** array, int x, int y, int xradius, int yradiu
 
     p = yradiusSq - (xradiusSq * yradius) + (0.25 * xradiusSq);
     while (px < py) {
-        String2DBuilder_setAnsi(array, x + x1, y + y1, c);
-        String2DBuilder_setAnsi(array, x - x1, y + y1, c);
-        String2DBuilder_setAnsi(array, x + x1, y - y1, c);
-        String2DBuilder_setAnsi(array, x - x1, y - y1, c);
+        String2DBuilder_setString(array, x + x1, y + y1, c);
+        String2DBuilder_setString(array, x - x1, y + y1, c);
+        String2DBuilder_setString(array, x + x1, y - y1, c);
+        String2DBuilder_setString(array, x - x1, y - y1, c);
 
         x1++;
         px += twoYradiusSq;
@@ -1418,10 +1418,10 @@ int String2DBuilder_ellipse(char*** array, int x, int y, int xradius, int yradiu
 
     p = yradiusSq * (x1 + 0.5) * (x1 + 0.5) + xradiusSq * (y1 - 1) * (y1 - 1) - xradiusSq * yradiusSq;
     while (y1 >= 0) {
-        String2DBuilder_setAnsi(array, x + x1, y + y1, c);
-        String2DBuilder_setAnsi(array, x - x1, y + y1, c);
-        String2DBuilder_setAnsi(array, x + x1, y - y1, c);
-        String2DBuilder_setAnsi(array, x - x1, y - y1, c);
+        String2DBuilder_setString(array, x + x1, y + y1, c);
+        String2DBuilder_setString(array, x - x1, y + y1, c);
+        String2DBuilder_setString(array, x + x1, y - y1, c);
+        String2DBuilder_setString(array, x - x1, y - y1, c);
 
         y1--;
         py -= twoXradiusSq;
@@ -1461,7 +1461,7 @@ int String2DBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yr
                 int px = x + dx;
                 int py = y + dy;
 
-                String2DBuilder_setAnsi(array, px, py, c);
+                String2DBuilder_setString(array, px, py, c);
             }
         }
     }
@@ -1487,7 +1487,7 @@ int String2DBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c)
     int e2;
 
     while (1) {
-        String2DBuilder_setAnsi(array, x1, y1, c);
+        String2DBuilder_setString(array, x1, y1, c);
         if (x1 == x2 && y1 == y2) break;
 
         e2 = 2 * err;
@@ -1579,7 +1579,7 @@ int String2DBuilder_fillPolygon(char*** array, int x, int y, int sides, int radi
         for (int i = 0; i < count; i += 2) {
             if (i + 1 < count) {
                 for (int xFill = intersections[i]; xFill <= intersections[i + 1]; xFill++) {
-                    String2DBuilder_setAnsi(array, xFill, scanY, c);
+                    String2DBuilder_setString(array, xFill, scanY, c);
                 }
             }
         }
