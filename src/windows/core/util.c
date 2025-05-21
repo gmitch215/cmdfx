@@ -143,7 +143,7 @@ int CmdFX_unlockMutex(void* mutex) {
     return 0;
 }
 
-unsigned long CmdFX_launchThread(void (*func)(void*), void* arg) {
+ThreadID CmdFX_launchThread(void (*func)(void*), void* arg) {
     if (!_threadSafeEnabled) return -1;
 
     uintptr_t thread = _beginthreadex(NULL, 0, (unsigned(__stdcall*)(void*))func, arg, 0, NULL);
@@ -155,7 +155,7 @@ unsigned long CmdFX_launchThread(void (*func)(void*), void* arg) {
     return thread;
 }
 
-int CmdFX_joinThread(unsigned long thread) {
+int CmdFX_joinThread(ThreadID thread) {
     if (!_threadSafeEnabled) return -1;
 
     HANDLE hThread = (HANDLE) thread;
@@ -165,7 +165,7 @@ int CmdFX_joinThread(unsigned long thread) {
     return 0;
 }
 
-int CmdFX_detachThread(unsigned long thread) {
+int CmdFX_detachThread(ThreadID thread) {
     if (!_threadSafeEnabled) return -1;
 
     HANDLE hThread = (HANDLE) thread;

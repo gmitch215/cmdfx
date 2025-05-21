@@ -247,6 +247,15 @@ void CmdFX_tryLockMutex(int id);
  */
 void CmdFX_tryUnlockMutex(int id);
 
+
+#ifdef _WIN32
+#include <windows.h>
+#define ThreadID HANDLE
+#else
+#include <pthread.h>
+#define ThreadID pthread_t
+#endif
+
 /**
  * @brief Launches a thread.
  * 
@@ -259,9 +268,9 @@ void CmdFX_tryUnlockMutex(int id);
  * 
  * @param func The function to run in the thread.
  * @param arg The argument to pass to the function.
- * @return The ID of the thread if successful, -1 if an error occurred.
+ * @return The thread identifier.
  */
-unsigned long CmdFX_launchThread(void (*func)(void*), void* arg);
+ThreadID CmdFX_launchThread(void (*func)(void*), void* arg);
 
 /**
  * @brief Joins a thread.
@@ -272,10 +281,10 @@ unsigned long CmdFX_launchThread(void (*func)(void*), void* arg);
  * You must call `CmdFX_initThreadSafe` before using this
  * function.
  * 
- * @param thread The ID of the thread to join.
+ * @param thread The thread identifier.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CmdFX_joinThread(unsigned long thread);
+int CmdFX_joinThread(ThreadID thread);
 
 /**
  * @brief Detaches a thread.
@@ -287,10 +296,10 @@ int CmdFX_joinThread(unsigned long thread);
  * You must call `CmdFX_initThreadSafe` before using this
  * function.
  * 
- * @param thread The ID of the thread to detach.
+ * @param thread The pointer to the thread identifier.
  * @return 0 if successful, -1 if an error occurred.
  */
-int CmdFX_detachThread(unsigned long thread);
+int CmdFX_detachThread(ThreadID thread);
 
 #ifdef __cplusplus
 }
