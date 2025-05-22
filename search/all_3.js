@@ -2,8 +2,9 @@ var searchData=
 [
   ['data_0',['data',['../dc/d5b/structCmdFX__Event.html#ab39c464eb100ffb342a8d0b400befc03',1,'CmdFX_Event::data'],['../df/d8c/structCmdFX__Scene.html#a21b98dce1254b4c16778ad6449422b63',1,'CmdFX_Scene::data'],['../d7/d39/structCmdFX__Sprite.html#a31e1d4a20bf8573c03ce40ff6fde0238',1,'CmdFX_Sprite::data']]],
   ['device_2eh_1',['device.h',['../db/de9/device_8h.html',1,'']]],
-  ['device_5ffromkeycode_2',['Device_fromKeyCode',['../db/de9/device_8h.html#a0ed9b9b034f0713d87caef2b981408ec',1,'device.h']]],
-  ['device_5fgetkeyboardkeyspressed_3',['Device_getKeyboardKeysPressed',['../db/de9/device_8h.html#ab6a70e609c05637a5ba955886ed990d7',1,'device.h']]],
-  ['device_5fgetmousebuttonspressed_4',['Device_getMouseButtonsPressed',['../db/de9/device_8h.html#a7d540d8e35562544d691fa961c58acd8',1,'device.h']]],
-  ['dispatchcmdfxevent_5',['dispatchCmdFXEvent',['../db/dd2/events_8h.html#a4de547f5dd0c2689740f7a9270935225',1,'events.h']]]
+  ['device_2ehpp_2',['device.hpp',['../d5/d08/device_8hpp.html',1,'']]],
+  ['device_5ffromkeycode_3',['Device_fromKeyCode',['../db/de9/device_8h.html#a0ed9b9b034f0713d87caef2b981408ec',1,'device.h']]],
+  ['device_5fgetkeyboardkeyspressed_4',['Device_getKeyboardKeysPressed',['../db/de9/device_8h.html#ab6a70e609c05637a5ba955886ed990d7',1,'device.h']]],
+  ['device_5fgetmousebuttonspressed_5',['Device_getMouseButtonsPressed',['../db/de9/device_8h.html#a7d540d8e35562544d691fa961c58acd8',1,'device.h']]],
+  ['dispatchcmdfxevent_6',['dispatchCmdFXEvent',['../db/dd2/events_8h.html#a4de547f5dd0c2689740f7a9270935225',1,'events.h']]]
 ];

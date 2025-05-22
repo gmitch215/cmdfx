@@ -27,7 +27,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.2.0</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.2.1</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -157,10 +157,27 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span></div>
 <div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="../../da/d04/core_2util_8h.html#a539c4a172c41772e6d7de1ccacedd1df">  248</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../da/d04/core_2util_8h.html#a539c4a172c41772e6d7de1ccacedd1df">CmdFX_tryUnlockMutex</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>}</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="preprocessor">#ifdef _WIN32</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="preprocessor">#define ThreadID uintptr_t</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="preprocessor">#include &lt;pthread.h&gt;</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="preprocessor">#define ThreadID pthread_t</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno"><a class="line" href="../../da/d04/core_2util_8h.html#a153be719c6bc7a904fdea8eaf4908c38">  272</a></span>ThreadID <a class="code hl_function" href="../../da/d04/core_2util_8h.html#a153be719c6bc7a904fdea8eaf4908c38">CmdFX_launchThread</a>(<span class="keywordtype">void</span> (*func)(<span class="keywordtype">void</span>*), <span class="keywordtype">void</span>* arg);</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno"><a class="line" href="../../da/d04/core_2util_8h.html#a0e08b545be81aaba82bca8dd6f3c8f87">  286</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../da/d04/core_2util_8h.html#a0e08b545be81aaba82bca8dd6f3c8f87">CmdFX_joinThread</a>(ThreadID thread);</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno"><a class="line" href="../../da/d04/core_2util_8h.html#a05d477de8f1b7f818e7b9150dfb5d9de">  301</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../da/d04/core_2util_8h.html#a05d477de8f1b7f818e7b9150dfb5d9de">CmdFX_detachThread</a>(ThreadID thread);</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>}</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="acore_2util_8h_html_a05d477de8f1b7f818e7b9150dfb5d9de"><div class="ttname"><a href="../../da/d04/core_2util_8h.html#a05d477de8f1b7f818e7b9150dfb5d9de">CmdFX_detachThread</a></div><div class="ttdeci">int CmdFX_detachThread(ThreadID thread)</div><div class="ttdoc">Detaches a thread.</div></div>
 <div class="ttc" id="acore_2util_8h_html_a0bbdd0ddbfcc2a8cbc3e444d7194ce65"><div class="ttname"><a href="../../da/d04/core_2util_8h.html#a0bbdd0ddbfcc2a8cbc3e444d7194ce65">CmdFX_unlockMutex</a></div><div class="ttdeci">int CmdFX_unlockMutex(void *mutex)</div><div class="ttdoc">Unlocks a mutex.</div></div>
+<div class="ttc" id="acore_2util_8h_html_a0e08b545be81aaba82bca8dd6f3c8f87"><div class="ttname"><a href="../../da/d04/core_2util_8h.html#a0e08b545be81aaba82bca8dd6f3c8f87">CmdFX_joinThread</a></div><div class="ttdeci">int CmdFX_joinThread(ThreadID thread)</div><div class="ttdoc">Joins a thread.</div></div>
+<div class="ttc" id="acore_2util_8h_html_a153be719c6bc7a904fdea8eaf4908c38"><div class="ttname"><a href="../../da/d04/core_2util_8h.html#a153be719c6bc7a904fdea8eaf4908c38">CmdFX_launchThread</a></div><div class="ttdeci">ThreadID CmdFX_launchThread(void(*func)(void *), void *arg)</div><div class="ttdoc">Launches a thread.</div></div>
 <div class="ttc" id="acore_2util_8h_html_a18d16a8ef46f573baed36580831f8116"><div class="ttname"><a href="../../da/d04/core_2util_8h.html#a18d16a8ef46f573baed36580831f8116">lerp_d</a></div><div class="ttdeci">double lerp_d(double a, double b, double t)</div><div class="ttdoc">Linearly interpolates between two values.</div></div>
 <div class="ttc" id="acore_2util_8h_html_a22fdc6556c43f54b39e5fe744b1aa3e7"><div class="ttname"><a href="../../da/d04/core_2util_8h.html#a22fdc6556c43f54b39e5fe744b1aa3e7">CmdFX_isThreadSafeEnabled</a></div><div class="ttdeci">int CmdFX_isThreadSafeEnabled()</div><div class="ttdoc">Checks if thread-safe functions are enabled.</div></div>
 <div class="ttc" id="acore_2util_8h_html_a299c8fc6a56432d5a8d91e1cef478ddb"><div class="ttname"><a href="../../da/d04/core_2util_8h.html#a299c8fc6a56432d5a8d91e1cef478ddb">rgb_to_hsv</a></div><div class="ttdeci">void rgb_to_hsv(int rgb, double *h, double *s, double *v)</div><div class="ttdoc">Converts an RGB color to HSV.</div></div>
