@@ -247,10 +247,9 @@ void CmdFX_tryLockMutex(int id);
  */
 void CmdFX_tryUnlockMutex(int id);
 
-
 #ifdef _WIN32
-#include <windows.h>
-#define ThreadID HANDLE
+#include <stdint.h>
+#define ThreadID uintptr_t
 #else
 #include <pthread.h>
 #define ThreadID pthread_t
