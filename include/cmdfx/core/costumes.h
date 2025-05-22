@@ -203,6 +203,18 @@ int Sprite_removeCostume(CmdFX_Sprite* sprite, int costumeIndex);
 int Sprite_resetCostumes(CmdFX_Sprite* sprite);
 
 /**
+ * @brief Frees the sprite costumes.
+ * 
+ * This method frees the sprite costumes. The sprite costumes are
+ * automatically freed with `Sprite_free`, but this method can be
+ * used to free them manually.
+ * 
+ * @param sprite The sprite to free the costumes for.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int Sprite_freeCostumes(CmdFX_Sprite* sprite);
+
+/**
  * @brief Gets the current index of the sprite costume.
  * 
  * This method gets the current index of the sprite costume. If the
@@ -212,6 +224,20 @@ int Sprite_resetCostumes(CmdFX_Sprite* sprite);
  * @return The current costume index, or -1 if not valid.
  */
 int Sprite_getCurrentCostumeIndex(CmdFX_Sprite* sprite);
+
+/**
+ * @brief Resets all costumes.
+ * 
+ * This method resets all costumes to the default costume, and
+ * removes all of the other costumes. The default costume is the current
+ * sprite data itself at index 0 that it was initialized with.
+ * 
+ * This method will also free all of the costumes and ANSI codes
+ * in the sprite costumes holder.
+ * 
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int Sprite_resetAllCostumes();
 
 #ifdef __cplusplus
 }

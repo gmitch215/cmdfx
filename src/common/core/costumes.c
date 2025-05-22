@@ -261,6 +261,46 @@ int Sprite_resetCostumes(CmdFX_Sprite* sprite) {
     return 0;
 }
 
+int Sprite_freeCostumes(CmdFX_Sprite* sprite) {
+    if (sprite == 0) return -1;
+    if (sprite->data == 0) return -1;
+    if (_costumes == 0 || _costumeCount == 0) return -1;
+    if (sprite->uid > _costumeCount) return -1;
+
+    CmdFX_SpriteCostumes* spriteCostumes = _costumes[sprite->uid - 1];
+    if (spriteCostumes == 0) return -1;
+
+    if (spriteCostumes->costumes == 0) return -1;
+    if (spriteCostumes->ansiCostumes == 0) return -1;
+
+    for (int i = 0; i < spriteCostumes->costumeCount; i++) {
+        char** data = spriteCostumes->costumes[i];
+        if (data != 0) {
+            int height = getCharArrayHeight(data);
+            for (int j = 0; j < height; j++) free(data[j]);
+            free(data);
+        }
+
+        char*** ansi = spriteCostumes->ansiCostumes[i];
+        if (ansi != 0) {
+            int height = getStringArrayHeight(ansi);
+            int width = getStringArrayWidth(ansi);
+            for (int j = 0; j < height; j++) {
+                for (int k = 0; k < width; k++) free(ansi[j][k]);
+                free(ansi[j]);
+            }
+            free(ansi);
+        }
+    }
+
+    free(spriteCostumes->costumes);
+    free(spriteCostumes->ansiCostumes);
+    free(spriteCostumes);
+
+    _costumes[sprite->uid - 1] = 0;
+    return 0;
+}
+
 int Sprite_getCurrentCostumeIndex(CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
     if (sprite->data == 0) return -1;
@@ -284,4 +324,24 @@ int Sprite_getCurrentCostumeIndex(CmdFX_Sprite* sprite) {
     }
 
     return -1;
+}
+
+int Sprite_resetAllCostumes() {
+    if (_costumes == 0) return -1;
+    if (_costumeCount == 0) return -1;
+
+    CmdFX_Sprite** sprites = Canvas_getDrawnSprites();
+    for (int i = 0; i < Canvas_getDrawnSpritesCount(); i++) {
+        CmdFX_Sprite* sprite = sprites[i];
+        Sprite_resetCostumes(sprite);
+
+        free(_costumes[sprite->uid - 1]);
+        _costumes[sprite->uid - 1] = 0;
+    }
+
+    free(_costumes);
+    _costumes = 0;
+    _costumeCount = 0;
+
+    return 0;
 }
