@@ -125,12 +125,12 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abc757c83ded291992156dcd201a8ce1a" id="r_abc757c83ded291992156dcd201a8ce1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d8c/structCmdFX__Scene.html">CmdFX_Scene</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc757c83ded291992156dcd201a8ce1a">Scene_getDrawnScenes</a> ()</td></tr>
-<tr class="memdesc:abc757c83ded291992156dcd201a8ce1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a list of all scenes that are drawn on the screen.  <br /></td></tr>
-<tr class="separator:abc757c83ded291992156dcd201a8ce1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a989963ce7202d3a6b8ae2081b9627ec9" id="r_a989963ce7202d3a6b8ae2081b9627ec9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a989963ce7202d3a6b8ae2081b9627ec9">Scene_getDrawnScenesCount</a> ()</td></tr>
-<tr class="memdesc:a989963ce7202d3a6b8ae2081b9627ec9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of scenes that are drawn on the screen.  <br /></td></tr>
-<tr class="separator:a989963ce7202d3a6b8ae2081b9627ec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3b3b484b69d1c2aecf2dcd6fdeb1d5e" id="r_aa3b3b484b69d1c2aecf2dcd6fdeb1d5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d8c/structCmdFX__Scene.html">CmdFX_Scene</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3b3b484b69d1c2aecf2dcd6fdeb1d5e">Canvas_getDrawnScenes</a> ()</td></tr>
+<tr class="memdesc:aa3b3b484b69d1c2aecf2dcd6fdeb1d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a list of all scenes that are drawn on the screen.  <br /></td></tr>
+<tr class="separator:aa3b3b484b69d1c2aecf2dcd6fdeb1d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04e42da8f4c0bdfb15a935d6651047af" id="r_a04e42da8f4c0bdfb15a935d6651047af"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04e42da8f4c0bdfb15a935d6651047af">Canvas_getDrawnScenesCount</a> ()</td></tr>
+<tr class="memdesc:a04e42da8f4c0bdfb15a935d6651047af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of scenes that are drawn on the screen.  <br /></td></tr>
+<tr class="separator:a04e42da8f4c0bdfb15a935d6651047af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67b60b40cc2d76ffabfdf9532b6c9052" id="r_a67b60b40cc2d76ffabfdf9532b6c9052"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d8c/structCmdFX__Scene.html">CmdFX_Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67b60b40cc2d76ffabfdf9532b6c9052">Scene_create</a> (int width, int height)</td></tr>
 <tr class="memdesc:a67b60b40cc2d76ffabfdf9532b6c9052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty scene with a specified width and height.  <br /></td></tr>
 <tr class="separator:a67b60b40cc2d76ffabfdf9532b6c9052"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -295,6 +295,46 @@ Functions</h2></td></tr>
 <p>Begins the <a class="el" href="../../de/df4/namespaceCmdFX.html" title="Primary namespace for CmdFX.">CmdFX</a> Scene Engine. </p>
 <p>This function initializes the <a class="el" href="../../de/df4/namespaceCmdFX.html" title="Primary namespace for CmdFX.">CmdFX</a> Scene Engine. The Scene Engine is responsible for managing all scenes that are drawn on the screen. It will automatically redraw scenes each frame if necessary for registered scenes.</p>
 <dl class="section return"><dt>Returns</dt><dd><code>0</code> if the Scene Engine was started successfully, or <code>-1</code> if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="aa3b3b484b69d1c2aecf2dcd6fdeb1d5e" name="aa3b3b484b69d1c2aecf2dcd6fdeb1d5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3b3b484b69d1c2aecf2dcd6fdeb1d5e">&#9670;&#160;</a></span>Canvas_getDrawnScenes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../df/d8c/structCmdFX__Scene.html">CmdFX_Scene</a> ** Canvas_getDrawnScenes </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets a list of all scenes that are drawn on the screen. </p>
+<dl class="section return"><dt>Returns</dt><dd>An array of pointers to all scenes that are drawn on the screen. </dd></dl>
+
+</div>
+</div>
+<a id="a04e42da8f4c0bdfb15a935d6651047af" name="a04e42da8f4c0bdfb15a935d6651047af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04e42da8f4c0bdfb15a935d6651047af">&#9670;&#160;</a></span>Canvas_getDrawnScenesCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Canvas_getDrawnScenesCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the number of scenes that are drawn on the screen. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of scenes that are drawn on the screen. </dd></dl>
 
 </div>
 </div>
@@ -660,46 +700,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>0</code> if the scene was freed successfully, or <code>-1</code> if an error occurred. </dd></dl>
-
-</div>
-</div>
-<a id="abc757c83ded291992156dcd201a8ce1a" name="abc757c83ded291992156dcd201a8ce1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc757c83ded291992156dcd201a8ce1a">&#9670;&#160;</a></span>Scene_getDrawnScenes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../df/d8c/structCmdFX__Scene.html">CmdFX_Scene</a> ** Scene_getDrawnScenes </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Gets a list of all scenes that are drawn on the screen. </p>
-<dl class="section return"><dt>Returns</dt><dd>An array of pointers to all scenes that are drawn on the screen. </dd></dl>
-
-</div>
-</div>
-<a id="a989963ce7202d3a6b8ae2081b9627ec9" name="a989963ce7202d3a6b8ae2081b9627ec9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a989963ce7202d3a6b8ae2081b9627ec9">&#9670;&#160;</a></span>Scene_getDrawnScenesCount()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Scene_getDrawnScenesCount </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Gets the number of scenes that are drawn on the screen. </p>
-<dl class="section return"><dt>Returns</dt><dd>The number of scenes that are drawn on the screen. </dd></dl>
 
 </div>
 </div>
