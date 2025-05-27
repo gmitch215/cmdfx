@@ -114,13 +114,13 @@ typedef struct CmdFX_Scene {
  * @brief Gets a list of all scenes that are drawn on the screen.
  * @return An array of pointers to all scenes that are drawn on the screen.
  */
-CmdFX_Scene** Scene_getDrawnScenes();
+CmdFX_Scene** Canvas_getDrawnScenes();
 
 /**
  * @brief Gets the number of scenes that are drawn on the screen.
  * @return The number of scenes that are drawn on the screen.
  */
-int Scene_getDrawnScenesCount();
+int Canvas_getDrawnScenesCount();
 
 /**
  * @brief Creates an empty scene with a specified width and height.

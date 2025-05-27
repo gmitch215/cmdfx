@@ -14,11 +14,11 @@ CmdFX_Scene** _drawnScenes = 0;
 int _drawnScenesCount = 0;
 int** _drawnSceneBounds = 0;
 
-CmdFX_Scene** Scene_getDrawnScenes() {
+CmdFX_Scene** Canvas_getDrawnScenes() {
     return _drawnScenes;
 }
 
-int Scene_getDrawnScenesCount() {
+int Canvas_getDrawnScenesCount() {
     return _drawnScenesCount;
 }
 

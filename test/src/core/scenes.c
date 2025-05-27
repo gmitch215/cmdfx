@@ -38,8 +38,8 @@ int main() {
     r |= assertPointersMatch(Scene_getSceneAt(10, 11), scene);
     r |= assertPointersMatch(Scene_getSceneAt(10 + scene->width, 10 + scene->height), 0);
 
-    r |= assertEquals(Scene_getDrawnScenesCount(), 1);
-    r |= assertPointersMatch(Scene_getDrawnScenes()[0], scene);
+    r |= assertEquals(Canvas_getDrawnScenesCount(), 1);
+    r |= assertPointersMatch(Canvas_getDrawnScenes()[0], scene);
 
     Scene_free(scene);
 
