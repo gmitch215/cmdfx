@@ -24,3 +24,25 @@ namespace CmdFX {}
 // Core Library
 
 #include "cmdfx/core/canvas.hpp"
+#include "cmdfx/core/builder.hpp"
+#include "cmdfx/core/costumes.hpp"
+#include "cmdfx/core/device.hpp"
+#include "cmdfx/core/sprites.hpp"
+#include "cmdfx/core/screen.hpp"
+#include "cmdfx/core/scenes.hpp"
+#include "cmdfx/core/util.hpp"
+
+// Physics Engine
+
+#include "cmdfx/physics/engine.hpp"
+#include "cmdfx/physics/force.hpp"
+#include "cmdfx/physics/mass.hpp"
+#include "cmdfx/physics/motion.hpp"
+#include "cmdfx/physics/util.hpp"
+
+// UI Library
+
+#include "cmdfx/ui/button.hpp"
+#include "cmdfx/ui/path.hpp"
+#include "cmdfx/ui/scenes.hpp"
+#include "cmdfx/ui/switch.hpp"

@@ -52,6 +52,26 @@ namespace CmdFX {
              */
             CmdFX_Sprite* getSprite() { return sprite; }
 
+            int getX() const {
+                return sprite->x;
+            }
+
+            int getY() const {
+                return sprite->y;
+            }
+
+            int getWidth() const {
+                return sprite->width;
+            }
+
+            int getHeight() const {
+                return sprite->height;
+            }
+            
+            int getZ() const {
+                return sprite->z;
+            }
+
             int draw(int x, int y) {
                 return Sprite_draw(x, y, sprite);
             }
