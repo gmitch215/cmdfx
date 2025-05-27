@@ -57,6 +57,8 @@ int Scene_getButtonsCount(int uid);
  * 
  * The array returned is a pointer to an array of two integers, where X is the first
  * element and Y is the second element. The coordinates are relative to the scene.
+ * The array will be freed when the scene is freed, so it should not be freed by
+ * the caller. If the button is not found, this function returns `NULL`.
  * 
  * @param uid The unique identifier of the scene.
  * @param button The button to get the coordinates of.
