@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['removecmdfxeventlistener_0',['removeCmdFXEventListener',['../db/dd2/events_8h.html#a67cadcc13f6596823cc8c9837a7c2f86',1,'events.h']]],
-  ['rgb_5fto_5fhsv_1',['rgb_to_hsv',['../da/d04/core_2util_8h.html#a299c8fc6a56432d5a8d91e1cef478ddb',1,'util.h']]]
+  ['path_0',['path',['../dc/d75/namespaceCmdFX_1_1Canvas.html#a5f724c215b3ee79cf36864a62e206a2a',1,'CmdFX::Canvas']]],
+  ['printchararray_1',['printCharArray',['../d5/d78/builder_8h.html#a713f03773d881fb4da9fc8abe84eaaa7',1,'builder.h']]],
+  ['printstringarray_2',['printStringArray',['../d5/d78/builder_8h.html#a83c4fdacd5e6ab241aa4ece5db2b6ec1',1,'builder.h']]]
 ];
