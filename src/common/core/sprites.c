@@ -255,8 +255,6 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
     if (sprite->x < 1 || sprite->y < 1) return;
     if (sprite->x + sprite->width > Canvas_getWidth() || sprite->y + sprite->height > Canvas_getHeight()) return;
 
-    CmdFX_tryLockMutex(_CANVAS_MUTEX);
-
     int hasAnsi = sprite->ansi != 0;
     for (int i = 0; i < sprite->height; i++) {
         char* line = sprite->data[i];
@@ -283,8 +281,6 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
         }
     }
     fflush(stdout);
-
-    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 #define _SPRITE_POSITION_MUTEX 2
@@ -340,8 +336,6 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
 }
 
 void Sprite_remove0(CmdFX_Sprite* sprite) {
-    CmdFX_tryLockMutex(_CANVAS_MUTEX);
-
     for (int i = 0; i < sprite->height; i++) {
         for (int j = 0; j < sprite->width; j++) {
             int x = sprite->x + j;
@@ -353,14 +347,14 @@ void Sprite_remove0(CmdFX_Sprite* sprite) {
         }
     }
     fflush(stdout);
-
-    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Sprite_remove(CmdFX_Sprite* sprite) {
     if (sprite->id == 0) return;
 
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     Sprite_remove0(sprite);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 
     int index = sprite->id - 1;
     if (_sprites[index] == 0) return;
@@ -852,7 +846,10 @@ int Sprite_resizeWithPadding(CmdFX_Sprite* sprite, int width, int height, char p
     if (width < 1 || height < 1) return 0;
 
     // Remove Sprite if Drawn
-    if (sprite->id != 0) Sprite_remove0(sprite);
+    if (sprite->id != 0) {
+        CmdFX_tryLockMutex(_CANVAS_MUTEX);
+        Sprite_remove0(sprite);
+    }
 
     if (!Sprite_resize0(sprite, width, height, padding)) {
         Sprite_draw0(sprite); // Redraw, resize failed
@@ -860,7 +857,10 @@ int Sprite_resizeWithPadding(CmdFX_Sprite* sprite, int width, int height, char p
     }
 
     // Redraw Sprite if Drawn
-    if (sprite->id != 0) Sprite_draw0(sprite);
+    if (sprite->id != 0) {
+        Sprite_draw0(sprite);
+        CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
+    }
 
     return 1;
 }
@@ -915,7 +915,10 @@ int Sprite_center(CmdFX_Sprite* sprite) {
     if (sprite->data == 0) return 0;
 
     // Remove Sprite if Drawn
-    if (sprite->id != 0) Sprite_remove0(sprite);
+    if (sprite->id != 0) {
+        CmdFX_tryLockMutex(_CANVAS_MUTEX);
+        Sprite_remove0(sprite);
+    }
 
     if (!Sprite_center0(sprite)) {
         Sprite_draw0(sprite);  // Redraw, center failed
@@ -928,7 +931,10 @@ int Sprite_center(CmdFX_Sprite* sprite) {
     }
 
     // Redraw Sprite if Drawn
-    if (sprite->id != 0) Sprite_draw0(sprite);
+    if (sprite->id != 0) {
+        Sprite_draw0(sprite);
+        CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
+    }
 
     return 1;
 }
@@ -938,7 +944,10 @@ int Sprite_resizeAndCenter(CmdFX_Sprite* sprite, int width, int height) {
     if (width < 1 || height < 1) return 0;
 
     // Remove Sprite if Drawn
-    if (sprite->id != 0) Sprite_remove0(sprite);
+    if (sprite->id != 0) {
+        CmdFX_tryLockMutex(_CANVAS_MUTEX);
+        Sprite_remove0(sprite);
+    }
 
     if (!Sprite_resize0(sprite, width, height, ' ')) {
         Sprite_draw0(sprite); // Redraw, resize failed
@@ -951,7 +960,10 @@ int Sprite_resizeAndCenter(CmdFX_Sprite* sprite, int width, int height) {
     }
 
     // Redraw Sprite if Drawn
-    if (sprite->id != 0) Sprite_draw0(sprite);
+    if (sprite->id != 0) {
+        Sprite_draw0(sprite);
+        CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
+    }
 
     return 1;
 }
@@ -971,6 +983,7 @@ void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y) {
     }
 
     CmdFX_tryLockMutex(_SPRITE_POSITION_MUTEX);
+    CmdFX_tryLockMutex(_CANVAS_MUTEX);
 
     Sprite_remove0(sprite);
     sprite->x = x;
@@ -978,6 +991,7 @@ void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y) {
     Sprite_draw0(sprite);
 
     CmdFX_tryUnlockMutex(_SPRITE_POSITION_MUTEX);
+    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Sprite_moveBy(CmdFX_Sprite* sprite, int dx, int dy) {
@@ -1235,8 +1249,10 @@ int Sprite_setGradient0(CmdFX_Sprite* sprite, int prefix, int x, int y, int widt
     _freeANSI(gradient, width, height);
 
     if (sprite->id != 0) {
+        CmdFX_tryLockMutex(_CANVAS_MUTEX);
         Sprite_remove0(sprite);
         Sprite_draw0(sprite);
+        CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
     }
 
     return 1;
@@ -1284,7 +1300,10 @@ int Sprite_rotate(CmdFX_Sprite* sprite, double radians) {
     if (sprite == 0) return -1;
 
     // Remove Sprite if Drawn
-    if (sprite->id != 0) Sprite_remove0(sprite);
+    if (sprite->id != 0) {
+        CmdFX_tryLockMutex(_CANVAS_MUTEX);
+        Sprite_remove0(sprite);
+    }
 
     if (sprite->data != 0)
         Char2DBuilder_rotate(sprite->data, radians);
@@ -1293,7 +1312,10 @@ int Sprite_rotate(CmdFX_Sprite* sprite, double radians) {
         String2DBuilder_rotate(sprite->ansi, radians);
     
     // Redraw Sprite if Drawn
-    if (sprite->id != 0) Sprite_draw0(sprite);
+    if (sprite->id != 0) {
+        Sprite_draw0(sprite);
+        CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
+    }
 
     return 0;
 }
@@ -1309,7 +1331,10 @@ int Sprite_hFlip(CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
 
     // Remove Sprite if Drawn
-    if (sprite->id != 0) Sprite_remove0(sprite);
+    if (sprite->id != 0) {
+        CmdFX_tryLockMutex(_CANVAS_MUTEX);
+        Sprite_remove0(sprite);
+    }
 
     if (sprite->data != 0)
         Char2DBuilder_hFlip(sprite->data);
@@ -1318,7 +1343,10 @@ int Sprite_hFlip(CmdFX_Sprite* sprite) {
         String2DBuilder_hFlip(sprite->ansi);
     
     // Redraw Sprite if Drawn
-    if (sprite->id != 0) Sprite_draw0(sprite);
+    if (sprite->id != 0) {
+        Sprite_draw0(sprite);
+        CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
+    }
 
     return 0;
 }
@@ -1327,7 +1355,10 @@ int Sprite_vFlip(CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
 
     // Remove Sprite if Drawn
-    if (sprite->id != 0) Sprite_remove0(sprite);
+    if (sprite->id != 0) {
+        CmdFX_tryLockMutex(_CANVAS_MUTEX);
+        Sprite_remove0(sprite);
+    }
 
     if (sprite->data != 0)
         Char2DBuilder_vFlip(sprite->data);
@@ -1336,7 +1367,10 @@ int Sprite_vFlip(CmdFX_Sprite* sprite) {
         String2DBuilder_vFlip(sprite->ansi);
     
     // Redraw Sprite if Drawn
-    if (sprite->id != 0) Sprite_draw0(sprite);
+    if (sprite->id != 0) {
+        Sprite_draw0(sprite);
+        CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
+    }
 
     return 0;
 }
@@ -1345,7 +1379,10 @@ int Sprite_scale(CmdFX_Sprite* sprite, double scale) {
     if (sprite == 0) return -1;
 
     // Remove Sprite if Drawn
-    if (sprite->id != 0) Sprite_remove0(sprite);
+    if (sprite->id != 0) {
+        CmdFX_tryLockMutex(_CANVAS_MUTEX);
+        Sprite_remove0(sprite);
+    }
 
     if (sprite->data != 0) {
         char** newData = Char2DBuilder_scale(sprite->data, scale);
@@ -1358,7 +1395,10 @@ int Sprite_scale(CmdFX_Sprite* sprite, double scale) {
     }
 
     // Redraw Sprite if Drawn
-    if (sprite->id != 0) Sprite_draw0(sprite);
+    if (sprite->id != 0) {
+        Sprite_draw0(sprite);
+        CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
+    }
 
     return 0;
 }
@@ -1367,7 +1407,11 @@ int Sprite_transpose(CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
 
     // Remove Sprite if Drawn
-    if (sprite->id != 0) Sprite_remove0(sprite);
+    if (sprite->id != 0) {
+        CmdFX_tryLockMutex(_CANVAS_MUTEX);
+        Sprite_remove0(sprite);
+        CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
+    }
 
     if (sprite->data != 0) {
         char** newData = Char2DBuilder_transpose(sprite->data);

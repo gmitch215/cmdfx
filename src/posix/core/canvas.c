@@ -76,20 +76,14 @@ int _cursorShown = 1;
 void Canvas_hideCursor() {
     if (!_cursorShown) return;
 
-    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\e[?25l");
-    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
-   
     _cursorShown = 0;
 }
 
 void Canvas_showCursor() {
     if (_cursorShown) return;
 
-    CmdFX_tryLockMutex(_CANVAS_MUTEX);
     printf("\e[?25h");
-    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
-
     _cursorShown = 1;
 }
 
