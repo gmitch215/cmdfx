@@ -24,6 +24,11 @@ jobs:
           - os: macos-15
             id: macosarm64
 
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
