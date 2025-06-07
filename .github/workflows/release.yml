@@ -94,12 +94,19 @@ jobs:
           cmake -B build -DDEPLOY_CMDFX=ON
           cmake --build build --config Release
       - name: Archive Package Artifacts
+        id: archive
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: CmdFX-Release-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           path: build/package/*
           overwrite: true
+      - name: Attest Build Artifacts
+        if: success() || failure()
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: CmdFX-Release-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
+          subject-digest: sha256:${{ steps.archive.outputs.artifact-digest }}
   release:
     needs: build
     runs-on: ubuntu-latest
