@@ -27,12 +27,12 @@ void _checkMotion(CmdFX_Sprite* sprite) {
     }
 
     int id = sprite->id - 1;
-    if (_motionCount < id) {
+    if (id >= _motionCount) {
         double** temp = realloc(_motion, sizeof(double*) * (id + 1));
         if (temp == 0) return;
 
         _motion = temp;
-        for (int i = _motionCount; i < id; i++)
+        for (int i = _motionCount; i <= id; i++)
             _motion[i] = 0;
 
         _motionCount = id + 1;
@@ -48,9 +48,10 @@ double* Sprite_getMotion(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
     if (sprite->id == 0) return 0;
     if (_motion == 0) return 0;
-    if (_motionCount < sprite->id) return 0;
 
     int id = sprite->id - 1;
+    if (id >= _motionCount) return 0;
+
     return _motion[id];
 }
 
@@ -58,9 +59,9 @@ double Sprite_getVelocityX(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
     if (sprite->id == 0) return 0;
     if (_motion == 0) return 0;
-    if (_motionCount < sprite->id) return 0;
 
     int id = sprite->id - 1;
+    if (id >= _motionCount) return 0;
     if (_motion[id] == 0) return 0;
 
     return _motion[id][0];
@@ -87,9 +88,9 @@ double Sprite_getVelocityY(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
     if (sprite->id == 0) return 0;
     if (_motion == 0) return 0;
-    if (_motionCount < sprite->id) return 0;
 
     int id = sprite->id - 1;
+    if (id >= _motionCount) return 0;
     if (_motion[id] == 0) return 0;
 
     return _motion[id][1];
@@ -116,9 +117,9 @@ double Sprite_getAccelerationX(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
     if (sprite->id == 0) return 0;
     if (_motion == 0) return 0;
-    if (_motionCount < sprite->id) return 0;
 
     int id = sprite->id - 1;
+    if (id >= _motionCount) return 0;
     if (_motion[id] == 0) return 0;
 
     return _motion[id][2];
@@ -145,9 +146,9 @@ double Sprite_getAccelerationY(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
     if (sprite->id == 0) return 0;
     if (_motion == 0) return 0;
-    if (_motionCount < sprite->id) return 0;
 
     int id = sprite->id - 1;
+    if (id >= _motionCount) return 0;
     if (_motion[id] == 0) return 0;
     
     return _motion[id][3];
@@ -274,16 +275,22 @@ void _checkLeftovers(CmdFX_Sprite* sprite) {
     if (_leftovers == 0) {
         _leftoversCount = Canvas_getDrawnSpritesCount();
         _leftovers = calloc(_leftoversCount, sizeof(double*));
-        if (_leftovers == 0) return;
+        if (_leftovers == 0) {
+            CmdFX_tryUnlockMutex(_SPRITE_MOTION_MUTEX);
+            return;
+        }
     }
 
     int id = sprite->id - 1;
-    if (_leftoversCount < id) {
+    if (id >= _leftoversCount) {
         double** temp = realloc(_leftovers, sizeof(double*) * (id + 1));
-        if (temp == 0) return;
+        if (temp == 0) {
+            CmdFX_tryUnlockMutex(_SPRITE_MOTION_MUTEX);
+            return;
+        }
 
         _leftovers = temp;
-        for (int i = _leftoversCount; i < id; i++)
+        for (int i = _leftoversCount; i <= id; i++)
             _leftovers[i] = 0;
 
         _leftoversCount = id + 1;
@@ -301,10 +308,10 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
     if (sprite == 0) return;
     if (sprite->id == 0) return;
     if (_motion == 0) return;
-    if (_motionCount < sprite->id) return;
     if (Sprite_isStatic(sprite)) return;
 
     int id = sprite->id - 1;
+    if (id >= _motionCount) return;
     if (_motion[id] == 0) return;
 
     double terminalVelocity = Engine_getTerminalVelocity();
