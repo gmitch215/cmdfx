@@ -108,8 +108,8 @@ namespace CmdFX {
                 return Sprite_isAboutToCollide(sprite->getSprite(), sprite2.getSprite()) != 0;
             }
 
-            bool isAboutToCollide(std::unique_ptr<Sprite> sprite2) {
-                return Sprite_isAboutToCollide(sprite->getSprite(), sprite2->getSprite()) != 0;
+            bool isAboutToCollide(const std::unique_ptr<Sprite>& sprite2) {
+                return sprite2 && Sprite_isAboutToCollide(sprite->getSprite(), sprite2->getSprite()) != 0;
             }
 
             std::vector<std::unique_ptr<Sprite>> getAboutToCollideSprites() {
