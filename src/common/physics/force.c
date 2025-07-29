@@ -19,6 +19,7 @@ CmdFX_Vector** Sprite_getAllForces(CmdFX_Sprite* sprite) {
     if (_forcesCounts == 0) return 0;
 
     int id = sprite->id - 1;
+    if (id >= _forcesSize) return 0;
     return _forces[id];
 }
 
@@ -29,6 +30,7 @@ int Sprite_getAllForcesCount(CmdFX_Sprite* sprite) {
     if (_forcesCounts == 0) return -1;
 
     int id = sprite->id - 1;
+    if (id >= _forcesSize) return 0;
     return _forcesCounts[id];
 }
 
@@ -39,6 +41,7 @@ CmdFX_Vector* Sprite_getNetForce(CmdFX_Sprite* sprite) {
     if (_forcesCounts == 0) return 0;
 
     int id = sprite->id - 1;
+    if (id >= _forcesSize) return 0;
     CmdFX_Vector** forces = _forces[id];
     if (forces == 0) return 0;
 
@@ -233,6 +236,7 @@ double Sprite_getFrictionCoefficient(CmdFX_Sprite* sprite) {
     if (_frictionCoefficients == 0) return Engine_getDefaultFrictionCoefficient();
 
     int id = sprite->id - 1;
+    if (id >= _frictionCoefficientsCount) return Engine_getDefaultFrictionCoefficient();
     return _frictionCoefficients[id];
 }
 
@@ -249,12 +253,12 @@ int Sprite_setFrictionCoefficient(CmdFX_Sprite* sprite, double coefficient) {
         if (_frictionCoefficients == 0) return -1;
     }
 
-    if (_frictionCoefficientsCount < id) {
+    if (_frictionCoefficientsCount <= id) {
         double* temp = realloc(_frictionCoefficients, sizeof(double) * (id + 1));
         if (temp == 0) return -1;
 
         _frictionCoefficients = temp;
-        for (int i = _frictionCoefficientsCount; i < id; i++)
+        for (int i = _frictionCoefficientsCount; i <= id; i++)
             _frictionCoefficients[i] = Engine_getDefaultFrictionCoefficient();
 
         _frictionCoefficientsCount = id + 1;
