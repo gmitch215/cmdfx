@@ -29,9 +29,10 @@ double Sprite_getMass(CmdFX_Sprite* sprite) {
     if (sprite->uid == 0) return -1;
     if (_masses == 0) return Sprite_getDefaultMass(sprite);
     if (_massesCount == 0) return Sprite_getDefaultMass(sprite);
-    if (sprite->uid > _massesCount) return Sprite_getDefaultMass(sprite);
 
     int id = sprite->uid - 1;
+    if (id >= _massesCount) return Sprite_getDefaultMass(sprite);
+
     return _masses[id];
 }
 
@@ -48,12 +49,12 @@ int Sprite_setMass(CmdFX_Sprite* sprite, double mass) {
         _massesCount++;
     }
 
-    if (_massesCount < id) {
+    if (_massesCount <= id) {
         double* temp = realloc(_masses, sizeof(double) * (id + 1));
         if (temp == 0) return -1;
 
         _masses = temp;
-        for (int i = _massesCount; i < id; i++) {
+        for (int i = _massesCount; i <= id; i++) {
             _masses[i] = 0;
         }
 
