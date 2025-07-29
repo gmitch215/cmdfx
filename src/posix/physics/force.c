@@ -43,9 +43,9 @@ int Sprite_addForceFor(CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration)
 
     pthread_t forceThread;
     if (pthread_create(&forceThread, 0, _addSpriteForce, payload) != 0) {
-        fprintf(stderr, "Failed to start new thread to launch force payload.\n");
+        fprintf(stderr, "Failed to start force thread for sprite ID %u.\n", sprite->id);
         free(payload);
-        exit(1);
+        return -1;
     }
     pthread_detach(forceThread);
 

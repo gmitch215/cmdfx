@@ -35,8 +35,10 @@ void* _physicsLoop(void* data) {
             while (modified[i] != 0) {
                 pthread_t thread;
                 if (pthread_create(&thread, NULL, Engine_applyMotion0, modified[i]) != 0) {
-                    fprintf(stderr, "Failed to start physics engine thread for an inside sprite.\n");
-                    exit(EXIT_FAILURE);
+                    fprintf(stderr, "Failed to start physics engine thread for sprite ID %u.\n", modified[i]->id);
+                    // Continue processing other sprites instead of terminating
+                    i++;
+                    continue;
                 }
 
                 pthread_detach(thread);
@@ -60,7 +62,7 @@ int Engine_start() {
     pthread_t physicsEngineThread;
     if (pthread_create(&physicsEngineThread, 0, _physicsLoop, 0) != 0) {
         fprintf(stderr, "Failed to start physics engine thread.\n");
-        exit(1);
+        return -1;
     }
 
     pthread_detach(physicsEngineThread);
