@@ -34,17 +34,21 @@ int main(int argc, char** argv) {
         if (friction >= 0) Engine_setDefaultFrictionCoefficient(friction);
     }
 
+    // Initialize threading first, before any drawing operations
+    CmdFX_initThreadSafe();
+    
     Canvas_clearScreen();
     Canvas_hideCursor();
     Engine_enableMotionDebug();
-    CmdFX_initThreadSafe();
 
+    // Draw static elements first
     Canvas_hLine(0, Engine_getGroundY(), Canvas_getWidth(), '-');
     Canvas_hLine(0, 1, Canvas_getWidth(), '-');
     
     Sprite_draw(2, Canvas_getHeight() - sprite1->height - 1, sprite1);
     Sprite_draw(Canvas_getWidth() - sprite2->width - 2, Canvas_getHeight() - sprite2->height - 1, sprite2);
     
+    // Start physics engine after all initial drawing is done
     Engine_start();
 
     CmdFX_Vector* velocity1 = Vector_create(3.0, 0);
@@ -54,10 +58,12 @@ int main(int argc, char** argv) {
     Sprite_addForceFor(sprite2, velocity2, 300 / speed);
     sleepMillis(10000 / speed);
 
+    // Cleanup in proper order: engine first, then threading, then sprites
     Engine_end();
+    free(velocity1);
+    free(velocity2);
     Sprite_free(sprite1);
     Sprite_free(sprite2);
-
     CmdFX_destroyThreadSafe();
     Canvas_showCursor();
 
