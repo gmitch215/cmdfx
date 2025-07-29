@@ -554,6 +554,7 @@ int Sprite_fillCharAllEmpty(CmdFX_Sprite* sprite, char c) {
 
 int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
     if (sprite == 0) return 0;
+    if (ansi == 0) return 0;  // Add null check for ansi parameter
     if (sprite->ansi == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
 
@@ -589,12 +590,14 @@ int Sprite_appendAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
 
         sprite->ansi[y][x] = ansi0;
     } else {
-        int size = strlen(sprite->ansi[y][x]) + ansiSize;
+        int oldLen = strlen(sprite->ansi[y][x]);
+        int size = oldLen + ansiSize;
         char* ansi0 = realloc(sprite->ansi[y][x], size);
         if (ansi0 == 0) return 0;
 
         sprite->ansi[y][x] = ansi0;
-        strcat(sprite->ansi[y][x], ansi);
+        strncat(sprite->ansi[y][x], ansi, ansiSize - 1);  // Use strncat for safety
+        sprite->ansi[y][x][size - 1] = '\0';  // Ensure null termination
     }
 
     CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);

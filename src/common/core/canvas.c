@@ -447,7 +447,11 @@ void Canvas_fillPolygon(int x, int y, int sides, int radius, char c) {
     int *vx = malloc(sides * sizeof(int));
     int *vy = malloc(sides * sizeof(int));
 
-    if (!vx || !vy) return;
+    if (!vx || !vy) {
+        free(vx);  // Free what was allocated in case one succeeded and one failed
+        free(vy);
+        return;
+    }
 
     for (int i = 0; i < sides; i++) {
         vx[i] = x + radius * cos(i * angleStep);
@@ -462,6 +466,11 @@ void Canvas_fillPolygon(int x, int y, int sides, int radius, char c) {
 
     for (int scanY = minY; scanY <= maxY; scanY++) {
         int *intersections = calloc(sides, sizeof(int));
+        if (!intersections) {
+            free(vx);
+            free(vy);
+            return;  // Clean up and exit on allocation failure
+        }
         int count = 0;
 
         for (int i = 0; i < sides; i++) {
@@ -1410,11 +1419,13 @@ void _initAsciiText() {
 void Canvas_drawAsciiText(int x, int y, char character, const char* text) {
     if (x < 0 || y < 0) return;
     if (!text) return;
-    if (strlen(text) == 0) return;
+    
+    int textLen = strlen(text);  // Calculate once, store in variable
+    if (textLen == 0) return;
 
     _initAsciiText();
 
-    for (int i = 0; i < strlen(text); i++) {
+    for (int i = 0; i < textLen; i++) {
         char c = text[i];
         char ascii[8][5];
 

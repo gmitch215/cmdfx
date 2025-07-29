@@ -751,7 +751,8 @@ int Scene_setForeground(CmdFX_Scene* scene, int x, int y, int width, int height,
                 char* buf = malloc(22);
                 if (buf == 0) return -1;
 
-                snprintf(ansi, 22, "\033[38;2;%d;%d;%dm", rgb >> 16 & 0xFF, rgb >> 8 & 0xFF, rgb & 0xFF);
+                snprintf(buf, 22, "\033[38;2;%d;%d;%dm", rgb >> 16 & 0xFF, rgb >> 8 & 0xFF, rgb & 0xFF);
+                free(ansi);  // Free the old ANSI data
                 scene->ansiData[i][j] = buf;
             }
         }
@@ -791,7 +792,8 @@ int Scene_setBackground(CmdFX_Scene* scene, int x, int y, int width, int height,
                 char* buf = malloc(22);
                 if (buf == 0) return -1;
 
-                snprintf(ansi, 22, "\033[48;2;%d;%d;%dm", rgb >> 16 & 0xFF, rgb >> 8 & 0xFF, rgb & 0xFF);
+                snprintf(buf, 22, "\033[48;2;%d;%d;%dm", rgb >> 16 & 0xFF, rgb >> 8 & 0xFF, rgb & 0xFF);
+                free(ansi);  // Free the old ANSI data
                 scene->ansiData[i][j] = buf;
             }
         }
