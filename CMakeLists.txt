@@ -44,14 +44,32 @@ if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
     target_link_libraries(cmdfx PRIVATE m) # Math
 endif()
 
-if (APPLE)
+if (WIN32)
+    target_link_libraries(cmdfx PRIVATE winmm) # Windows Multimedia API
+elseif (APPLE)
     target_link_libraries(cmdfx PRIVATE
         "-framework CoreGraphics"
         "-framework CoreFoundation"
         "-framework ApplicationServices"
         "-framework Carbon"
         "-framework IOKit"
+        "-framework CoreAudio"
+        "-framework AudioToolbox"
+        "-framework AudioUnit"
     )
+elseif (LINUX)
+    # Find ALSA for Linux sound support
+    find_package(PkgConfig)
+    if (PkgConfig_FOUND)
+        pkg_check_modules(ALSA alsa)
+        if (ALSA_FOUND)
+            target_link_libraries(cmdfx PRIVATE ${ALSA_LIBRARIES})
+            target_include_directories(cmdfx PRIVATE ${ALSA_INCLUDE_DIRS})
+            target_compile_definitions(cmdfx PRIVATE ${ALSA_CFLAGS_OTHER})
+        else()
+            message(WARNING "ALSA not found. Sound support will be limited on Linux.")
+        endif()
+    endif()
 endif()
 
 # Testing

@@ -31,6 +31,10 @@
 #include "cmdfx/physics/util.h"
 #include "cmdfx/physics/motion.h"
 
+// Sound Engine
+
+#include "cmdfx/sound/sound.h"
+
 // UI Manager
 
 #include "cmdfx/ui/button.h"
