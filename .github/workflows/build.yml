@@ -170,7 +170,7 @@ jobs:
           submodules: 'recursive'
       - name: Setup Maven Settings
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
-        uses: s4u/maven-settings-action@v3.1.0
+        uses: s4u/maven-settings-action@v4.0.0
         with:
           servers: '[{"id": "calcugames", "username": "${{ secrets.MAVEN_USERNAME_CALCUGAMES }}", "password": "${{ secrets.MAVEN_PASSWORD_CALCUGAMES }}"}]'
       - name: Install Kotlin
