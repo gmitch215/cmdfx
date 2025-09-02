@@ -42,7 +42,7 @@ int _Platform_initSoundSystem() {
         return 0;
     }
     
-#ifdef __linux__
+    #ifdef __linux__
     snd_pcm_t* test_handle;
     int err = snd_pcm_open(&test_handle, "default", SND_PCM_STREAM_PLAYBACK, SND_PCM_NONBLOCK);
     if (err < 0) {
@@ -51,7 +51,7 @@ int _Platform_initSoundSystem() {
         return -1;
     }
     snd_pcm_close(test_handle);
-#endif
+    #endif
     
     _soundSystemInitialized = 1;
     pthread_mutex_unlock(&_systemMutex);
@@ -93,7 +93,7 @@ void* _playbackThread(void* arg) {
             continue;
         }
         
-#ifdef __linux__
+        #ifdef __linux__
         if (soundData->pcm_handle) {
             snd_pcm_sframes_t frames_to_write = 1024; // Chunk size
             size_t bytes_to_write = frames_to_write * 4; // Assuming 16-bit stereo
@@ -135,7 +135,7 @@ void* _playbackThread(void* arg) {
                 }
             }
         }
-#else
+        #else
         usleep(23000); // ~23ms for roughly 44.1kHz timing
         
         size_t chunk_size = 1024 * 4; // Simulate processing chunks
@@ -150,7 +150,7 @@ void* _playbackThread(void* arg) {
                 break;
             }
         }
-#endif
+        #endif
         
         pthread_mutex_unlock(&soundData->mutex);
         usleep(1000); // Small delay to prevent busy waiting
@@ -225,7 +225,7 @@ int _Platform_playSound(const char* soundFile, int loopCount, void** platformDat
         }
     }
     
-#ifdef __linux__
+    #ifdef __linux__
     // Initialize ALSA
     int err = snd_pcm_open(&soundData->pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
     if (err < 0) {
@@ -296,15 +296,17 @@ int _Platform_playSound(const char* soundFile, int loopCount, void** platformDat
         free(soundData);
         return -1;
     }
-#endif
+    #endif
     
     // Start playback thread
     soundData->isPlaying = 1;
     if (pthread_create(&soundData->playbackThread, NULL, _playbackThread, soundData) != 0) {
         fprintf(stderr, "Failed to create playback thread\n");
-#ifdef __linux__
+
+        #ifdef __linux__
         snd_pcm_close(soundData->pcm_handle);
-#endif
+        #endif
+
         free(soundData->audioBuffer);
         pthread_mutex_destroy(&soundData->mutex);
         pthread_cond_destroy(&soundData->cond);
@@ -380,11 +382,11 @@ void _Platform_freeSoundData(void* platformData) {
         _Platform_stopSound(platformData);
     }
     
-#ifdef __linux__
+    #ifdef __linux__
     if (soundData->pcm_handle) {
         snd_pcm_close(soundData->pcm_handle);
     }
-#endif
+    #endif
     
     if (soundData->audioBuffer) {
         free(soundData->audioBuffer);

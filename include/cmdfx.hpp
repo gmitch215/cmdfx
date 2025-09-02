@@ -9,7 +9,10 @@
  * 
  */
 #pragma once
-#include "cmdfx.h"
+
+extern "C" {
+    #include "cmdfx.h"
+}
 
 /**
  * @brief Primary namespace for CmdFX.
