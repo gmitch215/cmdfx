@@ -79,6 +79,11 @@ jobs:
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/cinterop /usr/local/bin/cinterop
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
+      - name: Install Linux Dependencies
+        if: ${{ startsWith(matrix.os, 'ubuntu') }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev
       - name: Configure Project (Posix)
         if: ${{ matrix.os != 'windows-2025' }}
         run: cmake -B build -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7} -DSAMPLES_CMDFX=ON
@@ -87,11 +92,6 @@ jobs:
         if: ${{ matrix.os == 'windows-2025' }}
         run: cmake -B build -G "MinGW Makefiles" -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7} -DSAMPLES_CMDFX=ON
         shell: bash
-      - name: Install Linux Dependencies
-        if: ${{ startsWith(matrix.os, 'ubuntu') }}
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libasound2-dev
       - name: Build Project
         run: |
           cmake --build build --config Debug --target package
@@ -145,6 +145,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Doxygen
         uses: ssciwr/doxygen-install@v1
+      - name: Install Linux Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev
       - name: Configure Project
         run: cmake -B build
       - name: Build Docs
@@ -198,6 +202,11 @@ jobs:
           key: ${{ runner.os }}-${{ runner.arch }}-konan
           restore-keys: |
             ${{ runner.os }}-${{ runner.arch }}-konan
+      - name: Install Linux Dependencies
+        if: ${{ startsWith(matrix.os, 'ubuntu') }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev
       - name: Configure Project (Posix)
         if: ${{ matrix.os != 'windows-2025' }}
         run: cmake -B build -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="cmdfx-${{ matrix.id }}" -DTEST_CMDFX=OFF -DDEPLOY_CMDFX=ON
