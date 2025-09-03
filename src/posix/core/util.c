@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 199309L
 #include <stdlib.h>
 #include <time.h>
 #include <sys/time.h>
@@ -118,7 +119,7 @@ int CmdFX_lockMutex(void* mutex) {
     if (mutex == 0) return -1;
     
     pthread_mutex_t* m = (pthread_mutex_t*) mutex;
-    if (pthread_mutex_trylock(m) != 0) return -1;
+    if (pthread_mutex_lock(m) != 0) return -1;
     
     return 0;
 }

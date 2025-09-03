@@ -25,6 +25,57 @@ static int _spriteUidCounter = 0;
 
 static int* _takenUids = 0;
 
+// Per-sprite locking utilities
+#define _FIRST_SPRITE_MUTEX_ID 11
+
+int _spriteMutexId(const CmdFX_Sprite* sprite) {
+    if (sprite == 0) return -1;
+    int range = MAX_INTERNAL_CMDFX_MUTEXES - _FIRST_SPRITE_MUTEX_ID;
+    if (range <= 0) return -1;
+    // Simple mix of uid to spread across mutex pool
+    unsigned uid = (unsigned) sprite->uid;
+
+    // Knuth multiplicative hash
+    // Decorrelates integers
+    int id = _FIRST_SPRITE_MUTEX_ID + (int) ((uid * 0x9e3779b9u) % (unsigned) range);
+    return id;
+}
+
+void _lockSprite(const CmdFX_Sprite* sprite) {
+    int id = _spriteMutexId(sprite);
+    if (id >= 0) CmdFX_tryLockMutex(id);
+}
+
+void _unlockSprite(const CmdFX_Sprite* sprite) {
+    int id = _spriteMutexId(sprite);
+    if (id >= 0) CmdFX_tryUnlockMutex(id);
+}
+
+// Lock two sprites in a stable order (by uid) to avoid deadlocks when two threads act on two sprites.
+void _lockSpritePair(const CmdFX_Sprite* a, const CmdFX_Sprite* b) {
+    if (a == b) { _lockSprite(a); return; }
+    if (a == 0 || b == 0) { if (a) _lockSprite(a); if (b) _lockSprite(b); return; }
+    if (a->uid < b->uid) {
+        _lockSprite(a);
+        _lockSprite(b);
+    } else {
+        _lockSprite(b);
+        _lockSprite(a);
+    }
+}
+
+void _unlockSpritePair(const CmdFX_Sprite* a, const CmdFX_Sprite* b) {
+    if (a == b) { _unlockSprite(a); return; }
+    if (a == 0 || b == 0) { if (a) _unlockSprite(a); if (b) _unlockSprite(b); return; }
+    if (a->uid < b->uid) {
+        _unlockSprite(b);
+        _unlockSprite(a);
+    } else {
+        _unlockSprite(a);
+        _unlockSprite(b);
+    }
+}
+
 CmdFX_Sprite** Canvas_getDrawnSprites() {
     return _sprites;
 }

@@ -59,12 +59,12 @@ int main() {
     CmdFX_Vector* force = Vector_create(2, 0); // ax = 2, ay = -1
     Sprite_addForce(square, force);
     for (int i = 0; i < 10; i++) tick(square);
-    r |= assertEquals(square->x, 99);
+    r |= assertEquals(square->x, 111);
     r |= assertEquals(square->y, 175);
 
     Sprite_removeForce(square, force); // x velocity remains as 20
     for (int i = 0; i < 10; i++) tick(square);
-    r |= assertEquals(square->x, 263);
+    r |= assertEquals(square->x, 311);
     r |= assertEquals(square->y, 275);
 
     Sprite_free(square);

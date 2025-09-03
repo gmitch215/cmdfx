@@ -162,6 +162,11 @@ int Engine_cleanup() {
     return 0;
 }
 
+
+// src/common/core/sprites.c
+extern void _lockSpritePair(const CmdFX_Sprite* a, const CmdFX_Sprite* b);
+extern void _unlockSpritePair(const CmdFX_Sprite* a, const CmdFX_Sprite* b);
+
 CmdFX_Sprite** Engine_tick() {
     CmdFX_Sprite** sprites = Canvas_getDrawnSprites();
     if (sprites == 0) return 0;
@@ -213,6 +218,9 @@ CmdFX_Sprite** Engine_tick() {
                 // Prevent double processing
                 if (sprite->id >= other->id) continue;
 
+                // Lock both sprites to avoid concurrent updates while computing collision response
+                _lockSpritePair(sprite, other);
+
                 // m1u1 + m2u2 = m1v1 + m2v2
                 // v1 = ((m1 – m2)u1 + 2(m2u2)) / (m1 + m2)
                 // v2 = ((m2 – m1)u2 + 2(m1u1)) / (m1 + m2)
@@ -232,13 +240,15 @@ CmdFX_Sprite** Engine_tick() {
                 dvy = v1y;
                 Sprite_setVelocityX(other, v2x);
                 Sprite_setVelocityY(other, v2y);
+
+                _unlockSpritePair(sprite, other);
             }
         }
         free(colliding);
 
-        // Apply Friction
+        // Apply friction only if ground is active (ground > 0) and sprite is on/at ground
         double frictionCoefficient = Sprite_getFrictionCoefficient(sprite);
-        if (sprite->y + sprite->height >= ground && dvx != 0) {
+        if (ground > 0 && sprite->y + sprite->height >= ground && dvx != 0) {
             if (dvx > 0) {
                 dax -= frictionCoefficient * forceOfGravity;
                 if (dvx + dax < 0) dax = -dvx; // ensure no negative acceleration

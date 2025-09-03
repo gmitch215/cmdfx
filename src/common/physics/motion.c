@@ -252,6 +252,10 @@ CmdFX_Sprite** Sprite_getAboutToCollideSprites(CmdFX_Sprite* sprite) {
 
 // Engine Application
 
+// src/common/core/sprites.c
+extern void _lockSprite(const CmdFX_Sprite* a);
+extern void _unlockSprite(const CmdFX_Sprite* a);
+
 static int _motionDebugEnabled = 0;
 
 int Engine_isMotionDebugEnabled() {
@@ -309,6 +313,9 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
     if (sprite->id == 0) return;
     if (_motion == 0) return;
     if (Sprite_isStatic(sprite)) return;
+
+    // Per-sprite lock while reading/updating motion and moving
+    _lockSprite(sprite);
 
     int id = sprite->id - 1;
     if (id >= _motionCount) return;
@@ -382,6 +389,8 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
     
     motion[0] = dx;
     motion[1] = dy;
+
+    _unlockSprite(sprite);
 }
 
 // Memory Cleanup
