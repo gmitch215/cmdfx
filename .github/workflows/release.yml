@@ -56,7 +56,7 @@ jobs:
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: fwilhe2/setup-kotlin@main
         with:
-          version: '2.1.10'
+          version: '2.2.10'
           install-native: true
       - name: Setup Konan
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
@@ -85,6 +85,11 @@ jobs:
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/cinterop /usr/local/bin/cinterop
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/run_konan /usr/local/bin/run_konan
           sudo ln -s $KOTLIN_NATIVE_HOME/bin/kotlinc-native /usr/local/bin/kotlinc-native
+      - name: Install Linux Dependencies
+        if: ${{ startsWith(matrix.os, 'ubuntu') }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev
       - name: Build Project
         if: ${{ matrix.os != 'windows-2025' }}
         run: |
