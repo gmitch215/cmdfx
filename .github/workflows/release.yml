@@ -90,10 +90,18 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libasound2-dev
-      - name: Build Project
+      - name: Configure Project (Posix)
         if: ${{ matrix.os != 'windows-2025' }}
         run: |
           cmake -B build -DKN_INSTALL_ARTIFACTID="cmdfx-${{ matrix.id }}" -DTEST_CMDFX=OFF
+        shell: bash
+      - name: Configure Project (Windows)
+        if: ${{ matrix.os == 'windows-2025' }}
+        run: |
+          cmake -B build -G "MinGW Makefiles" -DKN_INSTALL_ARTIFACTID="cmdfx-${{ matrix.id }}" -DTEST_CMDFX=OFF
+        shell: bash
+      - name: Build Project
+        run: |
           cmake --build build --config Release --target docs
           cmake -B build
           cmake --build build --config Release --target package
