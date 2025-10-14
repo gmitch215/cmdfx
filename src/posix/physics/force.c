@@ -1,13 +1,13 @@
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
-#include <unistd.h>
 #include <time.h>
+#include <unistd.h>
 
-#include "cmdfx/core/util.h"
 #include "cmdfx/core/sprites.h"
-#include "cmdfx/physics/util.h"
+#include "cmdfx/core/util.h"
 #include "cmdfx/physics/force.h"
+#include "cmdfx/physics/util.h"
 
 // Impulse Functions
 
@@ -28,7 +28,9 @@ void* _addSpriteForce(void* arg) {
     return 0;
 }
 
-int Sprite_addForceFor(CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration) {
+int Sprite_addForceFor(
+    CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration
+) {
     if (sprite == 0) return -1;
     if (sprite->id == 0) return -1;
     if (vector == 0) return -1;
@@ -43,7 +45,10 @@ int Sprite_addForceFor(CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration)
 
     pthread_t forceThread;
     if (pthread_create(&forceThread, 0, _addSpriteForce, payload) != 0) {
-        fprintf(stderr, "Failed to start force thread for sprite ID %u.\n", sprite->id);
+        fprintf(
+            stderr, "Failed to start force thread for sprite ID %u.\n",
+            sprite->id
+        );
         free(payload);
         return -1;
     }

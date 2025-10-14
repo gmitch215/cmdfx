@@ -1,25 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <termios.h>
 #include <sys/ioctl.h>
+#include <termios.h>
 #include <unistd.h>
 
-#include "cmdfx/core/util.h"
 #include "cmdfx/core/canvas.h"
+#include "cmdfx/core/util.h"
 
 #define _CANVAS_MUTEX 7
 
-int _Canvas_getPos(int *y, int *x) {
+int _Canvas_getPos(int* y, int* x) {
     char buf[30] = {0};
     int ret, i, pow;
     char ch;
 
-    *y = 0; *x = 0;
+    *y = 0;
+    *x = 0;
 
     struct termios term, restore;
     tcgetattr(0, &term);
     tcgetattr(0, &restore);
-    term.c_lflag &= ~(ICANON|ECHO);
+    term.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(0, TCSANOW, &term);
 
     write(1, "\033[6n", 4);
@@ -40,10 +41,10 @@ int _Canvas_getPos(int *y, int *x) {
         return 1;
     }
 
-    for(i -= 2, pow = 1; buf[i] != ';'; i--, pow *= 10)
+    for (i -= 2, pow = 1; buf[i] != ';'; i--, pow *= 10)
         *x = *x + (buf[i] - '0') * pow;
 
-    for(i--, pow = 1; buf[i] != '['; i--, pow *= 10)
+    for (i--, pow = 1; buf[i] != '['; i--, pow *= 10)
         *y = *y + (buf[i] - '0') * pow;
 
     tcsetattr(0, TCSANOW, &restore);
@@ -60,7 +61,7 @@ int Canvas_getCursorX() {
 int Canvas_getCursorY() {
     int x, y;
     if (_Canvas_getPos(&y, &x)) return -1;
-    
+
     return y;
 }
 

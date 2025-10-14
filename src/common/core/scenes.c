@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "cmdfx/core/canvas.h"
 #include "cmdfx/core/builder.h"
+#include "cmdfx/core/canvas.h"
 #include "cmdfx/core/scenes.h"
 #include "cmdfx/core/util.h"
 #include "cmdfx/ui/button.h"
@@ -37,7 +37,7 @@ CmdFX_Scene* Scene_create(int width, int height) {
     char*** ansiData = String2DBuilder_create(width, height);
     if (ansiData == 0) {
         free(scene);
-        
+
         for (int i = 0; i < height; i++) free(data[i]);
         free(data);
 
@@ -49,7 +49,7 @@ CmdFX_Scene* Scene_create(int width, int height) {
     scene->height = height;
     scene->data = data;
     scene->ansiData = ansiData;
-    
+
     scene->x = -1;
     scene->y = -1;
     scene->z = 0;
@@ -57,7 +57,9 @@ CmdFX_Scene* Scene_create(int width, int height) {
     return scene;
 }
 
-CmdFX_Scene* Scene_createFilled(int width, int height, char c, char* ansi, int z) {
+CmdFX_Scene* Scene_createFilled(
+    int width, int height, char c, char* ansi, int z
+) {
     if (width < 1 || height < 1) return 0;
 
     CmdFX_Scene* scene = Scene_create(width, height);
@@ -93,7 +95,7 @@ CmdFX_Scene* Scene_createFromData(char** data, char*** ansiData) {
     if (ansiData != 0) {
         int ansiHeight = getStringArrayHeight(ansiData);
         int ansiWidth = getStringArrayWidth(ansiData);
-    
+
         if (height != ansiHeight || width != ansiWidth) return 0;
     }
     scene->ansiData = ansiData;
@@ -117,25 +119,28 @@ int Scene_clear(CmdFX_Scene* scene) {
             scene->data[i][j] = ' ';
             if (ansi) scene->ansiData[i][j] = 0;
         }
-    
+
     return 0;
 }
 
-void Scene_draw0(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y2) {
+void Scene_draw0(
+    CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y2
+) {
     int _x1 = clamp_i(x1, 0, scene->width);
     int _y1 = clamp_i(y1, 0, scene->height);
     int _x2 = clamp_i(x2, 0, scene->width);
     int _y2 = clamp_i(y2, 0, scene->height);
 
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    
+
     for (int i = _y1; i < _y2; i++)
         for (int j = _x1; j < _x2; j++) {
             char c = scene->data[i][j];
             if (c == 0) break;
             if (c == ' ') continue;
 
-            // original values ensure that the scene is drawn in the correct position
+            // original values ensure that the scene is drawn in the correct
+            // position
             int cx = (x + j) - x1;
             int cy = (y + i) - y1;
 
@@ -149,7 +154,7 @@ void Scene_draw0(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y
                 if (ansi != 0) Canvas_setAnsiCurrent(ansi);
             }
         }
-    
+
     // draw buttons on the scene
     CmdFX_Button** buttons = Scene_getButtons(scene->uid);
     int buttonCount = Scene_getButtonsCount(scene->uid);
@@ -160,7 +165,8 @@ void Scene_draw0(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y
         int* coords = Scene_getButtonCoordinates(scene->uid, button);
         if (coords == 0) continue;
 
-        // original values ensure that the scene is drawn in the correct position
+        // original values ensure that the scene is drawn in the correct
+        // position
         int bx = (coords[0] + x) - x1;
         int by = (coords[1] + y) - y1;
 
@@ -170,16 +176,21 @@ void Scene_draw0(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y
         Canvas_setCursor(bx, by);
         Button_draw(bx, by, button);
     }
-    
+
     fflush(stdout);
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
-void Scene_draw1(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y2) {
+void Scene_draw1(
+    CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y2
+) {
     if (_drawnScenes == 0) {
         _drawnScenes = (CmdFX_Scene**) malloc(sizeof(CmdFX_Scene*));
-    } else {
-        _drawnScenes = (CmdFX_Scene**) realloc(_drawnScenes, sizeof(CmdFX_Scene*) * (_drawnScenesCount + 1));
+    }
+    else {
+        _drawnScenes = (CmdFX_Scene**) realloc(
+            _drawnScenes, sizeof(CmdFX_Scene*) * (_drawnScenesCount + 1)
+        );
     }
 
     _drawnScenes[_drawnScenesCount] = scene;
@@ -187,7 +198,8 @@ void Scene_draw1(CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y
 
     if (scene->uid > -1) {
         if (_drawnSceneBounds == 0) {
-            _drawnSceneBounds = (int**) calloc(MAX_REGISTERED_SCENES, sizeof(int*));
+            _drawnSceneBounds =
+                (int**) calloc(MAX_REGISTERED_SCENES, sizeof(int*));
         }
 
         int* bounds = (int*) calloc(4, sizeof(int));
@@ -212,7 +224,9 @@ int Scene_draw(CmdFX_Scene* scene, int x, int y) {
     return 0;
 }
 
-int Scene_drawPortion(CmdFX_Scene* scene, int x, int y, int sx, int sy, int width, int height) {
+int Scene_drawPortion(
+    CmdFX_Scene* scene, int x, int y, int sx, int sy, int width, int height
+) {
     if (scene == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -246,7 +260,8 @@ CmdFX_Scene* Scene_getSceneAt(int x, int y) {
         if (scene == 0) continue;
         if (scene->x == -1 && scene->y == -1) continue;
 
-        if (x >= scene->x && x < scene->x + scene->width && y >= scene->y && y < scene->y + scene->height) {
+        if (x >= scene->x && x < scene->x + scene->width && y >= scene->y &&
+            y < scene->y + scene->height) {
             stack[stackCount] = scene;
             stackCount++;
         }
@@ -301,7 +316,8 @@ int Scene_isOnBottomAt(CmdFX_Scene* scene, int x, int y) {
     if (_drawnScenes == 0) return 0;
     if (scene->x == -1 && scene->y == -1) return 0;
 
-    CmdFX_Scene** bottomScenes = calloc(_drawnScenesCount, sizeof(CmdFX_Scene*));
+    CmdFX_Scene** bottomScenes =
+        calloc(_drawnScenesCount, sizeof(CmdFX_Scene*));
     if (bottomScenes == 0) return 0;
 
     int c = 0;
@@ -310,7 +326,8 @@ int Scene_isOnBottomAt(CmdFX_Scene* scene, int x, int y) {
         if (scene == 0) continue;
         if (scene->x == -1 && scene->y == -1) continue;
 
-        if (x >= scene->x && x < scene->x + scene->width && y >= scene->y && y < scene->y + scene->height) {
+        if (x >= scene->x && x < scene->x + scene->width && y >= scene->y &&
+            y < scene->y + scene->height) {
             bottomScenes[c++] = scene;
         }
     }
@@ -350,7 +367,7 @@ void Scene_remove0(CmdFX_Scene* scene) {
             putchar(' ');
             printf("\033[0m");
         }
-    
+
     // remove buttons on the scene
     CmdFX_Button** buttons = Scene_getButtons(scene->uid);
     int buttonCount = Scene_getButtonsCount(scene->uid);
@@ -360,14 +377,15 @@ void Scene_remove0(CmdFX_Scene* scene) {
         if (button->id == -1) continue; // button already removed
         Button_remove(button);
     }
-    
+
     fflush(stdout);
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 int Scene_remove(CmdFX_Scene* scene) {
     if (scene == 0) return -1;
-    if (scene->x == -1 && scene->y == -1) return 0; // already removed, default to success
+    if (scene->x == -1 && scene->y == -1)
+        return 0; // already removed, default to success
 
     Scene_remove0(scene);
     scene->x = -1;
@@ -400,7 +418,7 @@ int Scene_isEmpty(CmdFX_Scene* scene) {
     for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++)
             if (scene->data[i][j] != ' ') return 0;
-    
+
     return 1;
 }
 
@@ -408,8 +426,7 @@ int Scene_switchTo(CmdFX_Scene* scene, int x, int y) {
     if (scene == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
-    for (int i = 0; i < _drawnScenesCount; i++)
-        Scene_remove(_drawnScenes[i]);
+    for (int i = 0; i < _drawnScenesCount; i++) Scene_remove(_drawnScenes[i]);
 
     Scene_draw(scene, x, y);
     return 0;
@@ -428,8 +445,7 @@ int Scene_free(CmdFX_Scene* scene) {
 
     if (scene->ansiData != 0) {
         for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++)
-                free(scene->ansiData[i][j]);
+            for (int j = 0; j < width; j++) free(scene->ansiData[i][j]);
             free(scene->ansiData[i]);
         }
     }
@@ -460,17 +476,18 @@ int Scene_getRegisteredScenesCount() {
     int n = 0;
     for (int i = 0; i < MAX_REGISTERED_SCENES; i++)
         if (_registeredScenes[i] != 0) n++;
-    
+
     return n;
 }
 
 CmdFX_Scene* Scene_getRegisteredScene(int uid) {
     if (uid < 0 || uid >= MAX_REGISTERED_SCENES) return 0;
     if (_registeredScenes == 0) return 0;
-    
+
     for (int i = 0; i < MAX_REGISTERED_SCENES; i++)
-        if (_registeredScenes[i] != 0 && _registeredScenes[i]->uid == uid) return _registeredScenes[i];
-    
+        if (_registeredScenes[i] != 0 && _registeredScenes[i]->uid == uid)
+            return _registeredScenes[i];
+
     return 0;
 }
 
@@ -479,7 +496,8 @@ int Scene_register(CmdFX_Scene* scene) {
     if (scene->uid != -1) return scene->uid;
 
     if (_registeredScenes == 0) {
-        _registeredScenes = (CmdFX_Scene**) calloc(MAX_REGISTERED_SCENES, sizeof(CmdFX_Scene*));
+        _registeredScenes =
+            (CmdFX_Scene**) calloc(MAX_REGISTERED_SCENES, sizeof(CmdFX_Scene*));
     }
 
     int cuid = 0;
@@ -530,10 +548,14 @@ int Scene_scroll(int uid, int dx, int dy) {
     int* bounds = _drawnSceneBounds[uid];
     if (bounds == 0) return -1;
 
-    int x1 = clamp_i(bounds[0] + dx, 0, scene->width); bounds[0] = x1;
-    int y1 = clamp_i(bounds[1] + dy, 0, scene->height); bounds[1] = y1;
-    int x2 = clamp_i(bounds[2] + dx, 0, scene->width); bounds[2] = x2;
-    int y2 = clamp_i(bounds[3] + dy, 0, scene->height); bounds[3] = y2;
+    int x1 = clamp_i(bounds[0] + dx, 0, scene->width);
+    bounds[0] = x1;
+    int y1 = clamp_i(bounds[1] + dy, 0, scene->height);
+    bounds[1] = y1;
+    int x2 = clamp_i(bounds[2] + dx, 0, scene->width);
+    bounds[2] = x2;
+    int y2 = clamp_i(bounds[3] + dy, 0, scene->height);
+    bounds[3] = y2;
 
     Scene_remove0(scene);
     Scene_draw0(scene, scene->x, scene->y, x1, y1, x2, y2);
@@ -556,7 +578,8 @@ void tickCmdFXSceneEngine() {
             y1 = bounds[1];
             x2 = bounds[2];
             y2 = bounds[3];
-        } else {
+        }
+        else {
             x1 = 0;
             y1 = 0;
             x2 = scene->width;
@@ -601,11 +624,11 @@ int Scene_setData(CmdFX_Scene* scene, char** data) {
 
         for (int i = 0; i < height; i++)
             for (int j = 0; j < width; j++)
-                if (i < oldHeight && j < oldWidth) ansiCopy[i][j] = scene->ansiData[i][j];
-        
+                if (i < oldHeight && j < oldWidth)
+                    ansiCopy[i][j] = scene->ansiData[i][j];
+
         for (int i = 0; i < oldHeight; i++)
-            for (int j = 0; j < oldWidth; j++)
-                free(scene->ansiData[i][j]);
+            for (int j = 0; j < oldWidth; j++) free(scene->ansiData[i][j]);
         free(scene->ansiData);
     }
 
@@ -628,11 +651,12 @@ int Scene_setChar(CmdFX_Scene* scene, int x, int y, char c) {
     if (x >= scene->width || y >= scene->height) return -1;
 
     scene->data[y][x] = c;
-    if (scene->x != -1 && scene->y != -1 && Scene_isOnTopAt(scene, scene->x + x, scene->y + y)) {
+    if (scene->x != -1 && scene->y != -1 &&
+        Scene_isOnTopAt(scene, scene->x + x, scene->y + y)) {
         Canvas_setCursor(scene->x + x, scene->y + y);
         putchar(c);
     }
-    
+
     return 0;
 }
 
@@ -658,8 +682,7 @@ int Scene_setAnsiData(CmdFX_Scene* scene, char*** ansiData) {
 
     if (scene->ansiData != 0) {
         for (int i = 0; i < oldHeight; i++)
-            for (int j = 0; j < oldWidth; j++)
-                free(scene->ansiData[i][j]);
+            for (int j = 0; j < oldWidth; j++) free(scene->ansiData[i][j]);
         free(scene->ansiData);
     }
     scene->ansiData = ansiData;
@@ -702,18 +725,19 @@ int Scene_appendAnsiData(CmdFX_Scene* scene, char*** ansiData) {
     for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++)
             if (i < oldHeight && j < oldWidth) {
-                int l = strlen(scene->ansiData[i][j]) + strlen(ansiData[i][j]) + 1;
+                int l =
+                    strlen(scene->ansiData[i][j]) + strlen(ansiData[i][j]) + 1;
                 char* buf = malloc(l);
                 if (buf == 0) return -1;
 
                 snprintf(buf, l, "%s%s", scene->ansiData[i][j], ansiData[i][j]);
                 ansiCopy[i][j] = buf;
             }
-            else ansiCopy[i][j] = ansiData[i][j];
-    
+            else
+                ansiCopy[i][j] = ansiData[i][j];
+
     for (int i = 0; i < oldHeight; i++)
-        for (int j = 0; j < oldWidth; j++)
-            free(scene->ansiData[i][j]);
+        for (int j = 0; j < oldWidth; j++) free(scene->ansiData[i][j]);
     free(scene->ansiData);
 
     scene->ansiData = ansiCopy;
@@ -730,7 +754,9 @@ int Scene_appendAnsiData(CmdFX_Scene* scene, char*** ansiData) {
     return 0;
 }
 
-int Scene_setForeground(CmdFX_Scene* scene, int x, int y, int width, int height, int rgb) {
+int Scene_setForeground(
+    CmdFX_Scene* scene, int x, int y, int width, int height, int rgb
+) {
     if (scene == 0) return -1;
     if (x < 0 || y < 0) return -1;
     if (width < 1 || height < 1) return -1;
@@ -751,8 +777,11 @@ int Scene_setForeground(CmdFX_Scene* scene, int x, int y, int width, int height,
                 char* buf = malloc(22);
                 if (buf == 0) return -1;
 
-                snprintf(buf, 22, "\033[38;2;%d;%d;%dm", rgb >> 16 & 0xFF, rgb >> 8 & 0xFF, rgb & 0xFF);
-                free(ansi);  // Free the old ANSI data
+                snprintf(
+                    buf, 22, "\033[38;2;%d;%d;%dm", rgb >> 16 & 0xFF,
+                    rgb >> 8 & 0xFF, rgb & 0xFF
+                );
+                free(ansi); // Free the old ANSI data
                 scene->ansiData[i][j] = buf;
             }
         }
@@ -771,7 +800,9 @@ int Scene_setForegroundAll(CmdFX_Scene* scene, int rgb) {
     return Scene_setForeground(scene, 0, 0, scene->width, scene->height, rgb);
 }
 
-int Scene_setBackground(CmdFX_Scene* scene, int x, int y, int width, int height, int rgb) {
+int Scene_setBackground(
+    CmdFX_Scene* scene, int x, int y, int width, int height, int rgb
+) {
     if (scene == 0) return -1;
     if (x < 0 || y < 0) return -1;
     if (width < 1 || height < 1) return -1;
@@ -792,8 +823,11 @@ int Scene_setBackground(CmdFX_Scene* scene, int x, int y, int width, int height,
                 char* buf = malloc(22);
                 if (buf == 0) return -1;
 
-                snprintf(buf, 22, "\033[48;2;%d;%d;%dm", rgb >> 16 & 0xFF, rgb >> 8 & 0xFF, rgb & 0xFF);
-                free(ansi);  // Free the old ANSI data
+                snprintf(
+                    buf, 22, "\033[48;2;%d;%d;%dm", rgb >> 16 & 0xFF,
+                    rgb >> 8 & 0xFF, rgb & 0xFF
+                );
+                free(ansi); // Free the old ANSI data
                 scene->ansiData[i][j] = buf;
             }
         }

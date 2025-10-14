@@ -1,18 +1,15 @@
 #include <stdio.h>
 
-#include "cmdfx/core/builder.h"
-#include "cmdfx/core/sprites.h"
-#include "cmdfx/core/costumes.h"
 #include "../test.h"
+#include "cmdfx/core/builder.h"
+#include "cmdfx/core/costumes.h"
+#include "cmdfx/core/sprites.h"
 
 int main() {
     int r = 0;
 
     char** data1 = Char2DBuilder_createFilled(2, 2, '#');
-    CmdFX_Sprite* sprite = Sprite_create(
-        data1,
-        0, 0
-    );
+    CmdFX_Sprite* sprite = Sprite_create(data1, 0, 0);
 
     CmdFX_SpriteCostumes* c1 = Sprite_createCostumes(sprite, 3);
     r |= assertNotNull(c1);

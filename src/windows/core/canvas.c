@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <windows.h>
 
-#include "cmdfx/core/util.h"
 #include "cmdfx/core/canvas.h"
+#include "cmdfx/core/util.h"
 
 #define _CANVAS_MUTEX 7
 
@@ -60,7 +60,8 @@ int Canvas_isCursorVisible() {
 
     if (GetConsoleCursorInfo(hConsole, &cursor_info)) {
         return cursor_info.bVisible;
-    } else {
+    }
+    else {
         perror("Error getting cursor info");
         return 0;
     }

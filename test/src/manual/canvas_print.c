@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "cmdfx/core/canvas.h"
 #include "../test.h"
+#include "cmdfx/core/canvas.h"
 
 int main() {
     int r = 0;

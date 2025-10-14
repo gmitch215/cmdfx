@@ -2,12 +2,12 @@
  * @file collision.c
  * @author Gregory Mitchell (me@gmitch215.xyz)
  * @date 2025-04-03
- * 
- * This is a simple demo program showcasing the collision detection and resolution
- * in the CmdFX Physics Engine.
- * 
+ *
+ * This is a simple demo program showcasing the collision detection and
+ * resolution in the CmdFX Physics Engine.
+ *
  * @copyright Copyright (c) 2025
- * 
+ *
  */
 
 #include <cmdfx.h>
@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
 
     // Initialize threading first, before any drawing operations
     CmdFX_initThreadSafe();
-    
+
     Canvas_clearScreen();
     Canvas_hideCursor();
     Engine_enableMotionDebug();
@@ -44,10 +44,13 @@ int main(int argc, char** argv) {
     // Draw static elements first
     Canvas_hLine(0, Engine_getGroundY(), Canvas_getWidth(), '-');
     Canvas_hLine(0, 1, Canvas_getWidth(), '-');
-    
+
     Sprite_draw(2, Canvas_getHeight() - sprite1->height - 1, sprite1);
-    Sprite_draw(Canvas_getWidth() - sprite2->width - 2, Canvas_getHeight() - sprite2->height - 1, sprite2);
-    
+    Sprite_draw(
+        Canvas_getWidth() - sprite2->width - 2,
+        Canvas_getHeight() - sprite2->height - 1, sprite2
+    );
+
     // Start physics engine after all initial drawing is done
     Engine_start();
 

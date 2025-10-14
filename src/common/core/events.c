@@ -67,7 +67,8 @@ int addCmdFXEventListener(unsigned int id, CmdFX_EventCallback callback) {
         }
 
     unsigned int newSize = size + 1;
-    CmdFX_EventCallback** newList = realloc(list, sizeof(CmdFX_EventCallback*) * newSize);
+    CmdFX_EventCallback** newList =
+        realloc(list, sizeof(CmdFX_EventCallback*) * newSize);
     if (!newList) return -1;
 
     _listeners[id] = newList;
@@ -76,7 +77,9 @@ int addCmdFXEventListener(unsigned int id, CmdFX_EventCallback callback) {
     return size;
 }
 
-CmdFX_EventCallback* getCmdFXEventListener(unsigned int eventId, unsigned int listenerId) {
+CmdFX_EventCallback* getCmdFXEventListener(
+    unsigned int eventId, unsigned int listenerId
+) {
     if (eventId >= MAX_LISTENERS) return 0;
     if (_listeners == 0) return 0;
 
@@ -106,8 +109,10 @@ int removeCmdFXEventListener(unsigned int eventId, unsigned int listenerId) {
         free(list);
         _listeners[eventId] = NULL;
         _listenerSizes[eventId] = 0;
-    } else {
-        CmdFX_EventCallback** newList = realloc(list, sizeof(CmdFX_EventCallback*) * nonNullCount);
+    }
+    else {
+        CmdFX_EventCallback** newList =
+            realloc(list, sizeof(CmdFX_EventCallback*) * nonNullCount);
         if (newList || nonNullCount == 0) {
             _listeners[eventId] = newList;
             _listenerSizes[eventId] = nonNullCount;
@@ -125,7 +130,8 @@ const CmdFX_EventCallback** dispatchCmdFXEvent(CmdFX_Event* event) {
 
     if (!list) return 0;
 
-    const CmdFX_EventCallback** called = malloc(sizeof(CmdFX_EventCallback*) * (size + 1));
+    const CmdFX_EventCallback** called =
+        malloc(sizeof(CmdFX_EventCallback*) * (size + 1));
     if (!called) return 0;
 
     unsigned int count = 0;
@@ -134,8 +140,7 @@ const CmdFX_EventCallback** dispatchCmdFXEvent(CmdFX_Event* event) {
         if (list[i] != 0) {
             CmdFX_EventCallback callback = *list[i];
             int result = callback(event);
-            if (result == 0)
-                called[count++] = list[i];
+            if (result == 0) called[count++] = list[i];
         }
     }
 

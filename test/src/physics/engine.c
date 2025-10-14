@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "cmdfx/core/sprites.h"
+#include "../test.h"
 #include "cmdfx/core/builder.h"
+#include "cmdfx/core/sprites.h"
+#include "cmdfx/physics/engine.h"
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/motion.h"
-#include "cmdfx/physics/engine.h"
-#include "../test.h"
 
 void tick(CmdFX_Sprite* sprite) {
     free(Engine_tick());
@@ -36,7 +36,7 @@ int main() {
 
     r |= assertTrue(!Engine_setGroundY(5));
     r |= assertEquals(Engine_getGroundY(), 5);
-    r |= assertTrue(!Engine_setGroundY(0));   
+    r |= assertTrue(!Engine_setGroundY(0));
     r |= assertEquals(Engine_getGroundY(), 0);
 
     r |= assertTrue(!Engine_setDefaultFrictionCoefficient(0.5));

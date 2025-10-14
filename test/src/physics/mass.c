@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "cmdfx/core/sprites.h"
-#include "cmdfx/core/builder.h"
-#include "cmdfx/physics/mass.h"
-#include "cmdfx/physics/engine.h"
 #include "../test.h"
+#include "cmdfx/core/builder.h"
+#include "cmdfx/core/sprites.h"
+#include "cmdfx/physics/engine.h"
+#include "cmdfx/physics/mass.h"
 
 int main() {
     int r = 0;
@@ -16,7 +16,7 @@ int main() {
 
     r |= assertEquals(Sprite_getDefaultMass(sprite), 9);
     r |= assertTrue(!Engine_setCharacterMass('X', 2));
-    
+
     r |= assertEquals(Sprite_getDefaultMass(sprite), 18);
     r |= assertTrue(!Sprite_setMass(sprite, 10));
     r |= assertEquals(Sprite_getMass(sprite), 10);
@@ -26,6 +26,6 @@ int main() {
 
     Sprite_free(sprite);
     Engine_cleanup();
-    
+
     return r;
 }

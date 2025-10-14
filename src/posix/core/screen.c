@@ -33,7 +33,8 @@ void Window_getSize(int* width, int* height) {
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == 0) {
         *width = ws.ws_col;
         *height = ws.ws_row;
-    } else {
+    }
+    else {
         *width = *height = 0;
     }
 }
@@ -42,7 +43,7 @@ void Window_setSize(int width, int height) {
     struct winsize w;
     w.ws_col = width;
     w.ws_row = height;
-    
+
     if (ioctl(STDOUT_FILENO, TIOCSWINSZ, &w) == -1) {
         perror("ioctl");
     }
@@ -64,7 +65,7 @@ int Screen_isEchoEnabled() {
     struct termios term;
     ensure_saved_settings();
     tcgetattr(STDIN_FILENO, &term);
-    
+
     return (term.c_lflag & ECHO) ? 1 : 0;
 }
 
@@ -72,12 +73,12 @@ int Screen_setEchoEnabled(int enabled) {
     struct termios term;
     ensure_saved_settings();
     tcgetattr(STDIN_FILENO, &term);
-    
+
     if (enabled)
         term.c_lflag |= ECHO;
     else
         term.c_lflag &= ~ECHO;
-    
+
     return (tcsetattr(STDIN_FILENO, TCSANOW, &term) == 0) ? 0 : -1;
 }
 
@@ -93,12 +94,12 @@ int Screen_setLineBuffered(int enabled) {
     struct termios term;
     ensure_saved_settings();
     tcgetattr(STDIN_FILENO, &term);
-    
+
     if (enabled)
         term.c_lflag |= ICANON;
     else
         term.c_lflag &= ~ICANON;
-    
+
     return (tcsetattr(STDIN_FILENO, TCSANOW, &term) == 0) ? 0 : -1;
 }
 
@@ -115,11 +116,14 @@ void launchInTerminal() {
     }
     exe_path[len] = '\0';
 
-    const char *terminal = "x-terminal-emulator"; // Debian-based
-    
-    if (access("/usr/bin/gnome-terminal", X_OK) == 0) terminal = "gnome-terminal";
-    else if (access("/usr/bin/konsole", X_OK) == 0) terminal = "konsole";
-    else if (access("/usr/bin/xterm", X_OK) == 0) terminal = "xterm";
+    const char* terminal = "x-terminal-emulator"; // Debian-based
+
+    if (access("/usr/bin/gnome-terminal", X_OK) == 0)
+        terminal = "gnome-terminal";
+    else if (access("/usr/bin/konsole", X_OK) == 0)
+        terminal = "konsole";
+    else if (access("/usr/bin/xterm", X_OK) == 0)
+        terminal = "xterm";
 
     char command[2048];
     snprintf(command, sizeof(command), "%s -e \"%s\"", terminal, exe_path);

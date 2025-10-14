@@ -1,7 +1,7 @@
+#include <cmdfx.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cmdfx.h>
 
 #include "../test.h"
 

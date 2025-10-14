@@ -1,13 +1,13 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 #include "cmdfx/core/canvas.h"
 #include "cmdfx/core/sprites.h"
-#include "cmdfx/physics/motion.h"
 #include "cmdfx/physics/engine.h"
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
+#include "cmdfx/physics/motion.h"
 
 static CmdFX_Sprite** _staticSprites = 0;
 static int _staticSpriteCount = 0;
@@ -29,8 +29,11 @@ int Sprite_setStatic(CmdFX_Sprite* sprite, int isStatic) {
         if (_staticSprites == 0) {
             _staticSprites = calloc(1, sizeof(CmdFX_Sprite*));
             if (_staticSprites == 0) return -1;
-        } else {
-            CmdFX_Sprite** temp = realloc(_staticSprites, sizeof(CmdFX_Sprite*) * (_staticSpriteCount + 1));
+        }
+        else {
+            CmdFX_Sprite** temp = realloc(
+                _staticSprites, sizeof(CmdFX_Sprite*) * (_staticSpriteCount + 1)
+            );
             if (temp == 0) return -1;
 
             _staticSprites = temp;
@@ -38,7 +41,8 @@ int Sprite_setStatic(CmdFX_Sprite* sprite, int isStatic) {
 
         _staticSprites[_staticSpriteCount] = sprite;
         _staticSpriteCount++;
-    } else {
+    }
+    else {
         int c = 0;
         for (int i = 0; i < _staticSpriteCount; i++) {
             if (_staticSprites[i] == sprite) {
@@ -131,7 +135,7 @@ double Engine_getCharacterMass(char c) {
 
 int Engine_setCharacterMass(char c, double mass) {
     if (mass < 1) return -1;
-    
+
     if (_characterMasses == 0) {
         _characterMasses = calloc(256, sizeof(double));
         if (_characterMasses == 0) return -1;
@@ -162,7 +166,6 @@ int Engine_cleanup() {
     return 0;
 }
 
-
 // src/common/core/sprites.c
 extern void _lockSpritePair(const CmdFX_Sprite* a, const CmdFX_Sprite* b);
 extern void _unlockSpritePair(const CmdFX_Sprite* a, const CmdFX_Sprite* b);
@@ -178,7 +181,8 @@ CmdFX_Sprite** Engine_tick() {
     int width = Canvas_getWidth();
     int forceOfGravity = Engine_getForceOfGravity();
 
-    CmdFX_Sprite** modified = calloc(count - _staticSpriteCount + 1, sizeof(CmdFX_Sprite*));
+    CmdFX_Sprite** modified =
+        calloc(count - _staticSpriteCount + 1, sizeof(CmdFX_Sprite*));
     if (modified == 0) return 0;
 
     int c = 0;
@@ -187,7 +191,7 @@ CmdFX_Sprite** Engine_tick() {
 
         // Skip Static Sprites
         if (Sprite_isStatic(sprite)) continue;
-        
+
         // persist velocity
         double dvx = Sprite_getVelocityX(sprite); // Δvx
         double dvy = Sprite_getVelocityY(sprite); // Δvy
@@ -218,18 +222,19 @@ CmdFX_Sprite** Engine_tick() {
                 // Prevent double processing
                 if (sprite->id >= other->id) continue;
 
-                // Lock both sprites to avoid concurrent updates while computing collision response
+                // Lock both sprites to avoid concurrent updates while computing
+                // collision response
                 _lockSpritePair(sprite, other);
 
                 // m1u1 + m2u2 = m1v1 + m2v2
                 // v1 = ((m1 – m2)u1 + 2(m2u2)) / (m1 + m2)
                 // v2 = ((m2 – m1)u2 + 2(m1u1)) / (m1 + m2)
-                
+
                 double m1 = Sprite_getMass(sprite);
                 double m2 = Sprite_getMass(other);
                 double u2x = Sprite_getVelocityX(other);
                 double u2y = Sprite_getVelocityY(other);
-                
+
                 // dx = v1x, dy = v1y
                 double v1x = (((m1 - m2) * dvx) + (2.0 * m2 * u2x)) / (m1 + m2);
                 double v1y = (((m1 - m2) * dvy) + (2.0 * m2 * u2y)) / (m1 + m2);
@@ -246,15 +251,19 @@ CmdFX_Sprite** Engine_tick() {
         }
         free(colliding);
 
-        // Apply friction only if ground is active (ground > 0) and sprite is on/at ground
+        // Apply friction only if ground is active (ground > 0) and sprite is
+        // on/at ground
         double frictionCoefficient = Sprite_getFrictionCoefficient(sprite);
         if (ground > 0 && sprite->y + sprite->height >= ground && dvx != 0) {
             if (dvx > 0) {
                 dax -= frictionCoefficient * forceOfGravity;
-                if (dvx + dax < 0) dax = -dvx; // ensure no negative acceleration
-            } else if (dvx < 0) {
+                if (dvx + dax < 0)
+                    dax = -dvx; // ensure no negative acceleration
+            }
+            else if (dvx < 0) {
                 dax += frictionCoefficient * forceOfGravity;
-                if (dvx + dax > 0) dax = -dvx; // ensure no negative acceleration
+                if (dvx + dax > 0)
+                    dax = -dvx; // ensure no negative acceleration
             }
         }
 

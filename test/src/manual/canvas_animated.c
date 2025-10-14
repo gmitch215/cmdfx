@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "cmdfx/core/canvas.h"
-#include "cmdfx/core/animation/canvas.h"
 #include "../test.h"
+#include "cmdfx/core/animation/canvas.h"
+#include "cmdfx/core/canvas.h"
 
 int main() {
     Canvas_clearScreen();
@@ -17,7 +17,7 @@ int main() {
     Canvas_clearScreen();
 
     Canvas_rect_anim(x - 10, y - 5, 20, 10, '$', 4.0);
-    
+
     Canvas_setForeground(0x0000FF);
     Canvas_fillRect_anim(x - 10, y - 5, 20, 10, '$', 4.0);
     Canvas_clearScreen();

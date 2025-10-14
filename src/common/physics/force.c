@@ -1,11 +1,11 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 #include "cmdfx/core/util.h"
-#include "cmdfx/physics/util.h"
 #include "cmdfx/physics/engine.h"
 #include "cmdfx/physics/force.h"
+#include "cmdfx/physics/util.h"
 
 #define _SPRITE_FORCE_MUTEX 5
 CmdFX_Vector*** _forces = 0;
@@ -97,7 +97,8 @@ void _checkForceArraysExist() {
         }
 
         _forcesCounts = temp;
-        for (int i = _forcesSize; i < size; i++) _forcesCounts[i] = 0; // crealloc
+        for (int i = _forcesSize; i < size; i++)
+            _forcesCounts[i] = 0; // crealloc
         _forcesSize = size;
     }
 }
@@ -122,9 +123,11 @@ int Sprite_addForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
 
         _forces[id][0] = vector;
         _forcesCounts[id] = 1;
-    } else {
+    }
+    else {
         int i = _forcesCounts[id];
-        CmdFX_Vector** temp = realloc(_forces[id], sizeof(CmdFX_Vector*) * (i + 1));
+        CmdFX_Vector** temp =
+            realloc(_forces[id], sizeof(CmdFX_Vector*) * (i + 1));
         if (temp == 0) return -1;
 
         _forces[id] = temp;
@@ -163,9 +166,8 @@ int Sprite_removeForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
     for (int j = 0; j < i; j++) {
         if (_forces[id][j] == vector) {
             _forces[id][j] = 0;
-            for (int k = j; k < i - 1; k++)
-                _forces[id][k] = _forces[id][k + 1];
-            
+            for (int k = j; k < i - 1; k++) _forces[id][k] = _forces[id][k + 1];
+
             _forces[id][i - 1] = 0;
             _forcesCounts[id]--;
 
@@ -193,7 +195,7 @@ int Sprite_removeAllForces(CmdFX_Sprite* sprite) {
     free(_forces[id]);
     _forces[id] = 0;
     _forcesSize--;
-    
+
     CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);
 
     return 0;
@@ -209,7 +211,7 @@ int Sprite_clearAllForces() {
         int size = _forcesCounts[i];
         if (_forces[i] != 0)
             for (int j = 0; j < size; j++) free(_forces[i][j]);
-        
+
         free(_forces[i]);
         _forces[i] = 0;
     }
@@ -233,10 +235,12 @@ double Sprite_getFrictionCoefficient(CmdFX_Sprite* sprite) {
     if (sprite == 0) return Engine_getDefaultFrictionCoefficient();
     if (sprite->id == 0) return Engine_getDefaultFrictionCoefficient();
 
-    if (_frictionCoefficients == 0) return Engine_getDefaultFrictionCoefficient();
+    if (_frictionCoefficients == 0)
+        return Engine_getDefaultFrictionCoefficient();
 
     int id = sprite->id - 1;
-    if (id >= _frictionCoefficientsCount) return Engine_getDefaultFrictionCoefficient();
+    if (id >= _frictionCoefficientsCount)
+        return Engine_getDefaultFrictionCoefficient();
     return _frictionCoefficients[id];
 }
 
@@ -254,7 +258,8 @@ int Sprite_setFrictionCoefficient(CmdFX_Sprite* sprite, double coefficient) {
     }
 
     if (_frictionCoefficientsCount <= id) {
-        double* temp = realloc(_frictionCoefficients, sizeof(double) * (id + 1));
+        double* temp =
+            realloc(_frictionCoefficients, sizeof(double) * (id + 1));
         if (temp == 0) return -1;
 
         _frictionCoefficients = temp;
@@ -280,7 +285,8 @@ int Sprite_resetFrictionCoefficient(CmdFX_Sprite* sprite) {
 
     int id = sprite->id - 1;
     if (_frictionCoefficientsCount < id) {
-        double* temp = realloc(_frictionCoefficients, sizeof(double) * (id + 1));
+        double* temp =
+            realloc(_frictionCoefficients, sizeof(double) * (id + 1));
         if (temp == 0) return -1;
 
         _frictionCoefficients = temp;

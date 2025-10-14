@@ -1,9 +1,9 @@
 #include <stdio.h>
 
+#include "../test.h"
 #include "cmdfx/core/sprites.h"
 #include "cmdfx/physics/engine.h"
 #include "cmdfx/physics/motion.h"
-#include "../test.h"
 
 int main() {
     int r = 0;

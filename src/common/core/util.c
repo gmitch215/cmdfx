@@ -60,22 +60,24 @@ void rgb_to_hsv(int rgb, double* h, double* s, double* v) {
     *s = (max > 0.0) ? (delta / max) : 0.0;
 
     if (delta < 0.00001) {
-        *h = 0.0;  // No hue
-    } else if (r == max) {
+        *h = 0.0; // No hue
+    }
+    else if (r == max) {
         *h = 60.0 * fmod(((g - b) / delta), 6.0);
-    } else if (g == max) {
+    }
+    else if (g == max) {
         *h = 60.0 * (((b - r) / delta) + 2.0);
-    } else {
+    }
+    else {
         *h = 60.0 * (((r - g) / delta) + 4.0);
     }
 
-    if (*h < 0.0)
-        *h += 360.0;
+    if (*h < 0.0) *h += 360.0;
 }
 
 int hsv_to_rgb(double h, double s, double v) {
     if (s <= 0.0) {
-        int value = (int)(v * 255);
+        int value = (int) (v * 255);
         return (value << 16) | (value << 8) | value;
     }
 
@@ -83,7 +85,7 @@ int hsv_to_rgb(double h, double s, double v) {
     if (h < 0.0) h += 360.0;
 
     double hh = h / 60.0;
-    int i = (int)floor(hh);
+    int i = (int) floor(hh);
     double f = hh - i;
 
     double p = v * (1.0 - s);
@@ -92,18 +94,42 @@ int hsv_to_rgb(double h, double s, double v) {
 
     double r, g, b;
     switch (i) {
-        case 0: r = v; g = t; b = p; break;
-        case 1: r = q; g = v; b = p; break;
-        case 2: r = p; g = v; b = t; break;
-        case 3: r = p; g = q; b = v; break;
-        case 4: r = t; g = p; b = v; break;
-        default: r = v; g = p; b = q; break;
+        case 0:
+            r = v;
+            g = t;
+            b = p;
+            break;
+        case 1:
+            r = q;
+            g = v;
+            b = p;
+            break;
+        case 2:
+            r = p;
+            g = v;
+            b = t;
+            break;
+        case 3:
+            r = p;
+            g = q;
+            b = v;
+            break;
+        case 4:
+            r = t;
+            g = p;
+            b = v;
+            break;
+        default:
+            r = v;
+            g = p;
+            b = q;
+            break;
     }
 
     // Convert to integer RGB
-    int ir = (int)(r * 255.0);
-    int ig = (int)(g * 255.0);
-    int ib = (int)(b * 255.0);
+    int ir = (int) (r * 255.0);
+    int ig = (int) (g * 255.0);
+    int ib = (int) (b * 255.0);
 
     return (ir << 16) | (ig << 8) | ib;
 }

@@ -1,12 +1,12 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 #include "cmdfx/core/canvas.h"
 #include "cmdfx/core/sprites.h"
 #include "cmdfx/core/util.h"
-#include "cmdfx/physics/mass.h"
 #include "cmdfx/physics/engine.h"
+#include "cmdfx/physics/mass.h"
 #include "cmdfx/physics/motion.h"
 
 // 0 - vx
@@ -32,8 +32,7 @@ void _checkMotion(CmdFX_Sprite* sprite) {
         if (temp == 0) return;
 
         _motion = temp;
-        for (int i = _motionCount; i <= id; i++)
-            _motion[i] = 0;
+        for (int i = _motionCount; i <= id; i++) _motion[i] = 0;
 
         _motionCount = id + 1;
     }
@@ -108,7 +107,7 @@ int Sprite_setVelocityY(CmdFX_Sprite* sprite, double velocity) {
     int id = sprite->id - 1;
     if (_motion[id] == 0) return -1;
     _motion[id][1] = velocity;
-    
+
     CmdFX_tryUnlockMutex(_SPRITE_MOTION_MUTEX);
     return 0;
 }
@@ -137,7 +136,7 @@ int Sprite_setAccelerationX(CmdFX_Sprite* sprite, double acceleration) {
     int id = sprite->id - 1;
     if (_motion[id] == 0) return -1;
     _motion[id][2] = acceleration;
-    
+
     CmdFX_tryUnlockMutex(_SPRITE_MOTION_MUTEX);
     return 0;
 }
@@ -150,7 +149,7 @@ double Sprite_getAccelerationY(CmdFX_Sprite* sprite) {
     int id = sprite->id - 1;
     if (id >= _motionCount) return 0;
     if (_motion[id] == 0) return 0;
-    
+
     return _motion[id][3];
 }
 
@@ -183,7 +182,8 @@ int Sprite_isAboutToCollide(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
 
     double* motion1 = Sprite_getMotion(sprite1);
     double* motion2 = Sprite_getMotion(sprite2);
-    if (motion1 == 0 || motion2 == 0) return 0; // not colliding + no motion = not about to ollide
+    if (motion1 == 0 || motion2 == 0)
+        return 0; // not colliding + no motion = not about to ollide
 
     double dx1 = motion1[0] + motion1[2];
     double dy1 = motion1[1] + motion1[3];
@@ -196,7 +196,7 @@ int Sprite_isAboutToCollide(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
         sprite1->y + sprite1->height + dy1 >= sprite2->y) {
         return 1;
     }
-    
+
     if (sprite2->x <= sprite1->x + sprite1->width + dx1 &&
         sprite2->x + sprite2->width + dx2 >= sprite1->x &&
         sprite2->y <= sprite1->y + sprite1->height + dy1 &&
@@ -231,7 +231,8 @@ CmdFX_Sprite** Sprite_getAboutToCollideSprites(CmdFX_Sprite* sprite) {
         if (Sprite_isAboutToCollide(sprite, other)) {
             if (collidingCount >= allocated) {
                 allocated *= 2;
-                CmdFX_Sprite** temp = realloc(colliding, sizeof(CmdFX_Sprite*) * (allocated + 1));
+                CmdFX_Sprite** temp =
+                    realloc(colliding, sizeof(CmdFX_Sprite*) * (allocated + 1));
                 if (!temp) {
                     free(colliding);
                     return 0;
@@ -239,7 +240,8 @@ CmdFX_Sprite** Sprite_getAboutToCollideSprites(CmdFX_Sprite* sprite) {
                 colliding = temp;
 
                 // crealloc
-                for (int j = collidingCount; j < allocated + 1; j++) colliding[j] = 0;
+                for (int j = collidingCount; j < allocated + 1; j++)
+                    colliding[j] = 0;
             }
 
             colliding[collidingCount++] = other;
@@ -294,8 +296,7 @@ void _checkLeftovers(CmdFX_Sprite* sprite) {
         }
 
         _leftovers = temp;
-        for (int i = _leftoversCount; i <= id; i++)
-            _leftovers[i] = 0;
+        for (int i = _leftoversCount; i <= id; i++) _leftovers[i] = 0;
 
         _leftoversCount = id + 1;
     }
@@ -326,9 +327,13 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
     int width = Canvas_getWidth();
 
     double* motion = _motion[id];
-    double vx = motion[0]; double ax = motion[2]; double dx = vx + ax;
-    double vy = motion[1]; double ay = motion[3]; double dy = vy + ay;
-    
+    double vx = motion[0];
+    double ax = motion[2];
+    double dx = vx + ax;
+    double vy = motion[1];
+    double ay = motion[3];
+    double dy = vy + ay;
+
     // Check Terminal Velocity
     dy = clamp_d(dy, -terminalVelocity, terminalVelocity);
 
@@ -372,12 +377,19 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
 
     if (_motionDebugEnabled) {
         double mass = Sprite_getMass(sprite);
-        
+
         CmdFX_tryLockMutex(_CANVAS_MUTEX);
 
         Canvas_setCursor(3, sprite->id + 1);
         printf("\033[0m");
-        printf("sprite #%d | mass: %.2f | vx: %.2f, vy: %.2f, ax: %.2f, ay: %.2f -- dx: %.2f, dy: %.2f -- x: %d -> %.2f, y: %d -> %.2f", sprite->id, mass, motion[0], motion[1], motion[2], motion[3], dx, dy, sprite->x, sprite->x + dx, sprite->y, sprite->y - dy);
+        printf(
+            "sprite #%d | mass: %.2f | vx: %.2f, vy: %.2f, ax: %.2f, ay: "
+            "%.2f -- dx: %.2f, dy: "
+            "%.2f -- x: %d -> "
+            "%.2f, y: %d -> %.2f",
+            sprite->id, mass, motion[0], motion[1], motion[2], motion[3], dx,
+            dy, sprite->x, sprite->x + dx, sprite->y, sprite->y - dy
+        );
         fflush(stdout);
         Canvas_setCursor(0, 0);
 
@@ -386,7 +398,7 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
 
     // Move Sprite
     Sprite_moveBy(sprite, dx0, -dy0); // reverse dy
-    
+
     motion[0] = dx;
     motion[1] = dy;
 
@@ -435,6 +447,6 @@ int Sprite_resetAllMotion(CmdFX_Sprite* sprite) {
     }
 
     CmdFX_tryUnlockMutex(_SPRITE_MOTION_MUTEX);
-    
+
     return 0;
 }

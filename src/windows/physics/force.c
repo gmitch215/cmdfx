@@ -1,12 +1,12 @@
+#include <process.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <windows.h>
-#include <process.h>
 
 #include "cmdfx/core/sprites.h"
-#include "cmdfx/physics/util.h"
 #include "cmdfx/physics/force.h"
+#include "cmdfx/physics/util.h"
 
 // Impulse Functions
 
@@ -27,7 +27,9 @@ unsigned __stdcall _addSpriteForce(void* arg) {
     return 0;
 }
 
-int Sprite_addForceFor(CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration) {
+int Sprite_addForceFor(
+    CmdFX_Sprite* sprite, CmdFX_Vector* vector, int duration
+) {
     if (sprite == 0) return -1;
     if (sprite->id == 0) return -1;
     if (vector == 0) return -1;

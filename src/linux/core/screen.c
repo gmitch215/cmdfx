@@ -1,9 +1,10 @@
+#include <fcntl.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
+#include <unistd.h>
 
 #include <linux/fb.h>
 
@@ -11,7 +12,7 @@
 
 // Screen API
 
-void Screen_getSize(int *width, int *height) {
+void Screen_getSize(int* width, int* height) {
     int fb = open("/dev/fb0", O_RDONLY);
     if (fb < 0) {
         perror("Failed to open framebuffer device");

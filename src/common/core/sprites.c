@@ -1,20 +1,20 @@
+#include <stdarg.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdarg.h>
-#include <stdbool.h>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#include "cmdfx/core/sprites.h"
-#include "cmdfx/core/canvas.h"
-#include "cmdfx/core/util.h"
 #include "cmdfx/core/builder.h"
+#include "cmdfx/core/canvas.h"
 #include "cmdfx/core/costumes.h"
-#include "cmdfx/physics/motion.h"
+#include "cmdfx/core/sprites.h"
+#include "cmdfx/core/util.h"
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
+#include "cmdfx/physics/motion.h"
 
 #define _SPRITE_DRAWN_MUTEX 0
 static CmdFX_Sprite** _sprites = 0;
@@ -37,7 +37,8 @@ int _spriteMutexId(const CmdFX_Sprite* sprite) {
 
     // Knuth multiplicative hash
     // Decorrelates integers
-    int id = _FIRST_SPRITE_MUTEX_ID + (int) ((uid * 0x9e3779b9u) % (unsigned) range);
+    int id =
+        _FIRST_SPRITE_MUTEX_ID + (int) ((uid * 0x9e3779b9u) % (unsigned) range);
     return id;
 }
 
@@ -51,26 +52,43 @@ void _unlockSprite(const CmdFX_Sprite* sprite) {
     if (id >= 0) CmdFX_tryUnlockMutex(id);
 }
 
-// Lock two sprites in a stable order (by uid) to avoid deadlocks when two threads act on two sprites.
+// Lock two sprites in a stable order (by uid) to avoid deadlocks when two
+// threads act on two sprites.
 void _lockSpritePair(const CmdFX_Sprite* a, const CmdFX_Sprite* b) {
-    if (a == b) { _lockSprite(a); return; }
-    if (a == 0 || b == 0) { if (a) _lockSprite(a); if (b) _lockSprite(b); return; }
+    if (a == b) {
+        _lockSprite(a);
+        return;
+    }
+    if (a == 0 || b == 0) {
+        if (a) _lockSprite(a);
+        if (b) _lockSprite(b);
+        return;
+    }
     if (a->uid < b->uid) {
         _lockSprite(a);
         _lockSprite(b);
-    } else {
+    }
+    else {
         _lockSprite(b);
         _lockSprite(a);
     }
 }
 
 void _unlockSpritePair(const CmdFX_Sprite* a, const CmdFX_Sprite* b) {
-    if (a == b) { _unlockSprite(a); return; }
-    if (a == 0 || b == 0) { if (a) _unlockSprite(a); if (b) _unlockSprite(b); return; }
+    if (a == b) {
+        _unlockSprite(a);
+        return;
+    }
+    if (a == 0 || b == 0) {
+        if (a) _unlockSprite(a);
+        if (b) _unlockSprite(b);
+        return;
+    }
     if (a->uid < b->uid) {
         _unlockSprite(b);
         _unlockSprite(a);
-    } else {
+    }
+    else {
         _unlockSprite(a);
         _unlockSprite(b);
     }
@@ -150,17 +168,18 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
         }
         _spriteUidCounter++;
         _takenUids[0] = sprite->uid;
-    } else {
+    }
+    else {
         bool* present = calloc(_spriteUidCounter + 1, sizeof(bool));
-        
-        int j = -1; 
+
+        int j = -1;
         for (int i = 0; i < _spriteUidCounter; i++) {
             int uid = _takenUids[i];
             if (uid >= 1 && uid <= _spriteUidCounter) {
                 present[uid] = true;
             }
         }
-    
+
         // Find the first missing number in the range [1, _spriteUidCounter]
         for (int i = 1; i <= _spriteUidCounter; i++) {
             if (!present[i]) {
@@ -176,8 +195,9 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
 
         // j = lowest available UID
         sprite->uid = j;
-        if (_spriteUidCounter < j) 
-            _spriteUidCounter = j; // if j is greater than the current counter, update counter
+        if (_spriteUidCounter < j)
+            _spriteUidCounter =
+                j; // if j is greater than the current counter, update counter
 
         int* temp = realloc(_takenUids, sizeof(int) * (_spriteUidCounter + 1));
         if (temp == 0) {
@@ -236,7 +256,9 @@ void Sprite_free(CmdFX_Sprite* sprite) {
         }
 
         if (zeroCount > 0) {
-            int* temp = realloc(_takenUids, sizeof(int) * (_spriteUidCounter - zeroCount));
+            int* temp = realloc(
+                _takenUids, sizeof(int) * (_spriteUidCounter - zeroCount)
+            );
             if (temp != 0) {
                 _takenUids = temp;
                 for (int i = 0; i < _spriteUidCounter; i++)
@@ -246,7 +268,7 @@ void Sprite_free(CmdFX_Sprite* sprite) {
                         }
                         break;
                     }
-                
+
                 _spriteUidCounter -= zeroCount;
             }
         }
@@ -276,7 +298,8 @@ void Sprite_free(CmdFX_Sprite* sprite) {
             free(ansi);
         }
         free(costumes);
-    } else {
+    }
+    else {
         char** data = sprite->data;
         if (data != 0) {
             int height = getCharArrayHeight(data);
@@ -304,7 +327,9 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
     if (sprite->data == 0) return;
 
     if (sprite->x < 1 || sprite->y < 1) return;
-    if (sprite->x + sprite->width > Canvas_getWidth() || sprite->y + sprite->height > Canvas_getHeight()) return;
+    if (sprite->x + sprite->width > Canvas_getWidth() ||
+        sprite->y + sprite->height > Canvas_getHeight())
+        return;
 
     int hasAnsi = sprite->ansi != 0;
     for (int i = 0; i < sprite->height; i++) {
@@ -324,8 +349,7 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
             Canvas_setCursor(x, y);
             if (hasAnsi) {
                 char* ansi = sprite->ansi[i][j];
-                if (ansi != 0)
-                    Canvas_setAnsiCurrent(ansi);
+                if (ansi != 0) Canvas_setAnsiCurrent(ansi);
             }
             putchar(c);
             if (hasAnsi) Canvas_resetFormat();
@@ -366,12 +390,14 @@ int Sprite_draw(int x, int y, CmdFX_Sprite* sprite) {
 
     // Add Sprite to List
     CmdFX_tryLockMutex(_SPRITE_DRAWN_MUTEX);
-    
+
     if (_sprites == 0) {
         _sprites = malloc(sizeof(CmdFX_Sprite*) * 2);
         if (!_sprites) return 0;
-    } else {
-        CmdFX_Sprite** temp = realloc(_sprites, sizeof(CmdFX_Sprite*) * (_spriteCount + 2));
+    }
+    else {
+        CmdFX_Sprite** temp =
+            realloc(_sprites, sizeof(CmdFX_Sprite*) * (_spriteCount + 2));
         if (!temp) return 0;
 
         _sprites = temp;
@@ -391,7 +417,7 @@ void Sprite_remove0(CmdFX_Sprite* sprite) {
         for (int j = 0; j < sprite->width; j++) {
             int x = sprite->x + j;
             int y = sprite->y + i;
-            
+
             Canvas_setCursor(x, y);
             printf("\033[0m");
             putchar(' ');
@@ -418,7 +444,8 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
     }
     _sprites[_spriteCount - 1] = 0;
 
-    CmdFX_Sprite** temp = realloc(_sprites, sizeof(CmdFX_Sprite*) * _spriteCount);
+    CmdFX_Sprite** temp =
+        realloc(_sprites, sizeof(CmdFX_Sprite*) * _spriteCount);
     if (temp)
         _sprites = temp;
     else
@@ -436,7 +463,7 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
     sprite->x = -1;
     sprite->y = -1;
     CmdFX_tryUnlockMutex(_SPRITE_POSITION_MUTEX);
-    
+
     CmdFX_tryUnlockMutex(_SPRITE_DRAWN_MUTEX);
 
     // Reset Physics declarations
@@ -480,7 +507,8 @@ int Sprite_setData(CmdFX_Sprite* sprite, char** data) {
             if (ansi[i] == 0) {
                 ansi[i] = calloc(width, sizeof(char*));
                 if (ansi[i] == 0) return 0;
-            } else {
+            }
+            else {
                 char** ansiLine = ansi[i];
                 for (int j = 0; j < width; j++) {
                     if (j >= sprite->width) {
@@ -509,13 +537,14 @@ int Sprite_setChar(CmdFX_Sprite* sprite, int x, int y, char c) {
     CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
 
     // Redraw Character if Drawn
-    if (sprite->id != 0)
-        Canvas_setChar(sprite->x + x, sprite->y + y, c);
+    if (sprite->id != 0) Canvas_setChar(sprite->x + x, sprite->y + y, c);
 
     return 1;
 }
 
-int Sprite_fillChar(CmdFX_Sprite* sprite, int x, int y, int width, int height, char c) {
+int Sprite_fillChar(
+    CmdFX_Sprite* sprite, int x, int y, int width, int height, char c
+) {
     if (sprite == 0) return 0;
     if (sprite->data == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
@@ -538,7 +567,9 @@ int Sprite_fillChar(CmdFX_Sprite* sprite, int x, int y, int width, int height, c
     return 1;
 }
 
-int Sprite_fillCharEmpty(CmdFX_Sprite* sprite, int x, int y, int width, int height, char c) {
+int Sprite_fillCharEmpty(
+    CmdFX_Sprite* sprite, int x, int y, int width, int height, char c
+) {
     if (sprite == 0) return 0;
     if (sprite->data == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
@@ -605,7 +636,7 @@ int Sprite_fillCharAllEmpty(CmdFX_Sprite* sprite, char c) {
 
 int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
     if (sprite == 0) return 0;
-    if (ansi == 0) return 0;  // Add null check for ansi parameter
+    if (ansi == 0) return 0; // Add null check for ansi parameter
     if (sprite->ansi == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
 
@@ -620,7 +651,7 @@ int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
     sprite->ansi[y][x] = ansi0;
 
     CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
-    
+
     return 1;
 }
 
@@ -640,15 +671,19 @@ int Sprite_appendAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
         strncpy(ansi0, ansi, ansiSize);
 
         sprite->ansi[y][x] = ansi0;
-    } else {
+    }
+    else {
         int oldLen = strlen(sprite->ansi[y][x]);
         int size = oldLen + ansiSize;
         char* ansi0 = realloc(sprite->ansi[y][x], size);
         if (ansi0 == 0) return 0;
 
         sprite->ansi[y][x] = ansi0;
-        strncat(sprite->ansi[y][x], ansi, ansiSize - 1);  // Use strncat for safety
-        sprite->ansi[y][x][size - 1] = '\0';  // Ensure null termination
+        strncat(
+            sprite->ansi[y][x], ansi,
+            ansiSize - 1
+        );                                   // Use strncat for safety
+        sprite->ansi[y][x][size - 1] = '\0'; // Ensure null termination
     }
 
     CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
@@ -656,7 +691,9 @@ int Sprite_appendAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
     return 1;
 }
 
-int Sprite_fillAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi, int width, int height) {
+int Sprite_fillAnsi(
+    CmdFX_Sprite* sprite, int x, int y, char* ansi, int width, int height
+) {
     if (sprite == 0) return 0;
     if (sprite->ansi == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
@@ -721,7 +758,9 @@ int Sprite_appendAnsiAll(CmdFX_Sprite* sprite, char* ansi) {
 
 // Utility Methods - Sprite Creation
 
-CmdFX_Sprite* Sprite_createFilled(int width, int height, char c, char* ansi, int z) {
+CmdFX_Sprite* Sprite_createFilled(
+    int width, int height, char c, char* ansi, int z
+) {
     if (width <= 0 || height <= 0) return 0;
 
     char** data = malloc(sizeof(char*) * (height + 1));
@@ -750,8 +789,7 @@ CmdFX_Sprite* Sprite_createFilled(int width, int height, char c, char* ansi, int
 
     CmdFX_Sprite* sprite = Sprite_create(data, ansiData, z);
     Sprite_fillCharAll(sprite, c);
-    if (ansi != 0) 
-        Sprite_setAnsiAll(sprite, ansi);
+    if (ansi != 0) Sprite_setAnsiAll(sprite, ansi);
 
     return sprite;
 }
@@ -780,7 +818,8 @@ CmdFX_Sprite* Sprite_loadFromFile(const char* path, int z) {
             data[1] = 0;
             width = strlen(line);
             height = 1;
-        } else {
+        }
+        else {
             char** newData = realloc(data, sizeof(char*) * (height + 2));
             if (newData == 0) break;
             data = newData;
@@ -895,7 +934,9 @@ int Sprite_resize(CmdFX_Sprite* sprite, int width, int height) {
     return Sprite_resizeWithPadding(sprite, width, height, ' ');
 }
 
-int Sprite_resizeWithPadding(CmdFX_Sprite* sprite, int width, int height, char padding) {
+int Sprite_resizeWithPadding(
+    CmdFX_Sprite* sprite, int width, int height, char padding
+) {
     if (sprite == 0) return 0;
     if (width < 1 || height < 1) return 0;
 
@@ -942,9 +983,11 @@ int Sprite_center0(CmdFX_Sprite* sprite) {
     // Move the contents of data and ansi toward the center
     for (int i = 0; i < newHeight; i++) {
         for (int j = 0; j < newWidth; j++) {
-            sprite->data[offsetY + i][offsetX + j] = sprite->data[top + i][left + j];
+            sprite->data[offsetY + i][offsetX + j] =
+                sprite->data[top + i][left + j];
             if (sprite->ansi != 0) {
-                sprite->ansi[offsetY + i][offsetX + j] = sprite->ansi[top + i][left + j];
+                sprite->ansi[offsetY + i][offsetX + j] =
+                    sprite->ansi[top + i][left + j];
             }
         }
     }
@@ -952,7 +995,8 @@ int Sprite_center0(CmdFX_Sprite* sprite) {
     // Fill the remaining area with whitespace and reset ansi
     for (int i = 0; i < sprite->height; i++) {
         for (int j = 0; j < sprite->width; j++) {
-            if (i < offsetY || i >= offsetY + newHeight || j < offsetX || j >= offsetX + newWidth) {
+            if (i < offsetY || i >= offsetY + newHeight || j < offsetX ||
+                j >= offsetX + newWidth) {
                 sprite->data[i][j] = ' ';
                 if (sprite->ansi != 0) {
                     sprite->ansi[i][j] = 0;
@@ -975,12 +1019,12 @@ int Sprite_center(CmdFX_Sprite* sprite) {
     }
 
     if (!Sprite_center0(sprite)) {
-        Sprite_draw0(sprite);  // Redraw, center failed
+        Sprite_draw0(sprite); // Redraw, center failed
         return 0;
     }
 
     if (!Sprite_center0(sprite)) {
-        Sprite_draw0(sprite);  // Redraw, center failed
+        Sprite_draw0(sprite); // Redraw, center failed
         return 0;
     }
 
@@ -1029,7 +1073,7 @@ void Sprite_moveTo(CmdFX_Sprite* sprite, int x, int y) {
     if (sprite->id == 0) return;
     if (x < 1 || y < 1) return;
     if (sprite->x == x && sprite->y == y) return;
-    
+
     int width = Canvas_getWidth();
     int height = Canvas_getHeight();
     if (width > 0 && height > 0) {
@@ -1077,7 +1121,8 @@ CmdFX_Sprite** Sprite_getCollidingSprites(CmdFX_Sprite* sprite) {
         if (Sprite_isColliding(sprite, other)) {
             if (collidingCount >= allocated) {
                 allocated *= 2;
-                CmdFX_Sprite** temp = realloc(colliding, sizeof(CmdFX_Sprite*) * (allocated + 1));
+                CmdFX_Sprite** temp =
+                    realloc(colliding, sizeof(CmdFX_Sprite*) * (allocated + 1));
                 if (!temp) {
                     free(colliding);
                     return 0;
@@ -1085,7 +1130,8 @@ CmdFX_Sprite** Sprite_getCollidingSprites(CmdFX_Sprite* sprite) {
                 colliding = temp;
 
                 // realloc a calloc
-                for (int j = collidingCount; j < allocated + 1; j++) colliding[j] = 0;
+                for (int j = collidingCount; j < allocated + 1; j++)
+                    colliding[j] = 0;
             }
 
             colliding[collidingCount++] = other;
@@ -1105,24 +1151,26 @@ int Sprite_isColliding(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
     if (sprite1->id == sprite2->id) return 0;
 
     return sprite1->x <= sprite2->x + sprite2->width &&
-        sprite1->x + sprite1->width >= sprite2->x &&
-        sprite1->y <= sprite2->y + sprite2->height &&
-        sprite1->y + sprite1->height >= sprite2->y;
+           sprite1->x + sprite1->width >= sprite2->x &&
+           sprite1->y <= sprite2->y + sprite2->height &&
+           sprite1->y + sprite1->height >= sprite2->y;
 }
 
 int Sprite_isOnTop(CmdFX_Sprite* sprite, int x, int y) {
     if (sprite == 0) return 0;
     if (_spriteCount < 2) return 1;
     if (x < sprite->x || y < sprite->y) return 0;
-    if (x >= sprite->x + sprite->width || y >= sprite->y + sprite->height) return 0;
+    if (x >= sprite->x + sprite->width || y >= sprite->y + sprite->height)
+        return 0;
 
     CmdFX_Sprite** collisions = Sprite_getCollidingSprites(sprite);
     if (collisions == 0) return 1;
 
     for (int i = 0; collisions[i] != 0; i++) {
         CmdFX_Sprite* other = collisions[i];
-        if (x < other-> x || y < other->y) continue;
-        if (x >= other->x + other->width || y >= other->y + other->height) continue;
+        if (x < other->x || y < other->y) continue;
+        if (x >= other->x + other->width || y >= other->y + other->height)
+            continue;
 
         if (other->z > sprite->z) {
             free(collisions);
@@ -1138,15 +1186,17 @@ int Sprite_isOnBottom(CmdFX_Sprite* sprite, int x, int y) {
     if (sprite == 0) return 0;
     if (sprite->id == 0) return 0;
     if (x < sprite->x || y < sprite->y) return 0;
-    if (x >= sprite->x + sprite->width || y >= sprite->y + sprite->height) return 0;
+    if (x >= sprite->x + sprite->width || y >= sprite->y + sprite->height)
+        return 0;
 
     CmdFX_Sprite** collisions = Sprite_getCollidingSprites(sprite);
     if (collisions == 0) return 1;
 
     for (int i = 0; collisions[i] != 0; i++) {
         CmdFX_Sprite* other = collisions[i];
-        if (x < other-> x || y < other->y) continue;
-        if (x >= other->x + other->width || y >= other->y + other->height) continue;
+        if (x < other->x || y < other->y) continue;
+        if (x >= other->x + other->width || y >= other->y + other->height)
+            continue;
 
         if (other->z < sprite->z) {
             free(collisions);
@@ -1166,7 +1216,10 @@ int Sprite_setForeground(CmdFX_Sprite* sprite, int x, int y, int rgb) {
     if (rgb < 0 || rgb > 0xFFFFFF) return 0;
 
     char* ansi = malloc(22);
-    snprintf(ansi, 22, "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
+    snprintf(
+        ansi, 22, "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF,
+        rgb & 0xFF
+    );
 
     return Sprite_setAnsi(sprite, x, y, ansi);
 }
@@ -1187,7 +1240,10 @@ int Sprite_setForegroundAll(CmdFX_Sprite* sprite, int rgb) {
     if (rgb < 0 || rgb > 0xFFFFFF) return 0;
 
     char* ansi = malloc(22);
-    snprintf(ansi, 22, "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
+    snprintf(
+        ansi, 22, "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF,
+        rgb & 0xFF
+    );
 
     return Sprite_setAnsiAll(sprite, ansi);
 }
@@ -1208,7 +1264,10 @@ int Sprite_setBackground(CmdFX_Sprite* sprite, int x, int y, int rgb) {
     if (rgb < 0 || rgb > 0xFFFFFF) return 0;
 
     char* ansi = malloc(22);
-    snprintf(ansi, 22, "\033[48;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
+    snprintf(
+        ansi, 22, "\033[48;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF,
+        rgb & 0xFF
+    );
 
     int res = Sprite_setAnsi(sprite, x, y, ansi);
     free(ansi);
@@ -1235,7 +1294,10 @@ int Sprite_setBackgroundAll(CmdFX_Sprite* sprite, int rgb) {
     if (rgb < 0 || rgb > 0xFFFFFF) return 0;
 
     char* ansi = malloc(22);
-    snprintf(ansi, 22, "\033[48;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF);
+    snprintf(
+        ansi, 22, "\033[48;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF,
+        rgb & 0xFF
+    );
 
     int res = Sprite_setAnsiAll(sprite, ansi);
     free(ansi);
@@ -1268,7 +1330,10 @@ void _freeANSI(char*** ansi, int width, int height) {
     free(ansi);
 }
 
-int Sprite_setGradient0(CmdFX_Sprite* sprite, int prefix, int x, int y, int width, int height, enum CmdFX_GradientDirection direction, int numColors, va_list* args) {
+int Sprite_setGradient0(
+    CmdFX_Sprite* sprite, int prefix, int x, int y, int width, int height,
+    enum CmdFX_GradientDirection direction, int numColors, va_list* args
+) {
     int* colors = (int*) malloc(sizeof(int) * (numColors + 1));
     if (colors == 0) return 0;
 
@@ -1282,9 +1347,13 @@ int Sprite_setGradient0(CmdFX_Sprite* sprite, int prefix, int x, int y, int widt
         return 0;
     }
     if (prefix == 38)
-        String2DBuilder_multiGradientForegroundFull(gradient, numColors, colors, direction);
+        String2DBuilder_multiGradientForegroundFull(
+            gradient, numColors, colors, direction
+        );
     else
-        String2DBuilder_multiGradientBackgroundFull(gradient, numColors, colors, direction);
+        String2DBuilder_multiGradientBackgroundFull(
+            gradient, numColors, colors, direction
+        );
 
     for (int j = 0; j < height; j++) {
         int cy = y + j;
@@ -1312,37 +1381,59 @@ int Sprite_setGradient0(CmdFX_Sprite* sprite, int prefix, int x, int y, int widt
     return 1;
 }
 
-int Sprite_setForegroundGradient(CmdFX_Sprite* sprite, int x, int y, int width, int height, enum CmdFX_GradientDirection direction, int numColors, ...) {
+int Sprite_setForegroundGradient(
+    CmdFX_Sprite* sprite, int x, int y, int width, int height,
+    enum CmdFX_GradientDirection direction, int numColors, ...
+) {
     va_list args;
     va_start(args, numColors);
-    int res = Sprite_setGradient0(sprite, 38, x, y, width, height, direction, numColors, &args);
+    int res = Sprite_setGradient0(
+        sprite, 38, x, y, width, height, direction, numColors, &args
+    );
     va_end(args);
 
     return res;
 }
 
-int Sprite_setForegroundGradientAll(CmdFX_Sprite* sprite, enum CmdFX_GradientDirection direction, int numColors, ...) {
+int Sprite_setForegroundGradientAll(
+    CmdFX_Sprite* sprite, enum CmdFX_GradientDirection direction, int numColors,
+    ...
+) {
     va_list args;
     va_start(args, numColors);
-    int res = Sprite_setGradient0(sprite, 38, 0, 0, sprite->width, sprite->height, direction, numColors, &args);
+    int res = Sprite_setGradient0(
+        sprite, 38, 0, 0, sprite->width, sprite->height, direction, numColors,
+        &args
+    );
     va_end(args);
 
     return res;
 }
 
-int Sprite_setBackgroundGradient(CmdFX_Sprite* sprite, int x, int y, int width, int height, enum CmdFX_GradientDirection direction, int numColors, ...) {
+int Sprite_setBackgroundGradient(
+    CmdFX_Sprite* sprite, int x, int y, int width, int height,
+    enum CmdFX_GradientDirection direction, int numColors, ...
+) {
     va_list args;
     va_start(args, numColors);
-    int res = Sprite_setGradient0(sprite, 48, x, y, width, height, direction, numColors, &args);
+    int res = Sprite_setGradient0(
+        sprite, 48, x, y, width, height, direction, numColors, &args
+    );
     va_end(args);
 
     return res;
 }
 
-int Sprite_setBackgroundGradientAll(CmdFX_Sprite* sprite, enum CmdFX_GradientDirection direction, int numColors, ...) {
+int Sprite_setBackgroundGradientAll(
+    CmdFX_Sprite* sprite, enum CmdFX_GradientDirection direction, int numColors,
+    ...
+) {
     va_list args;
     va_start(args, numColors);
-    int res = Sprite_setGradient0(sprite, 48, 0, 0, sprite->width, sprite->height, direction, numColors, &args);
+    int res = Sprite_setGradient0(
+        sprite, 48, 0, 0, sprite->width, sprite->height, direction, numColors,
+        &args
+    );
     va_end(args);
 
     return res;
@@ -1359,12 +1450,10 @@ int Sprite_rotate(CmdFX_Sprite* sprite, double radians) {
         Sprite_remove0(sprite);
     }
 
-    if (sprite->data != 0)
-        Char2DBuilder_rotate(sprite->data, radians);
-    
-    if (sprite->ansi != 0)
-        String2DBuilder_rotate(sprite->ansi, radians);
-    
+    if (sprite->data != 0) Char2DBuilder_rotate(sprite->data, radians);
+
+    if (sprite->ansi != 0) String2DBuilder_rotate(sprite->ansi, radians);
+
     // Redraw Sprite if Drawn
     if (sprite->id != 0) {
         Sprite_draw0(sprite);
@@ -1390,12 +1479,10 @@ int Sprite_hFlip(CmdFX_Sprite* sprite) {
         Sprite_remove0(sprite);
     }
 
-    if (sprite->data != 0)
-        Char2DBuilder_hFlip(sprite->data);
-    
-    if (sprite->ansi != 0)
-        String2DBuilder_hFlip(sprite->ansi);
-    
+    if (sprite->data != 0) Char2DBuilder_hFlip(sprite->data);
+
+    if (sprite->ansi != 0) String2DBuilder_hFlip(sprite->ansi);
+
     // Redraw Sprite if Drawn
     if (sprite->id != 0) {
         Sprite_draw0(sprite);
@@ -1414,12 +1501,10 @@ int Sprite_vFlip(CmdFX_Sprite* sprite) {
         Sprite_remove0(sprite);
     }
 
-    if (sprite->data != 0)
-        Char2DBuilder_vFlip(sprite->data);
-    
-    if (sprite->ansi != 0)
-        String2DBuilder_vFlip(sprite->ansi);
-    
+    if (sprite->data != 0) Char2DBuilder_vFlip(sprite->data);
+
+    if (sprite->ansi != 0) String2DBuilder_vFlip(sprite->ansi);
+
     // Redraw Sprite if Drawn
     if (sprite->id != 0) {
         Sprite_draw0(sprite);

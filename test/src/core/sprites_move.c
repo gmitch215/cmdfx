@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "cmdfx/core/sprites.h"
 #include "../test.h"
+#include "cmdfx/core/sprites.h"
 
 int main() {
     int r = 0;

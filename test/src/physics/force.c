@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "cmdfx/core/sprites.h"
-#include "cmdfx/core/builder.h"
-#include "cmdfx/physics/force.h"
 #include "../test.h"
+#include "cmdfx/core/builder.h"
+#include "cmdfx/core/sprites.h"
+#include "cmdfx/physics/force.h"
 
 int main() {
     int r = 0;

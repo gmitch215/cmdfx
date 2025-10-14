@@ -1,18 +1,17 @@
+#include <pthread.h>
+#include <signal.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <pthread.h>
-#include <unistd.h>
-#include <signal.h>
 #include <sys/ioctl.h>
 #include <time.h>
-#include <signal.h>
+#include <unistd.h>
 
 #include "cmdfx/core/canvas.h"
-#include "cmdfx/core/events.h"
-#include "cmdfx/core/util.h"
-#include "cmdfx/core/screen.h"
 #include "cmdfx/core/device.h"
+#include "cmdfx/core/events.h"
+#include "cmdfx/core/screen.h"
+#include "cmdfx/core/util.h"
 #include "cmdfx/ui/button.h"
 #include "cmdfx/ui/switch.h"
 
@@ -49,7 +48,9 @@ void posix_checkResizeEvent(int sig) {
     }
 
     if (ws.ws_col != _prevWidth || ws.ws_row != _prevHeight) {
-        CmdFX_ResizeEvent resize = {_prevWidth, _prevHeight, ws.ws_col, ws.ws_row};
+        CmdFX_ResizeEvent resize = {
+            _prevWidth, _prevHeight, ws.ws_col, ws.ws_row
+        };
         CmdFX_Event event = {CMDFX_EVENT_RESIZE, currentTimeMillis(), &resize};
         dispatchCmdFXEvent(&event);
 
@@ -64,13 +65,14 @@ void posix_checkKeyEvent() {
     bool* keys = Device_getKeyboardKeysPressed();
     if (keys == 0) return;
 
-    if (_prevKeys == 0)
-        _prevKeys = (bool*) calloc(256, sizeof(bool));
+    if (_prevKeys == 0) _prevKeys = (bool*) calloc(256, sizeof(bool));
 
     for (int i = 0; i < 256; i++) {
         if (keys[i] != _prevKeys[i]) {
             CmdFX_KeyEvent keyEvent = {i, Device_fromKeyCode(i), keys[i]};
-            CmdFX_Event event = {CMDFX_EVENT_KEY, currentTimeMillis(), &keyEvent};
+            CmdFX_Event event = {
+                CMDFX_EVENT_KEY, currentTimeMillis(), &keyEvent
+            };
             dispatchCmdFXEvent(&event);
             _prevKeys[i] = keys[i];
         }
@@ -87,16 +89,17 @@ void posix_checkMouseEvent() {
     bool* buttons = Device_getMouseButtonsPressed();
     if (buttons == 0) return;
 
-    if (_prevButtons == 0)
-        _prevButtons = (bool*) calloc(3, sizeof(bool));
+    if (_prevButtons == 0) _prevButtons = (bool*) calloc(3, sizeof(bool));
 
     int x, y;
     Screen_getMousePos(&x, &y);
 
     for (int i = 0; i < 3; i++) {
-        if (buttons[i] != _prevButtons[i] || x != _prevMouseX || y != _prevMouseY) {
+        if (buttons[i] != _prevButtons[i] || x != _prevMouseX ||
+            y != _prevMouseY) {
             unsigned long long time = currentTimeMillis();
-            CmdFX_MouseEvent mouseEvent = {i, buttons[i], _prevMouseX, x, _prevMouseY, y};
+            CmdFX_MouseEvent mouseEvent = {i, buttons[i],  _prevMouseX,
+                                           x, _prevMouseY, y};
             CmdFX_Event event = {CMDFX_EVENT_MOUSE, time, &mouseEvent};
             dispatchCmdFXEvent(&event);
 
@@ -108,17 +111,18 @@ void posix_checkMouseEvent() {
                     CmdFX_Button* button = allButtons[j];
                     CmdFX_ButtonCallback callback = *button->callback;
                     callback(button, &mouseEvent, time);
-                    
+
                     CmdFX_ButtonEvent buttonEvent = {&mouseEvent, button};
-                    CmdFX_Event buttonEventStruct = {CMDFX_EVENT_BUTTON_CLICK, time, &buttonEvent};
+                    CmdFX_Event buttonEventStruct = {
+                        CMDFX_EVENT_BUTTON_CLICK, time, &buttonEvent
+                    };
                     dispatchCmdFXEvent(&buttonEventStruct);
 
                     switch (button->type) {
                         case CMDFX_BUTTON_TYPE_SWITCH:
                             Switch_toggleState(button);
                             break;
-                        default:
-                            break;
+                        default: break;
                     }
 
                     j++;
@@ -184,6 +188,6 @@ int endCmdFXEventLoop() {
     // free up loose variables
     if (_prevKeys) free(_prevKeys);
     if (_prevButtons) free(_prevButtons);
-    
+
     return 1;
 }

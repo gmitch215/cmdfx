@@ -1,7 +1,7 @@
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <limits.h>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -12,19 +12,21 @@
 
 #pragma region Utility
 
-double _calculateGradientFactor(int x, int y, int width, int height, enum CmdFX_GradientDirection direction) {
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
+
+double _calculateGradientFactor(
+    int x, int y, int width, int height, enum CmdFX_GradientDirection direction
+) {
     double factor = 0.0;
 
     switch (direction) {
-        case GRADIENT_HORIZONTAL:
-            factor = (double) x / (width - 1);
-            break;
+        case GRADIENT_HORIZONTAL: factor = (double) x / (width - 1); break;
         case GRADIENT_HORIZONTAL_REVERSE:
             factor = 1.0 - (double) x / (width - 1);
             break;
-        case GRADIENT_VERTICAL:
-            factor = (double) y / (height - 1);
-            break;
+        case GRADIENT_VERTICAL: factor = (double) y / (height - 1); break;
         case GRADIENT_VERTICAL_REVERSE:
             factor = 1.0 - (double) y / (height - 1);
             break;
@@ -35,7 +37,8 @@ double _calculateGradientFactor(int x, int y, int width, int height, enum CmdFX_
             factor = (double) (width - x - 1 + y) / (width + height - 2);
             break;
         case GRADIENT_ANGLE_225:
-            factor = (double) (width - x - 1 + height - y - 1) / (width + height - 2);
+            factor = (double) (width - x - 1 + height - y - 1) /
+                     (width + height - 2);
             break;
         case GRADIENT_ANGLE_315:
             factor = (double) (x + height - y - 1) / (width + height - 2);
@@ -63,8 +66,7 @@ int _getLower(double factor, double* percentages, int size) {
     double cumulative = 0.0;
     for (int i = 0; i < size; i++) {
         cumulative += percentages[i];
-        if (factor < cumulative)
-            return i;
+        if (factor < cumulative) return i;
     }
 
     return size - 1;
@@ -79,7 +81,7 @@ int getCharArrayWidth(char** array) {
 
 int getCharArrayHeight(char** array) {
     if (array == 0) return 0;
-    
+
     int height = 0;
     while (array[height] != 0) {
         if (height >= INT_MAX) return INT_MAX;
@@ -186,8 +188,7 @@ char** Char2DBuilder_createFilled(int width, int height, char c) {
     if (array == 0) return 0;
 
     for (int i = 0; i < height; i++)
-        for (int j = 0; j < width; j++) 
-            array[i][j] = c;
+        for (int j = 0; j < width; j++) array[i][j] = c;
 
     return array;
 }
@@ -237,7 +238,9 @@ int Char2DBuilder_vLine(char** array, int x, int y, int height, char c) {
     return 0;
 }
 
-int Char2DBuilder_rect(char** array, int x, int y, int width, int height, char c) {
+int Char2DBuilder_rect(
+    char** array, int x, int y, int width, int height, char c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -261,7 +264,9 @@ int Char2DBuilder_rect(char** array, int x, int y, int width, int height, char c
     return 0;
 }
 
-int Char2DBuilder_fillRect(char** array, int x, int y, int width, int height, char c) {
+int Char2DBuilder_fillRect(
+    char** array, int x, int y, int width, int height, char c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -296,7 +301,7 @@ int Char2DBuilder_circle(char** array, int x, int y, int radius, char c) {
 
     if (array[y] == 0) return -1;
     if (array[y][x] == 0) return -1;
-    
+
     if (array[y + radius] == 0) return -1;
     if (array[y - radius] == 0) return -1;
     if (array[y][x + radius] == 0) return -1;
@@ -318,7 +323,8 @@ int Char2DBuilder_circle(char** array, int x, int y, int radius, char c) {
 
         if (d < 0) {
             d += 2 * x1 + 3;
-        } else {
+        }
+        else {
             d += 2 * (x1 - y1) + 5;
             y1--;
         }
@@ -357,7 +363,9 @@ int Char2DBuilder_fillCircle(char** array, int x, int y, int radius, char c) {
     return 0;
 }
 
-int Char2DBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, char c) {
+int Char2DBuilder_ellipse(
+    char** array, int x, int y, int xradius, int yradius, char c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -391,14 +399,16 @@ int Char2DBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, 
 
         if (p < 0) {
             p += yradiusSq + px;
-        } else {
+        }
+        else {
             y1--;
             py -= twoXradiusSq;
             p += yradiusSq + px - py;
         }
     }
 
-    p = yradiusSq * (x1 + 0.5) * (x1 + 0.5) + xradiusSq * (y1 - 1) * (y1 - 1) - xradiusSq * yradiusSq;
+    p = yradiusSq * (x1 + 0.5) * (x1 + 0.5) + xradiusSq * (y1 - 1) * (y1 - 1) -
+        xradiusSq * yradiusSq;
     while (y1 >= 0) {
         Char2DBuilder_setChar(array, x + x1, y + y1, c);
         Char2DBuilder_setChar(array, x - x1, y + y1, c);
@@ -410,7 +420,8 @@ int Char2DBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, 
 
         if (p > 0) {
             p += xradiusSq - py;
-        } else {
+        }
+        else {
             x1++;
             px += twoYradiusSq;
             p += xradiusSq - py + px;
@@ -420,7 +431,9 @@ int Char2DBuilder_ellipse(char** array, int x, int y, int xradius, int yradius, 
     return 0;
 }
 
-int Char2DBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradius, char c) {
+int Char2DBuilder_fillEllipse(
+    char** array, int x, int y, int xradius, int yradius, char c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -435,9 +448,8 @@ int Char2DBuilder_fillEllipse(char** array, int x, int y, int xradius, int yradi
 
     for (int dy = -yradius; dy <= yradius; dy++) {
         for (int dx = -xradius; dx <= xradius; dx++) {
-            double ellipseEquation = 
-                (dx * dx) / (double)(xradiusSq) + 
-                (dy * dy) / (double)(yradiusSq);
+            double ellipseEquation = (dx * dx) / (double) (xradiusSq) +
+                                     (dy * dy) / (double) (yradiusSq);
 
             if (ellipseEquation <= 1.0) {
                 int px = x + dx;
@@ -486,16 +498,18 @@ int Char2DBuilder_line(char** array, int x1, int y1, int x2, int y2, char c) {
     return 0;
 }
 
-int Char2DBuilder_polygon(char** array, int x, int y, int sides, int radius, char c) {
+int Char2DBuilder_polygon(
+    char** array, int x, int y, int sides, int radius, char c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
     if (radius < 1) return -1;
     if (sides < 3) return -1;
 
     double angleStep = 2 * M_PI / sides;
-    
+
     int prevX = x + radius; // * cos(0);
-    int prevY = y; // + (radius * sin(0));
+    int prevY = y;          // + (radius * sin(0));
 
     for (int i = 1; i <= sides; i++) {
         int nextX = x + radius * cos(i * angleStep);
@@ -510,7 +524,9 @@ int Char2DBuilder_polygon(char** array, int x, int y, int sides, int radius, cha
     return 0;
 }
 
-int Char2DBuilder_fillPolygon(char** array, int x, int y, int sides, int radius, char c) {
+int Char2DBuilder_fillPolygon(
+    char** array, int x, int y, int sides, int radius, char c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
     if (radius < 1) return -1;
@@ -560,7 +576,8 @@ int Char2DBuilder_fillPolygon(char** array, int x, int y, int sides, int radius,
 
         for (int i = 0; i < count; i += 2) {
             if (i + 1 < count) {
-                for (int xFill = intersections[i]; xFill <= intersections[i + 1]; xFill++) {
+                for (int xFill = intersections[i];
+                     xFill <= intersections[i + 1]; xFill++) {
                     Char2DBuilder_setChar(array, xFill, scanY, c);
                 }
             }
@@ -627,7 +644,9 @@ int Char2DBuilder_resize(char** array, int width, int height) {
     return 0;
 }
 
-int Char2DBuilder_resizeWithPadding(char** array, int width, int height, char padding) {
+int Char2DBuilder_resizeWithPadding(
+    char** array, int width, int height, char padding
+) {
     if (array == 0) return -1;
     if (width <= 0 || height <= 0) return -1;
 
@@ -660,7 +679,8 @@ int Char2DBuilder_center0(char** array) {
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            if (i - yoffset >= 0 && i - yoffset < height && j - xoffset >= 0 && j - xoffset < width)
+            if (i - yoffset >= 0 && i - yoffset < height && j - xoffset >= 0 &&
+                j - xoffset < width)
                 newArray[i][j] = array[i - yoffset][j - xoffset];
             else
                 newArray[i][j] = ' ';
@@ -715,8 +735,10 @@ int Char2DBuilder_rotate(char** array, double radians) {
 
     for (int y = 0; y < height; y++)
         for (int x = 0; x < width; x++) {
-            int newX = (int) (cos(radians) * (x - cx) - sin(radians) * (y - cy) + cx);
-            int newY = (int) (sin(radians) * (x - cx) + cos(radians) * (y - cy) + cy);
+            int newX =
+                (int) (cos(radians) * (x - cx) - sin(radians) * (y - cy) + cx);
+            int newY =
+                (int) (sin(radians) * (x - cx) + cos(radians) * (y - cy) + cy);
 
             if (newX >= 0 && newX < width && newY >= 0 && newY < height)
                 tempArray[newY][newX] = array[y][x];
@@ -746,13 +768,13 @@ double Char2DBuilder_getRotationAngle(char** array) {
     int height = getCharArrayHeight(array);
 
     if (width <= 0 || height <= 0) return 0.0;
-    
+
     double cx = width / 2.0;
     double cy = height / 2.0;
-    
+
     double sumX = 0, sumY = 0;
     int whitespaceCount = 0;
-    
+
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             if (array[y][x] == ' ') {
@@ -768,7 +790,7 @@ double Char2DBuilder_getRotationAngle(char** array) {
     // Compute centroid
     double avgX = sumX / whitespaceCount;
     double avgY = sumY / whitespaceCount;
-    
+
     // Compute moment of inertia
     double sumXY = 0, sumXX = 0, sumYY = 0;
 
@@ -839,7 +861,7 @@ char** Char2DBuilder_transpose(char** array) {
 
     char** transposed = (char**) malloc(width * sizeof(char*));
     if (transposed == 0) return 0;
-    
+
     for (int i = 0; i < width; i++) {
         transposed[i] = (char*) malloc(height * sizeof(char));
         if (transposed[i] == 0) {
@@ -910,7 +932,8 @@ char** Char2DBuilder_scale(char** array, double scale) {
         for (int x = 0; x < width; x++)
             for (int sy = 0; sy < scale; sy++)
                 for (int sx = 0; sx < scale; sx++)
-                    scaled[(int) (y * scale + sy)][(int) (x * scale + sx)] = array[y][x];
+                    scaled[(int) (y * scale + sy)][(int) (x * scale + sx)] =
+                        array[y][x];
 
     // Free the original array
     for (int i = 0; i < height; i++) {
@@ -923,7 +946,10 @@ char** Char2DBuilder_scale(char** array, double scale) {
 
 // Utility Functions - Gradient
 
-char** _generateCharGradientGrid(char* chars, double* percentages, int numChars, int width, int height, enum CmdFX_GradientDirection direction) {
+char** _generateCharGradientGrid(
+    char* chars, double* percentages, int numChars, int width, int height,
+    enum CmdFX_GradientDirection direction
+) {
     char** grid = (char**) malloc(height * sizeof(char*));
     for (int i = 0; i < height; i++) {
         grid[i] = (char*) malloc(width * sizeof(char));
@@ -931,14 +957,16 @@ char** _generateCharGradientGrid(char* chars, double* percentages, int numChars,
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            double factor = _calculateGradientFactor(x, y, width, height, direction);
+            double factor =
+                _calculateGradientFactor(x, y, width, height, direction);
 
             int lower = _getLower(factor, percentages, numChars);
             int upper = lower + 1;
-                
+
             double range = percentages[upper] - percentages[lower];
-            double interpFactor = (factor - percentages[lower]) / (range > 0 ? range : 1);
-            
+            double interpFactor =
+                (factor - percentages[lower]) / (range > 0 ? range : 1);
+
             int charIndex = lower + (int) (interpFactor * (upper - lower));
             grid[y][x] = chars[charIndex];
         }
@@ -947,7 +975,10 @@ char** _generateCharGradientGrid(char* chars, double* percentages, int numChars,
     return grid;
 }
 
-int Char2DBuilder_gradient0(char** array, int x, int y, int width, int height, char* chars, double* percentages, int numChars, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_gradient0(
+    char** array, int x, int y, int width, int height, char* chars,
+    double* percentages, int numChars, enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -956,7 +987,9 @@ int Char2DBuilder_gradient0(char** array, int x, int y, int width, int height, c
     if (array[y][x + width - 1] == 0) return -1;
     if (array[y + height - 1] == 0) return -1;
 
-    char** grid = _generateCharGradientGrid(chars, percentages, numChars, width, height, direction);
+    char** grid = _generateCharGradientGrid(
+        chars, percentages, numChars, width, height, direction
+    );
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
@@ -970,7 +1003,10 @@ int Char2DBuilder_gradient0(char** array, int x, int y, int width, int height, c
     return 0;
 }
 
-int Char2DBuilder_gradient(char** array, int x, int y, int width, int height, char start, char end, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_gradient(
+    char** array, int x, int y, int width, int height, char start, char end,
+    enum CmdFX_GradientDirection direction
+) {
     char* chars = (char*) malloc(2 * sizeof(char));
     if (chars == 0) return -1;
     chars[0] = start;
@@ -984,7 +1020,9 @@ int Char2DBuilder_gradient(char** array, int x, int y, int width, int height, ch
     percentages[0] = 0.5;
     percentages[1] = 0.5;
 
-    int res = Char2DBuilder_gradient0(array, x, y, width, height, chars, percentages, 2, direction);
+    int res = Char2DBuilder_gradient0(
+        array, x, y, width, height, chars, percentages, 2, direction
+    );
 
     free(chars);
     free(percentages);
@@ -992,7 +1030,10 @@ int Char2DBuilder_gradient(char** array, int x, int y, int width, int height, ch
     return res;
 }
 
-int Char2DBuilder_multiGradient(char** array, int x, int y, int width, int height, int numChars, char* gradient, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_multiGradient(
+    char** array, int x, int y, int width, int height, int numChars,
+    char* gradient, enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1005,17 +1046,21 @@ int Char2DBuilder_multiGradient(char** array, int x, int y, int width, int heigh
     double* percentages = (double*) malloc(numChars * sizeof(double));
     if (percentages == 0) return -1;
 
-    for (int i = 0; i < numChars; i++)
-        percentages[i] = percent;
-    
-    int res = Char2DBuilder_gradient0(array, x, y, width, height, gradient, percentages, numChars, direction);
+    for (int i = 0; i < numChars; i++) percentages[i] = percent;
+
+    int res = Char2DBuilder_gradient0(
+        array, x, y, width, height, gradient, percentages, numChars, direction
+    );
 
     free(percentages);
 
     return res;
 }
 
-int Char2DBuilder_multiGradients(char** array, int x, int y, int width, int height, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_multiGradients(
+    char** array, int x, int y, int width, int height, int numChars,
+    char* gradient, double* percentages, enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1024,10 +1069,14 @@ int Char2DBuilder_multiGradients(char** array, int x, int y, int width, int heig
     if (array[y][x + width - 1] == 0) return -1;
     if (array[y + height - 1] == 0) return -1;
 
-    return Char2DBuilder_gradient0(array, x, y, width, height, gradient, percentages, numChars, direction);
+    return Char2DBuilder_gradient0(
+        array, x, y, width, height, gradient, percentages, numChars, direction
+    );
 }
 
-int Char2DBuilder_gradientFull(char** array, char start, char end, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_gradientFull(
+    char** array, char start, char end, enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
 
     int width = getCharArrayWidth(array);
@@ -1035,10 +1084,15 @@ int Char2DBuilder_gradientFull(char** array, char start, char end, enum CmdFX_Gr
 
     if (width <= 0 || height <= 0) return -1;
 
-    return Char2DBuilder_gradient(array, 0, 0, width, height, start, end, direction);
+    return Char2DBuilder_gradient(
+        array, 0, 0, width, height, start, end, direction
+    );
 }
 
-int Char2DBuilder_multiGradientFull(char** array, int numChars, char* gradient, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_multiGradientFull(
+    char** array, int numChars, char* gradient,
+    enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
 
     int width = getCharArrayWidth(array);
@@ -1046,10 +1100,15 @@ int Char2DBuilder_multiGradientFull(char** array, int numChars, char* gradient, 
 
     if (width <= 0 || height <= 0) return -1;
 
-    return Char2DBuilder_multiGradient(array, 0, 0, width, height, numChars, gradient, direction);
+    return Char2DBuilder_multiGradient(
+        array, 0, 0, width, height, numChars, gradient, direction
+    );
 }
 
-int Char2DBuilder_multiGradientsFull(char** array, int numChars, char* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+int Char2DBuilder_multiGradientsFull(
+    char** array, int numChars, char* gradient, double* percentages,
+    enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
 
     int width = getCharArrayWidth(array);
@@ -1057,7 +1116,9 @@ int Char2DBuilder_multiGradientsFull(char** array, int numChars, char* gradient,
 
     if (width <= 0 || height <= 0) return -1;
 
-    return Char2DBuilder_multiGradients(array, 0, 0, width, height, numChars, gradient, percentages, direction);
+    return Char2DBuilder_multiGradients(
+        array, 0, 0, width, height, numChars, gradient, percentages, direction
+    );
 }
 
 #pragma endregion
@@ -1114,8 +1175,7 @@ int clearStringArray(char*** array) {
     int height = getStringArrayHeight(array);
 
     for (int y = 0; y < height; y++)
-        for (int x = 0; x < width; x++)
-            strcpy(array[y][x], " ");
+        for (int x = 0; x < width; x++) strcpy(array[y][x], " ");
 
     return 0;
 }
@@ -1182,9 +1242,8 @@ char*** String2DBuilder_create(int width, int height) {
             return 0;
         }
 
-        for (int j = 0; j < width; j++)
-            array[i][j] = 0;
-        
+        for (int j = 0; j < width; j++) array[i][j] = 0;
+
         array[i][width] = 0;
     }
 
@@ -1254,7 +1313,9 @@ int String2DBuilder_vLine(char*** array, int x, int y, int height, char* c) {
     return 0;
 }
 
-int String2DBuilder_rect(char*** array, int x, int y, int width, int height, char* c) {
+int String2DBuilder_rect(
+    char*** array, int x, int y, int width, int height, char* c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1278,7 +1339,9 @@ int String2DBuilder_rect(char*** array, int x, int y, int width, int height, cha
     return 0;
 }
 
-int String2DBuilder_fillRect(char*** array, int x, int y, int width, int height, char* c) {
+int String2DBuilder_fillRect(
+    char*** array, int x, int y, int width, int height, char* c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1314,7 +1377,7 @@ int String2DBuilder_circle(char*** array, int x, int y, int radius, char* c) {
 
     if (array[y] == 0) return -1;
     if (array[y][x] == 0) return -1;
-    
+
     if (array[y + radius] == 0) return -1;
     if (array[y - radius] == 0) return -1;
     if (array[y][x + radius] == 0) return -1;
@@ -1336,7 +1399,8 @@ int String2DBuilder_circle(char*** array, int x, int y, int radius, char* c) {
 
         if (d < 0) {
             d += 2 * x1 + 3;
-        } else {
+        }
+        else {
             d += 2 * (x1 - y1) + 5;
             y1--;
         }
@@ -1346,7 +1410,9 @@ int String2DBuilder_circle(char*** array, int x, int y, int radius, char* c) {
     return 0;
 }
 
-int String2DBuilder_fillCircle(char*** array, int x, int y, int radius, char* c) {
+int String2DBuilder_fillCircle(
+    char*** array, int x, int y, int radius, char* c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1375,7 +1441,9 @@ int String2DBuilder_fillCircle(char*** array, int x, int y, int radius, char* c)
     return 0;
 }
 
-int String2DBuilder_ellipse(char*** array, int x, int y, int xradius, int yradius, char* c) {
+int String2DBuilder_ellipse(
+    char*** array, int x, int y, int xradius, int yradius, char* c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1409,14 +1477,16 @@ int String2DBuilder_ellipse(char*** array, int x, int y, int xradius, int yradiu
 
         if (p < 0) {
             p += yradiusSq + px;
-        } else {
+        }
+        else {
             y1--;
             py -= twoXradiusSq;
             p += yradiusSq + px - py;
         }
     }
 
-    p = yradiusSq * (x1 + 0.5) * (x1 + 0.5) + xradiusSq * (y1 - 1) * (y1 - 1) - xradiusSq * yradiusSq;
+    p = yradiusSq * (x1 + 0.5) * (x1 + 0.5) + xradiusSq * (y1 - 1) * (y1 - 1) -
+        xradiusSq * yradiusSq;
     while (y1 >= 0) {
         String2DBuilder_setString(array, x + x1, y + y1, c);
         String2DBuilder_setString(array, x - x1, y + y1, c);
@@ -1428,7 +1498,8 @@ int String2DBuilder_ellipse(char*** array, int x, int y, int xradius, int yradiu
 
         if (p > 0) {
             p += xradiusSq - py;
-        } else {
+        }
+        else {
             x1++;
             px += twoYradiusSq;
             p += xradiusSq - py + px;
@@ -1438,7 +1509,9 @@ int String2DBuilder_ellipse(char*** array, int x, int y, int xradius, int yradiu
     return 0;
 }
 
-int String2DBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yradius, char* c) {
+int String2DBuilder_fillEllipse(
+    char*** array, int x, int y, int xradius, int yradius, char* c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1453,9 +1526,8 @@ int String2DBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yr
 
     for (int dy = -yradius; dy <= yradius; dy++) {
         for (int dx = -xradius; dx <= xradius; dx++) {
-            double ellipseEquation = 
-                (dx * dx) / (double)(xradiusSq) + 
-                (dy * dy) / (double)(yradiusSq);
+            double ellipseEquation = (dx * dx) / (double) (xradiusSq) +
+                                     (dy * dy) / (double) (yradiusSq);
 
             if (ellipseEquation <= 1.0) {
                 int px = x + dx;
@@ -1469,7 +1541,9 @@ int String2DBuilder_fillEllipse(char*** array, int x, int y, int xradius, int yr
     return 0;
 }
 
-int String2DBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c) {
+int String2DBuilder_line(
+    char*** array, int x1, int y1, int x2, int y2, char* c
+) {
     if (array == 0) return -1;
     if (x1 < 0 || y1 < 0) return -1;
 
@@ -1504,16 +1578,18 @@ int String2DBuilder_line(char*** array, int x1, int y1, int x2, int y2, char* c)
     return 0;
 }
 
-int String2DBuilder_polygon(char*** array, int x, int y, int sides, int radius, char* c) {
+int String2DBuilder_polygon(
+    char*** array, int x, int y, int sides, int radius, char* c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
     if (radius < 1) return -1;
     if (sides < 3) return -1;
 
     double angleStep = 2 * M_PI / sides;
-    
+
     int prevX = x + radius; // * cos(0);
-    int prevY = y; // + (radius * sin(0));
+    int prevY = y;          // + (radius * sin(0));
 
     for (int i = 1; i <= sides; i++) {
         int nextX = x + radius * cos(i * angleStep);
@@ -1528,7 +1604,9 @@ int String2DBuilder_polygon(char*** array, int x, int y, int sides, int radius, 
     return 0;
 }
 
-int String2DBuilder_fillPolygon(char*** array, int x, int y, int sides, int radius, char* c) {
+int String2DBuilder_fillPolygon(
+    char*** array, int x, int y, int sides, int radius, char* c
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
     if (radius < 1) return -1;
@@ -1578,7 +1656,8 @@ int String2DBuilder_fillPolygon(char*** array, int x, int y, int sides, int radi
 
         for (int i = 0; i < count; i += 2) {
             if (i + 1 < count) {
-                for (int xFill = intersections[i]; xFill <= intersections[i + 1]; xFill++) {
+                for (int xFill = intersections[i];
+                     xFill <= intersections[i + 1]; xFill++) {
                     String2DBuilder_setString(array, xFill, scanY, c);
                 }
             }
@@ -1617,8 +1696,10 @@ int String2DBuilder_rotate(char*** array, double radians) {
 
     for (int y = 0; y < height; y++)
         for (int x = 0; x < width; x++) {
-            int newX = (int) (cos(radians) * (x - cx) - sin(radians) * (y - cy) + cx);
-            int newY = (int) (sin(radians) * (x - cx) + cos(radians) * (y - cy) + cy);
+            int newX =
+                (int) (cos(radians) * (x - cx) - sin(radians) * (y - cy) + cx);
+            int newY =
+                (int) (sin(radians) * (x - cx) + cos(radians) * (y - cy) + cy);
 
             if (newX >= 0 && newX < width && newY >= 0 && newY < height)
                 strcpy(tempArray[newY][newX], array[y][x]);
@@ -1692,7 +1773,7 @@ char*** String2DBuilder_transpose(char*** array) {
 
     char*** transposed = (char***) malloc(width * sizeof(char**));
     if (transposed == 0) return 0;
-    
+
     for (int i = 0; i < width; i++) {
         transposed[i] = (char**) malloc(height * sizeof(char*));
         if (transposed[i] == 0) {
@@ -1765,7 +1846,10 @@ char*** String2DBuilder_scale(char*** array, double scale) {
         for (int x = 0; x < width; x++)
             for (int sy = 0; sy < scale; sy++)
                 for (int sx = 0; sx < scale; sx++)
-                    strcpy(scaled[(int) (y * scale + sy)][(int) (x * scale + sx)], array[y][x]);
+                    strcpy(
+                        scaled[(int) (y * scale + sy)][(int) (x * scale + sx)],
+                        array[y][x]
+                    );
 
     // Free the original array
     for (int i = 0; i < height; i++) {
@@ -1781,7 +1865,10 @@ char*** String2DBuilder_scale(char*** array, double scale) {
 
 // Utility Functions - Gradient (ANSI)
 
-int** _generateColorGradientGrid(int* colors, double* percentages, int numColors, int width, int height, enum CmdFX_GradientDirection direction) {
+int** _generateColorGradientGrid(
+    int* colors, double* percentages, int numColors, int width, int height,
+    enum CmdFX_GradientDirection direction
+) {
     int** grid = (int**) malloc(height * sizeof(int*));
     for (int i = 0; i < height; i++) {
         grid[i] = (int*) malloc(width * sizeof(int));
@@ -1789,7 +1876,8 @@ int** _generateColorGradientGrid(int* colors, double* percentages, int numColors
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            double factor = _calculateGradientFactor(x, y, width, height, direction);
+            double factor =
+                _calculateGradientFactor(x, y, width, height, direction);
 
             int lower = _getLower(factor, percentages, numColors);
             int upper = lower + 1;
@@ -1797,8 +1885,10 @@ int** _generateColorGradientGrid(int* colors, double* percentages, int numColors
             if (lower == upper)
                 grid[y][x] = colors[lower];
             else {
-                double rangeFactor = (factor - percentages[lower]) / (percentages[upper] - percentages[lower]);
-                grid[y][x] = lerp_color(colors[lower], colors[upper], rangeFactor);
+                double rangeFactor = (factor - percentages[lower]) /
+                                     (percentages[upper] - percentages[lower]);
+                grid[y][x] =
+                    lerp_color(colors[lower], colors[upper], rangeFactor);
             }
         }
     }
@@ -1835,7 +1925,10 @@ void _freeGrid(int** grid, int width, int height) {
 // declared in src/common/core/sprites.c
 extern void _freeANSI(char*** ansi, int width, int height);
 
-int String2DBuilder_gradient0(char*** array, int x, int y, int width, int height, int prefix, int* colors, double* percentages, int numColors, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_gradient0(
+    char*** array, int x, int y, int width, int height, int prefix, int* colors,
+    double* percentages, int numColors, enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1844,7 +1937,9 @@ int String2DBuilder_gradient0(char*** array, int x, int y, int width, int height
     if (array[y][x + width - 1] == 0) return -1;
     if (array[y + height - 1] == 0) return -1;
 
-    int** grid = _generateColorGradientGrid(colors, percentages, numColors, width, height, direction);
+    int** grid = _generateColorGradientGrid(
+        colors, percentages, numColors, width, height, direction
+    );
     char*** ansi = _toANSI(prefix, grid, width, height);
 
     for (int i = 0; i < height; i++) {
@@ -1858,9 +1953,12 @@ int String2DBuilder_gradient0(char*** array, int x, int y, int width, int height
     return 0;
 }
 
-int String2DBuilder_gradientForeground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_gradientForeground(
+    char*** array, int x, int y, int width, int height, int start, int end,
+    enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
-    
+
     int* colors = (int*) malloc(2 * sizeof(int));
     if (colors == 0) return -1;
     colors[0] = start;
@@ -1874,17 +1972,22 @@ int String2DBuilder_gradientForeground(char*** array, int x, int y, int width, i
     percentages[0] = 0.5;
     percentages[1] = 0.5;
 
-    int res = String2DBuilder_gradient0(array, x, y, width, height, 38, colors, percentages, 2, direction);
-    
+    int res = String2DBuilder_gradient0(
+        array, x, y, width, height, 38, colors, percentages, 2, direction
+    );
+
     free(colors);
     free(percentages);
 
     return res;
 }
 
-int String2DBuilder_gradientBackground(char*** array, int x, int y, int width, int height, int start, int end, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_gradientBackground(
+    char*** array, int x, int y, int width, int height, int start, int end,
+    enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
-    
+
     int* colors = (int*) malloc(2 * sizeof(int));
     if (colors == 0) return -1;
     colors[0] = start;
@@ -1898,7 +2001,9 @@ int String2DBuilder_gradientBackground(char*** array, int x, int y, int width, i
     percentages[0] = 0.5;
     percentages[1] = 0.5;
 
-    int res = String2DBuilder_gradient0(array, x, y, width, height, 48, colors, percentages, 2, direction);
+    int res = String2DBuilder_gradient0(
+        array, x, y, width, height, 48, colors, percentages, 2, direction
+    );
 
     free(colors);
     free(percentages);
@@ -1906,7 +2011,10 @@ int String2DBuilder_gradientBackground(char*** array, int x, int y, int width, i
     return res;
 }
 
-int String2DBuilder_multiGradientForeground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientForeground(
+    char*** array, int x, int y, int width, int height, int numColors,
+    int* gradient, enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1914,17 +2022,22 @@ int String2DBuilder_multiGradientForeground(char*** array, int x, int y, int wid
     double* percentages = (double*) malloc(numColors * sizeof(double));
     if (percentages == 0) return -1;
 
-    for (int i = 0; i < numColors; i++)
-        percentages[i] = percent;
-    
-    int res = String2DBuilder_gradient0(array, x, y, width, height, 38, gradient, percentages, numColors, direction);
+    for (int i = 0; i < numColors; i++) percentages[i] = percent;
+
+    int res = String2DBuilder_gradient0(
+        array, x, y, width, height, 38, gradient, percentages, numColors,
+        direction
+    );
 
     free(percentages);
 
     return res;
 }
 
-int String2DBuilder_multiGradientBackground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientBackground(
+    char*** array, int x, int y, int width, int height, int numColors,
+    int* gradient, enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
@@ -1932,31 +2045,47 @@ int String2DBuilder_multiGradientBackground(char*** array, int x, int y, int wid
     double* percentages = (double*) malloc(numColors * sizeof(double));
     if (percentages == 0) return -1;
 
-    for (int i = 0; i < numColors; i++)
-        percentages[i] = percent;
-    
-    int res = String2DBuilder_gradient0(array, x, y, width, height, 48, gradient, percentages, numColors, direction);
+    for (int i = 0; i < numColors; i++) percentages[i] = percent;
+
+    int res = String2DBuilder_gradient0(
+        array, x, y, width, height, 48, gradient, percentages, numColors,
+        direction
+    );
 
     free(percentages);
 
     return res;
 }
 
-int String2DBuilder_multiGradientsForeground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientsForeground(
+    char*** array, int x, int y, int width, int height, int numColors,
+    int* gradient, double* percentages, enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
-    return String2DBuilder_gradient0(array, x, y, width, height, 38, gradient, percentages, numColors, direction);
+    return String2DBuilder_gradient0(
+        array, x, y, width, height, 38, gradient, percentages, numColors,
+        direction
+    );
 }
 
-int String2DBuilder_multiGradientsBackground(char*** array, int x, int y, int width, int height, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientsBackground(
+    char*** array, int x, int y, int width, int height, int numColors,
+    int* gradient, double* percentages, enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
     if (x < 0 || y < 0) return -1;
 
-    return String2DBuilder_gradient0(array, x, y, width, height, 48, gradient, percentages, numColors, direction);
+    return String2DBuilder_gradient0(
+        array, x, y, width, height, 48, gradient, percentages, numColors,
+        direction
+    );
 }
 
-int String2DBuilder_gradientForegroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_gradientForegroundFull(
+    char*** array, int start, int end, enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
 
     int width = getStringArrayWidth(array);
@@ -1964,10 +2093,14 @@ int String2DBuilder_gradientForegroundFull(char*** array, int start, int end, en
 
     if (width <= 0 || height <= 0) return -1;
 
-    return String2DBuilder_gradientForeground(array, 0, 0, width, height, start, end, direction);
+    return String2DBuilder_gradientForeground(
+        array, 0, 0, width, height, start, end, direction
+    );
 }
 
-int String2DBuilder_gradientBackgroundFull(char*** array, int start, int end, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_gradientBackgroundFull(
+    char*** array, int start, int end, enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
 
     int width = getStringArrayWidth(array);
@@ -1975,10 +2108,15 @@ int String2DBuilder_gradientBackgroundFull(char*** array, int start, int end, en
 
     if (width <= 0 || height <= 0) return -1;
 
-    return String2DBuilder_gradientBackground(array, 0, 0, width, height, start, end, direction);
+    return String2DBuilder_gradientBackground(
+        array, 0, 0, width, height, start, end, direction
+    );
 }
 
-int String2DBuilder_multiGradientForegroundFull(char*** array, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientForegroundFull(
+    char*** array, int numColors, int* gradient,
+    enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
 
     int width = getStringArrayWidth(array);
@@ -1986,10 +2124,15 @@ int String2DBuilder_multiGradientForegroundFull(char*** array, int numColors, in
 
     if (width <= 0 || height <= 0) return -1;
 
-    return String2DBuilder_multiGradientForeground(array, 0, 0, width, height, numColors, gradient, direction);
+    return String2DBuilder_multiGradientForeground(
+        array, 0, 0, width, height, numColors, gradient, direction
+    );
 }
 
-int String2DBuilder_multiGradientBackgroundFull(char*** array, int numColors, int* gradient, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientBackgroundFull(
+    char*** array, int numColors, int* gradient,
+    enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
 
     int width = getStringArrayWidth(array);
@@ -1997,10 +2140,15 @@ int String2DBuilder_multiGradientBackgroundFull(char*** array, int numColors, in
 
     if (width <= 0 || height <= 0) return -1;
 
-    return String2DBuilder_multiGradientBackground(array, 0, 0, width, height, numColors, gradient, direction);
+    return String2DBuilder_multiGradientBackground(
+        array, 0, 0, width, height, numColors, gradient, direction
+    );
 }
 
-int String2DBuilder_multiGradientsForegroundFull(char*** array, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientsForegroundFull(
+    char*** array, int numColors, int* gradient, double* percentages,
+    enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
 
     int width = getStringArrayWidth(array);
@@ -2008,10 +2156,15 @@ int String2DBuilder_multiGradientsForegroundFull(char*** array, int numColors, i
 
     if (width <= 0 || height <= 0) return -1;
 
-    return String2DBuilder_multiGradientsForeground(array, 0, 0, width, height, numColors, gradient, percentages, direction);
+    return String2DBuilder_multiGradientsForeground(
+        array, 0, 0, width, height, numColors, gradient, percentages, direction
+    );
 }
 
-int String2DBuilder_multiGradientsBackgroundFull(char*** array, int numColors, int* gradient, double* percentages, enum CmdFX_GradientDirection direction) {
+int String2DBuilder_multiGradientsBackgroundFull(
+    char*** array, int numColors, int* gradient, double* percentages,
+    enum CmdFX_GradientDirection direction
+) {
     if (array == 0) return -1;
 
     int width = getStringArrayWidth(array);
@@ -2019,7 +2172,9 @@ int String2DBuilder_multiGradientsBackgroundFull(char*** array, int numColors, i
 
     if (width <= 0 || height <= 0) return -1;
 
-    return String2DBuilder_multiGradientsBackground(array, 0, 0, width, height, numColors, gradient, percentages, direction);
+    return String2DBuilder_multiGradientsBackground(
+        array, 0, 0, width, height, numColors, gradient, percentages, direction
+    );
 }
 
 #pragma endregion

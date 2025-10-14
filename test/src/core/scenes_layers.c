@@ -1,8 +1,8 @@
 #include <stdio.h>
 
+#include "../test.h"
 #include "cmdfx/core/builder.h"
 #include "cmdfx/core/scenes.h"
-#include "../test.h"
 
 int main() {
     int r = 0;

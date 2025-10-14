@@ -1,8 +1,8 @@
+#include <process.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <windows.h>
-#include <process.h>
 
 #include "cmdfx/core/scenes.h"
 #include "cmdfx/core/util.h"

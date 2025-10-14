@@ -1,8 +1,8 @@
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 
-#include "cmdfx/core/sprites.h"
 #include "cmdfx/core/animation/sprites.h"
+#include "cmdfx/core/sprites.h"
 #include "cmdfx/core/util.h"
 
 // Utility Methods - Movement
@@ -42,4 +42,3 @@ void Sprite_moveBy_anim(CmdFX_Sprite* sprite, int dx, int dy, double time) {
 
     Sprite_moveTo_anim(sprite, sprite->x + dx, sprite->y + dy, time);
 }
-

@@ -1,9 +1,9 @@
+#include <process.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <time.h>
 #include <windows.h>
-#include <process.h>
 
 #include "cmdfx/core/util.h"
 
@@ -80,7 +80,7 @@ int _destroyMutex(void* mutex) {
 
 int CmdFX_initThreadSafe() {
     if (_mutexes != 0) return -1;
-    
+
     _mutexes = calloc(MAX_INTERNAL_CMDFX_MUTEXES, sizeof(void*));
     if (_mutexes == 0) return -1;
 
@@ -92,7 +92,7 @@ int CmdFX_initThreadSafe() {
             return -1;
         }
     }
-    
+
     return 0;
 }
 
@@ -102,22 +102,22 @@ int CmdFX_isThreadSafeEnabled() {
 
 int CmdFX_destroyThreadSafe() {
     if (_mutexes == 0) return -1;
-    
+
     for (int i = 0; i < MAX_INTERNAL_CMDFX_MUTEXES; i++) {
         if (_mutexes[i] != 0) _destroyMutex(_mutexes[i]);
     }
-    
+
     free(_mutexes);
     _mutexes = 0;
-    
+
     return 0;
 }
 
 void* CmdFX_getInternalMutex(int index) {
     if (!_threadSafeEnabled) return 0;
-    if (index < 0 || index >= MAX_INTERNAL_CMDFX_MUTEXES) return 0;   
+    if (index < 0 || index >= MAX_INTERNAL_CMDFX_MUTEXES) return 0;
     if (_mutexes == 0) return 0;
-    
+
     return _mutexes[index];
 }
 
@@ -149,7 +149,9 @@ int CmdFX_unlockMutex(void* mutex) {
 ThreadID CmdFX_launchThread(void (*func)(void*), void* arg) {
     if (!_threadSafeEnabled) return 0;
 
-    uintptr_t thread = _beginthreadex(NULL, 0, (unsigned(__stdcall*)(void*))func, arg, 0, NULL);
+    uintptr_t thread = _beginthreadex(
+        NULL, 0, (unsigned(__stdcall*)(void*)) func, arg, 0, NULL
+    );
     if (thread == 0) {
         fprintf(stderr, "Failed to launch thread\n");
         return 0;
@@ -164,7 +166,7 @@ int CmdFX_joinThread(ThreadID thread) {
     HANDLE hThread = (HANDLE) thread;
     WaitForSingleObject(hThread, INFINITE);
     CloseHandle(hThread);
-    
+
     return 0;
 }
 
@@ -173,6 +175,6 @@ int CmdFX_detachThread(ThreadID thread) {
 
     HANDLE hThread = (HANDLE) thread;
     CloseHandle(hThread);
-    
+
     return 0;
 }

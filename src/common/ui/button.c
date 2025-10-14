@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "cmdfx/core/builder.h"
 #include "cmdfx/core/sprites.h"
 #include "cmdfx/core/util.h"
-#include "cmdfx/core/builder.h"
 #include "cmdfx/physics/engine.h"
 #include "cmdfx/ui/button.h"
 
@@ -21,19 +21,20 @@ int Canvas_getRegisteredButtonsCount() {
     return _registeredButtonsCount;
 }
 
-CmdFX_Button* Button_create(CmdFX_Sprite* sprite, CmdFX_ButtonCallback callback) {
+CmdFX_Button* Button_create(
+    CmdFX_Sprite* sprite, CmdFX_ButtonCallback callback
+) {
     if (sprite == 0) return 0;
     if (callback == 0) return 0;
-    
+
     CmdFX_Button* button = (CmdFX_Button*) malloc(sizeof(CmdFX_Button));
     if (!button) return 0;
-    
+
     button->sprite = sprite;
     button->id = -1;
     button->x = -1;
     button->y = -1;
-    if (!Sprite_isStatic(sprite))
-        Sprite_setStatic(sprite, 1);
+    if (!Sprite_isStatic(sprite)) Sprite_setStatic(sprite, 1);
 
     CmdFX_ButtonCallback* ptr = malloc(sizeof(CmdFX_ButtonCallback));
     if (!ptr) {
@@ -49,7 +50,10 @@ CmdFX_Button* Button_create(CmdFX_Sprite* sprite, CmdFX_ButtonCallback callback)
     return button;
 }
 
-CmdFX_Button* Button_createFilled(int width, int height, char c, char* ansi, int z, CmdFX_ButtonCallback callback) {
+CmdFX_Button* Button_createFilled(
+    int width, int height, char c, char* ansi, int z,
+    CmdFX_ButtonCallback callback
+) {
     if (width < 0 || height < 0) return 0;
 
     CmdFX_Sprite* sprite = Sprite_createFilled(width, height, c, ansi, z);
@@ -60,13 +64,11 @@ CmdFX_Button* Button_createFilled(int width, int height, char c, char* ansi, int
 
 void Button_free(CmdFX_Button* button) {
     if (button == 0) return;
-    
-    if (button->sprite != 0)
-        Sprite_free(button->sprite);
 
-    if (button->callback != 0)
-        free(button->callback);
-    
+    if (button->sprite != 0) Sprite_free(button->sprite);
+
+    if (button->callback != 0) free(button->callback);
+
     free(button);
 }
 
@@ -92,7 +94,8 @@ int Button_draw(int x, int y, CmdFX_Button* button) {
         _registeredButtonsCount = spritesCount;
     }
     if (_registeredButtonsCount != spritesCount) {
-        CmdFX_Button** temp = realloc(_registeredButtons, sizeof(CmdFX_Button*) * spritesCount);
+        CmdFX_Button** temp =
+            realloc(_registeredButtons, sizeof(CmdFX_Button*) * spritesCount);
         if (temp == 0) {
             CmdFX_tryUnlockMutex(_BUTTON_REGISTRY_MUTEX);
             return -1;
@@ -103,7 +106,7 @@ int Button_draw(int x, int y, CmdFX_Button* button) {
 
     button->id = button->sprite->id - 1;
     _registeredButtons[button->id] = button;
-    CmdFX_tryUnlockMutex(_BUTTON_REGISTRY_MUTEX); 
+    CmdFX_tryUnlockMutex(_BUTTON_REGISTRY_MUTEX);
 
     return 0;
 }
@@ -148,7 +151,8 @@ CmdFX_Button** Canvas_getAllButtonsAt(int x, int y) {
     if (_registeredButtons == 0) return 0;
     if (_registeredButtonsCount < 1) return 0;
 
-    CmdFX_Button** matching = calloc(_registeredButtonsCount, sizeof(CmdFX_Sprite*));
+    CmdFX_Button** matching =
+        calloc(_registeredButtonsCount, sizeof(CmdFX_Sprite*));
 
     for (int i = 0; i < _registeredButtonsCount; i++) {
         CmdFX_Button* button = _registeredButtons[i];
@@ -205,7 +209,7 @@ int Button_setData(CmdFX_Button* button, char** data, char*** ansi) {
             free(sprite->ansi[i]);
         }
         free(sprite->ansi);
-        
+
         sprite->ansi = ansi;
     }
 

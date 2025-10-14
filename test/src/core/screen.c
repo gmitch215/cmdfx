@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "cmdfx/core/screen.h"
 #include "../test.h"
+#include "cmdfx/core/screen.h"
 
 int main() {
     int r = 0;
@@ -24,7 +24,7 @@ int main() {
 
     int width2 = -1, height2 = -1;
     Window_getSize(&width2, &height2);
-    
+
     // Resize may not work in headless
     r |= assertGreaterThan(width2, -1);
     r |= assertGreaterThan(height2, -1);
