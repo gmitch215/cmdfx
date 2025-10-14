@@ -9,7 +9,22 @@ on:
   workflow_dispatch:
 
 jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install Clang Tools
+        run: |
+          pip install clang-tools
+          clang-tools --install 21 --tool clang-format
+          clang-format --version
+      - name: Check Formatting
+        run: bash check-format.sh
+
   build:
+    needs: format
+    timeout-minutes: 180
+
     strategy:
       fail-fast: false
       matrix:
@@ -135,7 +150,7 @@ jobs:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-test
           path: build/Testing/*
           if-no-files-found: ignore
-  
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -155,12 +170,12 @@ jobs:
         run: cmake --build build --target docs
       - name: Deploy Doxygen
         run: bash doxygen.sh ${GITHUB_SHA::7}
-  
+
   publish:
     strategy:
       fail-fast: false
       matrix:
-        include: 
+        include:
           - os: ubuntu-24.04
             id: linuxx64
           - os: windows-2025
@@ -169,7 +184,7 @@ jobs:
             id: macosx64
           - os: macos-15
             id: macosarm64
-    
+
     needs: build
     runs-on: ${{ matrix.os }}
     if: ${{ github.event_name != 'pull_request' }}
