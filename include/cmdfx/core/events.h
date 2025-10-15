@@ -131,8 +131,6 @@ typedef struct CmdFX_MouseEvent {
     int y;
 } CmdFX_MouseEvent;
 
-#pragma endregion
-
 #define CMDFX_EVENT_BUTTON_CLICK 3
 
 /**
@@ -155,6 +153,9 @@ typedef struct CmdFX_ButtonEvent {
      */
     void* button;
 } CmdFX_ButtonEvent;
+
+#pragma endregion
+#pragma region Event Configuration
 
 struct CmdFX_Event;
 
@@ -245,6 +246,8 @@ int endCmdFXEventLoop();
  * @brief Removes all event listeners.
  */
 void shutdownCmdFXEvents();
+
+#pragma endregion
 
 #ifdef __cplusplus
 }
