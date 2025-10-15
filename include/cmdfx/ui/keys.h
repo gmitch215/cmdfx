@@ -11,8 +11,7 @@
 #pragma once
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 #if defined(_WINDOWS) || defined(_WIN32) || defined(__CYGWIN__) ||             \

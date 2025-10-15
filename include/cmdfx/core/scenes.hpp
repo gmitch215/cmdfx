@@ -10,8 +10,7 @@
  */
 #pragma once
 
-extern "C"
-{
+extern "C" {
 #include "cmdfx/core/scenes.h"
 }
 

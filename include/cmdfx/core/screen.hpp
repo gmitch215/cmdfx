@@ -12,8 +12,7 @@
 
 #include <string>
 
-extern "C"
-{
+extern "C" {
 #include "cmdfx/core/screen.h"
 }
 

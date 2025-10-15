@@ -13,8 +13,7 @@
 #include <stdbool.h>
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /**
@@ -39,27 +38,27 @@ extern "C"
  */
 #define CMDFX_EVENT_RESIZE 0
 
+/**
+ * @brief The payload for the `CMDFX_EVENT_RESIZE` event.
+ */
+typedef struct CmdFX_ResizeEvent {
     /**
-     * @brief The payload for the `CMDFX_EVENT_RESIZE` event.
+     * @brief The previous width of the terminal.
      */
-    typedef struct CmdFX_ResizeEvent {
-        /**
-         * @brief The previous width of the terminal.
-         */
-        int prevWidth;
-        /**
-         * @brief The previous height of the terminal.
-         */
-        int prevHeight;
-        /**
-         * @brief The new width of the terminal.
-         */
-        int newWidth;
-        /**
-         * @brief The new height of the terminal.
-         */
-        int newHeight;
-    } CmdFX_ResizeEvent;
+    int prevWidth;
+    /**
+     * @brief The previous height of the terminal.
+     */
+    int prevHeight;
+    /**
+     * @brief The new width of the terminal.
+     */
+    int newWidth;
+    /**
+     * @brief The new height of the terminal.
+     */
+    int newHeight;
+} CmdFX_ResizeEvent;
 
 /**
  * @brief Called when a key is pressed or released.
@@ -68,27 +67,27 @@ extern "C"
  */
 #define CMDFX_EVENT_KEY 1
 
+/**
+ * @brief The payload for the `CMDFX_EVENT_KEY` event.
+ */
+typedef struct CmdFX_KeyEvent {
     /**
-     * @brief The payload for the `CMDFX_EVENT_KEY` event.
+     * @brief The key code, or 0 if no key is pressed.
      */
-    typedef struct CmdFX_KeyEvent {
-        /**
-         * @brief The key code, or 0 if no key is pressed.
-         */
-        int keyCode;
-        /**
-         * @brief The character representation of the key.
-         *
-         * This value is 0 if the key does not have a character representation.
-         */
-        char keyChar;
-        /**
-         * @brief The state of the key.
-         *
-         * The state is 1 if the key is pressed, or 0 if the key is released.
-         */
-        bool state;
-    } CmdFX_KeyEvent;
+    int keyCode;
+    /**
+     * @brief The character representation of the key.
+     *
+     * This value is 0 if the key does not have a character representation.
+     */
+    char keyChar;
+    /**
+     * @brief The state of the key.
+     *
+     * The state is 1 if the key is pressed, or 0 if the key is released.
+     */
+    bool state;
+} CmdFX_KeyEvent;
 
 /**
  * @brief Called when the mouse is moved or clicked.
@@ -97,155 +96,155 @@ extern "C"
  */
 #define CMDFX_EVENT_MOUSE 2
 
+/**
+ * @brief The payload for the `CMDFX_EVENT_MOUSE` event.
+ */
+typedef struct CmdFX_MouseEvent {
     /**
-     * @brief The payload for the `CMDFX_EVENT_MOUSE` event.
+     * @brief The button that was pressed, or -1 if no button was pressed.
+     *
+     * On most systems, the button values are as follows:
+     * - 0: Left mouse button
+     * - 1: Middle mouse button
+     * - 2: Right mouse button
      */
-    typedef struct CmdFX_MouseEvent {
-        /**
-         * @brief The button that was pressed, or -1 if no button was pressed.
-         *
-         * On most systems, the button values are as follows:
-         * - 0: Left mouse button
-         * - 1: Middle mouse button
-         * - 2: Right mouse button
-         */
-        int button;
-        /**
-         * @brief Whether the button was pressed or released.
-         */
-        bool state;
-        /**
-         * @brief The previous x position of the mouse.
-         */
-        int prevX;
-        /**
-         * @brief The x position of the mouse.
-         */
-        int x;
-        /**
-         * @brief The previous y position of the mouse.
-         */
-        int prevY;
-        /**
-         * @brief The y position of the mouse.
-         */
-        int y;
-    } CmdFX_MouseEvent;
+    int button;
+    /**
+     * @brief Whether the button was pressed or released.
+     */
+    bool state;
+    /**
+     * @brief The previous x position of the mouse.
+     */
+    int prevX;
+    /**
+     * @brief The x position of the mouse.
+     */
+    int x;
+    /**
+     * @brief The previous y position of the mouse.
+     */
+    int prevY;
+    /**
+     * @brief The y position of the mouse.
+     */
+    int y;
+} CmdFX_MouseEvent;
 
 #pragma endregion
 
 #define CMDFX_EVENT_BUTTON_CLICK 3
 
+/**
+ * @brief Called when a button is clicked.
+ *
+ * The data is a pointer to a `struct CmdFX_ButtonEvent`.
+ */
+typedef struct CmdFX_ButtonEvent {
     /**
-     * @brief Called when a button is clicked.
+     * @brief The mouse event that triggered the button event.
      *
-     * The data is a pointer to a `struct CmdFX_ButtonEvent`.
+     * This is a pointer to the mouse event that triggered the button event.
+     * This event is also passed to the event callback.
      */
-    typedef struct CmdFX_ButtonEvent {
-        /**
-         * @brief The mouse event that triggered the button event.
-         *
-         * This is a pointer to the mouse event that triggered the button event.
-         * This event is also passed to the event callback.
-         */
-        CmdFX_MouseEvent* mouseEvent;
-        /**
-         * @brief The button that was clicked.
-         *
-         * This is a pointer to the button that was clicked.
-         */
-        void* button;
-    } CmdFX_ButtonEvent;
-
-    struct CmdFX_Event;
-
+    CmdFX_MouseEvent* mouseEvent;
     /**
-     * @brief Represents an event callback.
-     * @param event The event that was dispatched.
-     * @return 0 if the event handler was called successfully. Any other integer
-     * value if an error occurred.
-     */
-    typedef int (*CmdFX_EventCallback)(struct CmdFX_Event* event);
-
-    /**
-     * @brief The main event structure for CmdFX.
-     * @param id The event ID.
-     * @param time The time the event was created, in milliseconds.
-     * @param data A pointer to the data associated with the event.
-     */
-    typedef struct CmdFX_Event {
-        /**
-         * @brief The event ID.
-         */
-        unsigned int id;
-        /**
-         * @brief The time the event was created, in milliseconds.
-         */
-        unsigned long long time;
-        /**
-         * @brief A pointer to the data associated with the event.
-         */
-        void* data;
-    } CmdFX_Event;
-
-    /**
-     * @brief Adds an event listener.
+     * @brief The button that was clicked.
      *
-     * The listener will be called when the event with the specified ID is
-     * dispatched. The library has an internal limit of 1,024 listeners across
-     * all events.
-     * @param id The event ID.
-     * @param callback The event callback.
-     * @return A unique ID for the event listener, or -1 if an error occurred.
+     * This is a pointer to the button that was clicked.
      */
-    int addCmdFXEventListener(unsigned int id, CmdFX_EventCallback callback);
+    void* button;
+} CmdFX_ButtonEvent;
 
-    /**
-     * @brief Gets an event listener.
-     * @param eventId The ID of the event to remove the listener from.
-     * @param listenerId The ID of the event listener to retrieve.
-     * @return The event listener, or NULL if the listener does not exist.
-     */
-    CmdFX_EventCallback* getCmdFXEventListener(
-        unsigned int eventId, unsigned int listenerId
-    );
+struct CmdFX_Event;
 
-    /**
-     * @brief Removes an event listener.
-     * @param eventId The ID of the event to remove the listener from.
-     * @param listenerId The ID of the event listener to remove.
-     * @return 1 if the listener was removed successfully, or 0 if an error
-     * occurred.
-     */
-    int removeCmdFXEventListener(unsigned int eventId, unsigned int listenerId);
+/**
+ * @brief Represents an event callback.
+ * @param event The event that was dispatched.
+ * @return 0 if the event handler was called successfully. Any other integer
+ * value if an error occurred.
+ */
+typedef int (*CmdFX_EventCallback)(struct CmdFX_Event* event);
 
+/**
+ * @brief The main event structure for CmdFX.
+ * @param id The event ID.
+ * @param time The time the event was created, in milliseconds.
+ * @param data A pointer to the data associated with the event.
+ */
+typedef struct CmdFX_Event {
     /**
-     * @brief Dispatches an event.
-     * @param event The event to dispatch.
-     * @return Addresses of the event listeners that were called.
+     * @brief The event ID.
      */
-    const CmdFX_EventCallback** dispatchCmdFXEvent(CmdFX_Event* event);
+    unsigned int id;
+    /**
+     * @brief The time the event was created, in milliseconds.
+     */
+    unsigned long long time;
+    /**
+     * @brief A pointer to the data associated with the event.
+     */
+    void* data;
+} CmdFX_Event;
 
-    /**
-     * @brief Starts the event loop for CmdFX.
-     *
-     * This method is called automatically if a listener is added.
-     * @return 1 if the event loop was started successfully, 0 if an error
-     * occurred or the event loop is already running.
-     */
-    int beginCmdFXEventLoop();
+/**
+ * @brief Adds an event listener.
+ *
+ * The listener will be called when the event with the specified ID is
+ * dispatched. The library has an internal limit of 1,024 listeners across
+ * all events.
+ * @param id The event ID.
+ * @param callback The event callback.
+ * @return A unique ID for the event listener, or -1 if an error occurred.
+ */
+int addCmdFXEventListener(unsigned int id, CmdFX_EventCallback callback);
 
-    /**
-     * @brief Ends the event loop for CmdFX.
-     * @return 1 if the event loop was ended successfully, 0 if an error
-     * occurred or the event loop is not running.
-     */
-    int endCmdFXEventLoop();
+/**
+ * @brief Gets an event listener.
+ * @param eventId The ID of the event to remove the listener from.
+ * @param listenerId The ID of the event listener to retrieve.
+ * @return The event listener, or NULL if the listener does not exist.
+ */
+CmdFX_EventCallback* getCmdFXEventListener(
+    unsigned int eventId, unsigned int listenerId
+);
 
-    /**
-     * @brief Removes all event listeners.
-     */
-    void shutdownCmdFXEvents();
+/**
+ * @brief Removes an event listener.
+ * @param eventId The ID of the event to remove the listener from.
+ * @param listenerId The ID of the event listener to remove.
+ * @return 1 if the listener was removed successfully, or 0 if an error
+ * occurred.
+ */
+int removeCmdFXEventListener(unsigned int eventId, unsigned int listenerId);
+
+/**
+ * @brief Dispatches an event.
+ * @param event The event to dispatch.
+ * @return Addresses of the event listeners that were called.
+ */
+const CmdFX_EventCallback** dispatchCmdFXEvent(CmdFX_Event* event);
+
+/**
+ * @brief Starts the event loop for CmdFX.
+ *
+ * This method is called automatically if a listener is added.
+ * @return 1 if the event loop was started successfully, 0 if an error
+ * occurred or the event loop is already running.
+ */
+int beginCmdFXEventLoop();
+
+/**
+ * @brief Ends the event loop for CmdFX.
+ * @return 1 if the event loop was ended successfully, 0 if an error
+ * occurred or the event loop is not running.
+ */
+int endCmdFXEventLoop();
+
+/**
+ * @brief Removes all event listeners.
+ */
+void shutdownCmdFXEvents();
 
 #ifdef __cplusplus
 }

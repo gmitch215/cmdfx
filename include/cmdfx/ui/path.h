@@ -11,8 +11,7 @@
 #pragma once
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /**
@@ -175,24 +174,24 @@ extern "C"
  */
 #define CMDFX_PATH_COMMAND_ARC_RELATIVE 'a'
 
-    /**
-     * @brief Draws a path on the canvas using the specified path string.
-     *
-     * This function interprets the path string as a series of SVG-like commands
-     * and draws the corresponding shapes on the canvas. The path string can
-     * contain commands for moving to a point, drawing lines, rectangles,
-     * ellipses, and curves, as well as closing the path.
-     *
-     * The function will make no attempt to validate the path string, so it is
-     * the responsibility of the caller to ensure that the path string is
-     * well-formed and contains valid commands. The function will return -1 if
-     * the path string is NULL or if an error occurs while drawing the path.
-     *
-     * @param path The path string to draw
-     * @param ch The character to draw
-     * @return 0 on success, -1 on error
-     */
-    int Canvas_path(const char* path, char ch);
+/**
+ * @brief Draws a path on the canvas using the specified path string.
+ *
+ * This function interprets the path string as a series of SVG-like commands
+ * and draws the corresponding shapes on the canvas. The path string can
+ * contain commands for moving to a point, drawing lines, rectangles,
+ * ellipses, and curves, as well as closing the path.
+ *
+ * The function will make no attempt to validate the path string, so it is
+ * the responsibility of the caller to ensure that the path string is
+ * well-formed and contains valid commands. The function will return -1 if
+ * the path string is NULL or if an error occurs while drawing the path.
+ *
+ * @param path The path string to draw
+ * @param ch The character to draw
+ * @return 0 on success, -1 on error
+ */
+int Canvas_path(const char* path, char ch);
 
 #ifdef __cplusplus
 }

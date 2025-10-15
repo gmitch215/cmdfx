@@ -10,8 +10,7 @@
  */
 #pragma once
 
-extern "C"
-{
+extern "C" {
 #include "cmdfx/physics/util.h"
 #include <stdlib.h>
 }
