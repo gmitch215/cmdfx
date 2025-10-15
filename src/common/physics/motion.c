@@ -399,8 +399,9 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
     // Move Sprite
     Sprite_moveBy(sprite, dx0, -dy0); // reverse dy
 
-    motion[0] = dx;
-    motion[1] = dy;
+    // don't use displacement to avoid race condition on next frame
+    motion[0] = vx + ax;
+    motion[1] = vy + ay;
 
     _unlockSprite(sprite);
 }
