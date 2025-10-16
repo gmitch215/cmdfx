@@ -35,7 +35,7 @@ jobs:
             id: linuxarm64
           - os: windows-2025
             id: mingwx64
-          - os: macos-13
+          - os: macos-15-intel
             id: macosx64
           - os: macos-15
             id: macosarm64
@@ -180,7 +180,7 @@ jobs:
             id: linuxx64
           - os: windows-2025
             id: mingwx64
-          - os: macos-13
+          - os: macos-15-intel
             id: macosx64
           - os: macos-15
             id: macosarm64
