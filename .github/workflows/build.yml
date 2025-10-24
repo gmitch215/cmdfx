@@ -100,7 +100,7 @@ jobs:
       - name: Archive Package Artifacts
         id: archive
         if: success() || failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           path: |
@@ -130,7 +130,7 @@ jobs:
         shell: bash
       - name: Archive Test Reports
         if: success() || failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-test
           path: build/Testing/*
