@@ -65,10 +65,8 @@ CmdFX_Button* Button_createFilled(
 void Button_free(CmdFX_Button* button) {
     if (button == 0) return;
 
-    if (button->sprite != 0) Sprite_free(button->sprite);
-
-    if (button->callback != 0) free(button->callback);
-
+    Sprite_free(button->sprite);
+    free(button->callback);
     free(button);
 }
 

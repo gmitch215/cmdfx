@@ -62,10 +62,10 @@ void rgb_to_hsv(int rgb, double* h, double* s, double* v) {
     if (delta < 0.00001) {
         *h = 0.0; // No hue
     }
-    else if (r == max) {
+    else if (fabs(r - max) < 1e-8) {
         *h = 60.0 * fmod(((g - b) / delta), 6.0);
     }
-    else if (g == max) {
+    else if (fabs(g - max) < 1e-8) {
         *h = 60.0 * (((b - r) / delta) + 2.0);
     }
     else {
