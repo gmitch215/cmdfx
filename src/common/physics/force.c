@@ -60,36 +60,35 @@ CmdFX_Vector* Sprite_getNetForce(CmdFX_Sprite* sprite) {
     return netForce;
 }
 
-void _checkForceArraysExist() {
-    int size = Canvas_getDrawnSpritesCount();
-
+void _checkForceArraysExist(int requiredSize) {
     // initialize or reallocate _forces
     if (_forces == 0) {
-        _forces = calloc(size, sizeof(CmdFX_Vector**));
+        _forces = calloc(requiredSize, sizeof(CmdFX_Vector**));
         if (_forces == 0) return;
-        _forcesSize = size;
+        _forcesSize = requiredSize;
     }
-    if (_forcesSize < size) {
-        CmdFX_Vector*** temp = realloc(_forces, sizeof(CmdFX_Vector**) * size);
+    if (_forcesSize < requiredSize) {
+        CmdFX_Vector*** temp =
+            realloc(_forces, sizeof(CmdFX_Vector**) * requiredSize);
         if (temp == 0) return;
 
         _forces = temp;
-        for (int i = _forcesSize; i < size; i++) _forces[i] = 0; // crealloc
-        _forcesSize = size;
+        for (int i = _forcesSize; i < requiredSize; i++)
+            _forces[i] = 0; // crealloc
+        _forcesSize = requiredSize;
     }
 
     // initialize or reallocate _forcesCounts
     if (_forcesCounts == 0) {
-        _forcesCounts = calloc(size, sizeof(int));
+        _forcesCounts = calloc(requiredSize, sizeof(int));
         if (_forcesCounts == 0) {
             free(_forces);
             _forces = 0;
             return;
         }
-        _forcesSize = size;
     }
-    if (_forcesSize < size) {
-        int* temp = realloc(_forcesCounts, sizeof(int) * size);
+    if (_forcesSize < requiredSize) {
+        int* temp = realloc(_forcesCounts, sizeof(int) * requiredSize);
         if (temp == 0) {
             free(_forces);
             _forces = 0;
@@ -97,9 +96,8 @@ void _checkForceArraysExist() {
         }
 
         _forcesCounts = temp;
-        for (int i = _forcesSize; i < size; i++)
+        for (int i = _forcesSize; i < requiredSize; i++)
             _forcesCounts[i] = 0; // crealloc
-        _forcesSize = size;
     }
 }
 
@@ -111,15 +109,23 @@ int Sprite_addForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
 
     CmdFX_tryLockMutex(_SPRITE_FORCE_MUTEX);
 
-    _checkForceArraysExist();
-    if (_forces == 0) return -1;
-    if (_forcesCounts == 0) return -1;
-
     int id = sprite->id - 1;
+    _checkForceArraysExist(id + 1);
+    if (_forces == 0) {
+        CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);
+        return -1;
+    }
+    if (_forcesCounts == 0) {
+        CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);
+        return -1;
+    }
 
     if (_forces[id] == 0) {
         _forces[id] = malloc(sizeof(CmdFX_Vector*));
-        if (_forces[id] == 0) return -1;
+        if (_forces[id] == 0) {
+            CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);
+            return -1;
+        }
 
         _forces[id][0] = vector;
         _forcesCounts[id] = 1;
@@ -128,7 +134,10 @@ int Sprite_addForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
         int i = _forcesCounts[id];
         CmdFX_Vector** temp =
             realloc(_forces[id], sizeof(CmdFX_Vector*) * (i + 1));
-        if (temp == 0) return -1;
+        if (temp == 0) {
+            CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);
+            return -1;
+        }
 
         _forces[id] = temp;
         _forces[id][i] = vector;
@@ -157,7 +166,6 @@ int Sprite_removeForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
         free(_forces[id]);
         _forces[id] = 0;
         _forcesCounts[id] = 0;
-        _forcesSize--;
 
         CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);
         return 0;
@@ -190,11 +198,16 @@ int Sprite_removeAllForces(CmdFX_Sprite* sprite) {
     CmdFX_tryLockMutex(_SPRITE_FORCE_MUTEX);
 
     int id = sprite->id - 1;
+    if (id >= _forcesSize) {
+        CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);
+        return 0;
+    }
+
     int size = _forcesCounts[id];
     for (int i = 0; i < size; i++) free(_forces[id][i]);
     free(_forces[id]);
     _forces[id] = 0;
-    _forcesSize--;
+    _forcesCounts[id] = 0;
 
     CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);
 
