@@ -1,21 +1,21 @@
 #define _GNU_SOURCE
 
+#include <ctype.h>
+#include <dirent.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include <string.h>
-#include <dirent.h>
-#include <ctype.h>
-#include <errno.h>
+#include <unistd.h>
 
 #include <linux/input.h>
 
 #include "cmdfx/core/device.h"
 
 char* find_linux_event(const char* keyword) {
-    FILE *fp = fopen("/proc/bus/input/devices", "r");
+    FILE* fp = fopen("/proc/bus/input/devices", "r");
     if (!fp) {
         perror("Failed to open /proc/bus/input/devices");
         return 0;
@@ -33,7 +33,10 @@ char* find_linux_event(const char* keyword) {
             if (eventPos) {
                 int eventNum;
                 if (sscanf(eventPos, "event%d", &eventNum) == 1) {
-                    snprintf(eventFile, sizeof(eventFile), "/dev/input/event%d", eventNum);
+                    snprintf(
+                        eventFile, sizeof(eventFile), "/dev/input/event%d",
+                        eventNum
+                    );
                     fclose(fp);
                     return strdup(eventFile);
                 }
@@ -47,7 +50,7 @@ char* find_linux_event(const char* keyword) {
 
 char Device_fromKeyCode(int keyCode) {
     struct input_event ev;
-    char *devicePath = find_linux_event("keyboard");
+    char* devicePath = find_linux_event("keyboard");
     if (!devicePath) {
         fprintf(stderr, "Keyboard event device not found.\n");
         return '\0';

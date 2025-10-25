@@ -32,7 +32,8 @@ void Window_getSize(int* width, int* height) {
     if (GetConsoleScreenBufferInfo(hConsole, &csbi)) {
         *width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
         *height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
-    } else {
+    }
+    else {
         *width = *height = 0;
     }
 }
@@ -115,7 +116,7 @@ int Screen_setLineBuffered(int enabled) {
         mode |= ENABLE_LINE_INPUT;
     else
         mode &= ~ENABLE_LINE_INPUT;
-    
+
     return (SetConsoleMode(hInput, mode) != 0) ? 0 : -1;
 }
 

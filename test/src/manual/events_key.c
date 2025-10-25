@@ -1,12 +1,15 @@
+#include <cmdfx.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <cmdfx.h>
 
 #include "../test.h"
 
 int onKey(CmdFX_Event* event) {
     CmdFX_KeyEvent* keyEvent = (CmdFX_KeyEvent*) event->data;
-    printf("Key state: '%c' (%d), %d\n", keyEvent->keyChar, keyEvent->keyCode, keyEvent->state);
+    printf(
+        "Key state: '%c' (%d), %d\n", keyEvent->keyChar, keyEvent->keyCode,
+        keyEvent->state
+    );
 
     if (keyEvent->keyChar == 'q' || keyEvent->keyChar == 'Q') {
         Screen_setEchoEnabled(1);

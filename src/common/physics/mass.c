@@ -13,8 +13,7 @@ double Sprite_getDefaultMass(CmdFX_Sprite* sprite) {
         if (sprite->data[i] == 0) break;
         for (int j = 0; j < sprite->width; j++) {
             char c = sprite->data[i][j];
-            if (c != ' ')
-                mass += Engine_getCharacterMass(c);
+            if (c != ' ') mass += Engine_getCharacterMass(c);
         }
     }
 
@@ -82,7 +81,7 @@ int Sprite_resetMass(CmdFX_Sprite* sprite) {
             allZero = 0;
             break;
         }
-    
+
     if (allZero) {
         free(_masses);
         _masses = 0;

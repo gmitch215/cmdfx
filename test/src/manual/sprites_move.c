@@ -1,7 +1,7 @@
+#include <cmdfx.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cmdfx.h>
 
 #include "../test.h"
 
@@ -17,10 +17,10 @@ int main() {
     data[4] = 0;
 
     CmdFX_Sprite* sprite = Sprite_create(data, 0, 0);
-    
+
     Canvas_setCursor(2, Canvas_getHeight() - 3);
     printf("Dimensions: %dx%d\n", sprite->width, sprite->height);
-    
+
     Sprite_draw(4, 4, sprite);
 
     for (int i = 0; i < 250; i++) {

@@ -1,15 +1,15 @@
 #include <stdio.h>
 
+#include "../test.h"
 #include "cmdfx/core/builder.h"
 #include "cmdfx/core/sprites.h"
-#include "../test.h"
 
 int main() {
     int r = 0;
 
     char** data = Char2DBuilder_createFilled(5, 5, '&');
     CmdFX_Sprite* sprite = Sprite_create(data, 0, 0);
-    
+
     r |= assertEquals(sprite->width, 5);
     r |= assertEquals(sprite->height, 5);
     r |= assertEquals(sprite->z, 0);

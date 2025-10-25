@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "cmdfx/core/sprites.h"
-#include "cmdfx/core/builder.h"
-#include "cmdfx/physics/force.h"
 #include "../test.h"
+#include "cmdfx/core/builder.h"
+#include "cmdfx/core/sprites.h"
+#include "cmdfx/core/util.h"
+#include "cmdfx/physics/force.h"
 
 int main() {
+    CmdFX_initThreadSafe();
     int r = 0;
 
     char** data = Char2DBuilder_createFilled(3, 3, '#');
@@ -28,6 +30,7 @@ int main() {
     r |= assertDoubleEquals(Sprite_getFrictionCoefficient(sprite), 0.25);
 
     Sprite_free(sprite);
+    CmdFX_destroyThreadSafe();
 
     return r;
 }

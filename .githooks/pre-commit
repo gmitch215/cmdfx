@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Pre-commit hook to run clang-format on staged C/C++ files.
+# If any formatting changes are made, they are re-added to the index.
+# Fails the commit if clang-format is not available or if reformatting fails.
+
+set -euo pipefail
+
+if ! command -v clang-format >/dev/null 2>&1; then
+  echo "[pre-commit] Error: clang-format not found in PATH" >&2
+  exit 1
+fi
+
+# Get list of staged files (Added, Copied, Modified, Renamed, TypeChanged)
+mapfile -t files < <(git diff --cached --name-only --diff-filter=ACMRT | grep -E '\.(c|cpp|h|hpp)$' || true)
+
+if [[ ${#files[@]} -eq 0 ]]; then
+  exit 0
+fi
+
+echo "[pre-commit] Running clang-format on ${#files[@]} file(s)..."
+
+fail=0
+for f in "${files[@]}"; do
+  if [[ -f $f ]]; then
+    if ! clang-format -i "$f" --style=file; then
+      echo "[pre-commit] Failed to format $f" >&2
+      fail=1
+    else
+      git add "$f"
+      echo "[pre-commit] Formatted $f"
+    fi
+  fi
+done
+
+if [[ $fail -ne 0 ]]; then
+  echo "[pre-commit] One or more files failed to format." >&2
+  exit $fail
+fi
+
+exit 0

@@ -1,9 +1,9 @@
 #ifndef CMDFX_TEST_H
 #define CMDFX_TEST_H
 
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
 
 #include "cmdfx/core/builder.h"
 
@@ -132,7 +132,10 @@ int assertLessThan(int a, int b) {
 int assertIn(double value, double min, double max) {
     printf("#%d: %s\n", count, value >= min && value <= max ? "PASS" : "FAIL");
     if (value < min || value > max) {
-        printf("#%d: expected <%f> to be in range <%f> to <%f>\n", count, value, min, max);
+        printf(
+            "#%d: expected <%f> to be in range <%f> to <%f>\n", count, value,
+            min, max
+        );
         count++;
         return 1;
     }
@@ -167,10 +170,12 @@ int assertStringsMatch(char* a, char* b) {
 
 int assertCharArraysMatch(char** a, char** b) {
     int value = compareCharArrays(a, b);
-    
+
     printf("#%d: %s\n", count, value == 0 ? "PASS" : "FAIL");
     if (value != 0) {
-        printf("#%d: expected char arrays <%p> and <%p> to match:", count, a, b);
+        printf(
+            "#%d: expected char arrays <%p> and <%p> to match:", count, a, b
+        );
         printCharArray(a);
         printf("\n");
         printCharArray(b);
@@ -189,7 +194,9 @@ int assertStringArraysMatch(char*** a, char*** b) {
 
     printf("#%d: %s\n", count, value == 0 ? "PASS" : "FAIL");
     if (value != 0) {
-        printf("#%d: expected string arrays <%p> and <%p> to match:", count, a, b);
+        printf(
+            "#%d: expected string arrays <%p> and <%p> to match:", count, a, b
+        );
         printStringArray(a);
         printf("\n");
         printStringArray(b);

@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "cmdfx/core/util.h"
 #include "../test.h"
+#include "cmdfx/core/util.h"
 
 int main() {
     int r = 0;

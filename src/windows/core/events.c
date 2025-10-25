@@ -1,16 +1,16 @@
+#include <process.h>
+#include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <windows.h>
-#include <process.h>
 #include <time.h>
+#include <windows.h>
 
 #include "cmdfx/core/canvas.h"
-#include "cmdfx/core/events.h"
-#include "cmdfx/core/util.h"
-#include "cmdfx/core/screen.h"
 #include "cmdfx/core/device.h"
+#include "cmdfx/core/events.h"
+#include "cmdfx/core/screen.h"
+#include "cmdfx/core/util.h"
 #include "cmdfx/ui/button.h"
 #include "cmdfx/ui/switch.h"
 
@@ -22,9 +22,12 @@ int _prevHeight = -1;
 int Canvas_getWidth() {
     if (_prevWidth == -1) {
         CONSOLE_SCREEN_BUFFER_INFO csbi;
-        if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
+        if (GetConsoleScreenBufferInfo(
+                GetStdHandle(STD_OUTPUT_HANDLE), &csbi
+            )) {
             _prevWidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-        } else {
+        }
+        else {
             _prevWidth = 0;
         }
     }
@@ -35,9 +38,12 @@ int Canvas_getWidth() {
 int Canvas_getHeight() {
     if (_prevHeight == -1) {
         CONSOLE_SCREEN_BUFFER_INFO csbi;
-        if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
+        if (GetConsoleScreenBufferInfo(
+                GetStdHandle(STD_OUTPUT_HANDLE), &csbi
+            )) {
             _prevHeight = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
-        } else {
+        }
+        else {
             _prevHeight = 0;
         }
     }
@@ -55,7 +61,9 @@ void win_checkResizeEvent() {
 
         if (width != _prevWidth || height != _prevHeight) {
             CmdFX_ResizeEvent resize = {_prevWidth, _prevHeight, width, height};
-            CmdFX_Event event = {CMDFX_EVENT_RESIZE, currentTimeMillis(), &resize};
+            CmdFX_Event event = {
+                CMDFX_EVENT_RESIZE, currentTimeMillis(), &resize
+            };
             dispatchCmdFXEvent(&event);
 
             _prevWidth = width;
@@ -68,13 +76,14 @@ static bool* _prevKeys = 0;
 
 void win_checkKeyEvent() {
     bool* keys = Device_getKeyboardKeysPressed();
-    if (_prevKeys == 0)
-        _prevKeys = (bool*) calloc(256, sizeof(bool));
+    if (_prevKeys == 0) _prevKeys = (bool*) calloc(256, sizeof(bool));
 
     for (int i = 0; i < 256; i++) {
         if (keys[i] != _prevKeys[i]) {
             CmdFX_KeyEvent keyEvent = {i, Device_fromKeyCode(i), keys[i]};
-            CmdFX_Event event = {CMDFX_EVENT_KEY, currentTimeMillis(), &keyEvent};
+            CmdFX_Event event = {
+                CMDFX_EVENT_KEY, currentTimeMillis(), &keyEvent
+            };
             dispatchCmdFXEvent(&event);
             _prevKeys[i] = keys[i];
         }
@@ -89,16 +98,17 @@ int _prevMouseY = -1;
 
 void win_checkMouseEvent() {
     bool* buttons = Device_getMouseButtonsPressed();
-    if (_prevButtons == 0)
-        _prevButtons = (bool*) calloc(3, sizeof(bool));
+    if (_prevButtons == 0) _prevButtons = (bool*) calloc(3, sizeof(bool));
 
     int x, y;
     Screen_getMousePos(&x, &y);
 
     for (int i = 0; i < 3; i++) {
-        if (buttons[i] != _prevButtons[i] || x != _prevMouseX || y != _prevMouseY) {
+        if (buttons[i] != _prevButtons[i] || x != _prevMouseX ||
+            y != _prevMouseY) {
             unsigned long time = currentTimeMillis();
-            CmdFX_MouseEvent mouseEvent = {i, buttons[i], _prevMouseX, x, _prevMouseY, y};
+            CmdFX_MouseEvent mouseEvent = {i, buttons[i],  _prevMouseX,
+                                           x, _prevMouseY, y};
             CmdFX_Event event = {CMDFX_EVENT_MOUSE, time, &mouseEvent};
             dispatchCmdFXEvent(&event);
 
@@ -112,15 +122,16 @@ void win_checkMouseEvent() {
                     callback(button, &mouseEvent, time);
 
                     CmdFX_ButtonEvent buttonEvent = {&mouseEvent, button};
-                    CmdFX_Event buttonEventStruct = {CMDFX_EVENT_BUTTON_CLICK, time, &buttonEvent};
+                    CmdFX_Event buttonEventStruct = {
+                        CMDFX_EVENT_BUTTON_CLICK, time, &buttonEvent
+                    };
                     dispatchCmdFXEvent(&buttonEventStruct);
 
                     switch (button->type) {
                         case CMDFX_BUTTON_TYPE_SWITCH:
                             Switch_toggleState(button);
                             break;
-                        default:
-                            break;
+                        default: break;
                     }
 
                     j++;

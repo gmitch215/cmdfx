@@ -4,7 +4,7 @@
  * @brief Canvas API for drawing shapes and text on the terminal.
  * @version 0.1.0
  * @date 2025-01-20
- * 
+ *
  * @copyright Copyright (c) 2025
  */
 
@@ -23,14 +23,15 @@ extern "C" {
 int Canvas_getWidth();
 
 /**
- * @brief Gets the height of the canvas, which is the height of the terminal.
+ * @brief Gets the height of the canvas, which is the height of the
+ * terminal.
  * @return The height of the canvas.
  */
 int Canvas_getHeight();
 
 /**
  * @brief Clears the screen.
- * 
+ *
  * This method uses a `system` call to clear the screen.
  */
 void Canvas_clearScreen();
@@ -44,27 +45,29 @@ void Canvas_setCursor(int x, int y);
 
 /**
  * @brief Gets the cursor position.
- * 
- * On POSIX, this method uses the `ESC[6n` ANSI code to get the cursor position. This can
- * make the method more expensive than on Windows, where the cursor position is stored
- * internally. This method is therefore not thread safe on POSIX platforms.
- * 
- * On Windows, this method uses the `GetConsoleScreenBufferInfo` function to get
- * the cursor position.
- * 
+ *
+ * On POSIX, this method uses the `ESC[6n` ANSI code to get the cursor
+ * position. This can make the method more expensive than on Windows, where
+ * the cursor position is stored internally. This method is therefore not
+ * thread safe on POSIX platforms.
+ *
+ * On Windows, this method uses the `GetConsoleScreenBufferInfo` function to
+ * get the cursor position.
+ *
  * @return The cursor position.
  */
 int Canvas_getCursorX();
 
 /**
  * @brief Gets the cursor position.
- * 
- * On POSIX, this method uses the `ESC[6n` ANSI code to get the cursor position. This can
- * make the method more expensive than on Windows, where the cursor position is stored
- * internally. This method is therefore not thread safe on POSIX platforms.
- * 
- * On Windows, this method uses the `GetConsoleScreenBufferInfo` function to get
- * the cursor position.
+ *
+ * On POSIX, this method uses the `ESC[6n` ANSI code to get the cursor
+ * position. This can make the method more expensive than on Windows, where
+ * the cursor position is stored internally. This method is therefore not
+ * thread safe on POSIX platforms.
+ *
+ * On Windows, this method uses the `GetConsoleScreenBufferInfo` function to
+ * get the cursor position.
  * @return The cursor position.
  */
 int Canvas_getCursorY();
@@ -79,22 +82,24 @@ void Canvas_setChar(int x, int y, char c);
 
 /**
  * @brief Appends the ANSI code at the current cursor position.
- * 
+ *
  * This method sets the ANSI code at a specific position. The ANSI code is a
- * series of semicolon-separated numbers and letters that control the terminal
- * behavior. For example, the ANSI code "\033[31m" sets the text color to red.
- * 
+ * series of semicolon-separated numbers and letters that control the
+ * terminal behavior. For example, the ANSI code "\033[31m" sets the text
+ * color to red.
+ *
  * @param ansi The ANSI code.
  */
 void Canvas_setAnsiCurrent(const char* ansi);
 
 /**
  * @brief Appends the ANSI code at a specific position.
- * 
+ *
  * This method sets the ANSI code at a specific position. The ANSI code is a
- * series of semicolon-separated numbers and letters that control the terminal
- * behavior. For example, the ANSI code "\033[31m" sets the text color to red.
- * 
+ * series of semicolon-separated numbers and letters that control the
+ * terminal behavior. For example, the ANSI code "\033[31m" sets the text
+ * color to red.
+ *
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param ansi The ANSI code.
@@ -105,54 +110,56 @@ void Canvas_setAnsi(int x, int y, const char* ansi);
 
 /**
  * @brief Gets the cursor visibility.
- * 
+ *
  * On POSIX, this is handled by an internal variable. On Windows, this is
- * determined by the cursor visibility state. Therefore, this method is often
- * less reliable on POSIX systems, since it cannot detect changes made by other
- * programs.
- * 
+ * determined by the cursor visibility state. Therefore, this method is
+ * often less reliable on POSIX systems, since it cannot detect changes made
+ * by other programs.
+ *
  * @return 1 if the cursor is visible, 0 if it is hidden.
  */
 int Canvas_isCursorVisible();
 
 /**
  * @brief Hides the cursor.
- * 
- * On POSIX, this is a simple print of the ANSI code "\033[?25l", which hides the cursor.
- * On Windows, this is a call to the `SetConsoleCursorInfo` function.
+ *
+ * On POSIX, this is a simple print of the ANSI code "\033[?25l", which
+ * hides the cursor. On Windows, this is a call to the
+ * `SetConsoleCursorInfo` function.
  */
 void Canvas_hideCursor();
 
 /**
  * @brief Shows the cursor.
- * 
- * On POSIX, this is a simple print of the ANSI code "\033[?25h", which shows the cursor.
- * On Windows, this is a call to the `SetConsoleCursorInfo` function.
+ *
+ * On POSIX, this is a simple print of the ANSI code "\033[?25h", which
+ * shows the cursor. On Windows, this is a call to the
+ * `SetConsoleCursorInfo` function.
  */
 void Canvas_showCursor();
 
 /**
  * @brief Resets all formatting at the current cursor position.
- * 
- * This is a simple print of the ANSI code "\033[0m", which resets all formatting
- * at the current cursor position.
+ *
+ * This is a simple print of the ANSI code "\033[0m", which resets all
+ * formatting at the current cursor position.
  */
 void Canvas_resetFormat();
 
 /**
  * @brief Sets the foreground color at the current cursor position.
- * 
- * This uses the ANSI code "\033[38;2;r;g;bm", where r, g, and b are the red, green,
- * and blue values of the color, respectively.
+ *
+ * This uses the ANSI code "\033[38;2;r;g;bm", where r, g, and b are the
+ * red, green, and blue values of the color, respectively.
  * @param rgb The RGB color.
  */
 void Canvas_setForeground(int rgb);
 
 /**
  * @brief Sets the background color at the current cursor position.
- * 
- * This uses the ANSI code "\033[48;2;r;g;bm", where r, g, and b are the red, green,
- * and blue values of the color, respectively.
+ *
+ * This uses the ANSI code "\033[48;2;r;g;bm", where r, g, and b are the
+ * red, green, and blue values of the color, respectively.
  * @param rgb The RGB color.
  */
 void Canvas_setBackground(int rgb);
@@ -160,42 +167,44 @@ void Canvas_setBackground(int rgb);
 /**
  * @brief Sets the color at the current cursor position using the built-in
  * 8-bit color palette.
- * 
+ *
  * This uses the ANSI code "\033[{ID}m", where m is the color number.
  * @param color The color number.
  */
 void Canvas_setColor8(int color);
 
 /**
- * @brief Sets the foreground color at the current cursor position using the built-in
- * 256-color palette.
- * 
- * This uses the ANSI code "\033[38;5;{ID}m", where {ID} is the color number.
+ * @brief Sets the foreground color at the current cursor position using the
+ * built-in 256-color palette.
+ *
+ * This uses the ANSI code "\033[38;5;{ID}m", where {ID} is the color
+ * number.
  * @param color The color number.
  */
 void Canvas_setForeground256(int color);
 
 /**
- * @brief Sets the background color at the current cursor position using the built-in
- * 256-color palette.
- * 
- * This uses the ANSI code "\033[48;5;{ID}m", where {ID} is the color number.
+ * @brief Sets the background color at the current cursor position using the
+ * built-in 256-color palette.
+ *
+ * This uses the ANSI code "\033[48;5;{ID}m", where {ID} is the color
+ * number.
  * @param color The color number.
  */
 void Canvas_setBackground256(int color);
 
 /**
  * @brief Enables the bold text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[1m".
  */
 void Canvas_enableBold();
 
 /**
  * @brief Disables the bold text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[22m".
- * 
+ *
  * Both this and `Canvas_disableDim` share the same code, meaning it will
  * disable both bold and dim text if both are enabled.
  */
@@ -203,20 +212,20 @@ void Canvas_disableBold();
 
 /**
  * @brief Enables the dim text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[2m".
- * 
+ *
  * Faint is not widely supported, and is often rendered as normal text.
  */
 void Canvas_enableDim();
 
 /**
  * @brief Disables the dim text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[22m".
- * 
+ *
  * Faint is not widely supported, and is often rendered as normal text.
- * 
+ *
  * Both this and `Canvas_disableBold` share the same code, meaning it will
  * disable both bold and dim text if both are enabled.
  */
@@ -224,100 +233,101 @@ void Canvas_disableDim();
 
 /**
  * @brief Enables the italic text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[3m".
- * 
+ *
  * Italic is not widely supported, and is often rendered as normal text.
  */
 void Canvas_enableItalic();
 
 /**
  * @brief Disables the italic text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[23m".
- * 
+ *
  * Italic is not widely supported, and is often rendered as normal text.
  */
 void Canvas_disableItalic();
 
 /**
  * @brief Enables the underline text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[4m".
  */
 void Canvas_enableUnderline();
 
 /**
  * @brief Disables the underline text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[24m".
  */
 void Canvas_disableUnderline();
 
 /**
  * @brief Enables the blink text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[5m".
- * 
+ *
  * "Blinking" refers to the text blinking on and off.
  */
 void Canvas_enableBlink();
 
 /**
  * @brief Disables the blink text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[25m".
  */
 void Canvas_disableBlink();
 
 /**
  * @brief Enables the invert text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[7m".
- * 
+ *
  * "Invert" refers to the text and background colors being swapped.
  */
 void Canvas_enableInvert();
 
 /**
  * @brief Disables the invert text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[27m".
  */
 void Canvas_disableInvert();
 
 /**
  * @brief Enables the hidden text attribute.
- * 
+ *
  * Hidden is not widely supported, and is often rendered as normal text.
- * 
+ *
  * This is a simple print of the ANSI code "\033[8m".
- * 
+ *
  * "Hidden" refers to the text being hidden.
  */
 void Canvas_enableHidden();
 
 /**
  * @brief Disables the hidden text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[28m".
  */
 void Canvas_disableHidden();
 
 /**
  * @brief Enables the strikethrough text attribute.
- * 
- * Strikethrough is not widely supported, and is often rendered as normal text.
- * 
+ *
+ * Strikethrough is not widely supported, and is often rendered as normal
+ * text.
+ *
  * This is a simple print of the ANSI code "\033[9m".
- * 
+ *
  * "Strikethrough" refers to the text having a line through the middle.
  */
 void Canvas_enableStrikethrough();
 
 /**
  * @brief Disables the strikethrough text attribute.
- * 
+ *
  * This is a simple print of the ANSI code "\033[29m".
  */
 void Canvas_disableStrikethrough();
@@ -412,10 +422,10 @@ void Canvas_line(int x1, int y1, int x2, int y2, char c);
 
 /**
  * @brief Draws a polygon.
- * 
- * This method draws a polygon with the specified number of sides and radius.
- * The X and Y coordinates are the center of the polygon.
- * 
+ *
+ * This method draws a polygon with the specified number of sides and
+ * radius. The X and Y coordinates are the center of the polygon.
+ *
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param sides Number of sides.
@@ -426,10 +436,10 @@ void Canvas_polygon(int x, int y, int sides, int radius, char c);
 
 /**
  * @brief Fills a polygon with a character.
- * 
- * This method fills a polygon with the specified number of sides and radius.
- * The X and Y coordinates are the center of the polygon.
- * 
+ *
+ * This method fills a polygon with the specified number of sides and
+ * radius. The X and Y coordinates are the center of the polygon.
+ *
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param sides Number of sides.
@@ -440,11 +450,11 @@ void Canvas_fillPolygon(int x, int y, int sides, int radius, char c);
 
 /**
  * @brief Draws a quadratic Bezier curve.
- * 
- * This method draws a quadratic Bezier curve from the current position to the
- * specified coordinates. The X and Y coordinates are the control point of the
- * curve.
- * 
+ *
+ * This method draws a quadratic Bezier curve from the current position to
+ * the specified coordinates. The X and Y coordinates are the control point
+ * of the curve.
+ *
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param x1 The x coordinate of the control point.
@@ -457,11 +467,11 @@ void Canvas_quad(int x, int y, int x1, int y1, int x2, int y2, char c);
 
 /**
  * @brief Draws a cubic Bezier curve.
- * 
+ *
  * This method draws a cubic Bezier curve from the current position to the
- * specified coordinates. The X and Y coordinates are the control points of the
- * curve.
- * 
+ * specified coordinates. The X and Y coordinates are the control points of
+ * the curve.
+ *
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param x1 The x coordinate of the first control point.
@@ -472,26 +482,33 @@ void Canvas_quad(int x, int y, int x1, int y1, int x2, int y2, char c);
  * @param y3 The y coordinate of the end point.
  * @param c The character to draw the curve with.
  */
-void Canvas_cubic(int x, int y, int x1, int y1, int x2, int y2, int x3, int y3, char c);
+void Canvas_cubic(
+    int x, int y, int x1, int y1, int x2, int y2, int x3, int y3, char c
+);
 
 /**
  * @brief Draws an elliptical arc.
- * 
+ *
  * This method draws an elliptical arc from the current position to the
- * specified coordinates. The X and Y coordinates are the center of the ellipse.
- * 
+ * specified coordinates. The X and Y coordinates are the center of the
+ * ellipse.
+ *
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param rx The x radius of the ellipse.
  * @param ry The y radius of the ellipse.
  * @param xrot The rotation of the ellipse in degrees.
  * @param arcflag 1 if the arc is greater than 180 degrees, 0 otherwise.
- * @param sweepflag 1 if the arc is drawn in a positive-angle direction, 0 otherwise.
+ * @param sweepflag 1 if the arc is drawn in a positive-angle direction, 0
+ * otherwise.
  * @param dx The x coordinate of the end point.
  * @param dy The y coordinate of the end point.
  * @param c The character to draw the arc with.
  */
-void Canvas_arc(int x, int y, int rx, int ry, double xrot, int arcflag, int sweepflag, int dx, int dy, char c);
+void Canvas_arc(
+    int x, int y, int rx, int ry, double xrot, int arcflag, int sweepflag,
+    int dx, int dy, char c
+);
 
 // Utility Functions - Text
 
@@ -821,14 +838,17 @@ extern char ASCII_EIGHT[8][5];
 extern char ASCII_NINE[8][5];
 
 /**
- * @brief Represents a mapping of ASCII characters to their respective ASCII art.
- * 
- * This 3D array is automatically initialized when `Canvas_drawAsciiText` is called.
- * 
- * This 3D array is used to map ASCII characters to their respective ASCII art. The first
- * dimension is the ASCII character, the second dimension is the row, and the third dimension
- * is the column. The ASCII art is represented as a 2D array of characters, and drawn using
- * the Canvas_drawAscii method.
+ * @brief Represents a mapping of ASCII characters to their respective ASCII
+ * art.
+ *
+ * This 3D array is automatically initialized when `Canvas_drawAsciiText` is
+ * called.
+ *
+ * This 3D array is used to map ASCII characters to their respective ASCII
+ * art. The first dimension is the ASCII character, the second dimension is
+ * the row, and the third dimension is the column. The ASCII art is
+ * represented as a 2D array of characters, and drawn using the
+ * Canvas_drawAscii method.
  */
 extern char ASCII_MAP[128][8][5];
 
@@ -844,10 +864,11 @@ void Canvas_drawAscii(int x, int y, char ascii[8][5]);
 
 /**
  * @brief Draws text at a specific position.
- * 
- * This method uses the Canvas_drawAscii method to draw ASCII characters. The
- * ASCII characters are stored in pre-defined 2D arrays that are declared in this header.
- * Characters that are not present in the header will be skipped.
+ *
+ * This method uses the Canvas_drawAscii method to draw ASCII characters.
+ * The ASCII characters are stored in pre-defined 2D arrays that are
+ * declared in this header. Characters that are not present in the header
+ * will be skipped.
  * @param x X coordinate.
  * @param y Y coordinate.
  * @param character The character to use when drawing.

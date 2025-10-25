@@ -5,21 +5,21 @@ on:
     inputs:
       changelog:
         type: string
-        description: 'Changelog to replace the auto-generated one'
+        description: "Changelog to replace the auto-generated one"
 
 jobs:
   build:
     strategy:
       fail-fast: false
       matrix:
-        include: 
+        include:
           - os: ubuntu-24.04
             id: linuxx64
           - os: ubuntu-24.04-arm
             id: linuxarm64
           - os: windows-2025
             id: mingwx64
-          - os: macos-13
+          - os: macos-15-intel
             id: macosx64
           - os: macos-15
             id: macosarm64
@@ -33,11 +33,11 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
       - uses: actions/setup-dotnet@v5
         if: ${{ matrix.os == 'windows-2025' }}
         with:
-          dotnet-version: '9'
+          dotnet-version: "9"
       - name: Setup Global Dotnet Tool Cache
         if: ${{ matrix.os == 'windows-2025' }}
         uses: actions/cache@v4
@@ -56,7 +56,7 @@ jobs:
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: fwilhe2/setup-kotlin@main
         with:
-          version: '2.2.10'
+          version: "2.2.10"
           install-native: true
       - name: Setup Konan
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
@@ -114,7 +114,7 @@ jobs:
       - name: Archive Package Artifacts
         id: archive
         if: success() || failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: CmdFX-Release-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           path: build/package/*
@@ -146,7 +146,7 @@ jobs:
         id: latest_tag
         run: echo "LATEST_TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
       - name: Download Release Artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           pattern: CmdFX-Release-*
           path: build/package
@@ -169,5 +169,3 @@ jobs:
           body: ${{ steps.changelog.outputs.changelog || github.event.inputs.changelog }}
           draft: false
           prerelease: false
-
-

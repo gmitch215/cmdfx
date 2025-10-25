@@ -4,9 +4,9 @@
  * @brief Cross-Platform Utilities for CmdFX.
  * @version 0.1.0
  * @date 2025-01-21
- * 
+ *
  * @copyright Copyright (c) 2025
- * 
+ *
  */
 #pragma once
 
@@ -18,20 +18,20 @@ extern "C" {
 
 /**
  * @brief Gets the tick speed of cmdfx.
- * 
+ *
  * The tick speed controls the rate of which ticking happens, such
  * as the physics engine. The default value is 12.
- * 
+ *
  * @return The cmdfx Tick Speed
  */
 int CmdFX_getTickSpeed();
 
 /**
  * @brief Sets the tick speed of cmdfx.
- * 
+ *
  * The tick speed controls the rate of which ticking happens, such
  * as the physics engine. The default value is 12.
- * 
+ *
  * @param tickspeed The new tickspeed to set
  * @return 0 if successful, -1 if an error happened
  */
@@ -150,7 +150,7 @@ int lerp_color(int rgb1, int rgb2, double t);
 
 /**
  * @brief Maximum number of internal mutexes.
- * 
+ *
  * This constant defines the maximum number of internal mutexes
  * that can be created. It is used to limit the number of mutexes
  * that can be created in the system.
@@ -159,45 +159,45 @@ int lerp_color(int rgb1, int rgb2, double t);
 
 /**
  * @brief Initializes thread-safe functions.
- * 
+ *
  * This method initializes internal mutexes and ensures thread-safe
  * operations. It should be called before using any unsafe functions
  * that may be accessed by multiple threads or at the start of the
  * program.
- * 
+ *
  * @return 0 if successful, -1 if an error occurred.
  */
 int CmdFX_initThreadSafe();
 
 /**
  * @brief Checks if thread-safe functions are enabled.
- * 
+ *
  * This method checks if thread-safe functions are enabled. It
  * returns 1 if they are enabled, 0 if they are not.
- * 
+ *
  * @return 1 if thread-safe functions are enabled, 0 otherwise.
  */
 int CmdFX_isThreadSafeEnabled();
 
 /**
  * @brief Cleans up thread-safe functions.
- * 
+ *
  * This method cleans up internal mutexes and ensures that all
  * thread-safe operations are properly terminated. It should be
  * called after all unsafe functions have been used or at the
  * end of the program.
- * 
+ *
  * @return 0 if successful, -1 if an error occurred.
  */
 int CmdFX_destroyThreadSafe();
 
 /**
  * @brief Gets an internal mutex.
- * 
+ *
  * This method gets an internal mutex that can be used for
  * synchronizing access to shared resources. The index
  * should be between 0 and _MAX_INTERNAL_CMDFX_MUTEXES - 1.
- * 
+ *
  * @param index The index of the mutex to get.
  * @return Pointer to the platform-specific mutex object.
  */
@@ -205,10 +205,10 @@ void* CmdFX_getInternalMutex(int index);
 
 /**
  * @brief Locks a mutex.
- * 
+ *
  * This method locks a mutex, blocking the calling thread until
  * the mutex is available.
- * 
+ *
  * @param mutex Pointer to the platform-specific mutex object.
  * @return 0 if successful, -1 if an error occurred.
  */
@@ -216,10 +216,10 @@ int CmdFX_lockMutex(void* mutex);
 
 /**
  * @brief Unlocks a mutex.
- * 
+ *
  * This method unlocks a mutex, allowing other threads to access
  * the shared resource.
- * 
+ *
  * @param mutex Pointer to the platform-specific mutex object.
  * @return 0 if successful, -1 if an error occurred.
  */
@@ -227,44 +227,44 @@ int CmdFX_unlockMutex(void* mutex);
 
 /**
  * @brief Tries to lock a mutex.
- * 
+ *
  * This method tries to lock a mutex without blocking the calling
  * thread. If the mutex is already locked, it returns immediately.
- * 
+ *
  * It will also initialize the mutex if it is not already initialized.
- * 
+ *
  * @param id The ID of the mutex to lock.
  */
 void CmdFX_tryLockMutex(int id);
 
 /**
  * @brief Tries to unlock a mutex.
- * 
+ *
  * This method tries to unlock a mutex without blocking the calling
  * thread. If the mutex is already unlocked, it returns immediately.
- * 
+ *
  * @param id The ID of the mutex to unlock.
  */
 void CmdFX_tryUnlockMutex(int id);
 
 #ifdef _WIN32
-#include <stdint.h>
-#define ThreadID uintptr_t
+    #include <stdint.h>
+    #define ThreadID uintptr_t
 #else
-#include <pthread.h>
-#define ThreadID pthread_t
+    #include <pthread.h>
+    #define ThreadID pthread_t
 #endif
 
 /**
  * @brief Launches a thread.
- * 
+ *
  * This method launches a thread that runs the specified function
  * with the specified argument.
- * 
+ *
  * To run the thread in the background, use the `CmdFX_detachThread`
  * function. You must call `CmdFX_initThreadSafe` before using this
  * function.
- * 
+ *
  * @param func The function to run in the thread.
  * @param arg The argument to pass to the function.
  * @return The thread identifier.
@@ -273,13 +273,13 @@ ThreadID CmdFX_launchThread(void (*func)(void*), void* arg);
 
 /**
  * @brief Joins a thread.
- * 
+ *
  * This method joins a thread, blocking the calling thread until
  * the specified thread has completed its execution.
- * 
+ *
  * You must call `CmdFX_initThreadSafe` before using this
  * function.
- * 
+ *
  * @param thread The thread identifier.
  * @return 0 if successful, -1 if an error occurred.
  */
@@ -287,14 +287,14 @@ int CmdFX_joinThread(ThreadID thread);
 
 /**
  * @brief Detaches a thread.
- * 
+ *
  * This method detaches a thread, allowing it to run independently
  * of the main thread. The calling thread will not block until the
  * detached thread has completed its execution.
- * 
+ *
  * You must call `CmdFX_initThreadSafe` before using this
  * function.
- * 
+ *
  * @param thread The pointer to the thread identifier.
  * @return 0 if successful, -1 if an error occurred.
  */

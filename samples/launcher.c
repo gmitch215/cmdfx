@@ -2,15 +2,16 @@
  * @file launcher.c
  * @author Gregory Mitchell (me@gmitch215.xyz)
  * @date 2025-03-28
- * 
- * This is a simple demo program that shows how to use the Physics Engine for CmdFX.
- * 
+ *
+ * This is a simple demo program that shows how to use the Physics Engine for
+ * CmdFX.
+ *
  * Simply run the program and watch the object fly around the screen.
- * You can optionally pass a multiplicative modifier to the tick speed as the first parameter
- * to see how fast it will go.
- * 
+ * You can optionally pass a multiplicative modifier to the tick speed as the
+ * first parameter to see how fast it will go.
+ *
  * @copyright Copyright (c) 2025
- * 
+ *
  */
 
 #include <cmdfx.h>
@@ -39,7 +40,7 @@ int main(int argc, char** argv) {
 
     // Initialize threading first, before any drawing operations
     CmdFX_initThreadSafe();
-    
+
     Canvas_clearScreen();
     Canvas_hideCursor();
     Engine_enableMotionDebug();
@@ -48,7 +49,7 @@ int main(int argc, char** argv) {
     Canvas_hLine(0, Engine_getGroundY(), Canvas_getWidth(), '-');
     Canvas_hLine(0, 1, Canvas_getWidth(), '-');
     Sprite_draw(2, Canvas_getHeight() - sprite->height - 1, sprite);
-    
+
     // Start physics engine after all initial drawing is done
     Engine_start();
 

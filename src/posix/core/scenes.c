@@ -1,6 +1,6 @@
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
 #include <unistd.h>
 
 #include "cmdfx/core/scenes.h"

@@ -66,7 +66,9 @@ void Canvas_vLine_anim_reverse(int x, int y, int height, char c, double time) {
     }
 }
 
-void Canvas_rect_anim(int x, int y, int width, int height, char c, double time) {
+void Canvas_rect_anim(
+    int x, int y, int width, int height, char c, double time
+) {
     if (x < 0 || y < 0) return;
     if (width < 1 || height < 1) return;
     if (time <= 0) return;
@@ -79,7 +81,9 @@ void Canvas_rect_anim(int x, int y, int width, int height, char c, double time) 
     Canvas_vLine_anim_reverse(x + width - 1, y, height, c, time0);
 }
 
-void Canvas_fillRect_anim(int x, int y, int width, int height, char c, double time) {
+void Canvas_fillRect_anim(
+    int x, int y, int width, int height, char c, double time
+) {
     if (x < 0 || y < 0) return;
     if (width < 1 || height < 1) return;
     if (time <= 0) return;
@@ -110,7 +114,9 @@ void Canvas_line_anim(int x0, int y0, int x1, int y1, char c, double time) {
     }
 }
 
-void Canvas_line_anim_reverse(int x0, int y0, int x1, int y1, char c, double time) {
+void Canvas_line_anim_reverse(
+    int x0, int y0, int x1, int y1, char c, double time
+) {
     if (x0 < 1 || y0 < 1 || x1 < 1 || y1 < 1) return;
     if (time <= 0) return;
 
@@ -159,7 +165,9 @@ void Canvas_drawText_anim_reverse(int x, int y, char* text, double time) {
     }
 }
 
-void Canvas_drawAsciiText_anim(int x, int y, char character, const char* text, double time) {
+void Canvas_drawAsciiText_anim(
+    int x, int y, char character, const char* text, double time
+) {
     if (x < 0 || y < 0) return;
     if (time <= 0) return;
     if (text == 0) return;
@@ -168,7 +176,7 @@ void Canvas_drawAsciiText_anim(int x, int y, char character, const char* text, d
     double step = time / len;
 
     for (int i = 0; i < len; i++) {
-        char ch[2] = { text[i], '\0' };
+        char ch[2] = {text[i], '\0'};
         Canvas_drawAsciiText(x + (i * 6), y, character, ch);
         sleepMillis((unsigned long) (step * 1000));
     }

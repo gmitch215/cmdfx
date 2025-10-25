@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.30)
 
-set(PROJECT_VERSION "0.3.0")
-project(cmdfx 
+set(PROJECT_VERSION "0.3.1")
+project(cmdfx
     LANGUAGES C CXX
     VERSION ${PROJECT_VERSION}
     DESCRIPTION "Lightweight game engine for your terminal"
@@ -15,7 +15,7 @@ set(CMAKE_C_STANDARD 17)
 file(GLOB_RECURSE COMMON_SRC ${PROJECT_SOURCE_DIR}/src/common/*.c)
 if (WIN32)
     file(GLOB_RECURSE PLATFORM_SRC ${PROJECT_SOURCE_DIR}/src/windows/*.c)
-    
+
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 else()
     file(GLOB_RECURSE PLATFORM_SRC ${PROJECT_SOURCE_DIR}/src/posix/*.c)
@@ -103,9 +103,9 @@ if (DOCS_CMDFX)
     if (DOXYGEN_FOUND)
         set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
         set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile.in)
-    
+
         configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
-    
+
         add_custom_target(docs
             COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/docs
@@ -135,7 +135,7 @@ endif()
 
 if (INSTALL_CMDFX)
     include(GNUInstallDirs)
-   
+
     install(TARGETS cmdfx
         EXPORT cmdfxTargets
         COMPONENT library
@@ -144,7 +144,7 @@ if (INSTALL_CMDFX)
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         INCLUDES DESTINATION include
     )
-    
+
     export(EXPORT cmdfxTargets
         FILE ${CMAKE_BINARY_DIR}/${PROJECT_NAME}Targets.cmake
         NAMESPACE ${PROJECT_NAME}::
@@ -167,8 +167,8 @@ if (INSTALL_CMDFX)
             INSTALL_DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
     )
 
-    install(FILES 
-        "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake" 
+    install(FILES
+        "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
         "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME}
         COMPONENT library
@@ -179,7 +179,7 @@ if (INSTALL_CMDFX)
             DESTINATION include
             COMPONENT library
     )
-    
+
     # Documentation Components
     if (DOCS_CMDFX)
         if (EXISTS "${CMAKE_BINARY_DIR}/docs/html")
@@ -197,7 +197,7 @@ if (INSTALL_CMDFX)
                 COMPONENT latexDocs
             )
         endif()
-        
+
         install(FILES
             "${PROJECT_SOURCE_DIR}/README.md"
             "${PROJECT_SOURCE_DIR}/INSTALLER_README.txt"

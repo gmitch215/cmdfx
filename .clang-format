@@ -1,0 +1,27 @@
+---
+BasedOnStyle: Microsoft
+IndentWidth: 4
+ColumnLimit: 80
+UseTab: Never
+IndentCaseLabels: true
+PointerAlignment: Left
+AllowShortBlocksOnASingleLine: Never
+AllowShortIfStatementsOnASingleLine: true
+AllowShortCaseExpressionOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: None
+AllowShortLambdasOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
+EmptyLineAfterAccessModifier: Never
+IndentPPDirectives: BeforeHash
+AllowAllParametersOfDeclarationOnNextLine: true
+BraceWrapping:
+  AfterControlStatement: false
+  AfterFunction: false
+  AfterClass: false
+  AfterStruct: false
+  AfterCaseLabel: false
+  AfterExternBlock: false
+AlignAfterOpenBracket: BlockIndent
+SpaceAfterCStyleCast: true
+SortIncludes: true
