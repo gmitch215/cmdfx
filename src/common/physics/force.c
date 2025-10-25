@@ -112,7 +112,7 @@ int Sprite_addForce(CmdFX_Sprite* sprite, CmdFX_Vector* vector) {
     CmdFX_tryLockMutex(_SPRITE_FORCE_MUTEX);
 
     int id = sprite->id - 1;
-    _checkForceArraysExist(sprite->id); // ensure arrays are large enough
+    _checkForceArraysExist(id + 1); // ensure arrays are large enough
 
     if (_forces == 0) {
         CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);

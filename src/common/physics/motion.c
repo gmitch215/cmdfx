@@ -183,7 +183,7 @@ int Sprite_isAboutToCollide(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
     double* motion1 = Sprite_getMotion(sprite1);
     double* motion2 = Sprite_getMotion(sprite2);
     if (motion1 == 0 || motion2 == 0)
-        return 0; // not colliding + no motion = not about to ollide
+        return 0; // not colliding + no motion = not about to collide
 
     double dx1 = motion1[0] + motion1[2];
     double dy1 = motion1[1] + motion1[3];
