@@ -1,0 +1,63 @@
+name: CodeQL Analysis
+
+on:
+  push:
+    branches: [master, ver/*]
+  pull_request:
+    branches: [master, ver/*]
+  schedule:
+    - cron: "25 16 * * 5"
+
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    timeout-minutes: 180
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: actions
+            build-mode: none
+            os: ubuntu-latest
+          - language: c-cpp
+            build-mode: manual
+            os: ubuntu-latest
+
+    runs-on: ${{ matrix.os }}
+
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: "recursive"
+      - name: Install Linux Dependencies
+        if: ${{ matrix.language == 'c-cpp' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+          queries: security-extended,security-and-quality
+      - name: Configure Project
+        if: ${{ matrix.build-mode == 'manual' }}
+        run: cmake -B build -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7} -DTEST_CMDFX=OFF -DPACKAGE_CMDFX=OFF -DKN_CMDFX=OFF
+        shell: bash
+      - name: Build Project
+        if: ${{ matrix.build-mode == 'manual' }}
+        run: cmake --build build --config Debug
+        shell: bash
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:${{ matrix.language }}"
