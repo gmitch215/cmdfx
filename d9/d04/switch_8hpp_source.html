@@ -25,7 +25,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.0</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.1</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -85,51 +85,64 @@ $(function() {
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">    #include &quot;<a class="code" href="../../d2/dff/switch_8h.html">cmdfx/ui/switch.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../d2/dff/switch_8h.html">cmdfx/ui/switch.h</a>&quot;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="../../dc/dcd/builder_8hpp.html">cmdfx/core/builder.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/d4b/button_8hpp.html">cmdfx/ui/button.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/df4/namespaceCmdFX.html">CmdFX</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span></div>
-<div class="foldopen" id="foldopen00028" data-start="{" data-end="};">
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="../../dd/d30/classCmdFX_1_1Switch.html">   28</a></span>    <span class="keyword">class </span>Switch : <span class="keyword">public</span> Button {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            Switch(<a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>* btn) : Button(btn) {}</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            Switch(<a class="code hl_class" href="../../db/d6e/classCmdFX_1_1Sprite.html">Sprite</a>&amp; sprite, <a class="code hl_typedef" href="../../d7/d0e/button_8h.html#a86077073d8162f15d2b2b89de3a1bd7c">CmdFX_ButtonCallback</a> callback, <span class="keywordtype">bool</span> state = <span class="keyword">false</span>) </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                : Button(<a class="code hl_function" href="../../d2/dff/switch_8h.html#a5cdcacfab78b61a0d0287b2eb7ce7017">Button_createSwitch</a>(sprite.<a class="code hl_function" href="../../db/d6e/classCmdFX_1_1Sprite.html#a4586fc24453d65fa9839584632238edc">getSprite</a>(), callback, state)) {}</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            Switch(std::vector&lt;std::string&gt;&amp; on, std::vector&lt;std::string&gt;&amp; off, std::vector&lt;std::vector&lt;std::string&gt;&gt;&amp; ansiOn, std::vector&lt;std::vector&lt;std::string&gt;&gt;&amp; ansiOff, <a class="code hl_typedef" href="../../d7/d0e/button_8h.html#a86077073d8162f15d2b2b89de3a1bd7c">CmdFX_ButtonCallback</a> callback, <span class="keywordtype">bool</span> state = <span class="keyword">false</span>)</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                : Button(<a class="code hl_function" href="../../d2/dff/switch_8h.html#ad14ea86c7de7c97624af00c894f6a2b7">Button_createSwitchWith</a>(<a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a1afc3385a1044225621779267f873d5b">to2DArray</a>(on), <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a1afc3385a1044225621779267f873d5b">to2DArray</a>(off), <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a61e5fac97b7edb6e7d2631e5f11cebc4">to3DArray</a>(ansiOn), <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a61e5fac97b7edb6e7d2631e5f11cebc4">to3DArray</a>(ansiOff), callback, state)) {}</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <span class="keywordtype">bool</span> isOn()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../d2/dff/switch_8h.html#a592f2e4705e5c6d46841800f4543a7d0">Switch_getState</a>(getButton());</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keywordtype">void</span> setOn(<span class="keywordtype">bool</span> state) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                <a class="code hl_function" href="../../d2/dff/switch_8h.html#a9177fbc1455b469a738bb30b1fe266c1">Switch_setState</a>(getButton(), state);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="keywordtype">void</span> toggle() {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                <span class="keywordflow">if</span> (isOn()) {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                    setOn(<span class="keyword">false</span>);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                    setOn(<span class="keyword">true</span>);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                }   </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            }</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    };</div>
-</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="};">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="../../dd/d30/classCmdFX_1_1Switch.html">   30</a></span><span class="keyword">class </span>Switch : <span class="keyword">public</span> Button {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    Switch(<a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>* btn) : Button(btn) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    Switch(<a class="code hl_class" href="../../db/d6e/classCmdFX_1_1Sprite.html">Sprite</a>&amp; sprite, <a class="code hl_typedef" href="../../d7/d0e/button_8h.html#a86077073d8162f15d2b2b89de3a1bd7c">CmdFX_ButtonCallback</a> callback, <span class="keywordtype">bool</span> state = <span class="keyword">false</span>)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        : Button(<a class="code hl_function" href="../../d2/dff/switch_8h.html#a5cdcacfab78b61a0d0287b2eb7ce7017">Button_createSwitch</a>(sprite.<a class="code hl_function" href="../../db/d6e/classCmdFX_1_1Sprite.html#a4586fc24453d65fa9839584632238edc">getSprite</a>(), callback, state)) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    Switch(</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        std::vector&lt;std::string&gt;&amp; on, std::vector&lt;std::string&gt;&amp; off,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        std::vector&lt;std::vector&lt;std::string&gt;&gt;&amp; ansiOn,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        std::vector&lt;std::vector&lt;std::string&gt;&gt;&amp; ansiOff,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_typedef" href="../../d7/d0e/button_8h.html#a86077073d8162f15d2b2b89de3a1bd7c">CmdFX_ButtonCallback</a> callback, <span class="keywordtype">bool</span> state = <span class="keyword">false</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    )</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        : Button(<a class="code hl_function" href="../../d2/dff/switch_8h.html#ad14ea86c7de7c97624af00c894f6a2b7">Button_createSwitchWith</a>(</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>              <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a1afc3385a1044225621779267f873d5b">to2DArray</a>(on), <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a1afc3385a1044225621779267f873d5b">to2DArray</a>(off), <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a61e5fac97b7edb6e7d2631e5f11cebc4">to3DArray</a>(ansiOn),</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>              <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a61e5fac97b7edb6e7d2631e5f11cebc4">to3DArray</a>(ansiOff), callback, state</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>          )) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">bool</span> isOn()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d2/dff/switch_8h.html#a592f2e4705e5c6d46841800f4543a7d0">Switch_getState</a>(getButton());</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> setOn(<span class="keywordtype">bool</span> state) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_function" href="../../d2/dff/switch_8h.html#a9177fbc1455b469a738bb30b1fe266c1">Switch_setState</a>(getButton(), state);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">void</span> toggle() {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">if</span> (isOn()) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            setOn(<span class="keyword">false</span>);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            setOn(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>};</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>} <span class="comment">// namespace CmdFX</span></div>
 <div class="ttc" id="abuilder_8hpp_html"><div class="ttname"><a href="../../dc/dcd/builder_8hpp.html">builder.hpp</a></div><div class="ttdoc">C++ Extensions for the Builder API.</div></div>
 <div class="ttc" id="abutton_8h_html_a86077073d8162f15d2b2b89de3a1bd7c"><div class="ttname"><a href="../../d7/d0e/button_8h.html#a86077073d8162f15d2b2b89de3a1bd7c">CmdFX_ButtonCallback</a></div><div class="ttdeci">void(* CmdFX_ButtonCallback)(void *button, CmdFX_MouseEvent *event, unsigned long long time)</div><div class="ttdoc">The callback function to be called when the button is clicked.</div><div class="ttdef"><b>Definition</b> button.h:33</div></div>
 <div class="ttc" id="abutton_8hpp_html"><div class="ttname"><a href="../../db/d4b/button_8hpp.html">button.hpp</a></div><div class="ttdoc">C++ Extensions for CmdFX Button UI.</div></div>
-<div class="ttc" id="aclassCmdFX_1_1Sprite_html"><div class="ttname"><a href="../../db/d6e/classCmdFX_1_1Sprite.html">CmdFX::Sprite</a></div><div class="ttdoc">A C++ wrapper around a CmdFX_Sprite struct.</div><div class="ttdef"><b>Definition</b> sprites.hpp:32</div></div>
-<div class="ttc" id="aclassCmdFX_1_1Sprite_html_a4586fc24453d65fa9839584632238edc"><div class="ttname"><a href="../../db/d6e/classCmdFX_1_1Sprite.html#a4586fc24453d65fa9839584632238edc">CmdFX::Sprite::getSprite</a></div><div class="ttdeci">CmdFX_Sprite * getSprite()</div><div class="ttdoc">Get the Sprite object associated with this class.</div><div class="ttdef"><b>Definition</b> sprites.hpp:53</div></div>
-<div class="ttc" id="anamespaceCmdFX_html"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div><div class="ttdoc">Primary namespace for CmdFX.</div><div class="ttdef"><b>Definition</b> cmdfx.hpp:25</div></div>
-<div class="ttc" id="anamespaceCmdFX_html_a1afc3385a1044225621779267f873d5b"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html#a1afc3385a1044225621779267f873d5b">CmdFX::to2DArray</a></div><div class="ttdeci">char ** to2DArray(std::vector&lt; std::string &gt; string)</div><div class="ttdoc">Converts a 1D vector of strings to a 2D array of characters.</div><div class="ttdef"><b>Definition</b> builder.hpp:39</div></div>
-<div class="ttc" id="anamespaceCmdFX_html_a61e5fac97b7edb6e7d2631e5f11cebc4"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html#a61e5fac97b7edb6e7d2631e5f11cebc4">CmdFX::to3DArray</a></div><div class="ttdeci">char *** to3DArray(std::vector&lt; std::vector&lt; std::string &gt; &gt; string)</div><div class="ttdoc">Converts a 2D vector of strings to a 3D array of characters.</div><div class="ttdef"><b>Definition</b> builder.hpp:55</div></div>
-<div class="ttc" id="astructCmdFX__Button_html"><div class="ttname"><a href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a></div><div class="ttdoc">Represents a CmdFX button.</div><div class="ttdef"><b>Definition</b> button.h:42</div></div>
+<div class="ttc" id="aclassCmdFX_1_1Sprite_html"><div class="ttname"><a href="../../db/d6e/classCmdFX_1_1Sprite.html">CmdFX::Sprite</a></div><div class="ttdoc">A C++ wrapper around a CmdFX_Sprite struct.</div><div class="ttdef"><b>Definition</b> sprites.hpp:33</div></div>
+<div class="ttc" id="aclassCmdFX_1_1Sprite_html_a4586fc24453d65fa9839584632238edc"><div class="ttname"><a href="../../db/d6e/classCmdFX_1_1Sprite.html#a4586fc24453d65fa9839584632238edc">CmdFX::Sprite::getSprite</a></div><div class="ttdeci">CmdFX_Sprite * getSprite()</div><div class="ttdoc">Get the Sprite object associated with this class.</div><div class="ttdef"><b>Definition</b> sprites.hpp:60</div></div>
+<div class="ttc" id="anamespaceCmdFX_html"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div><div class="ttdoc">Primary namespace for CmdFX.</div><div class="ttdef"><b>Definition</b> cmdfx.hpp:26</div></div>
+<div class="ttc" id="anamespaceCmdFX_html_a1afc3385a1044225621779267f873d5b"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html#a1afc3385a1044225621779267f873d5b">CmdFX::to2DArray</a></div><div class="ttdeci">char ** to2DArray(std::vector&lt; std::string &gt; string)</div><div class="ttdoc">Converts a 1D vector of strings to a 2D array of characters.</div><div class="ttdef"><b>Definition</b> builder.hpp:64</div></div>
+<div class="ttc" id="anamespaceCmdFX_html_a61e5fac97b7edb6e7d2631e5f11cebc4"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html#a61e5fac97b7edb6e7d2631e5f11cebc4">CmdFX::to3DArray</a></div><div class="ttdeci">char *** to3DArray(std::vector&lt; std::vector&lt; std::string &gt; &gt; string)</div><div class="ttdoc">Converts a 2D vector of strings to a 3D array of characters.</div><div class="ttdef"><b>Definition</b> builder.hpp:80</div></div>
+<div class="ttc" id="astructCmdFX__Button_html"><div class="ttname"><a href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a></div><div class="ttdoc">Represents a CmdFX button.</div><div class="ttdef"><b>Definition</b> button.h:45</div></div>
 <div class="ttc" id="aswitch_8h_html"><div class="ttname"><a href="../../d2/dff/switch_8h.html">switch.h</a></div><div class="ttdoc">Switch extensions for the CmdFX Button API.</div></div>
 <div class="ttc" id="aswitch_8h_html_a592f2e4705e5c6d46841800f4543a7d0"><div class="ttname"><a href="../../d2/dff/switch_8h.html#a592f2e4705e5c6d46841800f4543a7d0">Switch_getState</a></div><div class="ttdeci">bool Switch_getState(CmdFX_Button *button)</div><div class="ttdoc">Gets the state of the switch button.</div></div>
 <div class="ttc" id="aswitch_8h_html_a5cdcacfab78b61a0d0287b2eb7ce7017"><div class="ttname"><a href="../../d2/dff/switch_8h.html#a5cdcacfab78b61a0d0287b2eb7ce7017">Button_createSwitch</a></div><div class="ttdeci">CmdFX_Button * Button_createSwitch(CmdFX_Sprite *sprite, CmdFX_ButtonCallback callback, bool state)</div><div class="ttdoc">Creates a switch button.</div></div>

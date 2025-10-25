@@ -25,7 +25,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.0</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.1</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -85,82 +85,87 @@ $(function() {
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">    #include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">    #include &quot;<a class="code" href="../../d1/dbc/core_2scenes_8h.html">cmdfx/core/scenes.h</a>&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">    #include &quot;<a class="code" href="../../df/df2/ui_2scenes_8h.html">cmdfx/ui/scenes.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/dbc/core_2scenes_8h.html">cmdfx/core/scenes.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/df2/ui_2scenes_8h.html">cmdfx/ui/scenes.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/d2d/core_2scenes_8hpp.html">cmdfx/core/scenes.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/d4b/button_8hpp.html">cmdfx/ui/button.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/df4/namespaceCmdFX.html">CmdFX</a> {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../d8/d70/classCmdFX_1_1SceneButtons.html">   26</a></span>    <span class="keyword">class </span>SceneButtons final {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <span class="keywordtype">int</span> sceneUid;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            SceneButtons(<span class="keywordtype">int</span> uid) : sceneUid(uid) {}</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            SceneButtons(<span class="keyword">const</span> <a class="code hl_class" href="../../d8/d8e/classCmdFX_1_1Scene.html">Scene</a>&amp; scene) : sceneUid(scene.<a class="code hl_function" href="../../d8/d8e/classCmdFX_1_1Scene.html#a34a63fcd9820452f0dc08f65f18aecd5">getUniqueId</a>()) {}</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            ~SceneButtons() { <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#a5dae54672fce06d028356a38ecc90f34">Scene_removeAllButtons</a>(sceneUid); }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
-<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="../../d8/d70/classCmdFX_1_1SceneButtons.html#a94dbe7eecb1d2bbc4fe2589f7b2b46f0">   39</a></span>            std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; <a class="code hl_function" href="../../d8/d70/classCmdFX_1_1SceneButtons.html#a94dbe7eecb1d2bbc4fe2589f7b2b46f0">getButtons</a>() {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                <a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>** buttons = <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#a002f902d1c229ca90bb40a0667468e03">Scene_getButtons</a>(sceneUid);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                <span class="keywordtype">int</span> count = <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#a3b17755d58718a7d12719c3c52d19b2d">Scene_getButtonsCount</a>(sceneUid);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; buttonList;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                buttonList.reserve(count);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; count; i++) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                    <span class="keywordflow">if</span> (buttons[i] != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                        buttonList.emplace_back(std::make_unique&lt;Button&gt;(buttons[i]));</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                    }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                }</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="../../d8/d70/classCmdFX_1_1SceneButtons.html">   27</a></span><span class="keyword">class </span>SceneButtons final {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">int</span> sceneUid;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    SceneButtons(<span class="keywordtype">int</span> uid) : sceneUid(uid) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    SceneButtons(<span class="keyword">const</span> <a class="code hl_class" href="../../d8/d8e/classCmdFX_1_1Scene.html">Scene</a>&amp; scene) : sceneUid(scene.<a class="code hl_function" href="../../d8/d8e/classCmdFX_1_1Scene.html#a34a63fcd9820452f0dc08f65f18aecd5">getUniqueId</a>()) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    ~SceneButtons() {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#a5dae54672fce06d028356a38ecc90f34">Scene_removeAllButtons</a>(sceneUid);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span></div>
+<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="../../d8/d70/classCmdFX_1_1SceneButtons.html#a94dbe7eecb1d2bbc4fe2589f7b2b46f0">   45</a></span>    std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; <a class="code hl_function" href="../../d8/d70/classCmdFX_1_1SceneButtons.html#a94dbe7eecb1d2bbc4fe2589f7b2b46f0">getButtons</a>() {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>** buttons = <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#a002f902d1c229ca90bb40a0667468e03">Scene_getButtons</a>(sceneUid);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">int</span> count = <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#a3b17755d58718a7d12719c3c52d19b2d">Scene_getButtonsCount</a>(sceneUid);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; buttonList;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        buttonList.reserve(count);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                <span class="keywordflow">return</span> buttonList;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; count; i++) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <span class="keywordflow">if</span> (buttons[i] != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                buttonList.emplace_back(std::make_unique&lt;Button&gt;(buttons[i]));</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">return</span> buttonList;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
 </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            std::vector&lt;int&gt; getButtonCoordinates(<span class="keywordtype">int</span> index, <a class="code hl_class" href="../../d7/d30/classCmdFX_1_1Button.html">Button</a>&amp; button) {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                <span class="keywordtype">int</span>* coords = <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#acfbc383bc439215492ef55627f172013">Scene_getButtonCoordinates</a>(sceneUid, button.getButton());</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <span class="keywordflow">if</span> (coords == <span class="keyword">nullptr</span>) <span class="keywordflow">return</span> { -1, -1 };</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                std::vector&lt;int&gt; coordinates = { coords[0], coords[1] };</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                <span class="keywordflow">return</span> coordinates;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            }</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordtype">int</span> addButton(Button&amp; button, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#aaf919b664d03f8286559923c19a19c54">Scene_addButton</a>(sceneUid, button.getButton(), x, y);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            }</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keywordtype">int</span> removeButton(Button&amp; button) {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#a7af6d9962c0167c99dc00a45cf6518b1">Scene_removeButton</a>(sceneUid, button.getButton());</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keywordtype">int</span> removeButtonAt(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#a55c123ae5020a82321ca7cbc72f1b969">Scene_removeButtonAt</a>(sceneUid, x, y);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            }</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <span class="keywordtype">int</span> removeAllButtons() {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#a5dae54672fce06d028356a38ecc90f34">Scene_removeAllButtons</a>(sceneUid);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            }</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    };</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    std::vector&lt;int&gt; getButtonCoordinates(<span class="keywordtype">int</span> index, <a class="code hl_class" href="../../d7/d30/classCmdFX_1_1Button.html">Button</a>&amp; button) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordtype">int</span>* coords = <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#acfbc383bc439215492ef55627f172013">Scene_getButtonCoordinates</a>(sceneUid, button.getButton());</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">if</span> (coords == <span class="keyword">nullptr</span>) <span class="keywordflow">return</span> {-1, -1};</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        std::vector&lt;int&gt; coordinates = {coords[0], coords[1]};</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">return</span> coordinates;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordtype">int</span> addButton(Button&amp; button, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#aaf919b664d03f8286559923c19a19c54">Scene_addButton</a>(sceneUid, button.getButton(), x, y);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">int</span> removeButton(Button&amp; button) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#a7af6d9962c0167c99dc00a45cf6518b1">Scene_removeButton</a>(sceneUid, button.getButton());</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">int</span> removeButtonAt(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#a55c123ae5020a82321ca7cbc72f1b969">Scene_removeButtonAt</a>(sceneUid, x, y);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordtype">int</span> removeAllButtons() {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../df/df2/ui_2scenes_8h.html#a5dae54672fce06d028356a38ecc90f34">Scene_removeAllButtons</a>(sceneUid);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>};</div>
 </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>} <span class="comment">// namespace CmdFX</span></div>
 <div class="ttc" id="abutton_8hpp_html"><div class="ttname"><a href="../../db/d4b/button_8hpp.html">button.hpp</a></div><div class="ttdoc">C++ Extensions for CmdFX Button UI.</div></div>
-<div class="ttc" id="aclassCmdFX_1_1Button_html"><div class="ttname"><a href="../../d7/d30/classCmdFX_1_1Button.html">CmdFX::Button</a></div><div class="ttdoc">A C++ wrapper around the CmdFX_Button struct.</div><div class="ttdef"><b>Definition</b> button.hpp:34</div></div>
-<div class="ttc" id="aclassCmdFX_1_1SceneButtons_html_a94dbe7eecb1d2bbc4fe2589f7b2b46f0"><div class="ttname"><a href="../../d8/d70/classCmdFX_1_1SceneButtons.html#a94dbe7eecb1d2bbc4fe2589f7b2b46f0">CmdFX::SceneButtons::getButtons</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; Button &gt; &gt; getButtons()</div><div class="ttdoc">Gets the buttons in the scene.</div><div class="ttdef"><b>Definition</b> scenes.hpp:39</div></div>
-<div class="ttc" id="aclassCmdFX_1_1Scene_html"><div class="ttname"><a href="../../d8/d8e/classCmdFX_1_1Scene.html">CmdFX::Scene</a></div><div class="ttdoc">A C++ wrapper around a CmdFX_Scene struct.</div><div class="ttdef"><b>Definition</b> scenes.hpp:32</div></div>
-<div class="ttc" id="aclassCmdFX_1_1Scene_html_a34a63fcd9820452f0dc08f65f18aecd5"><div class="ttname"><a href="../../d8/d8e/classCmdFX_1_1Scene.html#a34a63fcd9820452f0dc08f65f18aecd5">CmdFX::Scene::getUniqueId</a></div><div class="ttdeci">int getUniqueId() const</div><div class="ttdoc">Gets the unique identifier of the scene.</div><div class="ttdef"><b>Definition</b> scenes.hpp:90</div></div>
+<div class="ttc" id="aclassCmdFX_1_1Button_html"><div class="ttname"><a href="../../d7/d30/classCmdFX_1_1Button.html">CmdFX::Button</a></div><div class="ttdoc">A C++ wrapper around the CmdFX_Button struct.</div><div class="ttdef"><b>Definition</b> button.hpp:35</div></div>
+<div class="ttc" id="aclassCmdFX_1_1SceneButtons_html_a94dbe7eecb1d2bbc4fe2589f7b2b46f0"><div class="ttname"><a href="../../d8/d70/classCmdFX_1_1SceneButtons.html#a94dbe7eecb1d2bbc4fe2589f7b2b46f0">CmdFX::SceneButtons::getButtons</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; Button &gt; &gt; getButtons()</div><div class="ttdoc">Gets the buttons in the scene.</div><div class="ttdef"><b>Definition</b> scenes.hpp:45</div></div>
+<div class="ttc" id="aclassCmdFX_1_1Scene_html"><div class="ttname"><a href="../../d8/d8e/classCmdFX_1_1Scene.html">CmdFX::Scene</a></div><div class="ttdoc">A C++ wrapper around a CmdFX_Scene struct.</div><div class="ttdef"><b>Definition</b> scenes.hpp:33</div></div>
+<div class="ttc" id="aclassCmdFX_1_1Scene_html_a34a63fcd9820452f0dc08f65f18aecd5"><div class="ttname"><a href="../../d8/d8e/classCmdFX_1_1Scene.html#a34a63fcd9820452f0dc08f65f18aecd5">CmdFX::Scene::getUniqueId</a></div><div class="ttdeci">int getUniqueId() const</div><div class="ttdoc">Gets the unique identifier of the scene.</div><div class="ttdef"><b>Definition</b> scenes.hpp:99</div></div>
 <div class="ttc" id="acore_2scenes_8h_html"><div class="ttname"><a href="../../d1/dbc/core_2scenes_8h.html">scenes.h</a></div><div class="ttdoc">Scenes API for CmdFX.</div></div>
 <div class="ttc" id="acore_2scenes_8hpp_html"><div class="ttname"><a href="../../dd/d2d/core_2scenes_8hpp.html">scenes.hpp</a></div><div class="ttdoc">C++ Extensions for the CmdFX Scenes API.</div></div>
-<div class="ttc" id="anamespaceCmdFX_html"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div><div class="ttdoc">Primary namespace for CmdFX.</div><div class="ttdef"><b>Definition</b> cmdfx.hpp:25</div></div>
-<div class="ttc" id="astructCmdFX__Button_html"><div class="ttname"><a href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a></div><div class="ttdoc">Represents a CmdFX button.</div><div class="ttdef"><b>Definition</b> button.h:42</div></div>
+<div class="ttc" id="anamespaceCmdFX_html"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div><div class="ttdoc">Primary namespace for CmdFX.</div><div class="ttdef"><b>Definition</b> cmdfx.hpp:26</div></div>
+<div class="ttc" id="astructCmdFX__Button_html"><div class="ttname"><a href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a></div><div class="ttdoc">Represents a CmdFX button.</div><div class="ttdef"><b>Definition</b> button.h:45</div></div>
 <div class="ttc" id="aui_2scenes_8h_html"><div class="ttname"><a href="../../df/df2/ui_2scenes_8h.html">scenes.h</a></div><div class="ttdoc">UI extensions for Scenes in CmdFX.</div></div>
 <div class="ttc" id="aui_2scenes_8h_html_a002f902d1c229ca90bb40a0667468e03"><div class="ttname"><a href="../../df/df2/ui_2scenes_8h.html#a002f902d1c229ca90bb40a0667468e03">Scene_getButtons</a></div><div class="ttdeci">CmdFX_Button ** Scene_getButtons(int uid)</div><div class="ttdoc">Gets the buttons of a scene.</div></div>
 <div class="ttc" id="aui_2scenes_8h_html_a3b17755d58718a7d12719c3c52d19b2d"><div class="ttname"><a href="../../df/df2/ui_2scenes_8h.html#a3b17755d58718a7d12719c3c52d19b2d">Scene_getButtonsCount</a></div><div class="ttdeci">int Scene_getButtonsCount(int uid)</div><div class="ttdoc">Gets the number of buttons in a scene.</div></div>

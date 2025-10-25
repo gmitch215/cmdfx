@@ -25,7 +25,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.0</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.1</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -85,130 +85,141 @@ $(function() {
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">    #include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">    #include &quot;<a class="code" href="../../db/dd2/events_8h.html">cmdfx/core/events.h</a>&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">    #include &quot;<a class="code" href="../../d7/d0e/button_8h.html">cmdfx/ui/button.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/dd2/events_8h.html">cmdfx/core/events.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="../../d7/d0e/button_8h.html">cmdfx/ui/button.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/d59/sprites_8hpp.html">cmdfx/core/sprites.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="../../dc/dcd/builder_8hpp.html">cmdfx/core/builder.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="../../dc/dcd/builder_8hpp.html">cmdfx/core/builder.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/d59/sprites_8hpp.html">cmdfx/core/sprites.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/df4/namespaceCmdFX.html">CmdFX</a> {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span></div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="};">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../d7/d30/classCmdFX_1_1Button.html">   34</a></span>    <span class="keyword">class </span>Button {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>* button;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            Button(<a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>* btn) : button(btn) {}</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            Button(<a class="code hl_class" href="../../db/d6e/classCmdFX_1_1Sprite.html">Sprite</a>&amp; sprite, <a class="code hl_typedef" href="../../d7/d0e/button_8h.html#a86077073d8162f15d2b2b89de3a1bd7c">CmdFX_ButtonCallback</a> callback) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                button = <a class="code hl_function" href="../../d7/d0e/button_8h.html#a9679db08b82c4537bf9d93564ebca095">Button_create</a>(sprite.<a class="code hl_function" href="../../db/d6e/classCmdFX_1_1Sprite.html#a4586fc24453d65fa9839584632238edc">getSprite</a>(), callback);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            Button(<span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height, <span class="keywordtype">char</span> c, <span class="keywordtype">char</span>* ansi, <span class="keywordtype">int</span> z, <a class="code hl_typedef" href="../../d7/d0e/button_8h.html#a86077073d8162f15d2b2b89de3a1bd7c">CmdFX_ButtonCallback</a> callback) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                button = <a class="code hl_function" href="../../d7/d0e/button_8h.html#abcc8b5b2a39f235ecc41e44857198e4e">Button_createFilled</a>(width, height, c, ansi, z, callback);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            ~Button() {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                <span class="keywordflow">if</span> (button) { <a class="code hl_function" href="../../d7/d0e/button_8h.html#a6484cce56b290d1e2edf584e8cc2d0c0">Button_free</a>(button); }</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>* getButton()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                <span class="keywordflow">return</span> button;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span></div>
-<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="../../d7/d30/classCmdFX_1_1Button.html#afb38b7a09a7de757bdfc2c2003c21388">   58</a></span>            <a class="code hl_struct" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a>* <a class="code hl_function" href="../../d7/d30/classCmdFX_1_1Button.html#afb38b7a09a7de757bdfc2c2003c21388">getSprite</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <span class="keywordflow">return</span> button-&gt;sprite;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            }</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="../../d7/d30/classCmdFX_1_1Button.html">   35</a></span><span class="keyword">class </span>Button {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>* button;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    Button(<a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>* btn) : button(btn) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    Button(<a class="code hl_class" href="../../db/d6e/classCmdFX_1_1Sprite.html">Sprite</a>&amp; sprite, <a class="code hl_typedef" href="../../d7/d0e/button_8h.html#a86077073d8162f15d2b2b89de3a1bd7c">CmdFX_ButtonCallback</a> callback) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        button = <a class="code hl_function" href="../../d7/d0e/button_8h.html#a9679db08b82c4537bf9d93564ebca095">Button_create</a>(sprite.<a class="code hl_function" href="../../db/d6e/classCmdFX_1_1Sprite.html#a4586fc24453d65fa9839584632238edc">getSprite</a>(), callback);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    Button(</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height, <span class="keywordtype">char</span> c, <span class="keywordtype">char</span>* ansi, <span class="keywordtype">int</span> z,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_typedef" href="../../d7/d0e/button_8h.html#a86077073d8162f15d2b2b89de3a1bd7c">CmdFX_ButtonCallback</a> callback</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    ) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        button = <a class="code hl_function" href="../../d7/d0e/button_8h.html#abcc8b5b2a39f235ecc41e44857198e4e">Button_createFilled</a>(width, height, c, ansi, z, callback);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    ~Button() {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">if</span> (button) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <a class="code hl_function" href="../../d7/d0e/button_8h.html#a6484cce56b290d1e2edf584e8cc2d0c0">Button_free</a>(button);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        }</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>* getButton()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">return</span> button;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="../../d7/d30/classCmdFX_1_1Button.html#afb38b7a09a7de757bdfc2c2003c21388">   65</a></span>    <a class="code hl_struct" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a>* <a class="code hl_function" href="../../d7/d30/classCmdFX_1_1Button.html#afb38b7a09a7de757bdfc2c2003c21388">getSprite</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">return</span> button-&gt;sprite;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
 </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keywordtype">int</span> draw(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#ab2302e4c8d67c6b36b4ce88444cf9265">Button_draw</a>(x, y, button);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <span class="keywordtype">int</span> remove() {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#adf0d842e6f4fbfd727013d6b29ee512d">Button_remove</a>(button);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            }</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <span class="keywordtype">bool</span> isHidden()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#a290e56bc37ceca26b8de5afc94219001">Button_isHidden</a>(button) != 0;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            }</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <span class="keywordtype">int</span> hide() {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#aa0e4d70424b1ac77c89b063d3ac2526f">Button_hide</a>(button);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            }</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordtype">int</span> show() {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#a5e165efb59702bb151eb13f172680582">Button_show</a>(button);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            }</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            <span class="keywordtype">int</span> setData(<span class="keywordtype">char</span>** data, <span class="keywordtype">char</span>*** ansi) {</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#af7bbcd91cae275e248cb840256318233">Button_setData</a>(button, data, ansi);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            }</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span></div>
-<div class="foldopen" id="foldopen00092" data-start="{" data-end="}">
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="../../d7/d30/classCmdFX_1_1Button.html#a22ef862158913a1ca9d97e1997b979dd">   92</a></span>            <span class="keywordtype">int</span> <a class="code hl_function" href="../../d7/d30/classCmdFX_1_1Button.html#a22ef862158913a1ca9d97e1997b979dd">setData</a>(std::vector&lt;std::string&gt; data, std::vector&lt;std::vector&lt;std::string&gt;&gt; ansi) {</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#af7bbcd91cae275e248cb840256318233">Button_setData</a>(button, <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a1afc3385a1044225621779267f873d5b">to2DArray</a>(data), <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a61e5fac97b7edb6e7d2631e5f11cebc4">to3DArray</a>(ansi));</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordtype">int</span> draw(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#ab2302e4c8d67c6b36b4ce88444cf9265">Button_draw</a>(x, y, button);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">int</span> remove() {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#adf0d842e6f4fbfd727013d6b29ee512d">Button_remove</a>(button);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">bool</span> isHidden()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#a290e56bc37ceca26b8de5afc94219001">Button_isHidden</a>(button) != 0;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordtype">int</span> hide() {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#aa0e4d70424b1ac77c89b063d3ac2526f">Button_hide</a>(button);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordtype">int</span> show() {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#a5e165efb59702bb151eb13f172680582">Button_show</a>(button);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordtype">int</span> setData(<span class="keywordtype">char</span>** data, <span class="keywordtype">char</span>*** ansi) {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#af7bbcd91cae275e248cb840256318233">Button_setData</a>(button, data, ansi);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span></div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="../../d7/d30/classCmdFX_1_1Button.html#a22ef862158913a1ca9d97e1997b979dd">  101</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="../../d7/d30/classCmdFX_1_1Button.html#a22ef862158913a1ca9d97e1997b979dd">setData</a>(</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        std::vector&lt;std::string&gt; data,</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        std::vector&lt;std::vector&lt;std::string&gt;&gt; ansi</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    ) {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#af7bbcd91cae275e248cb840256318233">Button_setData</a>(button, <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a1afc3385a1044225621779267f873d5b">to2DArray</a>(data), <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a61e5fac97b7edb6e7d2631e5f11cebc4">to3DArray</a>(ansi));</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
 </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordtype">int</span> moveTo(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#a630d0d17a893f1298572bd13ad72ed8d">Button_moveTo</a>(button, x, y);</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            }</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            <span class="keywordtype">int</span> moveBy(<span class="keywordtype">int</span> dx, <span class="keywordtype">int</span> dy) {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#af1e6c279e8af0d40ce27f9c82fea18fe">Button_moveBy</a>(button, dx, dy);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            }</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    };</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordtype">int</span> moveTo(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#a630d0d17a893f1298572bd13ad72ed8d">Button_moveTo</a>(button, x, y);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordtype">int</span> moveBy(<span class="keywordtype">int</span> dx, <span class="keywordtype">int</span> dy) {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#af1e6c279e8af0d40ce27f9c82fea18fe">Button_moveBy</a>(button, dx, dy);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>};</div>
 </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">namespace </span><a class="code hl_namespace" href="../../dc/d75/namespaceCmdFX_1_1Canvas.html">Canvas</a> {</div>
-<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="../../dc/d75/namespaceCmdFX_1_1Canvas.html#ad89620da276088806118fb1b3364e307">  110</a></span>        std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; <a class="code hl_function" href="../../dc/d75/namespaceCmdFX_1_1Canvas.html#ad89620da276088806118fb1b3364e307">getRegisteredButtons</a>() {</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            <a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>** buttons = <a class="code hl_function" href="../../d7/d0e/button_8h.html#a3b00d1303d04ae812f0cd9954ec8e170">Canvas_getRegisteredButtons</a>();</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            <span class="keywordtype">int</span> count = <a class="code hl_function" href="../../d7/d0e/button_8h.html#a711d177ba928507a7b76e00df6019b03">Canvas_getRegisteredButtonsCount</a>();</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; buttonList;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            buttonList.reserve(count);</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; count; i++) {</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                <span class="keywordflow">if</span> (buttons[i] != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                    buttonList.emplace_back(std::make_unique&lt;Button&gt;(buttons[i]));</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                }</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            }</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            <span class="keywordflow">return</span> buttonList;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dc/d75/namespaceCmdFX_1_1Canvas.html">Canvas</a></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>{</div>
+<div class="foldopen" id="foldopen00124" data-start="{" data-end="}">
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="../../dc/d75/namespaceCmdFX_1_1Canvas.html#ad89620da276088806118fb1b3364e307">  124</a></span>std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; <a class="code hl_function" href="../../dc/d75/namespaceCmdFX_1_1Canvas.html#ad89620da276088806118fb1b3364e307">getRegisteredButtons</a>() {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>** buttons = <a class="code hl_function" href="../../d7/d0e/button_8h.html#a3b00d1303d04ae812f0cd9954ec8e170">Canvas_getRegisteredButtons</a>();</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordtype">int</span> count = <a class="code hl_function" href="../../d7/d0e/button_8h.html#a711d177ba928507a7b76e00df6019b03">Canvas_getRegisteredButtonsCount</a>();</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; buttonList;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    buttonList.reserve(count);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; count; i++) {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="keywordflow">if</span> (buttons[i] != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            buttonList.emplace_back(std::make_unique&lt;Button&gt;(buttons[i]));</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        }</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    }</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keywordflow">return</span> buttonList;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>}</div>
 </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordtype">int</span> getRegisteredButtonsCount() {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#a711d177ba928507a7b76e00df6019b03">Canvas_getRegisteredButtonsCount</a>();</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        }</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; getAllButtonsAt(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            <a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>** buttons = <a class="code hl_function" href="../../d7/d0e/button_8h.html#a06430ae3a4c310f4e4a14abae263f226">Canvas_getAllButtonsAt</a>(x, y);</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <span class="keywordflow">if</span> (buttons == <span class="keyword">nullptr</span>) <span class="keywordflow">return</span> {};</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; buttonList;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; buttons[i] != <span class="keyword">nullptr</span>; i++) {</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                buttonList.emplace_back(std::make_unique&lt;Button&gt;(buttons[i]));</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            }</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            free(buttons);</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            <span class="keywordflow">return</span> buttonList;</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        }</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        std::unique_ptr&lt;Button&gt; getButtonAt(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            <a class="code hl_typedef" href="../../d7/d0e/button_8h.html#a7a2581ca85cd3ab806d18060001bade7">CmdFX_Button</a>* button = <a class="code hl_function" href="../../d7/d0e/button_8h.html#a3ac3119c760b9f9cc4fc4c6d7e2045b7">Canvas_getButtonAt</a>(x, y);</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="keywordflow">if</span> (button == <span class="keyword">nullptr</span>) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="keywordflow">return</span> std::make_unique&lt;Button&gt;(button);</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        }</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>}</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="keywordtype">int</span> getRegisteredButtonsCount() {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d7/d0e/button_8h.html#a711d177ba928507a7b76e00df6019b03">Canvas_getRegisteredButtonsCount</a>();</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>}</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; getAllButtonsAt(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <a class="code hl_struct" href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a>** buttons = <a class="code hl_function" href="../../d7/d0e/button_8h.html#a06430ae3a4c310f4e4a14abae263f226">Canvas_getAllButtonsAt</a>(x, y);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">if</span> (buttons == <span class="keyword">nullptr</span>) <span class="keywordflow">return</span> {};</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; buttonList;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; buttons[i] != <span class="keyword">nullptr</span>; i++) {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        buttonList.emplace_back(std::make_unique&lt;Button&gt;(buttons[i]));</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    }</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    free(buttons);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">return</span> buttonList;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>}</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>std::unique_ptr&lt;Button&gt; getButtonAt(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) {</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <a class="code hl_typedef" href="../../d7/d0e/button_8h.html#a7a2581ca85cd3ab806d18060001bade7">CmdFX_Button</a>* button = <a class="code hl_function" href="../../d7/d0e/button_8h.html#a3ac3119c760b9f9cc4fc4c6d7e2045b7">Canvas_getButtonAt</a>(x, y);</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordflow">if</span> (button == <span class="keyword">nullptr</span>) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordflow">return</span> std::make_unique&lt;Button&gt;(button);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>}</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>} <span class="comment">// namespace Canvas</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>} <span class="comment">// namespace CmdFX</span></div>
 <div class="ttc" id="abuilder_8hpp_html"><div class="ttname"><a href="../../dc/dcd/builder_8hpp.html">builder.hpp</a></div><div class="ttdoc">C++ Extensions for the Builder API.</div></div>
 <div class="ttc" id="abutton_8h_html"><div class="ttname"><a href="../../d7/d0e/button_8h.html">button.h</a></div><div class="ttdoc">Button declarations for the CmdFX UI Library.</div></div>
 <div class="ttc" id="abutton_8h_html_a06430ae3a4c310f4e4a14abae263f226"><div class="ttname"><a href="../../d7/d0e/button_8h.html#a06430ae3a4c310f4e4a14abae263f226">Canvas_getAllButtonsAt</a></div><div class="ttdeci">CmdFX_Button ** Canvas_getAllButtonsAt(int x, int y)</div><div class="ttdoc">Gets all buttons at the given position.</div></div>
@@ -228,19 +239,19 @@ $(function() {
 <div class="ttc" id="abutton_8h_html_adf0d842e6f4fbfd727013d6b29ee512d"><div class="ttname"><a href="../../d7/d0e/button_8h.html#adf0d842e6f4fbfd727013d6b29ee512d">Button_remove</a></div><div class="ttdeci">int Button_remove(CmdFX_Button *button)</div><div class="ttdoc">Removes a button from the UI manager.</div></div>
 <div class="ttc" id="abutton_8h_html_af1e6c279e8af0d40ce27f9c82fea18fe"><div class="ttname"><a href="../../d7/d0e/button_8h.html#af1e6c279e8af0d40ce27f9c82fea18fe">Button_moveBy</a></div><div class="ttdeci">int Button_moveBy(CmdFX_Button *button, int dx, int dy)</div><div class="ttdoc">Moves the button by the given offset.</div></div>
 <div class="ttc" id="abutton_8h_html_af7bbcd91cae275e248cb840256318233"><div class="ttname"><a href="../../d7/d0e/button_8h.html#af7bbcd91cae275e248cb840256318233">Button_setData</a></div><div class="ttdeci">int Button_setData(CmdFX_Button *button, char **data, char ***ansi)</div><div class="ttdoc">Sets the data for a button.</div></div>
-<div class="ttc" id="aclassCmdFX_1_1Button_html_a22ef862158913a1ca9d97e1997b979dd"><div class="ttname"><a href="../../d7/d30/classCmdFX_1_1Button.html#a22ef862158913a1ca9d97e1997b979dd">CmdFX::Button::setData</a></div><div class="ttdeci">int setData(std::vector&lt; std::string &gt; data, std::vector&lt; std::vector&lt; std::string &gt; &gt; ansi)</div><div class="ttdoc">Sets the data for the button using vectors.</div><div class="ttdef"><b>Definition</b> button.hpp:92</div></div>
-<div class="ttc" id="aclassCmdFX_1_1Button_html_afb38b7a09a7de757bdfc2c2003c21388"><div class="ttname"><a href="../../d7/d30/classCmdFX_1_1Button.html#afb38b7a09a7de757bdfc2c2003c21388">CmdFX::Button::getSprite</a></div><div class="ttdeci">CmdFX_Sprite * getSprite() const</div><div class="ttdoc">Gets the value of the button&#39;s sprite.</div><div class="ttdef"><b>Definition</b> button.hpp:58</div></div>
-<div class="ttc" id="aclassCmdFX_1_1Sprite_html"><div class="ttname"><a href="../../db/d6e/classCmdFX_1_1Sprite.html">CmdFX::Sprite</a></div><div class="ttdoc">A C++ wrapper around a CmdFX_Sprite struct.</div><div class="ttdef"><b>Definition</b> sprites.hpp:32</div></div>
-<div class="ttc" id="aclassCmdFX_1_1Sprite_html_a4586fc24453d65fa9839584632238edc"><div class="ttname"><a href="../../db/d6e/classCmdFX_1_1Sprite.html#a4586fc24453d65fa9839584632238edc">CmdFX::Sprite::getSprite</a></div><div class="ttdeci">CmdFX_Sprite * getSprite()</div><div class="ttdoc">Get the Sprite object associated with this class.</div><div class="ttdef"><b>Definition</b> sprites.hpp:53</div></div>
+<div class="ttc" id="aclassCmdFX_1_1Button_html_a22ef862158913a1ca9d97e1997b979dd"><div class="ttname"><a href="../../d7/d30/classCmdFX_1_1Button.html#a22ef862158913a1ca9d97e1997b979dd">CmdFX::Button::setData</a></div><div class="ttdeci">int setData(std::vector&lt; std::string &gt; data, std::vector&lt; std::vector&lt; std::string &gt; &gt; ansi)</div><div class="ttdoc">Sets the data for the button using vectors.</div><div class="ttdef"><b>Definition</b> button.hpp:101</div></div>
+<div class="ttc" id="aclassCmdFX_1_1Button_html_afb38b7a09a7de757bdfc2c2003c21388"><div class="ttname"><a href="../../d7/d30/classCmdFX_1_1Button.html#afb38b7a09a7de757bdfc2c2003c21388">CmdFX::Button::getSprite</a></div><div class="ttdeci">CmdFX_Sprite * getSprite() const</div><div class="ttdoc">Gets the value of the button&#39;s sprite.</div><div class="ttdef"><b>Definition</b> button.hpp:65</div></div>
+<div class="ttc" id="aclassCmdFX_1_1Sprite_html"><div class="ttname"><a href="../../db/d6e/classCmdFX_1_1Sprite.html">CmdFX::Sprite</a></div><div class="ttdoc">A C++ wrapper around a CmdFX_Sprite struct.</div><div class="ttdef"><b>Definition</b> sprites.hpp:33</div></div>
+<div class="ttc" id="aclassCmdFX_1_1Sprite_html_a4586fc24453d65fa9839584632238edc"><div class="ttname"><a href="../../db/d6e/classCmdFX_1_1Sprite.html#a4586fc24453d65fa9839584632238edc">CmdFX::Sprite::getSprite</a></div><div class="ttdeci">CmdFX_Sprite * getSprite()</div><div class="ttdoc">Get the Sprite object associated with this class.</div><div class="ttdef"><b>Definition</b> sprites.hpp:60</div></div>
 <div class="ttc" id="aevents_8h_html"><div class="ttname"><a href="../../db/dd2/events_8h.html">events.h</a></div><div class="ttdoc">Events API for CmdFX.</div></div>
-<div class="ttc" id="anamespaceCmdFX_1_1Canvas_html"><div class="ttname"><a href="../../dc/d75/namespaceCmdFX_1_1Canvas.html">CmdFX::Canvas</a></div><div class="ttdoc">C++ wrapper for the CmdFX canvas.</div><div class="ttdef"><b>Definition</b> canvas.hpp:23</div></div>
-<div class="ttc" id="anamespaceCmdFX_1_1Canvas_html_ad89620da276088806118fb1b3364e307"><div class="ttname"><a href="../../dc/d75/namespaceCmdFX_1_1Canvas.html#ad89620da276088806118fb1b3364e307">CmdFX::Canvas::getRegisteredButtons</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; Button &gt; &gt; getRegisteredButtons()</div><div class="ttdoc">Gets all registered buttons in the UI manager as a vector of unique_ptr&lt;Button&gt;.</div><div class="ttdef"><b>Definition</b> button.hpp:110</div></div>
-<div class="ttc" id="anamespaceCmdFX_html"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div><div class="ttdoc">Primary namespace for CmdFX.</div><div class="ttdef"><b>Definition</b> cmdfx.hpp:25</div></div>
-<div class="ttc" id="anamespaceCmdFX_html_a1afc3385a1044225621779267f873d5b"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html#a1afc3385a1044225621779267f873d5b">CmdFX::to2DArray</a></div><div class="ttdeci">char ** to2DArray(std::vector&lt; std::string &gt; string)</div><div class="ttdoc">Converts a 1D vector of strings to a 2D array of characters.</div><div class="ttdef"><b>Definition</b> builder.hpp:39</div></div>
-<div class="ttc" id="anamespaceCmdFX_html_a61e5fac97b7edb6e7d2631e5f11cebc4"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html#a61e5fac97b7edb6e7d2631e5f11cebc4">CmdFX::to3DArray</a></div><div class="ttdeci">char *** to3DArray(std::vector&lt; std::vector&lt; std::string &gt; &gt; string)</div><div class="ttdoc">Converts a 2D vector of strings to a 3D array of characters.</div><div class="ttdef"><b>Definition</b> builder.hpp:55</div></div>
+<div class="ttc" id="anamespaceCmdFX_1_1Canvas_html"><div class="ttname"><a href="../../dc/d75/namespaceCmdFX_1_1Canvas.html">CmdFX::Canvas</a></div><div class="ttdoc">C++ wrapper for the CmdFX canvas.</div><div class="ttdef"><b>Definition</b> canvas.hpp:25</div></div>
+<div class="ttc" id="anamespaceCmdFX_1_1Canvas_html_ad89620da276088806118fb1b3364e307"><div class="ttname"><a href="../../dc/d75/namespaceCmdFX_1_1Canvas.html#ad89620da276088806118fb1b3364e307">CmdFX::Canvas::getRegisteredButtons</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; Button &gt; &gt; getRegisteredButtons()</div><div class="ttdoc">Gets all registered buttons in the UI manager as a vector of unique_ptr&lt;Button&gt;.</div><div class="ttdef"><b>Definition</b> button.hpp:124</div></div>
+<div class="ttc" id="anamespaceCmdFX_html"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div><div class="ttdoc">Primary namespace for CmdFX.</div><div class="ttdef"><b>Definition</b> cmdfx.hpp:26</div></div>
+<div class="ttc" id="anamespaceCmdFX_html_a1afc3385a1044225621779267f873d5b"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html#a1afc3385a1044225621779267f873d5b">CmdFX::to2DArray</a></div><div class="ttdeci">char ** to2DArray(std::vector&lt; std::string &gt; string)</div><div class="ttdoc">Converts a 1D vector of strings to a 2D array of characters.</div><div class="ttdef"><b>Definition</b> builder.hpp:64</div></div>
+<div class="ttc" id="anamespaceCmdFX_html_a61e5fac97b7edb6e7d2631e5f11cebc4"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html#a61e5fac97b7edb6e7d2631e5f11cebc4">CmdFX::to3DArray</a></div><div class="ttdeci">char *** to3DArray(std::vector&lt; std::vector&lt; std::string &gt; &gt; string)</div><div class="ttdoc">Converts a 2D vector of strings to a 3D array of characters.</div><div class="ttdef"><b>Definition</b> builder.hpp:80</div></div>
 <div class="ttc" id="asprites_8hpp_html"><div class="ttname"><a href="../../de/d59/sprites_8hpp.html">sprites.hpp</a></div><div class="ttdoc">C++ Extensions for the CmdFX Sprites API.</div></div>
-<div class="ttc" id="astructCmdFX__Button_html"><div class="ttname"><a href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a></div><div class="ttdoc">Represents a CmdFX button.</div><div class="ttdef"><b>Definition</b> button.h:42</div></div>
-<div class="ttc" id="astructCmdFX__Sprite_html"><div class="ttname"><a href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a></div><div class="ttdoc">Represents a sprite that can be drawn to the terminal.</div><div class="ttdef"><b>Definition</b> sprites.h:30</div></div>
+<div class="ttc" id="astructCmdFX__Button_html"><div class="ttname"><a href="../../de/d45/structCmdFX__Button.html">CmdFX_Button</a></div><div class="ttdoc">Represents a CmdFX button.</div><div class="ttdef"><b>Definition</b> button.h:45</div></div>
+<div class="ttc" id="astructCmdFX__Sprite_html"><div class="ttname"><a href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a></div><div class="ttdoc">Represents a sprite that can be drawn to the terminal.</div><div class="ttdef"><b>Definition</b> sprites.h:31</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

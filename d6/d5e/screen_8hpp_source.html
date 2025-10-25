@@ -25,7 +25,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.0</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.1</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -87,38 +87,67 @@ $(function() {
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">    #include &quot;<a class="code" href="../../dd/ddc/screen_8h.html">cmdfx/core/screen.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/ddc/screen_8h.html">cmdfx/core/screen.h</a>&quot;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/df4/namespaceCmdFX.html">CmdFX</a> {</div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../da/de6/namespaceCmdFX_1_1Screen.html">   23</a></span>    <span class="keyword">namespace </span><a class="code hl_namespace" href="../../da/de6/namespaceCmdFX_1_1Screen.html">Screen</a> {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">void</span> getScreenSize(<span class="keywordtype">int</span>* width, <span class="keywordtype">int</span>* height) { <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a911cd581b96247bb23116f4b8acba397">Screen_getSize</a>(width, height); }</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> getMousePos(<span class="keywordtype">int</span>* x, <span class="keywordtype">int</span>* y) { <a class="code hl_function" href="../../dd/ddc/screen_8h.html#ac318e8caed540793052a29a7add6dfc5">Screen_getMousePos</a>(x, y); }</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">int</span> isEchoEnabled() { <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a9d66091265413cc315e2d40c341268d0">Screen_isEchoEnabled</a>(); }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordtype">void</span> setEchoEnabled(<span class="keywordtype">int</span> echoEnabled) { <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a7cb2eeb91a2d858135b4a58808fc8c4a">Screen_setEchoEnabled</a>(echoEnabled); }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">int</span> isLineBuffered() { <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#ae6f161846f996fc2caa1007cfde98fc8">Screen_isLineBuffered</a>(); }</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">void</span> setLineBuffered(<span class="keywordtype">int</span> lineBuffered) { <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a2f3a5e1fe8e4e6fa0e361d159d9f9e52">Screen_setLineBuffered</a>(lineBuffered); }</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordtype">bool</span> isInTerminal() { <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#ab8ac838ab1255178e5c53bbbb8ffd22a">Screen_isInTerminal</a>(); }</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">void</span> ensureInTerminal() { <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a5ce196246a6936e1a24e628d7ec3aa29">Screen_ensureInTerminal</a>(); }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    };</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="../../da/de6/namespaceCmdFX_1_1Screen.html">   24</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../da/de6/namespaceCmdFX_1_1Screen.html">Screen</a></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keywordtype">void</span> getScreenSize(<span class="keywordtype">int</span>* width, <span class="keywordtype">int</span>* height) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a911cd581b96247bb23116f4b8acba397">Screen_getSize</a>(width, height);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">void</span> getMousePos(<span class="keywordtype">int</span>* x, <span class="keywordtype">int</span>* y) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_function" href="../../dd/ddc/screen_8h.html#ac318e8caed540793052a29a7add6dfc5">Screen_getMousePos</a>(x, y);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">int</span> isEchoEnabled() {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a9d66091265413cc315e2d40c341268d0">Screen_isEchoEnabled</a>();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> setEchoEnabled(<span class="keywordtype">int</span> echoEnabled) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a7cb2eeb91a2d858135b4a58808fc8c4a">Screen_setEchoEnabled</a>(echoEnabled);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">int</span> isLineBuffered() {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#ae6f161846f996fc2caa1007cfde98fc8">Screen_isLineBuffered</a>();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keywordtype">void</span> setLineBuffered(<span class="keywordtype">int</span> lineBuffered) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a2f3a5e1fe8e4e6fa0e361d159d9f9e52">Screen_setLineBuffered</a>(lineBuffered);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keywordtype">bool</span> isInTerminal() {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#ab8ac838ab1255178e5c53bbbb8ffd22a">Screen_isInTerminal</a>();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">void</span> ensureInTerminal() {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a5ce196246a6936e1a24e628d7ec3aa29">Screen_ensureInTerminal</a>();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}; <span class="comment">// namespace Screen</span></div>
 </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span></div>
-<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="../../d5/d57/namespaceCmdFX_1_1Window.html">   39</a></span>    <span class="keyword">namespace </span><a class="code hl_namespace" href="../../d5/d57/namespaceCmdFX_1_1Window.html">Window</a> {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* getTitle() { <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#aa1d321f7c7e6427835786c406a3b0bea">Window_getTitle</a>(); }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">void</span> setTitle(<span class="keyword">const</span> <span class="keywordtype">char</span>* title) { <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a41e8f296d20c97dc8d9fd8dbe1c6fd3f">Window_setTitle</a>(title); }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordtype">void</span> setTitle(<span class="keyword">const</span> std::string&amp; title) { <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a41e8f296d20c97dc8d9fd8dbe1c6fd3f">Window_setTitle</a>(title.c_str()); }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> getSize(<span class="keywordtype">int</span>* width, <span class="keywordtype">int</span>* height) { <a class="code hl_function" href="../../dd/ddc/screen_8h.html#aeb87b27acb64e12d6db2eaa754e48d18">Window_getSize</a>(width, height); }</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordtype">void</span> setSize(<span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height) { <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a52e4b049b3f475f0b9a0844774e5e6aa">Window_setSize</a>(width, height); }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    };</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span></div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="../../d5/d57/namespaceCmdFX_1_1Window.html">   57</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d5/d57/namespaceCmdFX_1_1Window.html">Window</a></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">const</span> <span class="keywordtype">char</span>* getTitle() {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../dd/ddc/screen_8h.html#aa1d321f7c7e6427835786c406a3b0bea">Window_getTitle</a>();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">void</span> setTitle(<span class="keyword">const</span> <span class="keywordtype">char</span>* title) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a41e8f296d20c97dc8d9fd8dbe1c6fd3f">Window_setTitle</a>(title);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keywordtype">void</span> setTitle(<span class="keyword">const</span> std::string&amp; title) {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a41e8f296d20c97dc8d9fd8dbe1c6fd3f">Window_setTitle</a>(title.c_str());</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">void</span> getSize(<span class="keywordtype">int</span>* width, <span class="keywordtype">int</span>* height) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_function" href="../../dd/ddc/screen_8h.html#aeb87b27acb64e12d6db2eaa754e48d18">Window_getSize</a>(width, height);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keywordtype">void</span> setSize(<span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_function" href="../../dd/ddc/screen_8h.html#a52e4b049b3f475f0b9a0844774e5e6aa">Window_setSize</a>(width, height);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}; <span class="comment">// namespace Window</span></div>
 </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
-<div class="ttc" id="anamespaceCmdFX_1_1Screen_html"><div class="ttname"><a href="../../da/de6/namespaceCmdFX_1_1Screen.html">CmdFX::Screen</a></div><div class="ttdoc">C++ wrapper for the CmdFX Screen API.</div><div class="ttdef"><b>Definition</b> screen.hpp:23</div></div>
-<div class="ttc" id="anamespaceCmdFX_1_1Window_html"><div class="ttname"><a href="../../d5/d57/namespaceCmdFX_1_1Window.html">CmdFX::Window</a></div><div class="ttdoc">C++ wrapper for the CmdFX Window API.</div><div class="ttdef"><b>Definition</b> screen.hpp:39</div></div>
-<div class="ttc" id="anamespaceCmdFX_html"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div><div class="ttdoc">Primary namespace for CmdFX.</div><div class="ttdef"><b>Definition</b> cmdfx.hpp:25</div></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <span class="comment">// namespace CmdFX</span></div>
+<div class="ttc" id="anamespaceCmdFX_1_1Screen_html"><div class="ttname"><a href="../../da/de6/namespaceCmdFX_1_1Screen.html">CmdFX::Screen</a></div><div class="ttdoc">C++ wrapper for the CmdFX Screen API.</div><div class="ttdef"><b>Definition</b> screen.hpp:25</div></div>
+<div class="ttc" id="anamespaceCmdFX_1_1Window_html"><div class="ttname"><a href="../../d5/d57/namespaceCmdFX_1_1Window.html">CmdFX::Window</a></div><div class="ttdoc">C++ wrapper for the CmdFX Window API.</div><div class="ttdef"><b>Definition</b> screen.hpp:58</div></div>
+<div class="ttc" id="anamespaceCmdFX_html"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div><div class="ttdoc">Primary namespace for CmdFX.</div><div class="ttdef"><b>Definition</b> cmdfx.hpp:26</div></div>
 <div class="ttc" id="ascreen_8h_html"><div class="ttname"><a href="../../dd/ddc/screen_8h.html">screen.h</a></div><div class="ttdoc">Screen API for controlling other things around the terminal.</div></div>
 <div class="ttc" id="ascreen_8h_html_a2f3a5e1fe8e4e6fa0e361d159d9f9e52"><div class="ttname"><a href="../../dd/ddc/screen_8h.html#a2f3a5e1fe8e4e6fa0e361d159d9f9e52">Screen_setLineBuffered</a></div><div class="ttdeci">int Screen_setLineBuffered(int enabled)</div><div class="ttdoc">Sets whether or not line buffering is enabled.</div></div>
 <div class="ttc" id="ascreen_8h_html_a41e8f296d20c97dc8d9fd8dbe1c6fd3f"><div class="ttname"><a href="../../dd/ddc/screen_8h.html#a41e8f296d20c97dc8d9fd8dbe1c6fd3f">Window_setTitle</a></div><div class="ttdeci">void Window_setTitle(const char *title)</div><div class="ttdoc">Sets the title of the terminal window.</div></div>

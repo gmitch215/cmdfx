@@ -25,7 +25,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.0</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.1</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -82,99 +82,101 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="../../de/d46/engine_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once </span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">    #include &quot;<a class="code" href="../../d1/d55/engine_8h.html">cmdfx/physics/engine.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d55/engine_8h.html">cmdfx/physics/engine.h</a>&quot;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/d59/sprites_8hpp.html">cmdfx/core/sprites.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="../../d3/d3a/motion_8hpp.html">cmdfx/physics/motion.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/df4/namespaceCmdFX.html">CmdFX</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span></div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d1/dc8/namespaceCmdFX_1_1Engine.html">   25</a></span>    <span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/dc8/namespaceCmdFX_1_1Engine.html">Engine</a> {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">int</span> start() {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#ab7906d41524c9a982c099c0cf4203e1b">Engine_start</a>();</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span></div>
-<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="../../d1/dc8/namespaceCmdFX_1_1Engine.html#a576e5cdc407d1a3c747d5becacdbc1d3">   39</a></span>        std::vector&lt;std::unique_ptr&lt;Sprite&gt;&gt; <a class="code hl_function" href="../../d1/dc8/namespaceCmdFX_1_1Engine.html#a576e5cdc407d1a3c747d5becacdbc1d3">tick</a>() {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <a class="code hl_struct" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a>** modifiedSprites = <a class="code hl_function" href="../../d1/d55/engine_8h.html#aa6bb52fc894d772814e84b1712865249">Engine_tick</a>();</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            std::vector&lt;std::unique_ptr&lt;Sprite&gt;&gt; sprites;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; modifiedSprites[i] != <span class="keyword">nullptr</span>; i++) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                sprites.emplace_back(std::make_unique&lt;Sprite&gt;(modifiedSprites[i]));</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keywordflow">return</span> sprites;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../d1/dc8/namespaceCmdFX_1_1Engine.html">   26</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d1/dc8/namespaceCmdFX_1_1Engine.html">Engine</a></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keywordtype">int</span> start() {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#ab7906d41524c9a982c099c0cf4203e1b">Engine_start</a>();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="../../d1/dc8/namespaceCmdFX_1_1Engine.html#a576e5cdc407d1a3c747d5becacdbc1d3">   41</a></span>std::vector&lt;std::unique_ptr&lt;Sprite&gt;&gt; <a class="code hl_function" href="../../d1/dc8/namespaceCmdFX_1_1Engine.html#a576e5cdc407d1a3c747d5becacdbc1d3">tick</a>() {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_struct" href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a>** modifiedSprites = <a class="code hl_function" href="../../d1/d55/engine_8h.html#aa6bb52fc894d772814e84b1712865249">Engine_tick</a>();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    std::vector&lt;std::unique_ptr&lt;Sprite&gt;&gt; sprites;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; modifiedSprites[i] != <span class="keyword">nullptr</span>; i++) {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        sprites.emplace_back(std::make_unique&lt;Sprite&gt;(modifiedSprites[i]));</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> sprites;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
 </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordtype">void</span> cleanup() {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <a class="code hl_function" href="../../d1/d55/engine_8h.html#a79f81c4c8d4e8e97ce62439f8a1023a6">Engine_cleanup</a>();</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="../../d1/dc8/namespaceCmdFX_1_1Engine.html#a0a12d64b2d33ab477b6a546fb8ded393">   54</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d1/dc8/namespaceCmdFX_1_1Engine.html#a0a12d64b2d33ab477b6a546fb8ded393">isMotionDebugEnabled</a>() {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d3/d75/motion_8h.html#afa32ad00a4bfb7152aa2ef8eb5f7b994">Engine_isMotionDebugEnabled</a>() != 0;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keywordtype">void</span> cleanup() {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_function" href="../../d1/d55/engine_8h.html#a79f81c4c8d4e8e97ce62439f8a1023a6">Engine_cleanup</a>();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="}">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="../../d1/dc8/namespaceCmdFX_1_1Engine.html#a0a12d64b2d33ab477b6a546fb8ded393">   56</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d1/dc8/namespaceCmdFX_1_1Engine.html#a0a12d64b2d33ab477b6a546fb8ded393">isMotionDebugEnabled</a>() {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d3/d75/motion_8h.html#afa32ad00a4bfb7152aa2ef8eb5f7b994">Engine_isMotionDebugEnabled</a>() != 0;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
 </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordtype">bool</span> isSpriteStatic(<a class="code hl_class" href="../../db/d6e/classCmdFX_1_1Sprite.html">Sprite</a>&amp; sprite) {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#a4f925d229df3f979b16e41ffeaa54c34">Sprite_isStatic</a>(sprite.<a class="code hl_function" href="../../db/d6e/classCmdFX_1_1Sprite.html#a4586fc24453d65fa9839584632238edc">getSprite</a>()) != 0;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        }</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordtype">void</span> setSpriteStatic(Sprite&amp; sprite, <span class="keywordtype">bool</span> isStatic) {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <a class="code hl_function" href="../../d1/d55/engine_8h.html#a93b1bea47b0826decb66ebdb1cf078f4">Sprite_setStatic</a>(sprite.getSprite(), isStatic ? 1 : 0);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordtype">double</span> getForceOfGravity() {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#ab1a2858c0daffef1edae0148a9ba1799">Engine_getForceOfGravity</a>();</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        }</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordtype">void</span> setForceOfGravity(<span class="keywordtype">double</span> force) {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <a class="code hl_function" href="../../d1/d55/engine_8h.html#aa1442eb505f67b4b4f9675fed871b35b">Engine_setForceOfGravity</a>(force);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        }</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordtype">double</span> getTerminalVelocity() {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#a04f915add0c73a493cff29257289e210">Engine_getTerminalVelocity</a>();</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        }</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordtype">void</span> setTerminalVelocity(<span class="keywordtype">double</span> velocity) {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            <a class="code hl_function" href="../../d1/d55/engine_8h.html#a8626e15584d3bed95eec24cbd4b0d2e3">Engine_setTerminalVelocity</a>(velocity);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordtype">int</span> getGroundY() {</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#a43c5a3f02f48caea18b76b3d563e2593">Engine_getGroundY</a>();</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        }</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordtype">void</span> setGroundY(<span class="keywordtype">int</span> y) {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <a class="code hl_function" href="../../d1/d55/engine_8h.html#a0cb20fe83423c39c8ec7b484078d5fa9">Engine_setGroundY</a>(y);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        }</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordtype">double</span> getDefaultFrictionCoefficient() {</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#a080606d49cbfd08f101b7bb403b13d47">Engine_getDefaultFrictionCoefficient</a>();</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        }</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordtype">void</span> setDefaultFrictionCoefficient(<span class="keywordtype">double</span> coefficient) {</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <a class="code hl_function" href="../../d1/d55/engine_8h.html#acec59fffaa6ef61bdd2ff05c296bf791">Engine_setDefaultFrictionCoefficient</a>(coefficient);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        }</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordtype">double</span> getCharacterMass(<span class="keywordtype">char</span> c) {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#a2f51565635df61a353aae24a86a2aaef">Engine_getCharacterMass</a>(c);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        }</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordtype">void</span> setCharacterMass(<span class="keywordtype">char</span> c, <span class="keywordtype">double</span> mass) {</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            <a class="code hl_function" href="../../d1/d55/engine_8h.html#a41a335c9dca81f0da104708fa6cc85a7">Engine_setCharacterMass</a>(c, mass);</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        }</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    };</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keywordtype">bool</span> isSpriteStatic(<a class="code hl_class" href="../../db/d6e/classCmdFX_1_1Sprite.html">Sprite</a>&amp; sprite) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#a4f925d229df3f979b16e41ffeaa54c34">Sprite_isStatic</a>(sprite.<a class="code hl_function" href="../../db/d6e/classCmdFX_1_1Sprite.html#a4586fc24453d65fa9839584632238edc">getSprite</a>()) != 0;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keywordtype">void</span> setSpriteStatic(Sprite&amp; sprite, <span class="keywordtype">bool</span> isStatic) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_function" href="../../d1/d55/engine_8h.html#a93b1bea47b0826decb66ebdb1cf078f4">Sprite_setStatic</a>(sprite.getSprite(), isStatic ? 1 : 0);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">double</span> getForceOfGravity() {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#ab1a2858c0daffef1edae0148a9ba1799">Engine_getForceOfGravity</a>();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">void</span> setForceOfGravity(<span class="keywordtype">double</span> force) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_function" href="../../d1/d55/engine_8h.html#aa1442eb505f67b4b4f9675fed871b35b">Engine_setForceOfGravity</a>(force);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keywordtype">double</span> getTerminalVelocity() {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#a04f915add0c73a493cff29257289e210">Engine_getTerminalVelocity</a>();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keywordtype">void</span> setTerminalVelocity(<span class="keywordtype">double</span> velocity) {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_function" href="../../d1/d55/engine_8h.html#a8626e15584d3bed95eec24cbd4b0d2e3">Engine_setTerminalVelocity</a>(velocity);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keywordtype">int</span> getGroundY() {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#a43c5a3f02f48caea18b76b3d563e2593">Engine_getGroundY</a>();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keywordtype">void</span> setGroundY(<span class="keywordtype">int</span> y) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_function" href="../../d1/d55/engine_8h.html#a0cb20fe83423c39c8ec7b484078d5fa9">Engine_setGroundY</a>(y);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>}</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keywordtype">double</span> getDefaultFrictionCoefficient() {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#a080606d49cbfd08f101b7bb403b13d47">Engine_getDefaultFrictionCoefficient</a>();</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>}</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keywordtype">void</span> setDefaultFrictionCoefficient(<span class="keywordtype">double</span> coefficient) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <a class="code hl_function" href="../../d1/d55/engine_8h.html#acec59fffaa6ef61bdd2ff05c296bf791">Engine_setDefaultFrictionCoefficient</a>(coefficient);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keywordtype">double</span> getCharacterMass(<span class="keywordtype">char</span> c) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d1/d55/engine_8h.html#a2f51565635df61a353aae24a86a2aaef">Engine_getCharacterMass</a>(c);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keywordtype">void</span> setCharacterMass(<span class="keywordtype">char</span> c, <span class="keywordtype">double</span> mass) {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_function" href="../../d1/d55/engine_8h.html#a41a335c9dca81f0da104708fa6cc85a7">Engine_setCharacterMass</a>(c, mass);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}; <span class="comment">// namespace Engine</span></div>
 </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
-<div class="ttc" id="aclassCmdFX_1_1Sprite_html"><div class="ttname"><a href="../../db/d6e/classCmdFX_1_1Sprite.html">CmdFX::Sprite</a></div><div class="ttdoc">A C++ wrapper around a CmdFX_Sprite struct.</div><div class="ttdef"><b>Definition</b> sprites.hpp:32</div></div>
-<div class="ttc" id="aclassCmdFX_1_1Sprite_html_a4586fc24453d65fa9839584632238edc"><div class="ttname"><a href="../../db/d6e/classCmdFX_1_1Sprite.html#a4586fc24453d65fa9839584632238edc">CmdFX::Sprite::getSprite</a></div><div class="ttdeci">CmdFX_Sprite * getSprite()</div><div class="ttdoc">Get the Sprite object associated with this class.</div><div class="ttdef"><b>Definition</b> sprites.hpp:53</div></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>} <span class="comment">// namespace CmdFX</span></div>
+<div class="ttc" id="aclassCmdFX_1_1Sprite_html"><div class="ttname"><a href="../../db/d6e/classCmdFX_1_1Sprite.html">CmdFX::Sprite</a></div><div class="ttdoc">A C++ wrapper around a CmdFX_Sprite struct.</div><div class="ttdef"><b>Definition</b> sprites.hpp:33</div></div>
+<div class="ttc" id="aclassCmdFX_1_1Sprite_html_a4586fc24453d65fa9839584632238edc"><div class="ttname"><a href="../../db/d6e/classCmdFX_1_1Sprite.html#a4586fc24453d65fa9839584632238edc">CmdFX::Sprite::getSprite</a></div><div class="ttdeci">CmdFX_Sprite * getSprite()</div><div class="ttdoc">Get the Sprite object associated with this class.</div><div class="ttdef"><b>Definition</b> sprites.hpp:60</div></div>
 <div class="ttc" id="aengine_8h_html"><div class="ttname"><a href="../../d1/d55/engine_8h.html">engine.h</a></div><div class="ttdoc">Global physics engine declarations.</div></div>
 <div class="ttc" id="aengine_8h_html_a04f915add0c73a493cff29257289e210"><div class="ttname"><a href="../../d1/d55/engine_8h.html#a04f915add0c73a493cff29257289e210">Engine_getTerminalVelocity</a></div><div class="ttdeci">double Engine_getTerminalVelocity()</div><div class="ttdoc">Gets the terminal velocity, in characters per second.</div></div>
 <div class="ttc" id="aengine_8h_html_a080606d49cbfd08f101b7bb403b13d47"><div class="ttname"><a href="../../d1/d55/engine_8h.html#a080606d49cbfd08f101b7bb403b13d47">Engine_getDefaultFrictionCoefficient</a></div><div class="ttdeci">double Engine_getDefaultFrictionCoefficient()</div><div class="ttdoc">Gets the default friction coefficient for a sprite.</div></div>
@@ -193,12 +195,12 @@ $(function() {
 <div class="ttc" id="aengine_8h_html_acec59fffaa6ef61bdd2ff05c296bf791"><div class="ttname"><a href="../../d1/d55/engine_8h.html#acec59fffaa6ef61bdd2ff05c296bf791">Engine_setDefaultFrictionCoefficient</a></div><div class="ttdeci">int Engine_setDefaultFrictionCoefficient(double coefficient)</div><div class="ttdoc">Sets the default friction coefficient for a sprite.</div></div>
 <div class="ttc" id="amotion_8h_html_afa32ad00a4bfb7152aa2ef8eb5f7b994"><div class="ttname"><a href="../../d3/d75/motion_8h.html#afa32ad00a4bfb7152aa2ef8eb5f7b994">Engine_isMotionDebugEnabled</a></div><div class="ttdeci">int Engine_isMotionDebugEnabled()</div><div class="ttdoc">Whether motion debugging is enabled.</div></div>
 <div class="ttc" id="amotion_8hpp_html"><div class="ttname"><a href="../../d3/d3a/motion_8hpp.html">motion.hpp</a></div><div class="ttdoc">C++ Extensions for velocity and acceleration functions.</div></div>
-<div class="ttc" id="anamespaceCmdFX_1_1Engine_html"><div class="ttname"><a href="../../d1/dc8/namespaceCmdFX_1_1Engine.html">CmdFX::Engine</a></div><div class="ttdoc">A C++ wrapper around the CmdFX Physics Engine.</div><div class="ttdef"><b>Definition</b> engine.hpp:25</div></div>
-<div class="ttc" id="anamespaceCmdFX_1_1Engine_html_a0a12d64b2d33ab477b6a546fb8ded393"><div class="ttname"><a href="../../d1/dc8/namespaceCmdFX_1_1Engine.html#a0a12d64b2d33ab477b6a546fb8ded393">CmdFX::Engine::isMotionDebugEnabled</a></div><div class="ttdeci">bool isMotionDebugEnabled()</div><div class="ttdoc">Checks if motion debugging is enabled.</div><div class="ttdef"><b>Definition</b> engine.hpp:54</div></div>
-<div class="ttc" id="anamespaceCmdFX_1_1Engine_html_a576e5cdc407d1a3c747d5becacdbc1d3"><div class="ttname"><a href="../../d1/dc8/namespaceCmdFX_1_1Engine.html#a576e5cdc407d1a3c747d5becacdbc1d3">CmdFX::Engine::tick</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; Sprite &gt; &gt; tick()</div><div class="ttdoc">Ticks the physics engine and returns modified sprites.</div><div class="ttdef"><b>Definition</b> engine.hpp:39</div></div>
-<div class="ttc" id="anamespaceCmdFX_html"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div><div class="ttdoc">Primary namespace for CmdFX.</div><div class="ttdef"><b>Definition</b> cmdfx.hpp:25</div></div>
+<div class="ttc" id="anamespaceCmdFX_1_1Engine_html"><div class="ttname"><a href="../../d1/dc8/namespaceCmdFX_1_1Engine.html">CmdFX::Engine</a></div><div class="ttdoc">A C++ wrapper around the CmdFX Physics Engine.</div><div class="ttdef"><b>Definition</b> engine.hpp:27</div></div>
+<div class="ttc" id="anamespaceCmdFX_1_1Engine_html_a0a12d64b2d33ab477b6a546fb8ded393"><div class="ttname"><a href="../../d1/dc8/namespaceCmdFX_1_1Engine.html#a0a12d64b2d33ab477b6a546fb8ded393">CmdFX::Engine::isMotionDebugEnabled</a></div><div class="ttdeci">bool isMotionDebugEnabled()</div><div class="ttdoc">Checks if motion debugging is enabled.</div><div class="ttdef"><b>Definition</b> engine.hpp:56</div></div>
+<div class="ttc" id="anamespaceCmdFX_1_1Engine_html_a576e5cdc407d1a3c747d5becacdbc1d3"><div class="ttname"><a href="../../d1/dc8/namespaceCmdFX_1_1Engine.html#a576e5cdc407d1a3c747d5becacdbc1d3">CmdFX::Engine::tick</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; Sprite &gt; &gt; tick()</div><div class="ttdoc">Ticks the physics engine and returns modified sprites.</div><div class="ttdef"><b>Definition</b> engine.hpp:41</div></div>
+<div class="ttc" id="anamespaceCmdFX_html"><div class="ttname"><a href="../../de/df4/namespaceCmdFX.html">CmdFX</a></div><div class="ttdoc">Primary namespace for CmdFX.</div><div class="ttdef"><b>Definition</b> cmdfx.hpp:26</div></div>
 <div class="ttc" id="asprites_8hpp_html"><div class="ttname"><a href="../../de/d59/sprites_8hpp.html">sprites.hpp</a></div><div class="ttdoc">C++ Extensions for the CmdFX Sprites API.</div></div>
-<div class="ttc" id="astructCmdFX__Sprite_html"><div class="ttname"><a href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a></div><div class="ttdoc">Represents a sprite that can be drawn to the terminal.</div><div class="ttdef"><b>Definition</b> sprites.h:30</div></div>
+<div class="ttc" id="astructCmdFX__Sprite_html"><div class="ttname"><a href="../../d7/d39/structCmdFX__Sprite.html">CmdFX_Sprite</a></div><div class="ttdoc">Represents a sprite that can be drawn to the terminal.</div><div class="ttdef"><b>Definition</b> sprites.h:31</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
