@@ -2,9 +2,9 @@ name: Build Project
 
 on:
   push:
-    branches: [ master, ver/* ]
+    branches: [master, ver/*]
   pull_request:
-    branches: [ master, ver/* ]
+    branches: [master, ver/*]
 
   workflow_dispatch:
 
@@ -49,11 +49,11 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
       - uses: actions/setup-dotnet@v5
         if: ${{ matrix.os == 'windows-2025' }}
         with:
-          dotnet-version: '9'
+          dotnet-version: "9"
       - name: Setup Global Dotnet Tool Cache
         if: ${{ matrix.os == 'windows-2025' }}
         uses: actions/cache@v4
@@ -72,7 +72,7 @@ jobs:
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: fwilhe2/setup-kotlin@main
         with:
-          version: '2.2.10'
+          version: "2.2.10"
           install-native: true
       - name: Setup Konan
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
@@ -115,7 +115,7 @@ jobs:
       - name: Archive Package Artifacts
         id: archive
         if: success() || failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           path: |
@@ -145,7 +145,7 @@ jobs:
         shell: bash
       - name: Archive Test Reports
         if: success() || failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-test
           path: build/Testing/*
@@ -191,7 +191,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
       - name: Setup Maven Settings
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: s4u/maven-settings-action@v4.0.0
@@ -201,7 +201,7 @@ jobs:
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: fwilhe2/setup-kotlin@main
         with:
-          version: '2.2.10'
+          version: "2.2.10"
           install-native: true
       - name: Setup Konan
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
