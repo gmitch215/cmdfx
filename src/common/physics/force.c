@@ -213,6 +213,28 @@ int Sprite_removeAllForces(CmdFX_Sprite* sprite) {
     _forces[id] = 0;
     _forcesCounts[id] = 0;
 
+    if (id == _forcesSize - 1) { // shrink arrays if last sprite
+        int newSize = id;
+        while (newSize > 0 && _forces[newSize - 1] == 0) {
+            newSize--;
+        }
+
+        if (newSize != _forcesSize) { // reallocate arrays if size changed
+            CmdFX_Vector*** tempForces =
+                realloc(_forces, sizeof(CmdFX_Vector**) * newSize);
+            if (tempForces != 0 || newSize == 0) {
+                _forces = tempForces;
+                _forcesSize = newSize;
+            }
+
+            // reallocate counts array if size changed
+            int* tempCounts = realloc(_forcesCounts, sizeof(int) * newSize);
+            if (tempCounts != 0 || newSize == 0) {
+                _forcesCounts = tempCounts; // shrink counts array
+            }
+        }
+    }
+
     CmdFX_tryUnlockMutex(_SPRITE_FORCE_MUTEX);
 
     return 0;

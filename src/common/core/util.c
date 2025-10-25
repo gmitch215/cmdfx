@@ -5,6 +5,8 @@
 
 #include "cmdfx/core/util.h"
 
+#define FLOAT_EPSILON 1e-8
+
 // Global Declarations
 
 int _tickSpeed = 12;
@@ -62,10 +64,10 @@ void rgb_to_hsv(int rgb, double* h, double* s, double* v) {
     if (delta < 0.00001) {
         *h = 0.0; // No hue
     }
-    else if (fabs(r - max) < 1e-8) {
+    else if (fabs(r - max) < FLOAT_EPSILON) {
         *h = 60.0 * fmod(((g - b) / delta), 6.0);
     }
-    else if (fabs(g - max) < 1e-8) {
+    else if (fabs(g - max) < FLOAT_EPSILON) {
         *h = 60.0 * (((b - r) / delta) + 2.0);
     }
     else {
