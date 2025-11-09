@@ -188,9 +188,8 @@ void Scene_draw1(
         _drawnScenes = (CmdFX_Scene**) malloc(sizeof(CmdFX_Scene*));
     }
     else {
-        _drawnScenes = (CmdFX_Scene**) realloc(
-            _drawnScenes, sizeof(CmdFX_Scene*) * (_drawnScenesCount + 1)
-        );
+        _drawnScenes = (CmdFX_Scene**
+        ) realloc(_drawnScenes, sizeof(CmdFX_Scene*) * (_drawnScenesCount + 1));
     }
 
     _drawnScenes[_drawnScenesCount] = scene;
@@ -322,13 +321,13 @@ int Scene_isOnBottomAt(CmdFX_Scene* scene, int x, int y) {
 
     int c = 0;
     for (int i = 0; i < _drawnScenesCount; i++) {
-        CmdFX_Scene* scene = _drawnScenes[i];
-        if (scene == 0) continue;
-        if (scene->x == -1 && scene->y == -1) continue;
+        CmdFX_Scene* drawn = _drawnScenes[i];
+        if (drawn == 0) continue;
+        if (drawn->x == -1 && drawn->y == -1) continue;
 
-        if (x >= scene->x && x < scene->x + scene->width && y >= scene->y &&
-            y < scene->y + scene->height) {
-            bottomScenes[c++] = scene;
+        if (x >= drawn->x && x < drawn->x + drawn->width && y >= drawn->y &&
+            y < drawn->y + drawn->height) {
+            bottomScenes[c++] = drawn;
         }
     }
 
@@ -339,11 +338,9 @@ int Scene_isOnBottomAt(CmdFX_Scene* scene, int x, int y) {
     }
 
     for (int i = 1; i < c; i++) {
-        CmdFX_Scene* scene = bottomScenes[i];
-        if (scene->z < bottom->z) bottom = scene;
+        CmdFX_Scene* bottomScene = bottomScenes[i];
+        if (bottomScene->z < bottom->z) bottom = bottomScene;
     }
-
-    printf("count: %d\n", c);
 
     free(bottomScenes);
     return bottom == scene ? 1 : 0;

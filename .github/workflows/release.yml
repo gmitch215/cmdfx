@@ -56,7 +56,7 @@ jobs:
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: fwilhe2/setup-kotlin@main
         with:
-          version: "2.2.10"
+          version: "2.2.20"
           install-native: true
       - name: Setup Konan
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}

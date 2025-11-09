@@ -23,9 +23,8 @@ char Device_fromKeyCode(int keyCode) {
     TISInputSourceRef source = TISCopyCurrentKeyboardLayoutInputSource();
     if (!source) return '\0';
 
-    CFDataRef layoutData = (CFDataRef) TISGetInputSourceProperty(
-        source, kTISPropertyUnicodeKeyLayoutData
-    );
+    CFDataRef layoutData = (CFDataRef
+    ) TISGetInputSourceProperty(source, kTISPropertyUnicodeKeyLayoutData);
     if (!layoutData) return '\0';
 
     const UCKeyboardLayout* keyboardLayout =

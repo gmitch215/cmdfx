@@ -11,6 +11,11 @@ on:
 jobs:
   format:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
     steps:
       - uses: actions/checkout@v5
       - name: Install Clang Tools
@@ -72,7 +77,7 @@ jobs:
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: fwilhe2/setup-kotlin@main
         with:
-          version: "2.2.10"
+          version: "2.2.20"
           install-native: true
       - name: Setup Konan
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
@@ -156,6 +161,11 @@ jobs:
     needs: build
     name: Deploy Doxygen
     if: ${{ github.event_name != 'pull_request' && github.ref_name == 'master' }}
+
+    permissions:
+      contents: write
+      id-token: write
+
     steps:
       - uses: actions/checkout@v5
       - name: Install Doxygen
@@ -185,6 +195,11 @@ jobs:
           - os: macos-15
             id: macosarm64
 
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+
     needs: build
     runs-on: ${{ matrix.os }}
     if: ${{ github.event_name != 'pull_request' }}
@@ -201,7 +216,7 @@ jobs:
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: fwilhe2/setup-kotlin@main
         with:
-          version: "2.2.10"
+          version: "2.2.20"
           install-native: true
       - name: Setup Konan
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}

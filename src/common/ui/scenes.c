@@ -45,9 +45,8 @@ int* Scene_getButtonCoordinates(int uid, CmdFX_Button* button) {
 void _checkSceneButtons(int uid) {
     CmdFX_tryLockMutex(_BUTTON_SCENE_REGISTRY_MUTEX);
     if (_sceneButtons == 0) {
-        _sceneButtons = (CmdFX_Button***) calloc(
-            MAX_REGISTERED_SCENES, sizeof(CmdFX_Button**)
-        );
+        _sceneButtons = (CmdFX_Button***
+        ) calloc(MAX_REGISTERED_SCENES, sizeof(CmdFX_Button**));
         _sceneButtonsCount = (int*) calloc(MAX_REGISTERED_SCENES, sizeof(int));
     }
 
@@ -86,9 +85,8 @@ int Scene_addButton(int uid, CmdFX_Button* button, int x, int y) {
     _sceneButtonCoordinates[uid][count][0] = x;
     _sceneButtonCoordinates[uid][count][1] = y;
 
-    _sceneButtons[uid] = (CmdFX_Button**) realloc(
-        _sceneButtons[uid], sizeof(CmdFX_Button*) * (count + 1)
-    );
+    _sceneButtons[uid] = (CmdFX_Button**
+    ) realloc(_sceneButtons[uid], sizeof(CmdFX_Button*) * (count + 1));
     _sceneButtons[uid][count] = button;
     _sceneButtonsCount[uid]++;
     CmdFX_tryUnlockMutex(_BUTTON_SCENE_REGISTRY_MUTEX);

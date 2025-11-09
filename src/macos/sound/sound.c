@@ -30,8 +30,7 @@ int _Platform_initSoundSystem() {
     AudioComponentInstance* out = NULL;
     OSStatus status = AudioComponentInstanceNew(
         AudioComponentFindNext(
-            NULL, &(
-                      AudioComponentDescription
+            NULL, &(AudioComponentDescription
                   ) {.componentType = kAudioUnitType_Output,
                      .componentSubType = kAudioUnitSubType_DefaultOutput,
                      .componentManufacturer = kAudioUnitManufacturer_Apple}

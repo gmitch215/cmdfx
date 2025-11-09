@@ -98,7 +98,7 @@ int removeCmdFXEventListener(unsigned int eventId, unsigned int listenerId) {
 
     unsigned int nonNullCount = 0;
     for (unsigned int i = 0; i < size; i++) {
-        if (list[i] != NULL) {
+        if (list[i] != 0) {
             list[nonNullCount++] = list[i];
         }
     }
@@ -107,7 +107,7 @@ int removeCmdFXEventListener(unsigned int eventId, unsigned int listenerId) {
 
     if (nonNullCount == 0) {
         free(list);
-        _listeners[eventId] = NULL;
+        _listeners[eventId] = 0;
         _listenerSizes[eventId] = 0;
     }
     else {

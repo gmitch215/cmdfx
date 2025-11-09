@@ -769,9 +769,6 @@ double Char2DBuilder_getRotationAngle(char** array) {
 
     if (width <= 0 || height <= 0) return 0.0;
 
-    double cx = width / 2.0;
-    double cy = height / 2.0;
-
     double sumX = 0, sumY = 0;
     int whitespaceCount = 0;
 

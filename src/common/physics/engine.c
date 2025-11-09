@@ -178,8 +178,7 @@ CmdFX_Sprite** Engine_tick() {
     if (count < 1) return 0;
 
     int ground = Engine_getGroundY();
-    int width = Canvas_getWidth();
-    int forceOfGravity = Engine_getForceOfGravity();
+    double forceOfGravity = Engine_getForceOfGravity();
 
     CmdFX_Sprite** modified =
         calloc(count - _staticSpriteCount + 1, sizeof(CmdFX_Sprite*));

@@ -38,12 +38,20 @@ CmdFX_SpriteCostumes* Sprite_createCostumes(
     if (_costumes[id] != 0) return _costumes[id];
 
     CmdFX_SpriteCostumes* spriteCostumes = malloc(sizeof(CmdFX_SpriteCostumes));
+    if (!spriteCostumes) return 0;
 
     spriteCostumes->costumeCount = costumeCount;
     spriteCostumes->costumes =
         (char***) calloc(costumeCount + 1, sizeof(char**));
     spriteCostumes->ansiCostumes =
         (char****) calloc(costumeCount + 1, sizeof(char***));
+
+    if (!spriteCostumes->costumes || !spriteCostumes->ansiCostumes) {
+        free(spriteCostumes->costumes);
+        free(spriteCostumes->ansiCostumes);
+        free(spriteCostumes);
+        return 0;
+    }
 
     spriteCostumes->costumes[0] = createCharArrayCopy(sprite->data);
     if (sprite->ansi != 0)
