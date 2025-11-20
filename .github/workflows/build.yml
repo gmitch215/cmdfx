@@ -12,7 +12,7 @@ jobs:
   format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Install Clang Tools
         run: |
           pip install clang-tools
@@ -47,7 +47,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           submodules: "recursive"
       - uses: actions/setup-dotnet@v5
@@ -157,7 +157,7 @@ jobs:
     name: Deploy Doxygen
     if: ${{ github.event_name != 'pull_request' && github.ref_name == 'master' }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Install Doxygen
         uses: ssciwr/doxygen-install@v1
       - name: Install Linux Dependencies
@@ -189,7 +189,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     if: ${{ github.event_name != 'pull_request' }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           submodules: "recursive"
       - name: Setup Maven Settings
