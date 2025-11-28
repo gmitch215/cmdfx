@@ -97,8 +97,6 @@ curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh |
 curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash -s -- --no-docs
 ```
 
-`install.sh` comes with a `--help` flag for more flags you may find useful.
-
 - macOS/Linux (bash/zsh):
 
 ```sh
@@ -122,10 +120,34 @@ Defaults after a no-flags run:
 Common options:
 
 - `--branch <name>`: install a tag/branch (e.g. `v0.3.3`)
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash -s -- --branch v0.3.3
+```
+
 - `--prefix <path>`: change install prefix
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash -s -- --prefix /custom/path
+```
+
 - `--type <Release|Debug>`: CMake build type
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash -s -- --type Release
+```
+
 - `--shallow`: faster shallow clone
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash -s -- --shallow
+```
+
 - `--no-tests`, `--no-docs`, `--no-package`, `--no-kn`: toggle optional components
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash -s -- --no-tests --no-docs
+```
 
 Run `./install.sh --help` for full options.
 
