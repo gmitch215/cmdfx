@@ -63,6 +63,95 @@ For a full method list, check out the [documentation](https://gmitch215.github.i
 
 You can download the latest release of cmdfx from the [releases page](https://github.com/gmitch215/cmdfx/releases).
 
+### Install via Script
+
+Use the cross-platform Bash installer to clone, build, and install cmdfx with CMake.
+
+- macOS/Linux (bash/zsh):
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh -o install-cmdfx.sh
+bash install-cmdfx.sh
+```
+
+- Windows: run from Git Bash (bundled with Git for Windows) or MSYS2 shell:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh -o install-cmdfx.sh
+bash install-cmdfx.sh
+```
+
+Defaults after a no-flags run:
+
+- MacOS: installs to `/usr/local`
+- Linux: installs to `/usr`
+- Windows (Git Bash/MSYS): installs to `C:/Program Files/cmdfx`
+
+Common options:
+
+- `--branch <name>`: install a tag/branch (e.g. `v0.3.3`)
+- `--prefix <path>`: change install prefix
+- `--type <Release|Debug>`: CMake build type
+- `--shallow`: faster shallow clone
+- `--no-tests`, `--no-docs`, `--no-package`, `--no-kn`: toggle optional components
+
+Run `./install.sh --help` for full options.
+
+### Use in CMake Projects
+
+cmdfx installs a CMake package with the target `cmdfx::cmdfx`.
+
+```cmake
+find_package(cmdfx REQUIRED)
+add_executable(app main.c)
+target_link_libraries(app PRIVATE cmdfx::cmdfx)
+```
+
+If CMake cannot find the package, point it at the install prefix:
+
+```sh
+cmake -S . -B build -DCMAKE_PREFIX_PATH="/usr/local"   # macOS
+cmake -S . -B build -DCMAKE_PREFIX_PATH="/usr"         # Linux
+cmake -S . -B build -DCMAKE_PREFIX_PATH="C:/Program Files/cmdfx"  # Windows
+```
+
+### GitHub Actions
+
+Install cmdfx via the script, then build your project with CMake using the exported package.
+
+```yml
+name: Build with cmdfx
+
+on: [push, pull_request]
+
+jobs:
+  build:
+  runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            cmake_prefix: /usr
+          - os: macos-latest
+            cmake_prefix: /usr/local
+          - os: windows-latest
+            cmake_prefix: 'C:/Program Files/cmdfx'
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install cmdfx
+        shell: bash
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh -o install-cmdfx.sh
+          bash install-cmdfx.sh --shallow # shallow clone to improve performance
+      - name: Configure
+        shell: bash
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="${{ matrix.cmake_prefix }}"
+      - name: Build
+        shell: bash
+        run: cmake --build build
+```
+
 ### Kotlin/Native
 
 If you are using Kotlin/Native, you can add cmdfx as a dependency in your `build.gradle.kts` file:
@@ -122,12 +211,12 @@ int main() {
     CmdFX_Sprite* mySprite = Sprite_loadFromFile("sprite.txt", 0);
     Sprite_setForegroundAll(mySprite, 0xFF0000); // Set Color to Red
 
-    // Draw Sprite at position (5, 5)   
+    // Draw Sprite at position (5, 5)
     Sprite_draw(5, 5, mySprite);
 
     // Move Sprite to position (10, 10)
     Sprite_moveTo(mySprite, 10, 10);
-    
+
     // (width, height, char, ansi, z-index)
     CmdFX_Sprite* background = Sprite_createFilled(10, 10, '#', 0, 0);
 
@@ -148,7 +237,7 @@ int onResize(CmdFX_Event* event) {
 
     // Print the previous and new size of the terminal
     printf("Terminal resized from %dx%d to %dx%d\n", resizeEvent->prevWidth, resizeEvent->prevHeight, resizeEvent->newWidth, resizeEvent->newHeight);
-    
+
     return 0;
 }
 
