@@ -344,4 +344,47 @@ std::unique_ptr<Scene> getRegisteredScene(int uid) {
 
 } // namespace Canvas
 
+/**
+ * @brief Scene Engine functions
+ */
+namespace SceneEngine
+{
+
+/**
+ * @brief Ticks the Scene Engine.
+ *
+ * This function ticks the Scene Engine, updating all registered scenes
+ * and redrawing them if necessary. This should be called once per frame.
+ */
+void tick() {
+    tickCmdFXSceneEngine();
+}
+
+/**
+ * @brief Begins the Scene Engine.
+ *
+ * This function starts the Scene Engine, enabling automatic scene
+ * management and rendering. This should be called before registering
+ * any scenes.
+ *
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int begin() {
+    return beginCmdFXSceneEngine();
+}
+
+/**
+ * @brief Ends the Scene Engine.
+ *
+ * This function stops the Scene Engine and cleans up all resources.
+ * This should be called when scene management is no longer needed.
+ *
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int end() {
+    return endCmdFXSceneEngine();
+}
+
+} // namespace SceneEngine
+
 } // namespace CmdFX

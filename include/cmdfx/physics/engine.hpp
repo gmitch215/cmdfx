@@ -53,6 +53,10 @@ void cleanup() {
     Engine_cleanup();
 }
 
+int end() {
+    return Engine_end();
+}
+
 bool isSpriteStatic(Sprite& sprite) {
     return Sprite_isStatic(sprite.getSprite()) != 0;
 }

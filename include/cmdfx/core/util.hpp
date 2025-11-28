@@ -27,6 +27,62 @@ int setTickSpeed(int tickspeed) {
     return CmdFX_setTickSpeed(tickspeed);
 }
 
+// Time
+
+unsigned long currentTimeMillis() {
+    return ::currentTimeMillis();
+}
+
+unsigned long long currentTimeNanos() {
+    return ::currentTimeNanos();
+}
+
+void sleepMillis(unsigned long millis) {
+    ::sleepMillis(millis);
+}
+
+void sleepNanos(unsigned long long nanos) {
+    ::sleepNanos(nanos);
+}
+
+// Math
+
+double clamp(double value, double min, double max) {
+    return clamp_d(value, min, max);
+}
+
+float clamp(float value, float min, float max) {
+    return clamp_f(value, min, max);
+}
+
+int clamp(int value, int min, int max) {
+    return clamp_i(value, min, max);
+}
+
+double lerp(double a, double b, double t) {
+    return lerp_d(a, b, t);
+}
+
+float lerp(float a, float b, float t) {
+    return lerp_f(a, b, t);
+}
+
+int lerp(int a, int b, double t) {
+    return lerp_i(a, b, t);
+}
+
+void rgbToHsv(int rgb, double* h, double* s, double* v) {
+    rgb_to_hsv(rgb, h, s, v);
+}
+
+int hsvToRgb(double h, double s, double v) {
+    return hsv_to_rgb(h, s, v);
+}
+
+int lerpColor(int rgb1, int rgb2, double t) {
+    return lerp_color(rgb1, rgb2, t);
+}
+
 // Multithreading
 
 ThreadID launchThread(void (*func)(void*), void* arg) {

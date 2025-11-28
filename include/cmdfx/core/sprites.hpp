@@ -227,6 +227,14 @@ class Sprite final {
         return Sprite_setBackground(sprite, x, y, rgb);
     }
 
+    int setBackground(int rgb) {
+        return Sprite_setBackgroundAll(sprite, rgb);
+    }
+
+    int setBackground256(int color) {
+        return Sprite_setBackgroundAll256(sprite, color);
+    }
+
     int rotate(double radians) {
         return Sprite_rotate(sprite, radians);
     }

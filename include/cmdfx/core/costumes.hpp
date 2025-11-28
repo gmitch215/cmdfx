@@ -70,6 +70,47 @@ class SpriteCostumes final {
 
         Sprite_setCostumeAt(sprite->getSprite(), index, textArray, ansiArray);
     }
+
+    char** getCharCostume(int index) {
+        return Sprite_getCharCostume(sprite->getSprite(), index);
+    }
+
+    char*** getAnsiCostume(int index) {
+        return Sprite_getAnsiCostume(sprite->getSprite(), index);
+    }
+
+    int switchCostumeTo(int index) {
+        return Sprite_switchCostumeTo(sprite->getSprite(), index);
+    }
+
+    int addCostume(char** costume, char*** ansiCostume) {
+        return Sprite_addCostume(sprite->getSprite(), costume, ansiCostume);
+    }
+
+    int addCostume(
+        std::vector<std::string> costume,
+        std::vector<std::vector<std::string>> ansiCostume
+    ) {
+        return Sprite_addCostume(
+            sprite->getSprite(), to2DArray(costume), to3DArray(ansiCostume)
+        );
+    }
+
+    int removeCostume(int index) {
+        return Sprite_removeCostume(sprite->getSprite(), index);
+    }
+
+    int resetCostumes() {
+        return Sprite_resetCostumes(sprite->getSprite());
+    }
+
+    int getCurrentCostumeIndex() {
+        return Sprite_getCurrentCostumeIndex(sprite->getSprite());
+    }
 };
+
+int resetAllCostumes() {
+    return Sprite_resetAllCostumes();
+}
 
 } // namespace CmdFX

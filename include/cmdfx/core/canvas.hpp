@@ -101,5 +101,97 @@ void drawAscii(int x, int y, char ascii[8][5]) {
 void drawAsciiText(int x, int y, char c, const char* text) {
     Canvas_drawAsciiText(x, y, c, text);
 }
+void drawAsciiText(int x, int y, char c, const std::string& text) {
+    Canvas_drawAsciiText(x, y, c, text.c_str());
+}
+void resetFormat() {
+    Canvas_resetFormat();
+}
+void setForeground(int rgb) {
+    Canvas_setForeground(rgb);
+}
+void setBackground(int rgb) {
+    Canvas_setBackground(rgb);
+}
+void setColor8(int color) {
+    Canvas_setColor8(color);
+}
+void setForeground256(int color) {
+    Canvas_setForeground256(color);
+}
+void setBackground256(int color) {
+    Canvas_setBackground256(color);
+}
+void enableBold() {
+    Canvas_enableBold();
+}
+void disableBold() {
+    Canvas_disableBold();
+}
+void enableDim() {
+    Canvas_enableDim();
+}
+void disableDim() {
+    Canvas_disableDim();
+}
+void enableItalic() {
+    Canvas_enableItalic();
+}
+void disableItalic() {
+    Canvas_disableItalic();
+}
+void enableUnderline() {
+    Canvas_enableUnderline();
+}
+void disableUnderline() {
+    Canvas_disableUnderline();
+}
+void enableBlink() {
+    Canvas_enableBlink();
+}
+void disableBlink() {
+    Canvas_disableBlink();
+}
+void enableInvert() {
+    Canvas_enableInvert();
+}
+void disableInvert() {
+    Canvas_disableInvert();
+}
+void enableHidden() {
+    Canvas_enableHidden();
+}
+void disableHidden() {
+    Canvas_disableHidden();
+}
+void enableStrikethrough() {
+    Canvas_enableStrikethrough();
+}
+void disableStrikethrough() {
+    Canvas_disableStrikethrough();
+}
+void hLine(int x, int y, int width, char c) {
+    Canvas_hLine(x, y, width, c);
+}
+void vLine(int x, int y, int height, char c) {
+    Canvas_vLine(x, y, height, c);
+}
+void line(int x1, int y1, int x2, int y2, char c) {
+    Canvas_line(x1, y1, x2, y2, c);
+}
+void polygon(int x, int y, int sides, int radius, char c) {
+    Canvas_polygon(x, y, sides, radius, c);
+}
+void fillPolygon(int x, int y, int sides, int radius, char c) {
+    Canvas_fillPolygon(x, y, sides, radius, c);
+}
+void quad(int x, int y, int x1, int y1, int x2, int y2, char c) {
+    Canvas_quad(x, y, x1, y1, x2, y2, c);
+}
+void cubic(
+    int x, int y, int x1, int y1, int x2, int y2, int x3, int y3, char c
+) {
+    Canvas_cubic(x, y, x1, y1, x2, y2, x3, y3, c);
+}
 }; // namespace Canvas
 } // namespace CmdFX

@@ -177,6 +177,26 @@ void enableMotionDebug() {
 void disableMotionDebug() {
     Engine_disableMotionDebug();
 }
+
+/**
+ * @brief Applies the motion of a sprite.
+ *
+ * This method applies the motion of a sprite by updating its position
+ * based on its velocity and acceleration. The motion is applied in the
+ * opposite direction of the Y axis, so the sprite will move up when
+ * the Y velocity is positive and down when the Y velocity is negative.
+ *
+ * @param sprite The sprite to use.
+ */
+void applyMotion(Sprite& sprite) {
+    Engine_applyMotion(sprite.getSprite());
+}
+
+void applyMotion(const std::unique_ptr<Sprite>& sprite) {
+    if (sprite) {
+        Engine_applyMotion(sprite->getSprite());
+    }
+}
 } // namespace Engine
 
 } // namespace CmdFX
