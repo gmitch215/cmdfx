@@ -67,9 +67,37 @@ You can download the latest release of cmdfx from the [releases page](https://gi
 
 Use the cross-platform Bash installer to clone, build, and install cmdfx with CMake.
 
-```sh
-curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash
+#### Prerequisites
+
+Linux requires the installation of the ALSA sound library:
+
 ```
+sudo apt-get update
+sudo apt-get install -y libasound2-dev
+```
+
+If this is not installed, sound support will not be built.
+
+#### Running the Installer
+
+```sh
+# default install (includes kotlin/native, tests, docs, full clone)
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash
+
+# disable kotlin/native and enable shallow (most common use case with c/c++)
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash -s -- --no-kn --shallow
+
+# include debug statements
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash -s -- --type Debug
+
+# to disable building tests
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash -s -- --no-tests
+
+# to disable including documentation
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash -s -- --no-docs
+```
+
+`install.sh` comes with a `--help` flag for more flags you may find useful.
 
 - macOS/Linux (bash/zsh):
 
@@ -142,6 +170,12 @@ jobs:
             cmake_prefix: 'C:/Program Files/cmdfx'
     steps:
       - uses: actions/checkout@v6
+      - name: Install Linux Dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev
       - name: Install cmdfx
         shell: bash
         run: |

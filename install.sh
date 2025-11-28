@@ -156,8 +156,23 @@ cmake -S "$SRC_DIR" -B "$BUILD_DIR" \
 	-DPACKAGE_CMDFX="$PACKAGE_OPT" \
 	-DKN_CMDFX="$KN_OPT"
 
+# Detect generator to decide if we need --config (multi-config generators)
+GENERATOR=""
+if [ -f "$BUILD_DIR/CMakeCache.txt" ]; then
+	GENERATOR="$(awk -F= '/^CMAKE_GENERATOR:INTERNAL=/{print $2}' "$BUILD_DIR/CMakeCache.txt" 2>/dev/null || true)"
+fi
+
+is_multi_config=false
+case "$GENERATOR" in
+	*"Visual Studio"*|*"Xcode"*|*"Ninja Multi-Config"*) is_multi_config=true;;
+esac
+
 log "Building (${JOBS} job(s))"
-cmake --build "$BUILD_DIR" --parallel "$JOBS"
+if [ "$is_multi_config" = true ]; then
+	cmake --build "$BUILD_DIR" --config "$BUILD_TYPE" --parallel "$JOBS"
+else
+	cmake --build "$BUILD_DIR" --parallel "$JOBS"
+fi
 
 # Decide whether to use sudo
 should_use_sudo() {
@@ -174,13 +189,25 @@ should_use_sudo() {
 log "Installing to: $PREFIX"
 if should_use_sudo; then
 	if command -v sudo >/dev/null 2>&1; then
-		sudo cmake --install "$BUILD_DIR"
+		if [ "$is_multi_config" = true ]; then
+			sudo cmake --install "$BUILD_DIR" --config "$BUILD_TYPE"
+		else
+			sudo cmake --install "$BUILD_DIR"
+		fi
 	else
 		warn "sudo not available; attempting install without sudo"
-		cmake --install "$BUILD_DIR"
+		if [ "$is_multi_config" = true ]; then
+			cmake --install "$BUILD_DIR" --config "$BUILD_TYPE"
+		else
+			cmake --install "$BUILD_DIR"
+		fi
 	fi
 else
-	cmake --install "$BUILD_DIR"
+	if [ "$is_multi_config" = true ]; then
+		cmake --install "$BUILD_DIR" --config "$BUILD_TYPE"
+	else
+		cmake --install "$BUILD_DIR"
+	fi
 fi
 
 log "Installation complete. Binaries and libraries installed to '$PREFIX'."
