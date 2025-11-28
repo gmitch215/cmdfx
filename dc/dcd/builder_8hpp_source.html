@@ -25,7 +25,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.1</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.2</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -132,7 +132,7 @@ $(function() {
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
 <div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="../../de/df4/namespaceCmdFX.html#a1afc3385a1044225621779267f873d5b">   64</a></span><span class="keywordtype">char</span>** <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a1afc3385a1044225621779267f873d5b">to2DArray</a>(std::vector&lt;std::string&gt; <span class="keywordtype">string</span>) {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">char</span>** array = Builder::createCharArray(<span class="keywordtype">string</span>.size(), <span class="keywordtype">string</span>[0].size());</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">char</span>** array = <a class="code hl_function" href="../../d5/d78/builder_8h.html#a8306d0cedfc7d35cca3a020a82bdbf9f">Char2DBuilder_create</a>(<span class="keywordtype">string</span>.size(), <span class="keywordtype">string</span>[0].size());</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <span class="keywordtype">string</span>.size(); i++) {</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <span class="keywordtype">string</span>[i].size(); j++) {</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            array[i][j] = <span class="keywordtype">string</span>[i][j];</div>
@@ -145,7 +145,7 @@ $(function() {
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span></div>
 <div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="../../de/df4/namespaceCmdFX.html#a61e5fac97b7edb6e7d2631e5f11cebc4">   80</a></span><span class="keywordtype">char</span>*** <a class="code hl_function" href="../../de/df4/namespaceCmdFX.html#a61e5fac97b7edb6e7d2631e5f11cebc4">to3DArray</a>(std::vector&lt;std::vector&lt;std::string&gt;&gt; <span class="keywordtype">string</span>) {</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordtype">char</span>*** array = Builder::createStringArray(<span class="keywordtype">string</span>.size(), <span class="keywordtype">string</span>[0].size());</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordtype">char</span>*** array = <a class="code hl_function" href="../../d5/d78/builder_8h.html#ac9ee52c0066b1983c57fdd395703fd54">String2DBuilder_create</a>(<span class="keywordtype">string</span>.size(), <span class="keywordtype">string</span>[0].size());</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <span class="keywordtype">string</span>.size(); i++) {</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <span class="keywordtype">string</span>[i].size(); j++) {</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            array[i][j] = <span class="keyword">const_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(<span class="keywordtype">string</span>[i][j].c_str());</div>
