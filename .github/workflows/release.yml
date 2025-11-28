@@ -31,7 +31,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           submodules: "recursive"
       - uses: actions/setup-dotnet@v5
@@ -133,7 +133,7 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Extract Version from CMakeLists.txt
@@ -154,7 +154,7 @@ jobs:
       - name: Generate Changelog
         if: ${{ github.event.inputs.changelog == '' }}
         id: changelog
-        uses: mikepenz/release-changelog-builder-action@v5
+        uses: mikepenz/release-changelog-builder-action@v6
         with:
           configuration: ".github/release.json"
           mode: "HYBRID"
