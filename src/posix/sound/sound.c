@@ -4,15 +4,21 @@
 #include <string.h>
 #include <unistd.h>
 
-#ifdef __linux__
-    #include <alsa/asoundlib.h>
+// Enable ALSA only if headers are available (Linux)
+#if defined(__linux__)
+    #if defined(__has_include)
+        #if __has_include(<alsa/asoundlib.h>)
+            #define CMDFX_HAVE_ALSA 1
+            #include <alsa/asoundlib.h>
+        #endif
+    #endif
 #endif
 
 #include "cmdfx/sound/sound.h"
 
 // POSIX-specific sound data structure
 typedef struct _PosixSoundData {
-#ifdef __linux__
+#ifdef CMDFX_HAVE_ALSA
     snd_pcm_t* pcm_handle;
     snd_pcm_hw_params_t* hw_params;
 #endif
@@ -42,7 +48,7 @@ int _Platform_initSoundSystem() {
         return 0;
     }
 
-#ifdef __linux__
+#ifdef CMDFX_HAVE_ALSA
     snd_pcm_t* test_handle;
     int err = snd_pcm_open(
         &test_handle, "default", SND_PCM_STREAM_PLAYBACK, SND_PCM_NONBLOCK
@@ -95,7 +101,7 @@ void* _playbackThread(void* arg) {
             continue;
         }
 
-#ifdef __linux__
+#ifdef CMDFX_HAVE_ALSA
         if (soundData->pcm_handle) {
             snd_pcm_sframes_t frames_to_write = 1024; // Chunk size
             size_t bytes_to_write =
@@ -245,7 +251,7 @@ int _Platform_playSound(
         }
     }
 
-#ifdef __linux__
+#ifdef CMDFX_HAVE_ALSA
     // Initialize ALSA
     int err = snd_pcm_open(
         &soundData->pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0
@@ -342,7 +348,7 @@ int _Platform_playSound(
         ) != 0) {
         fprintf(stderr, "Failed to create playback thread\n");
 
-#ifdef __linux__
+#ifdef CMDFX_HAVE_ALSA
         snd_pcm_close(soundData->pcm_handle);
 #endif
 
@@ -421,7 +427,7 @@ void _Platform_freeSoundData(void* platformData) {
         _Platform_stopSound(platformData);
     }
 
-#ifdef __linux__
+#ifdef CMDFX_HAVE_ALSA
     if (soundData->pcm_handle) {
         snd_pcm_close(soundData->pcm_handle);
     }
