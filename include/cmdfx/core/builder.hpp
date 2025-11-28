@@ -62,7 +62,7 @@ int print(char*** array) {
  * @return char** The 2D array of characters.
  */
 char** to2DArray(std::vector<std::string> string) {
-    char** array = Builder::createCharArray(string.size(), string[0].size());
+    char** array = Char2DBuilder_create(string.size(), string[0].size());
     for (int i = 0; i < string.size(); i++) {
         for (int j = 0; j < string[i].size(); j++) {
             array[i][j] = string[i][j];
@@ -78,7 +78,7 @@ char** to2DArray(std::vector<std::string> string) {
  * @return char*** The 3D array of characters.
  */
 char*** to3DArray(std::vector<std::vector<std::string>> string) {
-    char*** array = Builder::createStringArray(string.size(), string[0].size());
+    char*** array = String2DBuilder_create(string.size(), string[0].size());
     for (int i = 0; i < string.size(); i++) {
         for (int j = 0; j < string[i].size(); j++) {
             array[i][j] = const_cast<char*>(string[i][j].c_str());

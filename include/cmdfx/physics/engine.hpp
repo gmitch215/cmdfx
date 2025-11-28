@@ -53,10 +53,6 @@ void cleanup() {
     Engine_cleanup();
 }
 
-bool isMotionDebugEnabled() {
-    return Engine_isMotionDebugEnabled() != 0;
-}
-
 bool isSpriteStatic(Sprite& sprite) {
     return Sprite_isStatic(sprite.getSprite()) != 0;
 }

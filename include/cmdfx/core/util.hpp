@@ -29,15 +29,15 @@ int setTickSpeed(int tickspeed) {
 
 // Multithreading
 
-unsigned long launchThread(void (*func)(void*), void* arg) {
+ThreadID launchThread(void (*func)(void*), void* arg) {
     return CmdFX_launchThread(func, arg);
 }
 
-int joinThread(unsigned long thread) {
+int joinThread(ThreadID thread) {
     return CmdFX_joinThread(thread);
 }
 
-int detachThread(unsigned long thread) {
+int detachThread(ThreadID thread) {
     return CmdFX_detachThread(thread);
 }
 
