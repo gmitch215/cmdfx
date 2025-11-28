@@ -67,6 +67,10 @@ You can download the latest release of cmdfx from the [releases page](https://gi
 
 Use the cross-platform Bash installer to clone, build, and install cmdfx with CMake.
 
+```sh
+curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash
+```
+
 - macOS/Linux (bash/zsh):
 
 ```sh
@@ -141,8 +145,7 @@ jobs:
       - name: Install cmdfx
         shell: bash
         run: |
-          curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh -o install-cmdfx.sh
-          bash install-cmdfx.sh --shallow # shallow clone to improve performance
+          curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash
       - name: Configure
         shell: bash
         run: |
