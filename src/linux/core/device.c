@@ -56,6 +56,13 @@ char Device_fromKeyCode(int keyCode) {
         return '\0';
     }
 
+    // validate device path
+    if (strncmp(devicePath, "/dev/input/", 11) != 0) {
+        fprintf(stderr, "Invalid device path.\n");
+        free(devicePath);
+        return '\0';
+    }
+
     int fd = open(devicePath, O_RDONLY);
     free(devicePath);
 
@@ -83,6 +90,14 @@ bool* Device_getKeyboardKeysPressed() {
 
     bool* keys = (bool*) calloc(256, sizeof(bool));
     if (!keys) return 0;
+
+    // validate device path
+    if (strncmp(eventFile, "/dev/input/", 11) != 0) {
+        fprintf(stderr, "Invalid device path.\n");
+        free(eventFile);
+        free(keys);
+        return '\0';
+    }
 
     int fd = open(eventFile, O_RDONLY | O_NONBLOCK);
     if (fd < 0) {
@@ -128,6 +143,14 @@ bool* Device_getMouseButtonsPressed() {
     if (!buttons) {
         free(eventFile);
         return 0;
+    }
+
+    // validate device path
+    if (strncmp(eventFile, "/dev/input/", 11) != 0) {
+        fprintf(stderr, "Invalid device path.\n");
+        free(eventFile);
+        free(buttons);
+        return '\0';
     }
 
     int fd = open(eventFile, O_RDONLY | O_NONBLOCK);

@@ -186,8 +186,8 @@ int endCmdFXEventLoop() {
     _eventsRunning = 0;
 
     // free up loose variables
-    if (_prevKeys) free(_prevKeys);
-    if (_prevButtons) free(_prevButtons);
+    free(_prevKeys);
+    free(_prevButtons);
 
     return 1;
 }

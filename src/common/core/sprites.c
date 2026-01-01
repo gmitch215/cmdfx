@@ -32,7 +32,6 @@ static int* _takenUids = 0;
 int _spriteMutexId(const CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
     int available = MAX_INTERNAL_CMDFX_MUTEXES - _FIRST_SPRITE_MUTEX_ID;
-    if (available <= 0) return -1;
 
     // use uid directly for better distribution and predictability
     // ensures sprites with sequential UIDs get different mutexes
@@ -516,7 +515,7 @@ int Sprite_setData(CmdFX_Sprite* sprite, char** data) {
                         ansiLine[j] = 0;
                         continue;
                     }
-                    if (ansiLine[j] != 0) free(ansiLine[j]);
+                    free(ansiLine[j]);
                 }
                 ansi[i] = realloc(ansiLine, sizeof(char*) * width);
                 if (ansi[i] == 0) return 0;
@@ -648,7 +647,7 @@ int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
 
     strcpy(ansi0, ansi);
 
-    if (sprite->ansi[y][x] != 0) free(sprite->ansi[y][x]);
+    free(sprite->ansi[y][x]);
     sprite->ansi[y][x] = ansi0;
 
     CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
@@ -708,7 +707,7 @@ int Sprite_fillAnsi(
             char* ansi0 = malloc(strlen(ansi) + 1);
             snprintf(ansi0, strlen(ansi) + 1, "%s", ansi);
 
-            if (sprite->ansi[i][j] != 0) free(sprite->ansi[i][j]);
+            free(sprite->ansi[i][j]);
             sprite->ansi[i][j] = ansi0;
         }
     }
@@ -730,7 +729,7 @@ int Sprite_setAnsiAll(CmdFX_Sprite* sprite, char* ansi) {
             char* ansi0 = malloc(strlen(ansi) + 1);
             strncpy(ansi0, ansi, strlen(ansi) + 1);
 
-            if (sprite->ansi[i][j] != 0) free(sprite->ansi[i][j]);
+            free(sprite->ansi[i][j]);
             sprite->ansi[i][j] = ansi0;
         }
     }
@@ -810,12 +809,15 @@ CmdFX_Sprite* Sprite_loadFromFile(const char* path, int z) {
         if (data == 0) {
             data = malloc(sizeof(char*) * 2);
             if (data == 0) break;
-            data[0] = malloc(sizeof(char) * (strlen(line) + 1));
+
+            int n = sizeof(char) * (strlen(line) + 1);
+            data[0] = malloc(n);
             if (data[0] == 0) {
                 free(data);
                 break;
             }
-            strcpy(data[0], line);
+            strncpy(data[0], line, n);
+
             data[1] = 0;
             width = strlen(line);
             height = 1;
@@ -823,10 +825,13 @@ CmdFX_Sprite* Sprite_loadFromFile(const char* path, int z) {
         else {
             char** newData = realloc(data, sizeof(char*) * (height + 2));
             if (newData == 0) break;
+
             data = newData;
-            data[height] = malloc(sizeof(char) * (strlen(line) + 1));
+            int n = sizeof(char) * (strlen(line) + 1);
+            data[height] = malloc(n);
             if (data[height] == 0) break;
-            strcpy(data[height], line);
+            strncpy(data[height], line, n);
+
             data[height + 1] = 0;
             height++;
         }
@@ -914,14 +919,14 @@ int Sprite_resize0(CmdFX_Sprite* sprite, int width, int height, char padding) {
         free(sprite->data[i]);
         if (sprite->ansi != 0) {
             for (int j = 0; j < sprite->width; j++) {
-                if (sprite->ansi[i][j] != 0) free(sprite->ansi[i][j]);
+                free(sprite->ansi[i][j]);
             }
             free(sprite->ansi[i]);
         }
     }
 
     free(sprite->data);
-    if (sprite->ansi != 0) free(sprite->ansi);
+    free(sprite->ansi);
 
     sprite->data = newData;
     sprite->ansi = newAnsi;

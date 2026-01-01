@@ -121,7 +121,7 @@ int Screen_setLineBuffered(int enabled) {
 }
 
 int Screen_isInTerminal() {
-    return GetConsoleWindow() != NULL;
+    return GetConsoleWindow() != 0;
 }
 
 void launchInTerminal() {
