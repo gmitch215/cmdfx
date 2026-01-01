@@ -79,6 +79,7 @@ int _destroyMutex(void* mutex) {
 }
 
 int CmdFX_initThreadSafe() {
+    if (_threadSafeEnabled != 0) return -1;
     if (_mutexes != 0) return -1;
 
     _mutexes = calloc(MAX_INTERNAL_CMDFX_MUTEXES, sizeof(void*));
@@ -89,10 +90,12 @@ int CmdFX_initThreadSafe() {
         if (_mutexes[i] == 0) {
             for (int j = 0; j < i; j++) _destroyMutex(_mutexes[j]);
             free(_mutexes);
+            _mutexes = 0;
             return -1;
         }
     }
 
+    _threadSafeEnabled = 1;
     return 0;
 }
 
@@ -101,7 +104,10 @@ int CmdFX_isThreadSafeEnabled() {
 }
 
 int CmdFX_destroyThreadSafe() {
+    if (_threadSafeEnabled == 0) return -1;
     if (_mutexes == 0) return -1;
+
+    _threadSafeEnabled = 0;
 
     for (int i = 0; i < MAX_INTERNAL_CMDFX_MUTEXES; i++) {
         if (_mutexes[i] != 0) _destroyMutex(_mutexes[i]);

@@ -4,10 +4,13 @@
 
 #include "cmdfx/core/canvas.h"
 #include "cmdfx/core/sprites.h"
+#include "cmdfx/core/util.h"
 #include "cmdfx/physics/engine.h"
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
 #include "cmdfx/physics/motion.h"
+
+#define _STATIC_SPRITE_MUTEX 8
 
 static CmdFX_Sprite** _staticSprites = 0;
 static int _staticSpriteCount = 0;
@@ -15,9 +18,14 @@ static int _staticSpriteCount = 0;
 int Sprite_isStatic(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
 
+    CmdFX_tryLockMutex(_STATIC_SPRITE_MUTEX);
     for (int i = 0; i < _staticSpriteCount; i++) {
-        if (_staticSprites[i] == sprite) return 1;
+        if (_staticSprites[i] == sprite) {
+            CmdFX_tryUnlockMutex(_STATIC_SPRITE_MUTEX);
+            return 1;
+        }
     }
+    CmdFX_tryUnlockMutex(_STATIC_SPRITE_MUTEX);
 
     return 0;
 }
@@ -25,16 +33,24 @@ int Sprite_isStatic(CmdFX_Sprite* sprite) {
 int Sprite_setStatic(CmdFX_Sprite* sprite, int isStatic) {
     if (sprite == 0) return -1;
 
+    CmdFX_tryLockMutex(_STATIC_SPRITE_MUTEX);
+    
     if (isStatic) {
         if (_staticSprites == 0) {
             _staticSprites = calloc(1, sizeof(CmdFX_Sprite*));
-            if (_staticSprites == 0) return -1;
+            if (_staticSprites == 0) {
+                CmdFX_tryUnlockMutex(_STATIC_SPRITE_MUTEX);
+                return -1;
+            }
         }
         else {
             CmdFX_Sprite** temp = realloc(
                 _staticSprites, sizeof(CmdFX_Sprite*) * (_staticSpriteCount + 1)
             );
-            if (temp == 0) return -1;
+            if (temp == 0) {
+                CmdFX_tryUnlockMutex(_STATIC_SPRITE_MUTEX);
+                return -1;
+            }
 
             _staticSprites = temp;
         }
@@ -60,6 +76,7 @@ int Sprite_setStatic(CmdFX_Sprite* sprite, int isStatic) {
         _staticSpriteCount--;
     }
 
+    CmdFX_tryUnlockMutex(_STATIC_SPRITE_MUTEX);
     return 0;
 }
 
@@ -219,11 +236,12 @@ CmdFX_Sprite** Engine_tick() {
                 CmdFX_Sprite* other = colliding[j];
                 if (Sprite_isStatic(other)) continue;
 
-                // Prevent double processing
-                if (sprite->id >= other->id) continue;
+                // Prevent double processing and ensure deterministic order
+                // Always process collision from lower ID sprite's perspective
+                if (sprite->id > other->id) continue;
 
                 // Lock both sprites to avoid concurrent updates while computing
-                // collision response
+                // collision response. Lock in stable order to prevent deadlocks.
                 _lockSpritePair(sprite, other);
 
                 // m1u1 + m2u2 = m1v1 + m2v2

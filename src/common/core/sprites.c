@@ -27,18 +27,19 @@ static int* _takenUids = 0;
 
 // Per-sprite locking utilities
 #define _FIRST_SPRITE_MUTEX_ID 11
+#define _RESERVED_MUTEX_COUNT 11 // # of reserved mutexes (0-10)
 
 int _spriteMutexId(const CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
-    int range = MAX_INTERNAL_CMDFX_MUTEXES - _FIRST_SPRITE_MUTEX_ID;
-    if (range <= 0) return -1;
-    // Simple mix of uid to spread across mutex pool
+    int available = MAX_INTERNAL_CMDFX_MUTEXES - _FIRST_SPRITE_MUTEX_ID;
+    if (available <= 0) return -1;
+
+    // use uid directly for better distribution and predictability
+    // ensures sprites with sequential UIDs get different mutexes
     unsigned uid = (unsigned) sprite->uid;
 
-    // Knuth multiplicative hash
-    // Decorrelates integers
-    int id =
-        _FIRST_SPRITE_MUTEX_ID + (int) ((uid * 0x9e3779b9u) % (unsigned) range);
+    // use modulo with the available range for even distribution
+    int id = _FIRST_SPRITE_MUTEX_ID + (int) (uid % (unsigned) available);
     return id;
 }
 
