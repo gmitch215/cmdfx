@@ -138,14 +138,14 @@ jobs:
         if: ${{ matrix.os != 'windows-2025' }}
         run: |
           cd build
-          sudo ctest -C Debug -T test -j0 --output-on-failure
+          sudo ctest -C Debug -T test --output-on-failure
           cd ..
         shell: bash
       - name: Test Project (Windows)
         if: ${{ matrix.os == 'windows-2025' }}
         run: |
           cd build
-          ctest -C Debug -T test -j0 --output-on-failure
+          ctest -C Debug -T test --output-on-failure
           cd ..
         shell: bash
       - name: Archive Test Reports
