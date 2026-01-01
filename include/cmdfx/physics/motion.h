@@ -29,11 +29,12 @@
  *
  * The motion array is used by the physics engine to calculate the motion of a
  * sprite. This function returns a copy of the motion array to ensure thread
- * safety. The caller is responsible for freeing the returned array using `free()`.
+ * safety. The caller is responsible for freeing the returned array using
+ * `free()`.
  *
  * @param sprite The sprite to use.
- * @return A copy of the motion array of the sprite, or `0` if the sprite has no motion
- * array or an error occurred. The caller must free this array.
+ * @return A copy of the motion array of the sprite, or `0` if the sprite has no
+ * motion array or an error occurred. The caller must free this array.
  */
 double* Sprite_getMotion(CmdFX_Sprite* sprite);
 

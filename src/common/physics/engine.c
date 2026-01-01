@@ -34,7 +34,7 @@ int Sprite_setStatic(CmdFX_Sprite* sprite, int isStatic) {
     if (sprite == 0) return -1;
 
     CmdFX_tryLockMutex(_STATIC_SPRITE_MUTEX);
-    
+
     if (isStatic) {
         if (_staticSprites == 0) {
             _staticSprites = calloc(1, sizeof(CmdFX_Sprite*));
@@ -241,7 +241,8 @@ CmdFX_Sprite** Engine_tick() {
                 if (sprite->id > other->id) continue;
 
                 // Lock both sprites to avoid concurrent updates while computing
-                // collision response. Lock in stable order to prevent deadlocks.
+                // collision response. Lock in stable order to prevent
+                // deadlocks.
                 _lockSpritePair(sprite, other);
 
                 // m1u1 + m2u2 = m1v1 + m2v2
