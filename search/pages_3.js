@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['highlighted_20features_0',['📋 Highlighted Features',['../index.html#autotoc_md2',1,'']]]
+  ['features_0',['Features',['../index.html#autotoc_md1',1,'🍎 Features'],['../index.html#autotoc_md2',1,'📋 Highlighted Features']]]
 ];

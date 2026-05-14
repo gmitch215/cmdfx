@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🚀_20examples_0',['🚀 Examples',['../index.html#autotoc_md5',1,'']]]
+  ['use_20in_20cmake_20projects_0',['Use in CMake Projects',['../index.html#autotoc_md7',1,'']]]
 ];
