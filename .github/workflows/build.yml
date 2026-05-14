@@ -159,7 +159,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Install Doxygen
-        uses: ssciwr/doxygen-install@v1
+        uses: ssciwr/doxygen-install@v2
       - name: Install Linux Dependencies
         run: |
           sudo apt-get update
