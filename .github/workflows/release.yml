@@ -115,7 +115,7 @@ jobs:
       - name: Archive Package Artifacts
         id: archive
         if: success() || failure()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: CmdFX-Release-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           path: build/package/*
@@ -147,7 +147,7 @@ jobs:
         id: latest_tag
         run: echo "LATEST_TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
       - name: Download Release Artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           pattern: CmdFX-Release-*
           path: build/package
