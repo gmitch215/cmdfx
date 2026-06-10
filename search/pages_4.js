@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['github_20actions_0',['GitHub Actions',['../index.html#autotoc_md8',1,'']]]
+  ['examples_0',['🚀 Examples',['../index.html#autotoc_md11',1,'']]]
 ];

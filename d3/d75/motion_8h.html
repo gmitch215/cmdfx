@@ -25,7 +25,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.3</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;1.0.0</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -323,14 +323,14 @@ Functions</h2></td></tr>
 <li>2: X acceleration</li>
 <li>3: Y acceleration</li>
 </ul>
-<p>The motion array is used by the physics engine to calculate the motion of a sprite. The array is freed from <span class="tt"><a class="el" href="#acbb6404ad97905a79f11b848902a444a" title="Resets all motion of a sprite.">Sprite_resetAllMotion</a></span> and <span class="tt"><a class="el" href="../../d3/def/sprites_8h.html#a6db6b67dc335efab125b29016222f042" title="Frees the memory allocated for a sprite.">Sprite_free</a></span>, so it should not be freed manually.</p>
+<p>The motion array is used by the physics engine to calculate the motion of a sprite. This function returns a copy of the motion array to ensure thread safety. The caller is responsible for freeing the returned array using <span class="tt">free()</span>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sprite</td><td>The sprite to use. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The motion array of the sprite, or <span class="tt">0</span> if the sprite has no motion array or an error occurred. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A copy of the motion array of the sprite, or <span class="tt">0</span> if the sprite has no motion array or an error occurred. The caller must free this array. </dd></dl>
 
 </div>
 </div>

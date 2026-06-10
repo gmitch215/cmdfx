@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['script_0',['Install via Script',['../index.html#autotoc_md4',1,'']]]
+  ['native_0',['Kotlin/Native',['../index.html#autotoc_md10',1,'']]]
 ];

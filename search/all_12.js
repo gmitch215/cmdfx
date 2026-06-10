@@ -14,5 +14,6 @@ var searchData=
   ['vector_5fmultiply_11',['Vector_multiply',['../d2/dc7/physics_2util_8h.html#a94dc8608edc92b4f0d56494f94eb12fb',1,'util.h']]],
   ['vector_5frotate_12',['Vector_rotate',['../d2/dc7/physics_2util_8h.html#a9b9a30552abb2298884bc24da9081d73',1,'util.h']]],
   ['vector_5fsubtract_13',['Vector_subtract',['../d2/dc7/physics_2util_8h.html#a8e0e360017693e4ee123ba4bacfb6a09',1,'util.h']]],
-  ['via_20script_14',['Install via Script',['../index.html#autotoc_md4',1,'']]]
+  ['via_20homebrew_14',['Install via Homebrew',['../index.html#autotoc_md7',1,'']]],
+  ['via_20script_15',['Install via Script',['../index.html#autotoc_md4',1,'']]]
 ];

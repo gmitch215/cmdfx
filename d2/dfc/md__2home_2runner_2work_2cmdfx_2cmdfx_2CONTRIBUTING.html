@@ -25,7 +25,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;0.3.3</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;1.0.0</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -77,14 +77,22 @@ $(function() {
   <div class="headertitle"><div class="title">Contributing </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md12"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md14"></a></p>
 <p>Contributing guidelines for the <a class="el" href="../../de/df4/namespaceCmdFX.html" title="Primary namespace for CmdFX.">CmdFX</a> project. We appreciate your help in helping us to improve the project.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
 Pull Requeset Process</h1>
 <p>1.) Ensure that the pull request is at the correct branch you want to merge in.</p>
 <p>2.) Ensure that your new code has been tested and works properly. If necessary, add test according to the <span class="tt">test</span> directory.</p>
 <p>3.) Confirm that the code is ready to be merged while meeting our conventions.</p>
-<p>We will approve and merge your pull request as soon as possiable if these requirements are met. </p>
+<p>We will approve and merge your pull request as soon as possible if these requirements are met.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
+Building &amp; Conventions</h1>
+<p>cmdfx builds with CMake (&gt;= 3.30) and renders through (n)curses (PDCurses on Windows). Install the curses development package as described in the README prerequisites.</p>
+<ul>
+<li>Format every C/C++ change with <span class="tt">./format.sh</span>, then confirm <span class="tt">./check-format.sh</span> exits 0. CI gates on this before building.</li>
+<li>Run the automated suite from the build directory with <span class="tt">ctest</span>.</li>
+<li>Check memory safety and data races with the sanitizer helpers: <span class="tt">./asan.sh</span> (AddressSanitizer + UBSan), <span class="tt">./ubsan.sh</span>, and <span class="tt">./tsan.sh</span> (ThreadSanitizer). </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
