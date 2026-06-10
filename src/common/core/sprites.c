@@ -15,6 +15,7 @@
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
 #include "cmdfx/physics/motion.h"
+#include "common/core/curses_backend.h"
 
 #define _SPRITE_DRAWN_MUTEX 0
 static CmdFX_Sprite** _sprites = 0;
@@ -104,8 +105,11 @@ int Canvas_getDrawnSpritesCount() {
 
 CmdFX_Sprite* Canvas_getSpriteAt(int x, int y) {
     if (x < 0 || y < 0) return 0;
+    if (_spriteCount < 1) return 0;
 
-    CmdFX_Sprite** matching = malloc(sizeof(CmdFX_Sprite*) * _spriteCount);
+    // calloc so unmatched slots read as 0 below
+    CmdFX_Sprite** matching = calloc(_spriteCount, sizeof(CmdFX_Sprite*));
+    if (matching == 0) return 0;
 
     for (int i = 0; i < _spriteCount; i++) {
         CmdFX_Sprite* sprite = _sprites[i];
@@ -166,7 +170,7 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
             free(sprite);
             return 0;
         }
-        _spriteUidCounter++;
+        // counter already advanced above; keep it in step with the 1-slot array
         _takenUids[0] = sprite->uid;
     }
     else {
@@ -278,26 +282,9 @@ void Sprite_free(CmdFX_Sprite* sprite) {
     // Free Sprite Costumes and Data
     CmdFX_SpriteCostumes* costumes = Sprite_getCostumes(sprite);
     if (costumes != 0) {
-        for (int i = 0; i < costumes->costumeCount; i++) {
-            char** data = costumes->costumes[i];
-            if (data != 0) {
-                int height = getCharArrayHeight(data);
-                for (int j = 0; j < height; j++) free(data[j]);
-            }
-            free(data);
-
-            char*** ansi = costumes->ansiCostumes[i];
-            if (ansi != 0) {
-                int height = getStringArrayHeight(ansi);
-                int width = getStringArrayWidth(ansi);
-                for (int j = 0; j < height; j++) {
-                    for (int k = 0; k < width; k++) free(ansi[j][k]);
-                    free(ansi[j]);
-                }
-            }
-            free(ansi);
-        }
-        free(costumes);
+        // canonical cleanup frees the costume buffers, the costume arrays, the
+        // struct, and clears the registry slot (costume 0 owns sprite->data)
+        Sprite_freeCostumes(sprite);
     }
     else {
         char** data = sprite->data;
@@ -419,11 +406,11 @@ void Sprite_remove0(CmdFX_Sprite* sprite) {
             int y = sprite->y + i;
 
             Canvas_setCursor(x, y);
-            printf("\033[0m");
-            putchar(' ');
+            CmdFX_curses_resetAttributes();
+            CmdFX_curses_putCharHere(' ');
         }
     }
-    fflush(stdout);
+    CmdFX_curses_refresh();
 }
 
 void Sprite_remove(CmdFX_Sprite* sprite) {
@@ -457,8 +444,6 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
         _sprites = 0;
     }
 
-    sprite->id = 0;
-
     CmdFX_tryLockMutex(_SPRITE_POSITION_MUTEX);
     sprite->x = -1;
     sprite->y = -1;
@@ -466,11 +451,13 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
 
     CmdFX_tryUnlockMutex(_SPRITE_DRAWN_MUTEX);
 
-    // Reset Physics declarations
+    // reset physics declarations while the id is still valid
     Sprite_resetAllMotion(sprite);
     Sprite_removeAllForces(sprite);
     Sprite_resetMass(sprite);
     Sprite_resetFrictionCoefficient(sprite);
+
+    sprite->id = 0;
 }
 
 // Utility Methods - Sprite Builder
@@ -643,7 +630,10 @@ int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
     CmdFX_tryLockMutex(_SPRITE_DATA_MUTEX);
 
     char* ansi0 = malloc(strlen(ansi) + 1);
-    if (ansi0 == 0) return 0;
+    if (ansi0 == 0) {
+        CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
+        return 0;
+    }
 
     strcpy(ansi0, ansi);
 
@@ -666,7 +656,10 @@ int Sprite_appendAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
     int ansiSize = strlen(ansi) + 1;
     if (sprite->ansi[y][x] == 0) {
         char* ansi0 = malloc(ansiSize);
-        if (ansi0 == 0) return 0;
+        if (ansi0 == 0) {
+            CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
+            return 0;
+        }
 
         strncpy(ansi0, ansi, ansiSize);
 
@@ -676,7 +669,10 @@ int Sprite_appendAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
         int oldLen = strlen(sprite->ansi[y][x]);
         int size = oldLen + ansiSize;
         char* ansi0 = realloc(sprite->ansi[y][x], size);
-        if (ansi0 == 0) return 0;
+        if (ansi0 == 0) {
+            CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
+            return 0;
+        }
 
         sprite->ansi[y][x] = ansi0;
         strncat(
@@ -695,6 +691,7 @@ int Sprite_fillAnsi(
     CmdFX_Sprite* sprite, int x, int y, char* ansi, int width, int height
 ) {
     if (sprite == 0) return 0;
+    if (ansi == 0) return 0;
     if (sprite->ansi == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
 
@@ -705,6 +702,10 @@ int Sprite_fillAnsi(
         for (int j = x; j < x + width; j++) {
             if (j >= sprite->width) break;
             char* ansi0 = malloc(strlen(ansi) + 1);
+            if (ansi0 == 0) {
+                CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
+                return 0;
+            }
             snprintf(ansi0, strlen(ansi) + 1, "%s", ansi);
 
             free(sprite->ansi[i][j]);
@@ -722,11 +723,13 @@ int Sprite_fillAnsi(
 
 int Sprite_setAnsiAll(CmdFX_Sprite* sprite, char* ansi) {
     if (sprite == 0) return 0;
+    if (ansi == 0) return 0;
     if (sprite->ansi == 0) return 0;
 
     for (int i = 0; i < sprite->height; i++) {
         for (int j = 0; j < sprite->width; j++) {
             char* ansi0 = malloc(strlen(ansi) + 1);
+            if (ansi0 == 0) return 0;
             strncpy(ansi0, ansi, strlen(ansi) + 1);
 
             free(sprite->ansi[i][j]);
@@ -799,7 +802,7 @@ CmdFX_Sprite* Sprite_loadFromFile(const char* path, int z) {
     if (file == 0) return 0;
 
     char** data = 0;
-    int width = 0, height = 0;
+    int height = 0;
 
     char line[1024];
     while (fgets(line, sizeof(line), file)) {
@@ -819,7 +822,6 @@ CmdFX_Sprite* Sprite_loadFromFile(const char* path, int z) {
             strncpy(data[0], line, n);
 
             data[1] = 0;
-            width = strlen(line);
             height = 1;
         }
         else {
@@ -1222,12 +1224,17 @@ int Sprite_setForeground(CmdFX_Sprite* sprite, int x, int y, int rgb) {
     if (rgb < 0 || rgb > 0xFFFFFF) return 0;
 
     char* ansi = malloc(22);
+    if (ansi == 0) return 0;
+
     snprintf(
         ansi, 22, "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF,
         rgb & 0xFF
     );
 
-    return Sprite_setAnsi(sprite, x, y, ansi);
+    int res = Sprite_setAnsi(sprite, x, y, ansi);
+    free(ansi);
+
+    return res;
 }
 
 int Sprite_setForeground256(CmdFX_Sprite* sprite, int x, int y, int color) {
@@ -1236,9 +1243,14 @@ int Sprite_setForeground256(CmdFX_Sprite* sprite, int x, int y, int color) {
     if (color < 0 || color > 255) return 0;
 
     char* ansi = malloc(14);
+    if (ansi == 0) return 0;
+
     snprintf(ansi, 14, "\033[38;5;%dm", color);
 
-    return Sprite_setAnsi(sprite, x, y, ansi);
+    int res = Sprite_setAnsi(sprite, x, y, ansi);
+    free(ansi);
+
+    return res;
 }
 
 int Sprite_setForegroundAll(CmdFX_Sprite* sprite, int rgb) {
@@ -1246,12 +1258,17 @@ int Sprite_setForegroundAll(CmdFX_Sprite* sprite, int rgb) {
     if (rgb < 0 || rgb > 0xFFFFFF) return 0;
 
     char* ansi = malloc(22);
+    if (ansi == 0) return 0;
+
     snprintf(
         ansi, 22, "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF,
         rgb & 0xFF
     );
 
-    return Sprite_setAnsiAll(sprite, ansi);
+    int res = Sprite_setAnsiAll(sprite, ansi);
+    free(ansi);
+
+    return res;
 }
 
 int Sprite_setForegroundAll256(CmdFX_Sprite* sprite, int color) {
@@ -1259,9 +1276,14 @@ int Sprite_setForegroundAll256(CmdFX_Sprite* sprite, int color) {
     if (color < 0 || color > 255) return 0;
 
     char* ansi = malloc(14);
+    if (ansi == 0) return 0;
+
     snprintf(ansi, 14, "\033[38;5;%dm", color);
 
-    return Sprite_setAnsiAll(sprite, ansi);
+    int res = Sprite_setAnsiAll(sprite, ansi);
+    free(ansi);
+
+    return res;
 }
 
 int Sprite_setBackground(CmdFX_Sprite* sprite, int x, int y, int rgb) {
