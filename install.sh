@@ -119,6 +119,39 @@ if ! command -v cc >/dev/null 2>&1 && ! command -v clang >/dev/null 2>&1 && ! co
 	exit 1
 fi
 
+SUDO=""
+if command -v sudo >/dev/null 2>&1 && [ "$(id -u 2>/dev/null || echo 0)" -ne 0 ]; then SUDO="sudo"; fi
+
+ensure_curses() {
+	CC_BIN="${CC:-cc}"
+	command -v "$CC_BIN" >/dev/null 2>&1 || CC_BIN="gcc"
+	command -v "$CC_BIN" >/dev/null 2>&1 || CC_BIN="clang"
+
+	# already available to the compiler?
+	if printf '#include <curses.h>\nint main(void){return 0;}\n' | "$CC_BIN" -x c - -o /dev/null >/dev/null 2>&1; then
+		return 0
+	fi
+
+	log "curses not found; attempting to install a curses development package"
+	if command -v apt-get >/dev/null 2>&1; then
+		$SUDO apt-get update >/dev/null 2>&1 || true
+		$SUDO apt-get install -y libncursesw5-dev || $SUDO apt-get install -y libncurses-dev || true
+	elif command -v dnf >/dev/null 2>&1; then
+		$SUDO dnf install -y ncurses-devel || true
+	elif command -v yum >/dev/null 2>&1; then
+		$SUDO yum install -y ncurses-devel || true
+	elif command -v pacman >/dev/null 2>&1; then
+		$SUDO pacman -S --needed --noconfirm ncurses || true
+	elif command -v zypper >/dev/null 2>&1; then
+		$SUDO zypper install -y ncurses-devel || true
+	elif command -v brew >/dev/null 2>&1; then
+		brew install ncurses || true
+	else
+		log "WARNING: could not auto-install curses. Install ncurses (Linux/macOS) or PDCurses (Windows) manually; the Windows build will otherwise fetch PDCurses."
+	fi
+}
+ensure_curses
+
 # Prepare working directory
 TMP_ROOT=""
 if [ -z "$WORK_DIR" ]; then

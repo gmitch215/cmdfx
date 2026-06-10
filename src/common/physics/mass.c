@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "cmdfx/core/util.h"
 #include "cmdfx/physics/engine.h"
 #include "cmdfx/physics/mass.h"
+
+#define _SPRITE_MASS_MUTEX 9
 
 double Sprite_getDefaultMass(CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
@@ -26,13 +29,29 @@ int _massesCount = 0;
 double Sprite_getMass(CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
     if (sprite->uid == 0) return -1;
-    if (_masses == 0) return Sprite_getDefaultMass(sprite);
-    if (_massesCount == 0) return Sprite_getDefaultMass(sprite);
+
+    CmdFX_tryLockMutex(_SPRITE_MASS_MUTEX);
+
+    if (_masses == 0) {
+        CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
+        return Sprite_getDefaultMass(sprite);
+    }
+    if (_massesCount == 0) {
+        CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
+        return Sprite_getDefaultMass(sprite);
+    }
 
     int id = sprite->uid - 1;
-    if (id >= _massesCount) return Sprite_getDefaultMass(sprite);
+    if (id >= _massesCount) {
+        CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
+        return Sprite_getDefaultMass(sprite);
+    }
 
-    return _masses[id];
+    double mass = _masses[id];
+    CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
+
+    if (mass == 0) return Sprite_getDefaultMass(sprite);
+    return mass;
 }
 
 int Sprite_setMass(CmdFX_Sprite* sprite, double mass) {
@@ -41,16 +60,24 @@ int Sprite_setMass(CmdFX_Sprite* sprite, double mass) {
     if (mass == -1) return Sprite_resetMass(sprite);
     if (mass < 0) return -1;
 
+    CmdFX_tryLockMutex(_SPRITE_MASS_MUTEX);
+
     int id = sprite->uid - 1;
     if (_masses == 0) {
         _masses = calloc(id + 1, sizeof(double));
-        if (_masses == 0) return -1;
-        _massesCount++;
+        if (_masses == 0) {
+            CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
+            return -1;
+        }
+        _massesCount = id + 1;
     }
 
     if (_massesCount <= id) {
         double* temp = realloc(_masses, sizeof(double) * (id + 1));
-        if (temp == 0) return -1;
+        if (temp == 0) {
+            CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
+            return -1;
+        }
 
         _masses = temp;
         for (int i = _massesCount; i <= id; i++) {
@@ -61,18 +88,34 @@ int Sprite_setMass(CmdFX_Sprite* sprite, double mass) {
     }
 
     _masses[id] = mass;
+    CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
     return 0;
 }
 
 int Sprite_resetMass(CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
     if (sprite->uid == 0) return -1;
-    if (_masses == 0) return 0;
-    if (_massesCount == 0) return 0;
+
+    CmdFX_tryLockMutex(_SPRITE_MASS_MUTEX);
+
+    if (_masses == 0) {
+        CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
+        return 0;
+    }
+    if (_massesCount == 0) {
+        CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
+        return 0;
+    }
 
     int id = sprite->uid - 1;
-    if (_massesCount < id) return 0;
-    if (_masses[id] == 0) return 0;
+    if (id >= _massesCount) {
+        CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
+        return 0;
+    }
+    if (_masses[id] == 0) {
+        CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
+        return 0;
+    }
 
     _masses[id] = 0;
     int allZero = 1;
@@ -88,5 +131,6 @@ int Sprite_resetMass(CmdFX_Sprite* sprite) {
         _massesCount = 0;
     }
 
+    CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
     return 0;
 }

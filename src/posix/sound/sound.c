@@ -434,9 +434,7 @@ void _Platform_freeSoundData(void* platformData) {
     }
 #endif
 
-    if (soundData->audioBuffer) {
-        free(soundData->audioBuffer);
-    }
+    free(soundData->audioBuffer);
 
     if (soundData->audioFile) {
         fclose(soundData->audioFile);

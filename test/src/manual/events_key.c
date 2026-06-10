@@ -21,8 +21,6 @@ int onKey(CmdFX_Event* event) {
 }
 
 int main() {
-    int r = 0;
-
     Canvas_clearScreen();
 
     printf("P-Echo Enabled: %d\n", Screen_isEchoEnabled());

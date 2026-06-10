@@ -8,6 +8,7 @@
 #include "cmdfx/core/util.h"
 #include "cmdfx/ui/button.h"
 #include "cmdfx/ui/scenes.h"
+#include "common/core/curses_backend.h"
 
 #define _CANVAS_MUTEX 7
 CmdFX_Scene** _drawnScenes = 0;
@@ -147,7 +148,7 @@ void Scene_draw0(
             if (!Scene_isOnTopAt(scene, cx, cy)) continue;
 
             Canvas_setCursor(cx, cy);
-            putchar(c);
+            CmdFX_curses_putCharHere(c);
 
             if (scene->ansiData != 0) {
                 char* ansi = scene->ansiData[i][j];
@@ -177,13 +178,15 @@ void Scene_draw0(
         Button_draw(bx, by, button);
     }
 
-    fflush(stdout);
+    CmdFX_curses_refresh();
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Scene_draw1(
     CmdFX_Scene* scene, int x, int y, int x1, int y1, int x2, int y2
 ) {
+    (void) x;
+    (void) y;
     if (_drawnScenes == 0) {
         _drawnScenes = (CmdFX_Scene**) malloc(sizeof(CmdFX_Scene*));
     }
@@ -322,13 +325,13 @@ int Scene_isOnBottomAt(CmdFX_Scene* scene, int x, int y) {
 
     int c = 0;
     for (int i = 0; i < _drawnScenesCount; i++) {
-        CmdFX_Scene* scene = _drawnScenes[i];
-        if (scene == 0) continue;
-        if (scene->x == -1 && scene->y == -1) continue;
+        CmdFX_Scene* drawn = _drawnScenes[i];
+        if (drawn == 0) continue;
+        if (drawn->x == -1 && drawn->y == -1) continue;
 
-        if (x >= scene->x && x < scene->x + scene->width && y >= scene->y &&
-            y < scene->y + scene->height) {
-            bottomScenes[c++] = scene;
+        if (x >= drawn->x && x < drawn->x + drawn->width && y >= drawn->y &&
+            y < drawn->y + drawn->height) {
+            bottomScenes[c++] = drawn;
         }
     }
 
@@ -339,11 +342,9 @@ int Scene_isOnBottomAt(CmdFX_Scene* scene, int x, int y) {
     }
 
     for (int i = 1; i < c; i++) {
-        CmdFX_Scene* scene = bottomScenes[i];
-        if (scene->z < bottom->z) bottom = scene;
+        CmdFX_Scene* bottomScene = bottomScenes[i];
+        if (bottomScene->z < bottom->z) bottom = bottomScene;
     }
-
-    printf("count: %d\n", c);
 
     free(bottomScenes);
     return bottom == scene ? 1 : 0;
@@ -364,8 +365,8 @@ void Scene_remove0(CmdFX_Scene* scene) {
     for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++) {
             Canvas_setCursor(scene->x + j, scene->y + i);
-            putchar(' ');
-            printf("\033[0m");
+            CmdFX_curses_putCharHere(' ');
+            CmdFX_curses_resetAttributes();
         }
 
     // remove buttons on the scene
@@ -378,7 +379,7 @@ void Scene_remove0(CmdFX_Scene* scene) {
         Button_remove(button);
     }
 
-    fflush(stdout);
+    CmdFX_curses_refresh();
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
@@ -654,7 +655,7 @@ int Scene_setChar(CmdFX_Scene* scene, int x, int y, char c) {
     if (scene->x != -1 && scene->y != -1 &&
         Scene_isOnTopAt(scene, scene->x + x, scene->y + y)) {
         Canvas_setCursor(scene->x + x, scene->y + y);
-        putchar(c);
+        CmdFX_curses_putCharHere(c);
     }
 
     return 0;

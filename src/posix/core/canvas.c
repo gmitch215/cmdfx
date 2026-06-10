@@ -1,67 +1,19 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/ioctl.h>
-#include <termios.h>
-#include <unistd.h>
-
 #include "cmdfx/core/canvas.h"
-#include "cmdfx/core/util.h"
 
-#define _CANVAS_MUTEX 7
+#include "common/core/curses_backend.h"
 
-int _Canvas_getPos(int* y, int* x) {
-    char buf[30] = {0};
-    int ret, i, pow;
-    char ch;
-
-    *y = 0;
-    *x = 0;
-
-    struct termios term, restore;
-    tcgetattr(0, &term);
-    tcgetattr(0, &restore);
-    term.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(0, TCSANOW, &term);
-
-    write(1, "\033[6n", 4);
-
-    for (i = 0, ch = 0; ch != 'R'; i++) {
-        ret = read(0, &ch, 1);
-        if (!ret) {
-            tcsetattr(0, TCSANOW, &restore);
-            fprintf(stderr, "getpos: error reading response!\n");
-            return 1;
-        }
-
-        buf[i] = ch;
-    }
-
-    if (i < 2) {
-        tcsetattr(0, TCSANOW, &restore);
-        return 1;
-    }
-
-    for (i -= 2, pow = 1; buf[i] != ';'; i--, pow *= 10)
-        *x = *x + (buf[i] - '0') * pow;
-
-    for (i--, pow = 1; buf[i] != '['; i--, pow *= 10)
-        *y = *y + (buf[i] - '0') * pow;
-
-    tcsetattr(0, TCSANOW, &restore);
-    return 0;
-}
+// the curses backend owns all terminal I/O; the old \033[6n cursor query and
+// raw ANSI cursor moves are gone (curses tracks the cursor via getyx/move)
 
 int Canvas_getCursorX() {
     int x, y;
-    if (_Canvas_getPos(&y, &x)) return -1;
-
+    CmdFX_curses_getCursor(&x, &y);
     return x;
 }
 
 int Canvas_getCursorY() {
     int x, y;
-    if (_Canvas_getPos(&y, &x)) return -1;
-
+    CmdFX_curses_getCursor(&x, &y);
     return y;
 }
 
@@ -69,29 +21,21 @@ void Canvas_setCursor(int x, int y) {
     if (x < 0) return;
     if (y < 0) return;
 
-    printf("\033[%d;%dH", y, x);
+    CmdFX_curses_moveCursor(x, y);
 }
 
-int _cursorShown = 1;
-
 void Canvas_hideCursor() {
-    if (!_cursorShown) return;
-
-    printf("\e[?25l");
-    _cursorShown = 0;
+    CmdFX_curses_setCursorVisible(0);
 }
 
 void Canvas_showCursor() {
-    if (_cursorShown) return;
-
-    printf("\e[?25h");
-    _cursorShown = 1;
+    CmdFX_curses_setCursorVisible(1);
 }
 
 int Canvas_isCursorVisible() {
-    return _cursorShown;
+    return CmdFX_curses_isCursorVisible();
 }
 
 void Canvas_clearScreen() {
-    system("clear");
+    CmdFX_curses_clear();
 }

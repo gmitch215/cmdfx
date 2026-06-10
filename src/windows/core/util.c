@@ -79,6 +79,7 @@ int _destroyMutex(void* mutex) {
 }
 
 int CmdFX_initThreadSafe() {
+    if (_threadSafeEnabled != 0) return -1;
     if (_mutexes != 0) return -1;
 
     _mutexes = calloc(MAX_INTERNAL_CMDFX_MUTEXES, sizeof(void*));
@@ -89,10 +90,12 @@ int CmdFX_initThreadSafe() {
         if (_mutexes[i] == 0) {
             for (int j = 0; j < i; j++) _destroyMutex(_mutexes[j]);
             free(_mutexes);
+            _mutexes = 0;
             return -1;
         }
     }
 
+    _threadSafeEnabled = 1;
     return 0;
 }
 
@@ -101,7 +104,10 @@ int CmdFX_isThreadSafeEnabled() {
 }
 
 int CmdFX_destroyThreadSafe() {
+    if (_threadSafeEnabled == 0) return -1;
     if (_mutexes == 0) return -1;
+
+    _threadSafeEnabled = 0;
 
     for (int i = 0; i < MAX_INTERNAL_CMDFX_MUTEXES; i++) {
         if (_mutexes[i] != 0) _destroyMutex(_mutexes[i]);
@@ -146,13 +152,33 @@ int CmdFX_unlockMutex(void* mutex) {
     return 0;
 }
 
+typedef struct {
+    void (*func)(void*);
+    void* arg;
+} _ThreadStart;
+
+static unsigned __stdcall _threadTrampoline(void* p) {
+    _ThreadStart* start = (_ThreadStart*) p;
+    void (*func)(void*) = start->func;
+    void* arg = start->arg;
+    free(start);
+
+    func(arg);
+    return 0;
+}
+
 ThreadID CmdFX_launchThread(void (*func)(void*), void* arg) {
     if (!_threadSafeEnabled) return 0;
 
-    uintptr_t thread = _beginthreadex(
-        NULL, 0, (unsigned(__stdcall*)(void*)) func, arg, 0, NULL
-    );
+    _ThreadStart* start = malloc(sizeof(_ThreadStart));
+    if (start == 0) return 0;
+    start->func = func;
+    start->arg = arg;
+
+    uintptr_t thread =
+        _beginthreadex(NULL, 0, _threadTrampoline, start, 0, NULL);
     if (thread == 0) {
+        free(start);
         fprintf(stderr, "Failed to launch thread\n");
         return 0;
     }

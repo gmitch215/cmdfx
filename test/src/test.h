@@ -7,9 +7,9 @@
 
 #include "cmdfx/core/builder.h"
 
-int count = 1;
+static int count = 1;
 
-int assertTrue(int condition) {
+static inline int assertTrue(int condition) {
     printf("#%d: %s\n", count, condition ? "PASS" : "FAIL");
     if (!condition) {
         printf("#%d: had true, wanted false\n", count);
@@ -21,7 +21,7 @@ int assertTrue(int condition) {
     return 0;
 }
 
-int assertFalse(int condition) {
+static inline int assertFalse(int condition) {
     printf("#%d: %s\n", count, !condition ? "PASS" : "FAIL");
     if (condition) {
         printf("#%d: had false, wanted true\n", count);
@@ -33,7 +33,7 @@ int assertFalse(int condition) {
     return 0;
 }
 
-int assertNull(void* ptr) {
+static inline int assertNull(void* ptr) {
     printf("#%d: %s\n", count, ptr == 0 ? "PASS" : "FAIL");
     if (ptr != 0) {
         printf("#%d: why is <%p> not null\n", count, ptr);
@@ -45,7 +45,7 @@ int assertNull(void* ptr) {
     return 0;
 }
 
-int assertNotNull(void* ptr) {
+static inline int assertNotNull(void* ptr) {
     printf("#%d: %s\n", count, ptr != 0 ? "PASS" : "FAIL");
     if (ptr == 0) {
         printf("#%d: this pointer shouldn't be null bro\n", count);
@@ -57,7 +57,7 @@ int assertNotNull(void* ptr) {
     return 0;
 }
 
-int assertEquals(int a, int b) {
+static inline int assertEquals(int a, int b) {
     printf("#%d: %s\n", count, a == b ? "PASS" : "FAIL");
     if (a != b) {
         printf("#%d: had <%d>, wanted <%d>\n", count, a, b);
@@ -69,7 +69,7 @@ int assertEquals(int a, int b) {
     return 0;
 }
 
-int assertFloatEquals(float a, float b) {
+static inline int assertFloatEquals(float a, float b) {
     printf("#%d: %s\n", count, fabs(a - b) < 0.0001f ? "PASS" : "FAIL");
     if (fabs(a - b) >= 0.0001f) {
         printf("#%d: had <%f>, wanted <%f>\n", count, a, b);
@@ -81,7 +81,7 @@ int assertFloatEquals(float a, float b) {
     return 0;
 }
 
-int assertDoubleEquals(double a, double b) {
+static inline int assertDoubleEquals(double a, double b) {
     printf("#%d: %s\n", count, fabs(a - b) < 0.0001 ? "PASS" : "FAIL");
     if (fabs(a - b) >= 0.0001) {
         printf("#%d: had <%f>, wanted <%f>\n", count, a, b);
@@ -93,7 +93,7 @@ int assertDoubleEquals(double a, double b) {
     return 0;
 }
 
-int assertNotEquals(int a, int b) {
+static inline int assertNotEquals(int a, int b) {
     printf("#%d: %s\n", count, a != b ? "PASS" : "FAIL");
     if (a == b) {
         printf("#%d: had <%d>, didn't want <%d>\n", count, a, b);
@@ -105,7 +105,7 @@ int assertNotEquals(int a, int b) {
     return 0;
 }
 
-int assertGreaterThan(int a, int b) {
+static inline int assertGreaterThan(int a, int b) {
     printf("#%d: %s\n", count, a > b ? "PASS" : "FAIL");
     if (a <= b) {
         printf("#%d: wanted <%d> to be greater than <%d>\n", count, a, b);
@@ -117,7 +117,7 @@ int assertGreaterThan(int a, int b) {
     return 0;
 }
 
-int assertLessThan(int a, int b) {
+static inline int assertLessThan(int a, int b) {
     printf("#%d: %s\n", count, a < b ? "PASS" : "FAIL");
     if (a >= b) {
         printf("#%d: wanted <%d> to be less than <%d>\n", count, a, b);
@@ -129,7 +129,7 @@ int assertLessThan(int a, int b) {
     return 0;
 }
 
-int assertIn(double value, double min, double max) {
+static inline int assertIn(double value, double min, double max) {
     printf("#%d: %s\n", count, value >= min && value <= max ? "PASS" : "FAIL");
     if (value < min || value > max) {
         printf(
@@ -144,7 +144,7 @@ int assertIn(double value, double min, double max) {
     return 0;
 }
 
-int assertPointersMatch(void* a, void* b) {
+static inline int assertPointersMatch(void* a, void* b) {
     printf("#%d: %s\n", count, a == b ? "PASS" : "FAIL");
     if (a != b) {
         printf("#%d: expected pointers <%p> and <%p> to match\n", count, a, b);
@@ -156,7 +156,7 @@ int assertPointersMatch(void* a, void* b) {
     return 0;
 }
 
-int assertStringsMatch(char* a, char* b) {
+static inline int assertStringsMatch(const char* a, const char* b) {
     printf("#%d: %s\n", count, strcmp(a, b) == 0 ? "PASS" : "FAIL");
     if (strcmp(a, b) != 0) {
         printf("#%d: expected strings <%s> and <%s> to match\n", count, a, b);
@@ -168,7 +168,7 @@ int assertStringsMatch(char* a, char* b) {
     return 0;
 }
 
-int assertCharArraysMatch(char** a, char** b) {
+static inline int assertCharArraysMatch(char** a, char** b) {
     int value = compareCharArrays(a, b);
 
     printf("#%d: %s\n", count, value == 0 ? "PASS" : "FAIL");
@@ -189,7 +189,7 @@ int assertCharArraysMatch(char** a, char** b) {
     return 0;
 }
 
-int assertStringArraysMatch(char*** a, char*** b) {
+static inline int assertStringArraysMatch(char*** a, char*** b) {
     int value = compareStringArrays(a, b);
 
     printf("#%d: %s\n", count, value == 0 ? "PASS" : "FAIL");

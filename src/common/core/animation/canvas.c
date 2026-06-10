@@ -7,6 +7,7 @@
 
 #include "cmdfx/core/canvas.h"
 #include "cmdfx/core/util.h"
+#include "common/core/curses_backend.h"
 
 // Utility Functions - Shapes
 
@@ -19,7 +20,7 @@ void Canvas_hLine_anim(int x, int y, int width, char c, double time) {
 
     for (int i = 0; i < width; i++) {
         Canvas_setCursor(x + i, y);
-        putchar(c);
+        CmdFX_curses_putCharHere(c);
         sleepMillis((unsigned long) (step * 1000));
     }
 }
@@ -33,7 +34,7 @@ void Canvas_hLine_anim_reverse(int x, int y, int width, char c, double time) {
 
     for (int i = width - 1; i >= 0; i--) {
         Canvas_setCursor(x + i, y);
-        putchar(c);
+        CmdFX_curses_putCharHere(c);
         sleepMillis((unsigned long) (step * 1000));
     }
 }
@@ -47,7 +48,7 @@ void Canvas_vLine_anim(int x, int y, int height, char c, double time) {
 
     for (int i = 0; i < height; i++) {
         Canvas_setCursor(x, y + i);
-        putchar(c);
+        CmdFX_curses_putCharHere(c);
         sleepMillis((unsigned long) (step * 1000));
     }
 }
@@ -61,7 +62,7 @@ void Canvas_vLine_anim_reverse(int x, int y, int height, char c, double time) {
 
     for (int i = height - 1; i >= 0; i--) {
         Canvas_setCursor(x, y + i);
-        putchar(c);
+        CmdFX_curses_putCharHere(c);
         sleepMillis((unsigned long) (step * 1000));
     }
 }
@@ -109,7 +110,7 @@ void Canvas_line_anim(int x0, int y0, int x1, int y1, char c, double time) {
         double y = y0 + (i * dy) / dist;
 
         Canvas_setCursor((int) x, (int) y);
-        putchar(c);
+        CmdFX_curses_putCharHere(c);
         sleepMillis((unsigned long) (step * 1000));
     }
 }
@@ -130,7 +131,7 @@ void Canvas_line_anim_reverse(
         double y = y0 + (i * dy) / dist;
 
         Canvas_setCursor((int) x, (int) y);
-        putchar(c);
+        CmdFX_curses_putCharHere(c);
         sleepMillis((unsigned long) (step * 1000));
     }
 }
@@ -146,7 +147,7 @@ void Canvas_drawText_anim(int x, int y, char* text, double time) {
 
     for (int i = 0; i < len; i++) {
         Canvas_setCursor(x + i, y);
-        putchar(text[i]);
+        CmdFX_curses_putCharHere(text[i]);
         sleepMillis((unsigned long) (step * 1000));
     }
 }
@@ -160,7 +161,7 @@ void Canvas_drawText_anim_reverse(int x, int y, char* text, double time) {
 
     for (int i = len - 1; i >= 0; i--) {
         Canvas_setCursor(x + i, y);
-        putchar(text[i]);
+        CmdFX_curses_putCharHere(text[i]);
         sleepMillis((unsigned long) (step * 1000));
     }
 }

@@ -16,8 +16,10 @@ function(add_test_executable folder name)
     add_test(NAME ${folder}/${TEST_EXECUTABLE_NAME} COMMAND "${TEST_NAME}")
 
     if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
-        target_compile_options("${TEST_NAME}" PRIVATE --coverage -lm -w)
+        target_compile_options("${TEST_NAME}" PRIVATE --coverage -Wall -Wextra)
+        # coverage is a flag, not a library; libm is needed for test.h math (fabs)
         target_link_options("${TEST_NAME}" PRIVATE --coverage)
+        target_link_libraries("${TEST_NAME}" PRIVATE m)
     endif()
 
     set_target_properties(${TEST_NAME} PROPERTIES
@@ -35,7 +37,9 @@ function(add_manual_test name)
     add_dependencies("${TEST_NAME}" cmdfx)
 
     if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
-        target_compile_options("${TEST_NAME}" PRIVATE -lm -w)
+        target_compile_options("${TEST_NAME}" PRIVATE -Wall -Wextra)
+        # libm is needed for test.h math (fabs)
+        target_link_libraries("${TEST_NAME}" PRIVATE m)
     endif()
 
     set_target_properties(${TEST_NAME} PROPERTIES
