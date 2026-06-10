@@ -10,6 +10,39 @@
 CmdFX_SpriteCostumes** _costumes = 0;
 int _costumeCount = 0;
 
+// deep-copies an ansi array including its strings; createStringArrayCopy only
+// duplicates the row arrays and shares the underlying strings, which would make
+// a costume co-own the sprite's live ansi strings
+static char*** _copyAnsiArray(char*** ansi) {
+    if (ansi == 0) return 0;
+
+    int height = getStringArrayHeight(ansi);
+    int width = getStringArrayWidth(ansi);
+
+    char*** copy = calloc(height + 1, sizeof(char**));
+    if (copy == 0) return 0;
+
+    for (int i = 0; i < height; i++) {
+        copy[i] = calloc(width + 1, sizeof(char*));
+        if (copy[i] == 0) {
+            for (int k = 0; k < i; k++) {
+                for (int j = 0; j < width; j++) free(copy[k][j]);
+                free(copy[k]);
+            }
+            free(copy);
+            return 0;
+        }
+
+        for (int j = 0; j < width; j++) {
+            if (ansi[i][j] == 0) continue;
+            copy[i][j] = malloc(strlen(ansi[i][j]) + 1);
+            if (copy[i][j] != 0) strcpy(copy[i][j], ansi[i][j]);
+        }
+    }
+
+    return copy;
+}
+
 CmdFX_SpriteCostumes* Sprite_createCostumes(
     CmdFX_Sprite* sprite, int costumeCount
 ) {
@@ -53,8 +86,9 @@ CmdFX_SpriteCostumes* Sprite_createCostumes(
         return 0;
     }
 
-    // adopt the live data/ansi as costume 0 so freeing the costumes does not
-    // orphan the sprite's original buffers
+    // adopt the live data/ansi as costume 0 so the original buffers survive
+    // until the sprite and its costumes are freed; the sprite's live data
+    // always aliases the active costume, and the registry is the sole owner
     spriteCostumes->costumes[0] = sprite->data;
     spriteCostumes->ansiCostumes[0] = sprite->ansi;
 
@@ -83,15 +117,21 @@ int Sprite_setCostumeAt(
     if (index < 0 || spriteCostumes->costumeCount < index) return -2;
 
     char** oldData = spriteCostumes->costumes[index];
+    // if the sprite is currently showing this costume, its live data aliases
+    // the buffer being freed; re-point it to the new costume so it never
+    // dangles (only a real buffer aliases; two null slots are not "active")
+    int dataWasActive = oldData != 0 && oldData == sprite->data;
     if (oldData != 0) {
         int height = getCharArrayHeight(oldData);
         for (int i = 0; i < height; i++) free(oldData[i]);
         free(oldData);
     }
     spriteCostumes->costumes[index] = costume;
+    if (dataWasActive) sprite->data = costume;
 
     if (ansiCostume != 0) {
         char*** oldAnsi = spriteCostumes->ansiCostumes[index];
+        int ansiWasActive = oldAnsi != 0 && oldAnsi == sprite->ansi;
         if (oldAnsi != 0) {
             int height = getStringArrayHeight(oldAnsi);
             int width = getStringArrayWidth(oldAnsi);
@@ -103,6 +143,7 @@ int Sprite_setCostumeAt(
             free(oldAnsi);
         }
         spriteCostumes->ansiCostumes[index] = ansiCostume;
+        if (ansiWasActive) sprite->ansi = ansiCostume;
     }
 
     return 0;
@@ -152,6 +193,8 @@ int Sprite_switchCostumeTo(CmdFX_Sprite* sprite, int costumeIndex) {
     if (spriteCostumes->costumes == 0) return -1;
     if (spriteCostumes->costumes[costumeIndex] == 0) return -1;
 
+    // the live buffers alias the active costume; the previous costume is still
+    // owned by the registry, so switching only re-points the aliases
     sprite->data = spriteCostumes->costumes[costumeIndex];
     sprite->ansi = spriteCostumes->ansiCostumes[costumeIndex];
 
@@ -313,6 +356,12 @@ int Sprite_freeCostumes(CmdFX_Sprite* sprite) {
     if (spriteCostumes->costumes == 0) return -1;
     if (spriteCostumes->ansiCostumes == 0) return -1;
 
+    // the sprite's live data/ansi alias the active costume buffer, which is
+    // about to be freed; copy them out first so the sprite stays usable after
+    // the registry is torn down
+    char** liveData = createCharArrayCopy(sprite->data);
+    char*** liveAnsi = _copyAnsiArray(sprite->ansi);
+
     for (int i = 0; i < spriteCostumes->costumeCount; i++) {
         char** data = spriteCostumes->costumes[i];
         if (data != 0) {
@@ -338,6 +387,9 @@ int Sprite_freeCostumes(CmdFX_Sprite* sprite) {
     free(spriteCostumes);
 
     _costumes[sprite->uid - 1] = 0;
+
+    sprite->data = liveData;
+    sprite->ansi = liveAnsi;
     return 0;
 }
 

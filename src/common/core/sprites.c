@@ -280,31 +280,31 @@ void Sprite_free(CmdFX_Sprite* sprite) {
     CmdFX_tryUnlockMutex(_SPRITE_UID_MUTEX);
 
     // Free Sprite Costumes and Data
-    CmdFX_SpriteCostumes* costumes = Sprite_getCostumes(sprite);
-    if (costumes != 0) {
-        // canonical cleanup frees the costume buffers, the costume arrays, the
-        // struct, and clears the registry slot (costume 0 owns sprite->data)
-        Sprite_freeCostumes(sprite);
-    }
-    else {
-        char** data = sprite->data;
-        if (data != 0) {
-            int height = getCharArrayHeight(data);
-            for (int i = 0; i < height; i++) free(data[i]);
-        }
-        free(data);
+    // free the registry first; the live data aliases a costume buffer, so
+    // Sprite_freeCostumes copies it out and leaves sprite->data owning its own
+    // independent buffer afterwards
+    if (Sprite_getCostumes(sprite) != 0) Sprite_freeCostumes(sprite);
 
-        char*** ansi = sprite->ansi;
-        if (ansi != 0) {
-            int height = getStringArrayHeight(ansi);
-            int width = getStringArrayWidth(ansi);
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) free(ansi[i][j]);
-                free(ansi[i]);
-            }
+    // free the sprite's own live buffers (its own after the costume teardown,
+    // or the originals when no costumes were created)
+    char** data = sprite->data;
+    if (data != 0) {
+        int height = getCharArrayHeight(data);
+        for (int i = 0; i < height; i++) free(data[i]);
+        free(data);
+    }
+
+    char*** ansi = sprite->ansi;
+    if (ansi != 0) {
+        int height = getStringArrayHeight(ansi);
+        int width = getStringArrayWidth(ansi);
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) free(ansi[i][j]);
+            free(ansi[i]);
         }
         free(ansi);
     }
+
     free(sprite);
 }
 
@@ -338,11 +338,11 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
                 char* ansi = sprite->ansi[i][j];
                 if (ansi != 0) Canvas_setAnsiCurrent(ansi);
             }
-            putchar(c);
+            CmdFX_curses_putCharHere(c);
             if (hasAnsi) Canvas_resetFormat();
         }
     }
-    fflush(stdout);
+    CmdFX_curses_refresh();
 }
 
 #define _SPRITE_POSITION_MUTEX 2
@@ -476,6 +476,9 @@ int Sprite_setData(CmdFX_Sprite* sprite, char** data) {
     if (width == 0 || height == 0) return 0;
     int changedDimensions = width != sprite->width || height != sprite->height;
 
+    // capture the old buffer so any costume aliasing it can be re-pointed below
+    char** oldData = sprite->data;
+
     for (int i = 0; i < sprite->height; i++) {
         if (sprite->data[i] == 0) continue;
         free(sprite->data[i]);
@@ -485,6 +488,14 @@ int Sprite_setData(CmdFX_Sprite* sprite, char** data) {
     sprite->width = width;
     sprite->height = height;
     sprite->data = data;
+
+    // the registry owns the costume buffers and the live data aliases the
+    // active one; keep any slot that referenced the freed buffer pointing at
+    // the new one
+    CmdFX_SpriteCostumes* costumes = Sprite_getCostumes(sprite);
+    if (costumes != 0)
+        for (int i = 0; i < costumes->costumeCount; i++)
+            if (costumes->costumes[i] == oldData) costumes->costumes[i] = data;
 
     if (sprite->ansi != 0 && changedDimensions) {
         char*** ansi = realloc(sprite->ansi, sizeof(char**) * height);

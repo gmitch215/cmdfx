@@ -108,7 +108,7 @@ int Sprite_resetMass(CmdFX_Sprite* sprite) {
     }
 
     int id = sprite->uid - 1;
-    if (_massesCount < id) {
+    if (id >= _massesCount) {
         CmdFX_tryUnlockMutex(_SPRITE_MASS_MUTEX);
         return 0;
     }
