@@ -28,16 +28,13 @@ int _Platform_initSoundSystem() {
 
     // Initialize Core Audio
     AudioComponentInstance* out = NULL;
-    OSStatus status = AudioComponentInstanceNew(
-        AudioComponentFindNext(
-            NULL, &(
-                      AudioComponentDescription
-                  ){.componentType = kAudioUnitType_Output,
-                    .componentSubType = kAudioUnitSubType_DefaultOutput,
-                    .componentManufacturer = kAudioUnitManufacturer_Apple}
-        ),
-        out
-    );
+    AudioComponentDescription desc = {
+        .componentType = kAudioUnitType_Output,
+        .componentSubType = kAudioUnitSubType_DefaultOutput,
+        .componentManufacturer = kAudioUnitManufacturer_Apple,
+    };
+    OSStatus status =
+        AudioComponentInstanceNew(AudioComponentFindNext(NULL, &desc), out);
 
     if (status != noErr) {
         fprintf(

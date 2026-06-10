@@ -265,22 +265,17 @@ int Sprite_isAboutToCollide(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
     double dx2 = motion2[0] + motion2[2];
     double dy2 = motion2[1] + motion2[3];
 
-    int result = 0;
+    // expanded aabb overlap in either direction means an imminent collision
+    int forward = sprite1->x <= sprite2->x + sprite2->width + dx2 &&
+                  sprite1->x + sprite1->width + dx1 >= sprite2->x &&
+                  sprite1->y <= sprite2->y + sprite2->height + dy2 &&
+                  sprite1->y + sprite1->height + dy1 >= sprite2->y;
+    int backward = sprite2->x <= sprite1->x + sprite1->width + dx1 &&
+                   sprite2->x + sprite2->width + dx2 >= sprite1->x &&
+                   sprite2->y <= sprite1->y + sprite1->height + dy1 &&
+                   sprite2->y + sprite2->height + dy2 >= sprite1->y;
 
-    if (sprite1->x <= sprite2->x + sprite2->width + dx2 &&
-        sprite1->x + sprite1->width + dx1 >= sprite2->x &&
-        sprite1->y <= sprite2->y + sprite2->height + dy2 &&
-        sprite1->y + sprite1->height + dy1 >= sprite2->y) {
-        result = 1;
-    }
-    else if (
-        sprite2->x <= sprite1->x + sprite1->width + dx1 &&
-        sprite2->x + sprite2->width + dx2 >= sprite1->x &&
-        sprite2->y <= sprite1->y + sprite1->height + dy1 &&
-        sprite2->y + sprite2->height + dy2 >= sprite1->y
-    ) {
-        result = 1;
-    }
+    int result = forward || backward;
 
     free(motion1);
     free(motion2);
