@@ -9,6 +9,7 @@
 int _scenesRunning = 0;
 
 void* _sceneLoop(void* arg) {
+    (void) arg;
     _scenesRunning = 1;
 
     int sleep = (int) ((1000.0 / CmdFX_getTickSpeed()) * 1000);

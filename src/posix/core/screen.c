@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/ioctl.h>
-#include <termios.h>
 #include <unistd.h>
 
 #include "cmdfx/core/screen.h"
+#include "common/core/curses_backend.h"
 
 // Window API
 
@@ -16,91 +15,50 @@ const char* Window_getTitle() {
 }
 
 void Window_setTitle(const char* title) {
+    if (title == 0) return;
     if (strlen(title) > sizeof(windowTitle) - 1) {
         fprintf(stderr, "Window title is too long.\n");
         return;
     }
 
     strncpy(windowTitle, title, sizeof(windowTitle) - 1);
-    printf("\033]0;%s\007", title);
+    windowTitle[sizeof(windowTitle) - 1] = '\0';
+
+    // curses has no title primitive; emit the OSC sequence out of band
+    if (isatty(STDOUT_FILENO)) {
+        printf("\033]0;%s\007", title);
+        fflush(stdout);
+    }
 }
 
 void Window_getSize(int* width, int* height) {
-    if (width == 0) return;
-    if (height == 0) return;
-
-    struct winsize ws;
-    if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == 0) {
-        *width = ws.ws_col;
-        *height = ws.ws_row;
-    }
-    else {
-        *width = *height = 0;
-    }
+    CmdFX_curses_getSize(width, height);
 }
 
 void Window_setSize(int width, int height) {
-    struct winsize w;
-    w.ws_col = width;
-    w.ws_row = height;
-
-    if (ioctl(STDOUT_FILENO, TIOCSWINSZ, &w) == -1) {
-        perror("ioctl");
-    }
+    // curses does not resize the host terminal; the user controls window size
+    (void) width;
+    (void) height;
 }
 
 // Screen API
 
-static struct termios original;
-static int original_saved = 0;
-
-static void ensure_saved_settings() {
-    if (!original_saved) {
-        tcgetattr(STDIN_FILENO, &original);
-        original_saved = 1;
-    }
-}
-
 int Screen_isEchoEnabled() {
-    struct termios term;
-    ensure_saved_settings();
-    tcgetattr(STDIN_FILENO, &term);
-
-    return (term.c_lflag & ECHO) ? 1 : 0;
+    return CmdFX_curses_getEcho();
 }
 
 int Screen_setEchoEnabled(int enabled) {
-    struct termios term;
-    ensure_saved_settings();
-    tcgetattr(STDIN_FILENO, &term);
-
-    if (enabled)
-        term.c_lflag |= ECHO;
-    else
-        term.c_lflag &= ~ECHO;
-
-    return (tcsetattr(STDIN_FILENO, TCSANOW, &term) == 0) ? 0 : -1;
+    CmdFX_curses_setEcho(enabled);
+    return 0;
 }
 
 int Screen_isLineBuffered() {
-    struct termios term;
-    ensure_saved_settings();
-    tcgetattr(STDIN_FILENO, &term);
-
-    return (term.c_lflag & ICANON) ? 1 : 0;
+    return CmdFX_curses_getLineBuffered();
 }
 
 int Screen_setLineBuffered(int enabled) {
-    struct termios term;
-    ensure_saved_settings();
-    tcgetattr(STDIN_FILENO, &term);
-
-    if (enabled)
-        term.c_lflag |= ICANON;
-    else
-        term.c_lflag &= ~ICANON;
-
-    return (tcsetattr(STDIN_FILENO, TCSANOW, &term) == 0) ? 0 : -1;
+    CmdFX_curses_setLineBuffered(enabled);
+    return 0;
 }
 
 int Screen_isInTerminal() {
@@ -137,4 +95,18 @@ void Screen_ensureInTerminal() {
         launchInTerminal();
         exit(1);
     }
+}
+
+// repurposed to terminal cells; the old physical-pixel sizing relied on
+// platform window frameworks that the curses migration removed
+
+void Screen_getSize(int* width, int* height) {
+    CmdFX_curses_getSize(width, height);
+}
+
+void Screen_getMousePos(int* x, int* y) {
+    // curses has no current-mouse-position query; mouse position now arrives
+    // through CMDFX_EVENT_MOUSE events instead
+    if (x) *x = 0;
+    if (y) *y = 0;
 }
