@@ -14,15 +14,15 @@ int main() {
     CmdFX_Sprite* sprite = Sprite_create(data, 0, 0);
     Sprite_draw(2, 2, sprite);
 
-    r |= assertEquals(Sprite_getDefaultMass(sprite), 9);
+    r |= assertDoubleEquals(Sprite_getDefaultMass(sprite), 9);
     r |= assertTrue(!Engine_setCharacterMass('X', 2));
 
-    r |= assertEquals(Sprite_getDefaultMass(sprite), 18);
+    r |= assertDoubleEquals(Sprite_getDefaultMass(sprite), 18);
     r |= assertTrue(!Sprite_setMass(sprite, 10));
-    r |= assertEquals(Sprite_getMass(sprite), 10);
+    r |= assertDoubleEquals(Sprite_getMass(sprite), 10);
 
     r |= assertTrue(!Sprite_resetMass(sprite));
-    r |= assertEquals(Sprite_getMass(sprite), 18);
+    r |= assertDoubleEquals(Sprite_getMass(sprite), 18);
 
     Sprite_free(sprite);
     Engine_cleanup();

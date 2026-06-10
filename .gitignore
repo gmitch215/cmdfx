@@ -3,3 +3,8 @@ build/
 Testing/
 .cmake/
 .DS_Store
+build-asan*/
+build-tsan*/
+build-ubsan*/
+build-linux*/
+*.a

@@ -1,72 +1,41 @@
-#include <stdlib.h>
-#include <windows.h>
-
 #include "cmdfx/core/canvas.h"
-#include "cmdfx/core/util.h"
 
-#define _CANVAS_MUTEX 7
+#include "common/core/curses_backend.h"
+
+// the curses backend owns all terminal I/O; the old console api cursor calls
+// and system("cls") are gone (curses tracks the cursor via getyx/move)
 
 int Canvas_getCursorX() {
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
-        return csbi.dwCursorPosition.X;
-    }
-
-    return -1;
+    int x, y;
+    CmdFX_curses_getCursor(&x, &y);
+    return x;
 }
 
 int Canvas_getCursorY() {
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
-        return csbi.dwCursorPosition.Y;
-    }
-
-    return -1;
+    int x, y;
+    CmdFX_curses_getCursor(&x, &y);
+    return y;
 }
 
 void Canvas_setCursor(int x, int y) {
     if (x < 0) return;
     if (y < 0) return;
 
-    COORD coord = {x - 1, y - 1};
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    CmdFX_curses_moveCursor(x, y);
 }
 
 void Canvas_hideCursor() {
-    CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_CURSOR_INFO cursorInfo;
-
-    GetConsoleCursorInfo(consoleHandle, &cursorInfo);
-    cursorInfo.bVisible = FALSE;
-    SetConsoleCursorInfo(consoleHandle, &cursorInfo);
-    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
+    CmdFX_curses_setCursorVisible(0);
 }
 
 void Canvas_showCursor() {
-    CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_CURSOR_INFO cursorInfo;
-
-    GetConsoleCursorInfo(consoleHandle, &cursorInfo);
-    cursorInfo.bVisible = TRUE;
-    SetConsoleCursorInfo(consoleHandle, &cursorInfo);
-    CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
+    CmdFX_curses_setCursorVisible(1);
 }
 
 int Canvas_isCursorVisible() {
-    CONSOLE_CURSOR_INFO cursor_info;
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    if (GetConsoleCursorInfo(hConsole, &cursor_info)) {
-        return cursor_info.bVisible;
-    }
-    else {
-        perror("Error getting cursor info");
-        return 0;
-    }
+    return CmdFX_curses_isCursorVisible();
 }
 
 void Canvas_clearScreen() {
-    system("cls");
+    CmdFX_curses_clear();
 }

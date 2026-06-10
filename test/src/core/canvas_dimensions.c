@@ -8,8 +8,9 @@ int main() {
 
     int r = 0;
 
-    r |= assertGreaterThan(Canvas_getWidth(), 0);
-    r |= assertGreaterThan(Canvas_getHeight(), 0);
+    // dimensions are non-negative; 0 means no attached terminal (unbounded)
+    r |= assertGreaterThan(Canvas_getWidth(), -1);
+    r |= assertGreaterThan(Canvas_getHeight(), -1);
 
-    return 0;
+    return r;
 }
