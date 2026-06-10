@@ -19,7 +19,7 @@ static int _motionCount = 0;
 // Mutex ID Allocation:
 // 0: _SPRITE_DRAWN_MUTEX
 // 1: _SPRITE_UID_MUTEX
-// 2-3: Reserved
+// 2-3: Reserved (POSITION and DATA)
 // 4: _SPRITE_MOTION_MUTEX
 // 5: _SPRITE_FORCE_MUTEX
 // 6: _SPRITE_FRICTION_MUTEX
@@ -273,10 +273,12 @@ int Sprite_isAboutToCollide(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
         sprite1->y + sprite1->height + dy1 >= sprite2->y) {
         result = 1;
     }
-    else if (sprite2->x <= sprite1->x + sprite1->width + dx1 &&
-             sprite2->x + sprite2->width + dx2 >= sprite1->x &&
-             sprite2->y <= sprite1->y + sprite1->height + dy1 &&
-             sprite2->y + sprite2->height + dy2 >= sprite1->y) {
+    else if (
+        sprite2->x <= sprite1->x + sprite1->width + dx1 &&
+        sprite2->x + sprite2->width + dx2 >= sprite1->x &&
+        sprite2->y <= sprite1->y + sprite1->height + dy1 &&
+        sprite2->y + sprite2->height + dy2 >= sprite1->y
+    ) {
         result = 1;
     }
 
