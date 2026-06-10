@@ -1915,6 +1915,7 @@ char*** _toANSI(int prefix, int** grid, int width, int height) {
 }
 
 void _freeGrid(int** grid, int width, int height) {
+    (void) width;
     for (int i = 0; i < height; i++) free(grid[i]);
     free(grid);
 }

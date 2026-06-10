@@ -7,7 +7,7 @@
 
 // from is inclusive, to is exclusive
 static char* _substring(const char* str, int from, int to) {
-    if (str == 0 || from > to || to > strlen(str)) return 0;
+    if (str == 0 || from > to || to > (int) strlen(str)) return 0;
 
     int len = to - from;
     char* result = malloc(len + 1);
