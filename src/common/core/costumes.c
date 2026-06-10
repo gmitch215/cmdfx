@@ -53,9 +53,10 @@ CmdFX_SpriteCostumes* Sprite_createCostumes(
         return 0;
     }
 
-    spriteCostumes->costumes[0] = createCharArrayCopy(sprite->data);
-    if (sprite->ansi != 0)
-        spriteCostumes->ansiCostumes[0] = createStringArrayCopy(sprite->ansi);
+    // adopt the live data/ansi as costume 0 so freeing the costumes does not
+    // orphan the sprite's original buffers
+    spriteCostumes->costumes[0] = sprite->data;
+    spriteCostumes->ansiCostumes[0] = sprite->ansi;
 
     _costumes[id] = spriteCostumes;
     return spriteCostumes;
