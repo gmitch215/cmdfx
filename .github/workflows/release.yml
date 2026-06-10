@@ -122,7 +122,7 @@ jobs:
           overwrite: true
       - name: Attest Build Artifacts
         if: success() || failure()
-        uses: actions/attest-build-provenance@v3
+        uses: actions/attest-build-provenance@v4
         with:
           subject-name: CmdFX-Release-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}
           subject-digest: sha256:${{ steps.archive.outputs.artifact-digest }}
