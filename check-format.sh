@@ -26,8 +26,14 @@ fi
 if [[ $# -gt 0 ]]; then
 	files=("$@")
 else
-	# Use git to list tracked files matching extensions
-	mapfile -t files < <(git ls-files '*.c' '*.cpp' '*.h' '*.hpp')
+	if command -v mapfile >/dev/null 2>&1; then
+		mapfile -t files < <(git ls-files '*.c' '*.cpp' '*.h' '*.hpp')
+	else
+		files=()
+		while IFS= read -r line; do
+			files+=("$line")
+		done < <(git ls-files '*.c' '*.cpp' '*.h' '*.hpp')
+	fi
 fi
 
 if [[ ${#files[@]} -eq 0 ]]; then
