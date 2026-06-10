@@ -69,7 +69,6 @@ int CmdFX_initThreadSafe() {
     if (_threadSafeEnabled != 0) return -1;
     if (_mutexes != 0) return -1;
 
-    _threadSafeEnabled = 1;
     _mutexes = calloc(MAX_INTERNAL_CMDFX_MUTEXES, sizeof(void*));
     if (_mutexes == 0) return -1;
 
@@ -78,10 +77,13 @@ int CmdFX_initThreadSafe() {
         if (_mutexes[i] == 0) {
             for (int j = 0; j < i; j++) _destroyMutex(_mutexes[j]);
             free(_mutexes);
+            _mutexes = 0;
             return -1;
         }
     }
 
+    // enable only after all mutexes exist
+    _threadSafeEnabled = 1;
     return 0;
 }
 
@@ -132,12 +134,34 @@ int CmdFX_unlockMutex(void* mutex) {
     return 0;
 }
 
+typedef struct {
+    void (*func)(void*);
+    void* arg;
+} _ThreadStart;
+
+static void* _threadTrampoline(void* p) {
+    _ThreadStart* start = (_ThreadStart*) p;
+    void (*func)(void*) = start->func;
+    void* arg = start->arg;
+    free(start);
+
+    func(arg);
+    return 0;
+}
+
 ThreadID CmdFX_launchThread(void (*func)(void*), void* arg) {
     if (!_threadSafeEnabled) return 0;
 
+    _ThreadStart* start = malloc(sizeof(_ThreadStart));
+    if (start == 0) return 0;
+    start->func = func;
+    start->arg = arg;
+
     pthread_t thread;
-    if (pthread_create(&thread, 0, (void* (*) (void*) ) func, arg) != 0)
+    if (pthread_create(&thread, 0, _threadTrampoline, start) != 0) {
+        free(start);
         return 0;
+    }
 
     return thread;
 }
