@@ -79,7 +79,7 @@ jobs:
         with:
           servers: '[{"id": "github", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}"}]'
       - name: Install Doxygen
-        uses: ssciwr/doxygen-install@v1
+        uses: ssciwr/doxygen-install@v2
       - name: Link CInterop Command
         if: ${{ matrix.os == 'ubuntu-24.04' }}
         run: |
