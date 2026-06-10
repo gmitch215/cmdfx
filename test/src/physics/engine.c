@@ -25,14 +25,14 @@ int main() {
     Sprite_free(sprite);
 
     r |= assertTrue(!Engine_setForceOfGravity(2));
-    r |= assertEquals(Engine_getForceOfGravity(), 2);
+    r |= assertDoubleEquals(Engine_getForceOfGravity(), 2);
     r |= assertTrue(!Engine_setForceOfGravity(1));
-    r |= assertEquals(Engine_getForceOfGravity(), 1);
+    r |= assertDoubleEquals(Engine_getForceOfGravity(), 1);
 
     r |= assertTrue(!Engine_setTerminalVelocity(12));
-    r |= assertEquals(Engine_getTerminalVelocity(), 12);
+    r |= assertDoubleEquals(Engine_getTerminalVelocity(), 12);
     r |= assertTrue(!Engine_setTerminalVelocity(10));
-    r |= assertEquals(Engine_getTerminalVelocity(), 10);
+    r |= assertDoubleEquals(Engine_getTerminalVelocity(), 10);
 
     r |= assertTrue(!Engine_setGroundY(5));
     r |= assertEquals(Engine_getGroundY(), 5);
@@ -63,6 +63,7 @@ int main() {
     r |= assertEquals(square->y, 175);
 
     Sprite_removeForce(square, force); // x velocity remains as 20
+    free(force);
     for (int i = 0; i < 10; i++) tick(square);
     r |= assertEquals(square->x, 311);
     r |= assertEquals(square->y, 275);
