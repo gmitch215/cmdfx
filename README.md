@@ -20,6 +20,7 @@ It is written in C and is available cross-platform. It is licensed under the MIT
 ## 🍎 Features
 
 - **Cross-platform**: cmdfx is available on Windows, macOS, and Linux.
+- **Curses-backed**: renders through (n)curses (PDCurses on Windows) for portable terminal output.
 - **Lightweight**: cmdfx is designed to be lightweight and fast.
 - **Easy to use**: cmdfx is simple to use and easy to learn.
 - **Powerful**: cmdfx provides a powerful set of features for creating terminal-based games.
@@ -30,7 +31,7 @@ For a full method list, check out the [documentation](https://gmitch215.github.i
 
 - **Events API**
   - Handle window events such as key presses and window resizing.
-  - Get the current state of the keyboard.
+  - Register listeners for key, mouse, and button events.
 - **Canvas API**
   - Draw characters and shapes on the terminal.
   - Set foreground and background colors.
@@ -53,8 +54,8 @@ For a full method list, check out the [documentation](https://gmitch215.github.i
   - Detect collisions between sprites.
   - ...and much more!
 - **Input API**
-  - Get the current state of the keyboard and mouse events.
-  - Handle key presses and key releases.
+  - Receive keyboard and mouse input through the event system.
+  - React to key presses, mouse clicks, and terminal resizes.
   - ..and much more!
 - **Cross-Platform Exposure**
   - Expose platform-specific features and utilities such as setting the title of the terminal.
@@ -69,14 +70,20 @@ Use the cross-platform Bash installer to clone, build, and install cmdfx with CM
 
 #### Prerequisites
 
-Linux requires the installation of the ALSA sound library:
+cmdfx renders through a curses library, so a curses development package is required:
+
+- **Linux**: `sudo apt-get install -y libncursesw5-dev` (or `libncurses-dev`)
+- **macOS**: ncurses ships with the system (`brew install ncurses` is optional)
+- **Windows (MSYS2/MinGW)**: `pacman -S mingw-w64-x86_64-ncurses`, or install PDCurses. If no curses is found at configure time, the build fetches PDCurses automatically.
+
+Linux additionally requires the ALSA sound library for audio:
 
 ```
 sudo apt-get update
-sudo apt-get install -y libasound2-dev
+sudo apt-get install -y libasound2-dev libncursesw5-dev
 ```
 
-If this is not installed, sound support will not be built.
+If ALSA is not installed, sound support will not be built.
 
 #### Running the Installer
 
@@ -150,6 +157,20 @@ curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh |
 ```
 
 Run `./install.sh --help` for full options.
+
+### Install via Homebrew
+
+A `homebrew/core` submission is in progress. Until it lands, install from this
+repository's tap:
+
+```sh
+brew tap gmitch215/cmdfx https://github.com/gmitch215/cmdfx
+brew install gmitch215/cmdfx/cmdfx
+```
+
+This builds cmdfx from source and pulls in `ncurses` (and `alsa-lib` on Linux).
+To build the latest `master` instead of the most recent release, append
+`--HEAD` to the install command.
 
 ### Use in CMake Projects
 
@@ -313,6 +334,21 @@ int main() {
 ```
 
 More examples can be found in the [samples directory](/samples).
+
+## 🧪 Sanitizers
+
+For development, cmdfx can be built and tested under sanitizers. Pass
+`-DSANITIZE_CMDFX=<list>` to CMake (e.g. `address,undefined` or `thread`), or use
+the helper scripts which configure, build, and run the test suite for you:
+
+```bash
+./asan.sh    # AddressSanitizer + UndefinedBehaviorSanitizer
+./ubsan.sh   # UndefinedBehaviorSanitizer only
+./tsan.sh    # ThreadSanitizer (physics engine lifecycle / race detection)
+```
+
+ThreadSanitizer cannot be combined with AddressSanitizer, so it uses a separate
+build directory. These require a Clang or GCC toolchain.
 
 ## 📝 Contributing
 
