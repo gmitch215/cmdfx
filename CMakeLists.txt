@@ -396,12 +396,13 @@ if (KN_CMDFX AND CMAKE_C_COMPILER_ID MATCHES "GNU|Clang" AND (APPLE OR WIN32 OR 
 
     if (DEFINED PROJECT_VERSION_SUFFIX)
         set(KN_PROJECT_VERSION "${PROJECT_VERSION}-${PROJECT_VERSION_SUFFIX}")
-        set(MAVEN_REMOTE_URL "https://repo.calcugames.xyz/repository/maven-snapshots/")
     else()
         set(KN_PROJECT_VERSION "${PROJECT_VERSION}")
-        set(MAVEN_REMOTE_URL "https://repo.calcugames.xyz/repository/maven-releases/")
     endif()
-    set(MAVEN_REMOTE_ID "calcugames")
+
+    # github packages serves snapshots and releases from one repository url
+    set(MAVEN_REMOTE_URL "https://maven.pkg.github.com/gmitch215/cmdfx")
+    set(MAVEN_REMOTE_ID "github")
 
     include(CMakeKt)
     add_klib_binary(cmdfx)

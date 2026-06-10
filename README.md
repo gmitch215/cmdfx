@@ -242,7 +242,14 @@ plugins {
 }
 
 repositories {
-    maven("https://repo.calcugames.xyz/repository/maven-releases/")
+    // GitHub Packages requires authentication, even to read.
+    // Provide a personal access token with the `read:packages` scope.
+    maven("https://maven.pkg.github.com/gmitch215/cmdfx") {
+        credentials {
+            username = providers.gradleProperty("gpr.user").orNull ?: System.getenv("GITHUB_ACTOR")
+            password = providers.gradleProperty("gpr.key").orNull ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
 }
 
 kotlin {

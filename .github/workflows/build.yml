@@ -224,6 +224,7 @@ jobs:
 
     permissions:
       contents: read
+      packages: write
       id-token: write
       attestations: write
 
@@ -235,7 +236,7 @@ jobs:
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: s4u/maven-settings-action@v4.0.0
         with:
-          servers: '[{"id": "calcugames", "username": "${{ secrets.MAVEN_USERNAME_CALCUGAMES }}", "password": "${{ secrets.MAVEN_PASSWORD_CALCUGAMES }}"}]'
+          servers: '[{"id": "github", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}"}]'
       - name: Install Kotlin
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
         uses: fwilhe2/setup-kotlin@main
