@@ -10,7 +10,7 @@ Contributing guidelines for the CmdFX project. We appreciate your help in helpin
 
 3.) Confirm that the code is ready to be merged while meeting our conventions.
 
-We will approve and merge your pull request as soon as possiable if these requirements are met.
+We will approve and merge your pull request as soon as possible if these requirements are met.
 
 ## Building & Conventions
 
