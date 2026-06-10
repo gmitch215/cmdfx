@@ -14,6 +14,7 @@
 
 static CmdFX_Sprite** _staticSprites = 0;
 static int _staticSpriteCount = 0;
+static int _staticSpriteCapacity = 0;
 
 int Sprite_isStatic(CmdFX_Sprite* sprite) {
     if (sprite == 0) return 0;
@@ -36,44 +37,52 @@ int Sprite_setStatic(CmdFX_Sprite* sprite, int isStatic) {
     CmdFX_tryLockMutex(_STATIC_SPRITE_MUTEX);
 
     if (isStatic) {
-        if (_staticSprites == 0) {
-            _staticSprites = calloc(1, sizeof(CmdFX_Sprite*));
-            if (_staticSprites == 0) {
+        // skip if already static
+        for (int i = 0; i < _staticSpriteCount; i++) {
+            if (_staticSprites[i] == sprite) {
                 CmdFX_tryUnlockMutex(_STATIC_SPRITE_MUTEX);
-                return -1;
+                return 0;
             }
         }
-        else {
-            CmdFX_Sprite** temp = realloc(
-                _staticSprites, sizeof(CmdFX_Sprite*) * (_staticSpriteCount + 1)
-            );
+
+        // grow with a doubling strategy
+        if (_staticSpriteCount >= _staticSpriteCapacity) {
+            int newCapacity =
+                _staticSpriteCapacity == 0 ? 8 : _staticSpriteCapacity * 2;
+            CmdFX_Sprite** temp =
+                realloc(_staticSprites, sizeof(CmdFX_Sprite*) * newCapacity);
             if (temp == 0) {
                 CmdFX_tryUnlockMutex(_STATIC_SPRITE_MUTEX);
                 return -1;
             }
 
             _staticSprites = temp;
+            _staticSpriteCapacity = newCapacity;
         }
 
-        _staticSprites[_staticSpriteCount] = sprite;
-        _staticSpriteCount++;
+        _staticSprites[_staticSpriteCount++] = sprite;
     }
     else {
-        int c = 0;
+        // find the sprite before shifting
+        int found = -1;
         for (int i = 0; i < _staticSpriteCount; i++) {
             if (_staticSprites[i] == sprite) {
-                _staticSprites[i] = 0;
-                c = i;
+                found = i;
                 break;
             }
         }
 
-        for (int j = c; j < _staticSpriteCount - 1; j++) {
-            _staticSprites[j] = _staticSprites[j + 1];
+        // not present so nothing to remove
+        if (found < 0) {
+            CmdFX_tryUnlockMutex(_STATIC_SPRITE_MUTEX);
+            return 0;
         }
 
-        _staticSprites[_staticSpriteCount - 1] = 0;
+        for (int j = found; j < _staticSpriteCount - 1; j++)
+            _staticSprites[j] = _staticSprites[j + 1];
+
         _staticSpriteCount--;
+        _staticSprites[_staticSpriteCount] = 0;
     }
 
     CmdFX_tryUnlockMutex(_STATIC_SPRITE_MUTEX);
@@ -147,7 +156,7 @@ static double* _characterMasses = 0;
 double Engine_getCharacterMass(char c) {
     if (_characterMasses == 0) return 1;
 
-    return _characterMasses[(int) c] + 1.0;
+    return _characterMasses[(unsigned char) c] + 1.0;
 }
 
 int Engine_setCharacterMass(char c, double mass) {
@@ -158,7 +167,7 @@ int Engine_setCharacterMass(char c, double mass) {
         if (_characterMasses == 0) return -1;
     }
 
-    _characterMasses[(int) c] = mass - 1;
+    _characterMasses[(unsigned char) c] = mass - 1;
 
     return 0;
 }
@@ -176,6 +185,7 @@ int Engine_cleanup() {
         free(_staticSprites);
         _staticSprites = 0;
         _staticSpriteCount = 0;
+        _staticSpriteCapacity = 0;
     }
 
     Sprite_clearAllForces();
@@ -195,11 +205,10 @@ CmdFX_Sprite** Engine_tick() {
     if (count < 1) return 0;
 
     int ground = Engine_getGroundY();
-    int width = Canvas_getWidth();
     double forceOfGravity = Engine_getForceOfGravity();
 
-    CmdFX_Sprite** modified =
-        calloc(count - _staticSpriteCount + 1, sizeof(CmdFX_Sprite*));
+    // size for the worst case of every drawn sprite being non static
+    CmdFX_Sprite** modified = calloc(count + 1, sizeof(CmdFX_Sprite*));
     if (modified == 0) return 0;
 
     int c = 0;
