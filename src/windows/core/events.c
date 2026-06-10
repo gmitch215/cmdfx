@@ -1,18 +1,15 @@
 #include <process.h>
-#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <windows.h>
 
 #include "cmdfx/core/canvas.h"
-#include "cmdfx/core/device.h"
 #include "cmdfx/core/events.h"
-#include "cmdfx/core/screen.h"
 #include "cmdfx/core/util.h"
 #include "cmdfx/ui/button.h"
 #include "cmdfx/ui/switch.h"
+#include "common/core/curses_backend.h"
 
 // Core Events
 
@@ -20,132 +17,73 @@ int _prevWidth = -1;
 int _prevHeight = -1;
 
 int Canvas_getWidth() {
-    if (_prevWidth == -1) {
-        CONSOLE_SCREEN_BUFFER_INFO csbi;
-        if (GetConsoleScreenBufferInfo(
-                GetStdHandle(STD_OUTPUT_HANDLE), &csbi
-            )) {
-            _prevWidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-        }
-        else {
-            _prevWidth = 0;
-        }
-    }
-
-    return _prevWidth;
+    int width, height;
+    CmdFX_curses_getSize(&width, &height);
+    return width;
 }
 
 int Canvas_getHeight() {
-    if (_prevHeight == -1) {
-        CONSOLE_SCREEN_BUFFER_INFO csbi;
-        if (GetConsoleScreenBufferInfo(
-                GetStdHandle(STD_OUTPUT_HANDLE), &csbi
-            )) {
-            _prevHeight = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
-        }
-        else {
-            _prevHeight = 0;
-        }
-    }
-
-    return _prevHeight;
+    int width, height;
+    CmdFX_curses_getSize(&width, &height);
+    return height;
 }
 
-void win_checkResizeEvent() {
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+// Event Dispatch
 
-    if (GetConsoleScreenBufferInfo(hConsole, &csbi)) {
-        int width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-        int height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+static void _dispatchKey(const CmdFX_CursesEvent* e) {
+    CmdFX_KeyEvent keyEvent = {e->keyCode, e->keyChar, e->mousePressed};
+    CmdFX_Event event = {CMDFX_EVENT_KEY, currentTimeMillis(), &keyEvent};
+    dispatchCmdFXEvent(&event);
+}
 
-        if (width != _prevWidth || height != _prevHeight) {
-            CmdFX_ResizeEvent resize = {_prevWidth, _prevHeight, width, height};
-            CmdFX_Event event = {
-                CMDFX_EVENT_RESIZE, currentTimeMillis(), &resize
+static void _dispatchResize(const CmdFX_CursesEvent* e) {
+    CmdFX_ResizeEvent resize = {_prevWidth, _prevHeight, e->width, e->height};
+    CmdFX_Event event = {CMDFX_EVENT_RESIZE, currentTimeMillis(), &resize};
+    dispatchCmdFXEvent(&event);
+
+    _prevWidth = e->width;
+    _prevHeight = e->height;
+}
+
+static int _prevMouseX = -1;
+static int _prevMouseY = -1;
+
+static void _dispatchMouse(const CmdFX_CursesEvent* e) {
+    unsigned long long time = currentTimeMillis();
+    CmdFX_MouseEvent mouseEvent = {e->mouseButton, e->mousePressed, _prevMouseX,
+                                   e->mouseX,      _prevMouseY,     e->mouseY};
+    CmdFX_Event event = {CMDFX_EVENT_MOUSE, time, &mouseEvent};
+    dispatchCmdFXEvent(&event);
+
+    // button events
+    CmdFX_Button** allButtons = Canvas_getAllButtonsAt(e->mouseX, e->mouseY);
+    if (allButtons != 0) {
+        int j = 0;
+        while (allButtons[j] != 0) {
+            CmdFX_Button* button = allButtons[j];
+            CmdFX_ButtonCallback callback = *button->callback;
+            callback(button, &mouseEvent, time);
+
+            CmdFX_ButtonEvent buttonEvent = {&mouseEvent, button};
+            CmdFX_Event buttonEventStruct = {
+                CMDFX_EVENT_BUTTON_CLICK, time, &buttonEvent
             };
-            dispatchCmdFXEvent(&event);
+            dispatchCmdFXEvent(&buttonEventStruct);
 
-            _prevWidth = width;
-            _prevHeight = height;
-        }
-    }
-}
-
-static bool* _prevKeys = 0;
-
-void win_checkKeyEvent() {
-    bool* keys = Device_getKeyboardKeysPressed();
-    if (_prevKeys == 0) _prevKeys = (bool*) calloc(256, sizeof(bool));
-
-    for (int i = 0; i < 256; i++) {
-        if (keys[i] != _prevKeys[i]) {
-            CmdFX_KeyEvent keyEvent = {i, Device_fromKeyCode(i), keys[i]};
-            CmdFX_Event event = {
-                CMDFX_EVENT_KEY, currentTimeMillis(), &keyEvent
-            };
-            dispatchCmdFXEvent(&event);
-            _prevKeys[i] = keys[i];
-        }
-    }
-
-    free(keys);
-}
-
-static bool* _prevButtons = 0;
-int _prevMouseX = -1;
-int _prevMouseY = -1;
-
-void win_checkMouseEvent() {
-    bool* buttons = Device_getMouseButtonsPressed();
-    if (_prevButtons == 0) _prevButtons = (bool*) calloc(3, sizeof(bool));
-
-    int x, y;
-    Screen_getMousePos(&x, &y);
-
-    for (int i = 0; i < 3; i++) {
-        if (buttons[i] != _prevButtons[i] || x != _prevMouseX ||
-            y != _prevMouseY) {
-            unsigned long time = currentTimeMillis();
-            CmdFX_MouseEvent mouseEvent = {i, buttons[i],  _prevMouseX,
-                                           x, _prevMouseY, y};
-            CmdFX_Event event = {CMDFX_EVENT_MOUSE, time, &mouseEvent};
-            dispatchCmdFXEvent(&event);
-
-            // button events
-            CmdFX_Button** allButtons = Canvas_getAllButtonsAt(x, y);
-            if (allButtons != 0) {
-                int j = 0;
-                while (allButtons[j] != 0) {
-                    CmdFX_Button* button = allButtons[j];
-                    CmdFX_ButtonCallback callback = *button->callback;
-                    callback(button, &mouseEvent, time);
-
-                    CmdFX_ButtonEvent buttonEvent = {&mouseEvent, button};
-                    CmdFX_Event buttonEventStruct = {
-                        CMDFX_EVENT_BUTTON_CLICK, time, &buttonEvent
-                    };
-                    dispatchCmdFXEvent(&buttonEventStruct);
-
-                    switch (button->type) {
-                        case CMDFX_BUTTON_TYPE_SWITCH:
-                            Switch_toggleState(button);
-                            break;
-                        default: break;
-                    }
-
-                    j++;
-                }
+            switch (button->type) {
+                case CMDFX_BUTTON_TYPE_SWITCH:
+                    Switch_toggleState(button);
+                    break;
+                default: break;
             }
-            free(allButtons);
 
-            _prevButtons[i] = buttons[i];
-            _prevMouseX = x;
-            _prevMouseY = y;
+            j++;
         }
     }
+    free(allButtons);
 
-    free(buttons);
+    _prevMouseX = e->mouseX;
+    _prevMouseY = e->mouseY;
 }
 
 // Event Loop
@@ -153,14 +91,22 @@ void win_checkMouseEvent() {
 int _eventsRunning = 0;
 
 unsigned __stdcall _eventLoop(void* arg) {
+    (void) arg;
     _eventsRunning = 1;
 
     while (_eventsRunning) {
-        win_checkResizeEvent();
-        win_checkKeyEvent();
-        win_checkMouseEvent();
+        // drain every event curses has queued, then yield
+        CmdFX_CursesEvent e;
+        while (CmdFX_curses_poll(&e)) {
+            switch (e.type) {
+                case CMDFX_CURSES_EVENT_KEY: _dispatchKey(&e); break;
+                case CMDFX_CURSES_EVENT_MOUSE: _dispatchMouse(&e); break;
+                case CMDFX_CURSES_EVENT_RESIZE: _dispatchResize(&e); break;
+                default: break;
+            }
+        }
 
-        Sleep(EVENT_TICK);
+        sleepMillis(EVENT_TICK);
     }
 
     return 0;
@@ -169,11 +115,14 @@ unsigned __stdcall _eventLoop(void* arg) {
 int beginCmdFXEventLoop() {
     if (_eventsRunning) return 0;
 
-    uintptr_t eventLoopThread;
-    eventLoopThread = _beginthreadex(NULL, 0, _eventLoop, NULL, 0, NULL);
+    CmdFX_curses_ensure();
+    CmdFX_curses_getSize(&_prevWidth, &_prevHeight);
+
+    uintptr_t eventLoopThread =
+        _beginthreadex(NULL, 0, _eventLoop, NULL, 0, NULL);
     if (eventLoopThread == 0) {
-        perror("Failed to start event loop.\n");
-        exit(EXIT_FAILURE);
+        fprintf(stderr, "Failed to start event loop.\n");
+        return 0;
     }
 
     CloseHandle((HANDLE) eventLoopThread);
@@ -182,10 +131,6 @@ int beginCmdFXEventLoop() {
 
 int endCmdFXEventLoop() {
     if (!_eventsRunning) return 0;
-
-    // free up loose variables
-    if (_prevKeys) free(_prevKeys);
-    if (_prevButtons) free(_prevButtons);
 
     _eventsRunning = 0;
     return 1;
