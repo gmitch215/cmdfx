@@ -103,7 +103,7 @@ jobs:
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         run: |
           sudo apt-get update
-          sudo apt-get install -y libasound2-dev
+          sudo apt-get install -y libasound2-dev libncursesw5-dev
       - name: Configure Project (Posix)
         if: ${{ matrix.os != 'windows-2025' }}
         run: cmake -B build -DPROJECT_VERSION_SUFFIX=${GITHUB_SHA::7} -DSAMPLES_CMDFX=ON
@@ -138,14 +138,14 @@ jobs:
         if: ${{ matrix.os != 'windows-2025' }}
         run: |
           cd build
-          sudo ctest -C Debug -T test --output-on-failure
+          sudo ctest -C Debug -T test --output-on-failure --parallel 4
           cd ..
         shell: bash
       - name: Test Project (Windows)
         if: ${{ matrix.os == 'windows-2025' }}
         run: |
           cd build
-          ctest -C Debug -T test --output-on-failure
+          ctest -C Debug -T test --output-on-failure --parallel 4
           cd ..
         shell: bash
       - name: Archive Test Reports
@@ -155,6 +155,29 @@ jobs:
           name: CmdFX-${{ runner.os }}-${{ runner.arch }}-${{ github.sha }}-test
           path: build/Testing/*
           if-no-files-found: ignore
+
+  sanitizers:
+    needs: format
+    name: Sanitizers (${{ matrix.script }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    permissions:
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        script: [asan.sh, ubsan.sh, tsan.sh]
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev libncursesw5-dev
+      - name: Run ${{ matrix.script }}
+        run: bash ${{ matrix.script }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -173,7 +196,7 @@ jobs:
       - name: Install Linux Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libasound2-dev
+          sudo apt-get install -y libasound2-dev libncursesw5-dev
       - name: Configure Project
         run: cmake -B build
       - name: Build Docs
@@ -237,7 +260,7 @@ jobs:
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         run: |
           sudo apt-get update
-          sudo apt-get install -y libasound2-dev
+          sudo apt-get install -y libasound2-dev libncursesw5-dev
       - name: Configure Project (Posix)
         if: ${{ matrix.os != 'windows-2025' }}
         run: cmake -B build -DPROJECT_VERSION_SUFFIX=SNAPSHOT -DKN_INSTALL_ARTIFACTID="cmdfx-${{ matrix.id }}" -DTEST_CMDFX=OFF -DDEPLOY_CMDFX=ON

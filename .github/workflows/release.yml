@@ -169,3 +169,30 @@ jobs:
           body: ${{ steps.changelog.outputs.changelog || github.event.inputs.changelog }}
           draft: false
           prerelease: false
+      - name: Update Homebrew Formula Checksum
+        run: |
+          URL="https://github.com/${GITHUB_REPOSITORY}/archive/refs/tags/v${VERSION}.tar.gz"
+          # the tag tarball is generated lazily by GitHub; retry until it is ready
+          for i in $(seq 1 12); do
+            if curl -fsSL "$URL" -o /tmp/cmdfx-src.tar.gz; then break; fi
+            echo "source tarball not ready yet (attempt $i); retrying..."
+            sleep 5
+          done
+          SHA=$(sha256sum /tmp/cmdfx-src.tar.gz | awk '{print $1}')
+          echo "## Homebrew formula" >> "$GITHUB_STEP_SUMMARY"
+          echo "v${VERSION} source tarball sha256: \`${SHA}\`" >> "$GITHUB_STEP_SUMMARY"
+          sed -i -E "s#archive/refs/tags/v[0-9][0-9.]*\.tar\.gz#archive/refs/tags/v${VERSION}.tar.gz#" Formula/cmdfx.rb
+          sed -i -E "s#^([[:space:]]*sha256 )\"[0-9a-fA-F]*\"#\1\"${SHA}\"#" Formula/cmdfx.rb
+      - name: Commit Updated Formula
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git"
+          git add Formula/cmdfx.rb
+          if git diff --cached --quiet; then
+            echo "formula already up to date"
+          else
+            git commit -m "chore: update Homebrew formula sha256 for v${VERSION}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
