@@ -11,6 +11,7 @@
 
 #include "cmdfx/core/canvas.h"
 #include "cmdfx/core/util.h"
+#include "common/core/curses_backend.h"
 
 // Core Functions
 
@@ -22,8 +23,8 @@ void Canvas_setChar(int x, int y, char c) {
 
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
     Canvas_setCursor(x, y);
-    putchar(c);
-    fflush(stdout);
+    CmdFX_curses_putCharHere(c);
+    CmdFX_curses_refresh();
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
@@ -31,8 +32,7 @@ void Canvas_setAnsiCurrent(const char* ansi) {
     if (ansi == 0) return;
 
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("%s", ansi);
-    fflush(stdout);
+    CmdFX_curses_applySgr(ansi);
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
@@ -49,8 +49,7 @@ void Canvas_setAnsi(int x, int y, const char* ansi) {
 
 void Canvas_resetFormat() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[0m");
-    fflush(stdout);
+    CmdFX_curses_resetAttributes();
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
@@ -129,113 +128,97 @@ void Canvas_setBackground256(int color) {
 
 void Canvas_enableBold() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[1m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[1m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableBold() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[22m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[22m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableDim() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[2m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[2m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableDim() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[22m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[22m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableItalic() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[3m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[3m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableItalic() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[23m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[23m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableUnderline() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[4m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[4m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableUnderline() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[24m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[24m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableBlink() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[5m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[5m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableBlink() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[25m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[25m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableInvert() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[7m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[7m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableInvert() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[27m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[27m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableHidden() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[8m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[8m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableHidden() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[28m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[28m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_enableStrikethrough() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[9m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[9m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
 void Canvas_disableStrikethrough() {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
-    printf("\033[29m");
-    fflush(stdout);
+    CmdFX_curses_applySgr("\033[29m");
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
@@ -250,10 +233,10 @@ void Canvas_hLine(int x, int y, int width, char c) {
 
     for (int i = 0; i < width; i++) {
         Canvas_setCursor(x + i, y);
-        putchar(c);
+        CmdFX_curses_putCharHere(c);
     }
 
-    fflush(stdout);
+    CmdFX_curses_refresh();
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
@@ -266,10 +249,10 @@ void Canvas_vLine(int x, int y, int height, char c) {
 
     for (int i = 0; i < height; i++) {
         Canvas_setCursor(x, y + i);
-        putchar(c);
+        CmdFX_curses_putCharHere(c);
     }
 
-    fflush(stdout);
+    CmdFX_curses_refresh();
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
@@ -630,8 +613,8 @@ void Canvas_drawText(int x, int y, char* text) {
     CmdFX_tryLockMutex(_CANVAS_MUTEX);
 
     Canvas_setCursor(x, y);
-    printf("%s", text);
-    fflush(stdout);
+    for (const char* t = text; *t != 0; t++) CmdFX_curses_putCharHere(*t);
+    CmdFX_curses_refresh();
 
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
@@ -646,11 +629,11 @@ void Canvas_drawAscii(int x, int y, char ascii[8][5]) {
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 5; j++) {
             Canvas_setCursor(x + j, y + i);
-            putchar(ascii[i][j]);
+            CmdFX_curses_putCharHere(ascii[i][j]);
         }
     }
 
-    fflush(stdout);
+    CmdFX_curses_refresh();
     CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
 }
 
@@ -1162,7 +1145,7 @@ void Canvas_drawAsciiText(int x, int y, char character, const char* text) {
     _initAsciiText();
 
     for (int i = 0; i < textLen; i++) {
-        char c = text[i];
+        unsigned char c = (unsigned char) text[i];
         char ascii[8][5];
 
         if (c > 127) {

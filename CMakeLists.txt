@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.30)
 
-set(PROJECT_VERSION "0.3.3")
+set(PROJECT_VERSION "1.0.0")
 project(cmdfx
     LANGUAGES C CXX
     VERSION ${PROJECT_VERSION}
@@ -10,6 +10,15 @@ project(cmdfx
 set(PROJECT_DOCUMENTATION "https://gmitch215.github.io/cmdfx")
 
 set(CMAKE_C_STANDARD 17)
+
+# Sanitizers (opt-in)
+# usage: -DSANITIZE_CMDFX=address,undefined (asan+ubsan) or -DSANITIZE_CMDFX=thread
+set(SANITIZE_CMDFX "" CACHE STRING "Comma-separated sanitizers to enable (address,undefined,thread)")
+if (SANITIZE_CMDFX AND CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+    message(STATUS "cmdfx: enabling sanitizers (${SANITIZE_CMDFX})")
+    add_compile_options(-fsanitize=${SANITIZE_CMDFX} -fno-omit-frame-pointer -g)
+    add_link_options(-fsanitize=${SANITIZE_CMDFX})
+endif()
 
 # Sources
 file(GLOB_RECURSE COMMON_SRC ${PROJECT_SOURCE_DIR}/src/common/*.c)
@@ -32,10 +41,17 @@ target_include_directories(cmdfx PUBLIC
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
+# internal headers (e.g. the curses backend) resolved relative to src/
+target_include_directories(cmdfx PRIVATE ${PROJECT_SOURCE_DIR}/src)
 
 set_target_properties(cmdfx PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
+
+# Warnings
+if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(cmdfx PRIVATE -Wall -Wextra)
+endif()
 
 # Libraries
 if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
@@ -47,12 +63,10 @@ endif()
 if (WIN32)
     target_link_libraries(cmdfx PRIVATE winmm) # Windows Multimedia API
 elseif (APPLE)
+    # input/screen frameworks (CoreGraphics, Carbon, ApplicationServices, IOKit)
+    # are gone with the curses migration; only the audio frameworks remain
     target_link_libraries(cmdfx PRIVATE
-        "-framework CoreGraphics"
         "-framework CoreFoundation"
-        "-framework ApplicationServices"
-        "-framework Carbon"
-        "-framework IOKit"
         "-framework CoreAudio"
         "-framework AudioToolbox"
         "-framework AudioUnit"
@@ -69,6 +83,63 @@ elseif (LINUX)
         else()
             message(WARNING "ALSA not found. Sound support will be limited on Linux.")
         endif()
+    endif()
+endif()
+
+if (WIN32)
+    find_package(Curses QUIET)
+    if (NOT CURSES_FOUND)
+        find_library(PDCURSES_LIBRARY NAMES pdcurses curses ncurses ncursesw)
+        find_path(PDCURSES_INCLUDE_DIR curses.h)
+    endif()
+
+    if (CURSES_FOUND)
+        target_link_libraries(cmdfx PRIVATE ${CURSES_LIBRARIES})
+        if (CURSES_INCLUDE_DIRS)
+            target_include_directories(cmdfx PRIVATE ${CURSES_INCLUDE_DIRS})
+        endif()
+    elseif (PDCURSES_LIBRARY AND PDCURSES_INCLUDE_DIR)
+        target_link_libraries(cmdfx PRIVATE ${PDCURSES_LIBRARY})
+        target_include_directories(cmdfx PRIVATE ${PDCURSES_INCLUDE_DIR})
+    else()
+        message(STATUS
+            "cmdfx: no curses found on Windows; fetching PDCurses as a fallback"
+        )
+        include(FetchContent)
+        FetchContent_Declare(
+            pdcurses
+            GIT_REPOSITORY https://github.com/wmcbrine/PDCurses.git
+            GIT_TAG        3.9
+        )
+        # PDCurses ships platform makefiles (no root CMake project), so this only
+        # downloads the sources
+        FetchContent_MakeAvailable(pdcurses)
+
+        # compile PDCurses straight into cmdfx so the installed static library is
+        # self-contained -- a separate target cannot belong to cmdfx's export set
+        # (install(EXPORT) would fail), and its archive would not be installed
+        file(GLOB PDCURSES_SRC
+            ${pdcurses_SOURCE_DIR}/pdcurses/*.c
+            ${pdcurses_SOURCE_DIR}/wincon/*.c
+        )
+        # third-party sources: do not subject them to -Wall -Wextra
+        set_source_files_properties(
+            ${PDCURSES_SRC} PROPERTIES COMPILE_OPTIONS "-w"
+        )
+        target_sources(cmdfx PRIVATE ${PDCURSES_SRC})
+        target_include_directories(cmdfx PRIVATE ${pdcurses_SOURCE_DIR})
+    endif()
+else()
+    set(CURSES_NEED_NCURSES TRUE)
+    find_package(Curses)
+    if (CURSES_FOUND)
+        target_link_libraries(cmdfx PRIVATE ${CURSES_LIBRARIES})
+        if (CURSES_INCLUDE_DIRS)
+            target_include_directories(cmdfx PRIVATE ${CURSES_INCLUDE_DIRS})
+        endif()
+    else()
+        find_library(CURSES_LIBRARY NAMES ncursesw ncurses curses REQUIRED)
+        target_link_libraries(cmdfx PRIVATE ${CURSES_LIBRARY})
     endif()
 endif()
 
@@ -121,16 +192,18 @@ endif()
 # Installation
 option(INSTALL_CMDFX "Install ${PROJECT_NAME}" ON)
 
-if(WIN32)
-    if(CMAKE_SIZEOF_VOID_P MATCHES "8")
-        set(CMAKE_INSTALL_PREFIX "C:/Program Files/${CMAKE_PROJECT_NAME}")
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    if(WIN32)
+        if(CMAKE_SIZEOF_VOID_P MATCHES "8")
+            set(CMAKE_INSTALL_PREFIX "C:/Program Files/${CMAKE_PROJECT_NAME}")
+        else()
+            set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/${CMAKE_PROJECT_NAME}")
+        endif()
+    elseif(APPLE)
+        set(CMAKE_INSTALL_PREFIX "/usr/local")
     else()
-        set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/${CMAKE_PROJECT_NAME}")
+        set(CMAKE_INSTALL_PREFIX "/usr")
     endif()
-elseif(APPLE)
-    set(CMAKE_INSTALL_PREFIX "/usr/local")
-else()
-    set(CMAKE_INSTALL_PREFIX "/usr")
 endif()
 
 if (INSTALL_CMDFX)
@@ -323,12 +396,13 @@ if (KN_CMDFX AND CMAKE_C_COMPILER_ID MATCHES "GNU|Clang" AND (APPLE OR WIN32 OR 
 
     if (DEFINED PROJECT_VERSION_SUFFIX)
         set(KN_PROJECT_VERSION "${PROJECT_VERSION}-${PROJECT_VERSION_SUFFIX}")
-        set(MAVEN_REMOTE_URL "https://repo.calcugames.xyz/repository/maven-snapshots/")
     else()
         set(KN_PROJECT_VERSION "${PROJECT_VERSION}")
-        set(MAVEN_REMOTE_URL "https://repo.calcugames.xyz/repository/maven-releases/")
     endif()
-    set(MAVEN_REMOTE_ID "calcugames")
+
+    # github packages serves snapshots and releases from one repository url
+    set(MAVEN_REMOTE_URL "https://maven.pkg.github.com/gmitch215/cmdfx")
+    set(MAVEN_REMOTE_ID "github")
 
     include(CMakeKt)
     add_klib_binary(cmdfx)

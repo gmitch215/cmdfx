@@ -15,6 +15,7 @@
 #include "cmdfx/physics/force.h"
 #include "cmdfx/physics/mass.h"
 #include "cmdfx/physics/motion.h"
+#include "common/core/curses_backend.h"
 
 #define _SPRITE_DRAWN_MUTEX 0
 static CmdFX_Sprite** _sprites = 0;
@@ -27,18 +28,18 @@ static int* _takenUids = 0;
 
 // Per-sprite locking utilities
 #define _FIRST_SPRITE_MUTEX_ID 11
+#define _RESERVED_MUTEX_COUNT 11 // # of reserved mutexes (0-10)
 
 int _spriteMutexId(const CmdFX_Sprite* sprite) {
     if (sprite == 0) return -1;
-    int range = MAX_INTERNAL_CMDFX_MUTEXES - _FIRST_SPRITE_MUTEX_ID;
-    if (range <= 0) return -1;
-    // Simple mix of uid to spread across mutex pool
+    int available = MAX_INTERNAL_CMDFX_MUTEXES - _FIRST_SPRITE_MUTEX_ID;
+
+    // use uid directly for better distribution and predictability
+    // ensures sprites with sequential UIDs get different mutexes
     unsigned uid = (unsigned) sprite->uid;
 
-    // Knuth multiplicative hash
-    // Decorrelates integers
-    int id =
-        _FIRST_SPRITE_MUTEX_ID + (int) ((uid * 0x9e3779b9u) % (unsigned) range);
+    // use modulo with the available range for even distribution
+    int id = _FIRST_SPRITE_MUTEX_ID + (int) (uid % (unsigned) available);
     return id;
 }
 
@@ -104,8 +105,11 @@ int Canvas_getDrawnSpritesCount() {
 
 CmdFX_Sprite* Canvas_getSpriteAt(int x, int y) {
     if (x < 0 || y < 0) return 0;
+    if (_spriteCount < 1) return 0;
 
-    CmdFX_Sprite** matching = malloc(sizeof(CmdFX_Sprite*) * _spriteCount);
+    // calloc so unmatched slots read as 0 below
+    CmdFX_Sprite** matching = calloc(_spriteCount, sizeof(CmdFX_Sprite*));
+    if (matching == 0) return 0;
 
     for (int i = 0; i < _spriteCount; i++) {
         CmdFX_Sprite* sprite = _sprites[i];
@@ -166,7 +170,7 @@ CmdFX_Sprite* Sprite_create(char** data, char*** ansi, int z) {
             free(sprite);
             return 0;
         }
-        _spriteUidCounter++;
+        // counter already advanced above; keep it in step with the 1-slot array
         _takenUids[0] = sprite->uid;
     }
     else {
@@ -276,48 +280,31 @@ void Sprite_free(CmdFX_Sprite* sprite) {
     CmdFX_tryUnlockMutex(_SPRITE_UID_MUTEX);
 
     // Free Sprite Costumes and Data
-    CmdFX_SpriteCostumes* costumes = Sprite_getCostumes(sprite);
-    if (costumes != 0) {
-        for (int i = 0; i < costumes->costumeCount; i++) {
-            char** data = costumes->costumes[i];
-            if (data != 0) {
-                int height = getCharArrayHeight(data);
-                for (int j = 0; j < height; j++) free(data[j]);
-            }
-            free(data);
+    // free the registry first; the live data aliases a costume buffer, so
+    // Sprite_freeCostumes copies it out and leaves sprite->data owning its own
+    // independent buffer afterwards
+    if (Sprite_getCostumes(sprite) != 0) Sprite_freeCostumes(sprite);
 
-            char*** ansi = costumes->ansiCostumes[i];
-            if (ansi != 0) {
-                int height = getStringArrayHeight(ansi);
-                int width = getStringArrayWidth(ansi);
-                for (int j = 0; j < height; j++) {
-                    for (int k = 0; k < width; k++) free(ansi[j][k]);
-                    free(ansi[j]);
-                }
-            }
-            free(ansi);
-        }
-        free(costumes);
-    }
-    else {
-        char** data = sprite->data;
-        if (data != 0) {
-            int height = getCharArrayHeight(data);
-            for (int i = 0; i < height; i++) free(data[i]);
-        }
+    // free the sprite's own live buffers (its own after the costume teardown,
+    // or the originals when no costumes were created)
+    char** data = sprite->data;
+    if (data != 0) {
+        int height = getCharArrayHeight(data);
+        for (int i = 0; i < height; i++) free(data[i]);
         free(data);
+    }
 
-        char*** ansi = sprite->ansi;
-        if (ansi != 0) {
-            int height = getStringArrayHeight(ansi);
-            int width = getStringArrayWidth(ansi);
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) free(ansi[i][j]);
-                free(ansi[i]);
-            }
+    char*** ansi = sprite->ansi;
+    if (ansi != 0) {
+        int height = getStringArrayHeight(ansi);
+        int width = getStringArrayWidth(ansi);
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) free(ansi[i][j]);
+            free(ansi[i]);
         }
         free(ansi);
     }
+
     free(sprite);
 }
 
@@ -351,11 +338,11 @@ void Sprite_draw0(CmdFX_Sprite* sprite) {
                 char* ansi = sprite->ansi[i][j];
                 if (ansi != 0) Canvas_setAnsiCurrent(ansi);
             }
-            putchar(c);
+            CmdFX_curses_putCharHere(c);
             if (hasAnsi) Canvas_resetFormat();
         }
     }
-    fflush(stdout);
+    CmdFX_curses_refresh();
 }
 
 #define _SPRITE_POSITION_MUTEX 2
@@ -419,11 +406,11 @@ void Sprite_remove0(CmdFX_Sprite* sprite) {
             int y = sprite->y + i;
 
             Canvas_setCursor(x, y);
-            printf("\033[0m");
-            putchar(' ');
+            CmdFX_curses_resetAttributes();
+            CmdFX_curses_putCharHere(' ');
         }
     }
-    fflush(stdout);
+    CmdFX_curses_refresh();
 }
 
 void Sprite_remove(CmdFX_Sprite* sprite) {
@@ -457,8 +444,6 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
         _sprites = 0;
     }
 
-    sprite->id = 0;
-
     CmdFX_tryLockMutex(_SPRITE_POSITION_MUTEX);
     sprite->x = -1;
     sprite->y = -1;
@@ -466,11 +451,13 @@ void Sprite_remove(CmdFX_Sprite* sprite) {
 
     CmdFX_tryUnlockMutex(_SPRITE_DRAWN_MUTEX);
 
-    // Reset Physics declarations
+    // reset physics declarations while the id is still valid
     Sprite_resetAllMotion(sprite);
     Sprite_removeAllForces(sprite);
     Sprite_resetMass(sprite);
     Sprite_resetFrictionCoefficient(sprite);
+
+    sprite->id = 0;
 }
 
 // Utility Methods - Sprite Builder
@@ -489,6 +476,9 @@ int Sprite_setData(CmdFX_Sprite* sprite, char** data) {
     if (width == 0 || height == 0) return 0;
     int changedDimensions = width != sprite->width || height != sprite->height;
 
+    // capture the old buffer so any costume aliasing it can be re-pointed below
+    char** oldData = sprite->data;
+
     for (int i = 0; i < sprite->height; i++) {
         if (sprite->data[i] == 0) continue;
         free(sprite->data[i]);
@@ -498,6 +488,14 @@ int Sprite_setData(CmdFX_Sprite* sprite, char** data) {
     sprite->width = width;
     sprite->height = height;
     sprite->data = data;
+
+    // the registry owns the costume buffers and the live data aliases the
+    // active one; keep any slot that referenced the freed buffer pointing at
+    // the new one
+    CmdFX_SpriteCostumes* costumes = Sprite_getCostumes(sprite);
+    if (costumes != 0)
+        for (int i = 0; i < costumes->costumeCount; i++)
+            if (costumes->costumes[i] == oldData) costumes->costumes[i] = data;
 
     if (sprite->ansi != 0 && changedDimensions) {
         char*** ansi = realloc(sprite->ansi, sizeof(char**) * height);
@@ -515,7 +513,7 @@ int Sprite_setData(CmdFX_Sprite* sprite, char** data) {
                         ansiLine[j] = 0;
                         continue;
                     }
-                    if (ansiLine[j] != 0) free(ansiLine[j]);
+                    free(ansiLine[j]);
                 }
                 ansi[i] = realloc(ansiLine, sizeof(char*) * width);
                 if (ansi[i] == 0) return 0;
@@ -643,11 +641,14 @@ int Sprite_setAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
     CmdFX_tryLockMutex(_SPRITE_DATA_MUTEX);
 
     char* ansi0 = malloc(strlen(ansi) + 1);
-    if (ansi0 == 0) return 0;
+    if (ansi0 == 0) {
+        CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
+        return 0;
+    }
 
     strcpy(ansi0, ansi);
 
-    if (sprite->ansi[y][x] != 0) free(sprite->ansi[y][x]);
+    free(sprite->ansi[y][x]);
     sprite->ansi[y][x] = ansi0;
 
     CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
@@ -666,7 +667,10 @@ int Sprite_appendAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
     int ansiSize = strlen(ansi) + 1;
     if (sprite->ansi[y][x] == 0) {
         char* ansi0 = malloc(ansiSize);
-        if (ansi0 == 0) return 0;
+        if (ansi0 == 0) {
+            CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
+            return 0;
+        }
 
         strncpy(ansi0, ansi, ansiSize);
 
@@ -676,7 +680,10 @@ int Sprite_appendAnsi(CmdFX_Sprite* sprite, int x, int y, char* ansi) {
         int oldLen = strlen(sprite->ansi[y][x]);
         int size = oldLen + ansiSize;
         char* ansi0 = realloc(sprite->ansi[y][x], size);
-        if (ansi0 == 0) return 0;
+        if (ansi0 == 0) {
+            CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
+            return 0;
+        }
 
         sprite->ansi[y][x] = ansi0;
         strncat(
@@ -695,6 +702,7 @@ int Sprite_fillAnsi(
     CmdFX_Sprite* sprite, int x, int y, char* ansi, int width, int height
 ) {
     if (sprite == 0) return 0;
+    if (ansi == 0) return 0;
     if (sprite->ansi == 0) return 0;
     if (x < 0 || y < 0 || x >= sprite->width || y >= sprite->height) return 0;
 
@@ -705,9 +713,13 @@ int Sprite_fillAnsi(
         for (int j = x; j < x + width; j++) {
             if (j >= sprite->width) break;
             char* ansi0 = malloc(strlen(ansi) + 1);
+            if (ansi0 == 0) {
+                CmdFX_tryUnlockMutex(_SPRITE_DATA_MUTEX);
+                return 0;
+            }
             snprintf(ansi0, strlen(ansi) + 1, "%s", ansi);
 
-            if (sprite->ansi[i][j] != 0) free(sprite->ansi[i][j]);
+            free(sprite->ansi[i][j]);
             sprite->ansi[i][j] = ansi0;
         }
     }
@@ -722,14 +734,16 @@ int Sprite_fillAnsi(
 
 int Sprite_setAnsiAll(CmdFX_Sprite* sprite, char* ansi) {
     if (sprite == 0) return 0;
+    if (ansi == 0) return 0;
     if (sprite->ansi == 0) return 0;
 
     for (int i = 0; i < sprite->height; i++) {
         for (int j = 0; j < sprite->width; j++) {
             char* ansi0 = malloc(strlen(ansi) + 1);
+            if (ansi0 == 0) return 0;
             strncpy(ansi0, ansi, strlen(ansi) + 1);
 
-            if (sprite->ansi[i][j] != 0) free(sprite->ansi[i][j]);
+            free(sprite->ansi[i][j]);
             sprite->ansi[i][j] = ansi0;
         }
     }
@@ -799,7 +813,7 @@ CmdFX_Sprite* Sprite_loadFromFile(const char* path, int z) {
     if (file == 0) return 0;
 
     char** data = 0;
-    int width = 0, height = 0;
+    int height = 0;
 
     char line[1024];
     while (fgets(line, sizeof(line), file)) {
@@ -809,23 +823,28 @@ CmdFX_Sprite* Sprite_loadFromFile(const char* path, int z) {
         if (data == 0) {
             data = malloc(sizeof(char*) * 2);
             if (data == 0) break;
-            data[0] = malloc(sizeof(char) * (strlen(line) + 1));
+
+            int n = sizeof(char) * (strlen(line) + 1);
+            data[0] = malloc(n);
             if (data[0] == 0) {
                 free(data);
                 break;
             }
-            strcpy(data[0], line);
+            strncpy(data[0], line, n);
+
             data[1] = 0;
-            width = strlen(line);
             height = 1;
         }
         else {
             char** newData = realloc(data, sizeof(char*) * (height + 2));
             if (newData == 0) break;
+
             data = newData;
-            data[height] = malloc(sizeof(char) * (strlen(line) + 1));
+            int n = sizeof(char) * (strlen(line) + 1);
+            data[height] = malloc(n);
             if (data[height] == 0) break;
-            strcpy(data[height], line);
+            strncpy(data[height], line, n);
+
             data[height + 1] = 0;
             height++;
         }
@@ -913,14 +932,14 @@ int Sprite_resize0(CmdFX_Sprite* sprite, int width, int height, char padding) {
         free(sprite->data[i]);
         if (sprite->ansi != 0) {
             for (int j = 0; j < sprite->width; j++) {
-                if (sprite->ansi[i][j] != 0) free(sprite->ansi[i][j]);
+                free(sprite->ansi[i][j]);
             }
             free(sprite->ansi[i]);
         }
     }
 
     free(sprite->data);
-    if (sprite->ansi != 0) free(sprite->ansi);
+    free(sprite->ansi);
 
     sprite->data = newData;
     sprite->ansi = newAnsi;
@@ -1216,12 +1235,17 @@ int Sprite_setForeground(CmdFX_Sprite* sprite, int x, int y, int rgb) {
     if (rgb < 0 || rgb > 0xFFFFFF) return 0;
 
     char* ansi = malloc(22);
+    if (ansi == 0) return 0;
+
     snprintf(
         ansi, 22, "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF,
         rgb & 0xFF
     );
 
-    return Sprite_setAnsi(sprite, x, y, ansi);
+    int res = Sprite_setAnsi(sprite, x, y, ansi);
+    free(ansi);
+
+    return res;
 }
 
 int Sprite_setForeground256(CmdFX_Sprite* sprite, int x, int y, int color) {
@@ -1230,9 +1254,14 @@ int Sprite_setForeground256(CmdFX_Sprite* sprite, int x, int y, int color) {
     if (color < 0 || color > 255) return 0;
 
     char* ansi = malloc(14);
+    if (ansi == 0) return 0;
+
     snprintf(ansi, 14, "\033[38;5;%dm", color);
 
-    return Sprite_setAnsi(sprite, x, y, ansi);
+    int res = Sprite_setAnsi(sprite, x, y, ansi);
+    free(ansi);
+
+    return res;
 }
 
 int Sprite_setForegroundAll(CmdFX_Sprite* sprite, int rgb) {
@@ -1240,12 +1269,17 @@ int Sprite_setForegroundAll(CmdFX_Sprite* sprite, int rgb) {
     if (rgb < 0 || rgb > 0xFFFFFF) return 0;
 
     char* ansi = malloc(22);
+    if (ansi == 0) return 0;
+
     snprintf(
         ansi, 22, "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF,
         rgb & 0xFF
     );
 
-    return Sprite_setAnsiAll(sprite, ansi);
+    int res = Sprite_setAnsiAll(sprite, ansi);
+    free(ansi);
+
+    return res;
 }
 
 int Sprite_setForegroundAll256(CmdFX_Sprite* sprite, int color) {
@@ -1253,9 +1287,14 @@ int Sprite_setForegroundAll256(CmdFX_Sprite* sprite, int color) {
     if (color < 0 || color > 255) return 0;
 
     char* ansi = malloc(14);
+    if (ansi == 0) return 0;
+
     snprintf(ansi, 14, "\033[38;5;%dm", color);
 
-    return Sprite_setAnsiAll(sprite, ansi);
+    int res = Sprite_setAnsiAll(sprite, ansi);
+    free(ansi);
+
+    return res;
 }
 
 int Sprite_setBackground(CmdFX_Sprite* sprite, int x, int y, int rgb) {

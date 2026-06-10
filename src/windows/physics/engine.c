@@ -1,4 +1,5 @@
 #include <process.h>
+#include <stdatomic.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,45 +10,26 @@
 #include "cmdfx/physics/engine.h"
 #include "cmdfx/physics/motion.h"
 
-int _physicsRunning = 0;
-
-unsigned __stdcall Engine_applyMotion0(void* arg) {
-    CmdFX_Sprite* sprite = (CmdFX_Sprite*) arg;
-    if (sprite == 0) return 0;
-
-    Engine_applyMotion(sprite);
-    fflush(stdout);
-    return 0;
-}
+static atomic_int _physicsRunning = 0;
+static HANDLE _physicsThread = NULL;
 
 unsigned __stdcall _physicsLoop(void* arg) {
-    _physicsRunning = 1;
+    (void) arg;
 
     int sleep = (int) ((1000.0 / CmdFX_getTickSpeed()) * 1000000);
 
-    while (_physicsRunning) {
+    while (atomic_load(&_physicsRunning)) {
         CmdFX_Sprite** modified = Engine_tick();
 
         if (modified != 0) {
-            int i = 0;
-            while (modified[i] != 0) {
-                uintptr_t handle = _beginthreadex(
-                    NULL, 0, Engine_applyMotion0, modified[i], 0, NULL
-                );
-                if (handle == 0) {
-                    perror(
-                        "Failed to start physics engine thread for an "
-                        "inside sprite.\n"
-                    );
-                    exit(EXIT_FAILURE);
-                }
+            // apply motion synchronously for a deterministic integration order
+            for (int i = 0; modified[i] != 0; i++)
+                Engine_applyMotion(modified[i]);
 
-                CloseHandle((HANDLE) handle);
-                i++;
-            }
+            free(modified);
         }
 
-        free(modified);
+        fflush(stdout);
         sleepNanos(sleep);
     }
 
@@ -55,24 +37,34 @@ unsigned __stdcall _physicsLoop(void* arg) {
 }
 
 int Engine_start() {
-    if (_physicsRunning) return -1;
+    if (atomic_load(&_physicsRunning)) return -1;
 
-    uintptr_t physicsEngineThread;
-    physicsEngineThread = _beginthreadex(NULL, 0, _physicsLoop, NULL, 0, NULL);
-    if (physicsEngineThread == 0) {
-        perror("Failed to start physics engine loop.\n");
-        exit(EXIT_FAILURE);
+    if (!CmdFX_isThreadSafeEnabled()) CmdFX_initThreadSafe();
+
+    atomic_store(&_physicsRunning, 1);
+    uintptr_t thread = _beginthreadex(NULL, 0, _physicsLoop, NULL, 0, NULL);
+    if (thread == 0) {
+        atomic_store(&_physicsRunning, 0);
+        fprintf(stderr, "Failed to start physics engine loop.\n");
+        return -1;
     }
 
-    CloseHandle((HANDLE) physicsEngineThread);
-
+    _physicsThread = (HANDLE) thread;
     return 0;
 }
 
 int Engine_end() {
-    if (!_physicsRunning) return -1;
+    if (!atomic_load(&_physicsRunning)) return -1;
+    atomic_store(&_physicsRunning, 0);
 
-    _physicsRunning = 0;
+    // join the loop before freeing engine state to avoid a use after free
+    if (_physicsThread != NULL) {
+        WaitForSingleObject(_physicsThread, INFINITE);
+        CloseHandle(_physicsThread);
+        _physicsThread = NULL;
+    }
+
+    if (CmdFX_isThreadSafeEnabled()) CmdFX_destroyThreadSafe();
 
     return Engine_cleanup();
 }

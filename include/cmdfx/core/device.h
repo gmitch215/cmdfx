@@ -20,6 +20,10 @@ extern "C" {
 /**
  * @brief Gets the current keys being pressed.
  *
+ * @deprecated Non-functional under the ncurses backend: terminals cannot report
+ * which keys are currently held. This now always reports no keys. Listen for
+ * key input through the event system (CMDFX_EVENT_KEY) instead.
+ *
  * The size of the array is always 256, with each index corresponding to a
  * key code native to the operating system. If the key is being pressed, the
  * value at the index will be 1. If the key is not being pressed, the value
@@ -44,6 +48,10 @@ bool* Device_getKeyboardKeysPressed();
 
 /**
  * @brief Converts a key code to a character.
+ *
+ * @deprecated Non-functional under the ncurses backend; always returns 0. The
+ * character is provided directly on CMDFX_EVENT_KEY events (CmdFX_KeyEvent).
+ *
  * @param keyCode The key code to convert.
  * @return The character representation of the key code.
  */
@@ -51,6 +59,10 @@ char Device_fromKeyCode(int keyCode);
 
 /**
  * @brief Gets the current mouse button being pressed.
+ *
+ * @deprecated Non-functional under the ncurses backend: terminals cannot report
+ * which buttons are currently held. This now always reports no buttons. Listen
+ * for mouse input through the event system (CMDFX_EVENT_MOUSE) instead.
  *
  * This is a non-blocking method. This method gets the current mouse event.
  * If no mouse button is being pressed, all buttons will be 0.

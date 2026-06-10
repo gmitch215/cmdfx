@@ -13,8 +13,6 @@ int onResize(CmdFX_Event* event) {
 }
 
 int main() {
-    int r = 0;
-
     Canvas_clearScreen();
     addCmdFXEventListener(CMDFX_EVENT_RESIZE, onResize);
 

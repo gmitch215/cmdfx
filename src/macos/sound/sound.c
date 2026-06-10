@@ -28,16 +28,13 @@ int _Platform_initSoundSystem() {
 
     // Initialize Core Audio
     AudioComponentInstance* out = NULL;
-    OSStatus status = AudioComponentInstanceNew(
-        AudioComponentFindNext(
-            NULL, &(
-                      AudioComponentDescription
-                  ) {.componentType = kAudioUnitType_Output,
-                     .componentSubType = kAudioUnitSubType_DefaultOutput,
-                     .componentManufacturer = kAudioUnitManufacturer_Apple}
-        ),
-        out
-    );
+    AudioComponentDescription desc = {
+        .componentType = kAudioUnitType_Output,
+        .componentSubType = kAudioUnitSubType_DefaultOutput,
+        .componentManufacturer = kAudioUnitManufacturer_Apple,
+    };
+    OSStatus status =
+        AudioComponentInstanceNew(AudioComponentFindNext(NULL, &desc), out);
 
     if (status != noErr) {
         fprintf(
@@ -63,6 +60,11 @@ static OSStatus _audioRenderCallback(
     const AudioTimeStamp* inTimeStamp, UInt32 inBusNumber,
     UInt32 inNumberFrames, AudioBufferList* ioData
 ) {
+    (void) ioActionFlags;
+    (void) inTimeStamp;
+    (void) inBusNumber;
+    (void) inNumberFrames;
+
     _MacOSSoundData* soundData = (_MacOSSoundData*) inRefCon;
 
     if (!soundData || !soundData->isPlaying || soundData->isPaused) {
