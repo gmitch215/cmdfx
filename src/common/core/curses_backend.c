@@ -6,6 +6,21 @@
 
 #include "common/core/curses_backend.h"
 
+// some attributes are missing on certain curses builds (notably PDCurses); fall
+// back to A_NORMAL (a no-op) so the SGR mapping still compiles everywhere
+#ifndef A_DIM
+    #define A_DIM A_NORMAL
+#endif
+#ifndef A_BLINK
+    #define A_BLINK A_NORMAL
+#endif
+#ifndef A_INVIS
+    #define A_INVIS A_NORMAL
+#endif
+#ifndef A_ITALIC
+    #define A_ITALIC A_NORMAL
+#endif
+
 // backend state
 static int _initialized = 0;
 static int _headless = 0;
@@ -208,17 +223,13 @@ void CmdFX_curses_applySgr(const char* sgr) {
                 break;
             case 1: _curAttr |= A_BOLD; break;
             case 2: _curAttr |= A_DIM; break;
-#ifdef A_ITALIC
             case 3: _curAttr |= A_ITALIC; break;
-#endif
             case 4: _curAttr |= A_UNDERLINE; break;
             case 5: _curAttr |= A_BLINK; break;
             case 7: _curAttr |= A_REVERSE; break;
             case 8: _curAttr |= A_INVIS; break;
             case 22: _curAttr &= ~(A_BOLD | A_DIM); break;
-#ifdef A_ITALIC
             case 23: _curAttr &= ~A_ITALIC; break;
-#endif
             case 24: _curAttr &= ~A_UNDERLINE; break;
             case 25: _curAttr &= ~A_BLINK; break;
             case 27: _curAttr &= ~A_REVERSE; break;
@@ -333,7 +344,13 @@ int CmdFX_curses_poll(CmdFX_CursesEvent* out) {
 
     if (ch == KEY_MOUSE) {
         MEVENT me;
+        // ncurses uses getmouse(MEVENT*); PDCurses' getmouse() takes no args
+        // and exposes the ncurses-compatible version as nc_getmouse()
+#ifdef PDCURSES
+        if (nc_getmouse(&me) != OK) return 0;
+#else
         if (getmouse(&me) != OK) return 0;
+#endif
 
         out->type = CMDFX_CURSES_EVENT_MOUSE;
         out->mouseX = me.x + 1;
