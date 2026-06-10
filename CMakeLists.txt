@@ -111,16 +111,22 @@ if (WIN32)
             GIT_REPOSITORY https://github.com/wmcbrine/PDCurses.git
             GIT_TAG        3.9
         )
+        # PDCurses ships platform makefiles (no root CMake project), so this only
+        # downloads the sources
         FetchContent_MakeAvailable(pdcurses)
 
+        # compile PDCurses straight into cmdfx so the installed static library is
+        # self-contained -- a separate target cannot belong to cmdfx's export set
+        # (install(EXPORT) would fail), and its archive would not be installed
         file(GLOB PDCURSES_SRC
             ${pdcurses_SOURCE_DIR}/pdcurses/*.c
             ${pdcurses_SOURCE_DIR}/wincon/*.c
         )
-        add_library(pdcurses STATIC ${PDCURSES_SRC})
-        target_include_directories(pdcurses PUBLIC ${pdcurses_SOURCE_DIR})
-
-        target_link_libraries(cmdfx PRIVATE pdcurses)
+        # third-party sources: do not subject them to -Wall -Wextra
+        set_source_files_properties(
+            ${PDCURSES_SRC} PROPERTIES COMPILE_OPTIONS "-w"
+        )
+        target_sources(cmdfx PRIVATE ${PDCURSES_SRC})
         target_include_directories(cmdfx PRIVATE ${pdcurses_SOURCE_DIR})
     endif()
 else()
