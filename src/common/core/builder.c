@@ -2175,4 +2175,194 @@ int String2DBuilder_multiGradientsBackgroundFull(
     );
 }
 
+// Utility Functions - Solid Color (ANSI)
+
+// appends an SGR escape onto every cell in a region; foreground and background
+// compose because curses applies each code in a cell string in order
+int _appendRegionAnsi(
+    char*** array, int x, int y, int width, int height, const char* code
+) {
+    if (array == 0 || code == 0) return -1;
+    if (x < 0 || y < 0 || width <= 0 || height <= 0) return -1;
+
+    int arrWidth = getStringArrayWidth(array);
+    int arrHeight = getStringArrayHeight(array);
+    if (arrWidth <= 0 || arrHeight <= 0) return -1;
+    if (x + width > arrWidth || y + height > arrHeight) return -1;
+
+    size_t codeLen = strlen(code);
+    for (int i = 0; i < height; i++)
+        for (int j = 0; j < width; j++) {
+            char* old = array[y + i][x + j];
+            size_t oldLen = old != 0 ? strlen(old) : 0;
+
+            char* buf = malloc(oldLen + codeLen + 1);
+            if (buf == 0) return -1;
+
+            if (old != 0) memcpy(buf, old, oldLen);
+            memcpy(buf + oldLen, code, codeLen + 1);
+
+            free(old);
+            array[y + i][x + j] = buf;
+        }
+
+    return 0;
+}
+
+char*** String2DBuilder_createFilledForeground(int width, int height, int rgb) {
+    if (rgb < 0 || rgb > 0xFFFFFF) return 0;
+
+    char buf[22];
+    snprintf(
+        buf, sizeof(buf), "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF,
+        (rgb >> 8) & 0xFF, rgb & 0xFF
+    );
+    return String2DBuilder_createFilled(width, height, buf);
+}
+
+char*** String2DBuilder_createFilledBackground(int width, int height, int rgb) {
+    if (rgb < 0 || rgb > 0xFFFFFF) return 0;
+
+    char buf[22];
+    snprintf(
+        buf, sizeof(buf), "\033[48;2;%d;%d;%dm", (rgb >> 16) & 0xFF,
+        (rgb >> 8) & 0xFF, rgb & 0xFF
+    );
+    return String2DBuilder_createFilled(width, height, buf);
+}
+
+char*** String2DBuilder_createFilledForeground256(
+    int width, int height, int color
+) {
+    if (color < 0 || color > 255) return 0;
+
+    char buf[14];
+    snprintf(buf, sizeof(buf), "\033[38;5;%dm", color);
+    return String2DBuilder_createFilled(width, height, buf);
+}
+
+char*** String2DBuilder_createFilledBackground256(
+    int width, int height, int color
+) {
+    if (color < 0 || color > 255) return 0;
+
+    char buf[14];
+    snprintf(buf, sizeof(buf), "\033[48;5;%dm", color);
+    return String2DBuilder_createFilled(width, height, buf);
+}
+
+char*** String2DBuilder_createFilledColor8(int width, int height, int color) {
+    if (color < 30 || color > 107) return 0;
+
+    char buf[9];
+    snprintf(buf, sizeof(buf), "\033[%dm", color);
+    return String2DBuilder_createFilled(width, height, buf);
+}
+
+int String2DBuilder_setForeground(
+    char*** array, int x, int y, int width, int height, int rgb
+) {
+    if (rgb < 0 || rgb > 0xFFFFFF) return -1;
+
+    char buf[22];
+    snprintf(
+        buf, sizeof(buf), "\033[38;2;%d;%d;%dm", (rgb >> 16) & 0xFF,
+        (rgb >> 8) & 0xFF, rgb & 0xFF
+    );
+    return _appendRegionAnsi(array, x, y, width, height, buf);
+}
+
+int String2DBuilder_setForegroundAll(char*** array, int rgb) {
+    if (array == 0) return -1;
+
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
+    if (width <= 0 || height <= 0) return -1;
+
+    return String2DBuilder_setForeground(array, 0, 0, width, height, rgb);
+}
+
+int String2DBuilder_setBackground(
+    char*** array, int x, int y, int width, int height, int rgb
+) {
+    if (rgb < 0 || rgb > 0xFFFFFF) return -1;
+
+    char buf[22];
+    snprintf(
+        buf, sizeof(buf), "\033[48;2;%d;%d;%dm", (rgb >> 16) & 0xFF,
+        (rgb >> 8) & 0xFF, rgb & 0xFF
+    );
+    return _appendRegionAnsi(array, x, y, width, height, buf);
+}
+
+int String2DBuilder_setBackgroundAll(char*** array, int rgb) {
+    if (array == 0) return -1;
+
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
+    if (width <= 0 || height <= 0) return -1;
+
+    return String2DBuilder_setBackground(array, 0, 0, width, height, rgb);
+}
+
+int String2DBuilder_setForeground256(
+    char*** array, int x, int y, int width, int height, int color
+) {
+    if (color < 0 || color > 255) return -1;
+
+    char buf[14];
+    snprintf(buf, sizeof(buf), "\033[38;5;%dm", color);
+    return _appendRegionAnsi(array, x, y, width, height, buf);
+}
+
+int String2DBuilder_setForegroundAll256(char*** array, int color) {
+    if (array == 0) return -1;
+
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
+    if (width <= 0 || height <= 0) return -1;
+
+    return String2DBuilder_setForeground256(array, 0, 0, width, height, color);
+}
+
+int String2DBuilder_setBackground256(
+    char*** array, int x, int y, int width, int height, int color
+) {
+    if (color < 0 || color > 255) return -1;
+
+    char buf[14];
+    snprintf(buf, sizeof(buf), "\033[48;5;%dm", color);
+    return _appendRegionAnsi(array, x, y, width, height, buf);
+}
+
+int String2DBuilder_setBackgroundAll256(char*** array, int color) {
+    if (array == 0) return -1;
+
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
+    if (width <= 0 || height <= 0) return -1;
+
+    return String2DBuilder_setBackground256(array, 0, 0, width, height, color);
+}
+
+int String2DBuilder_setColor8(
+    char*** array, int x, int y, int width, int height, int color
+) {
+    if (color < 30 || color > 107) return -1;
+
+    char buf[9];
+    snprintf(buf, sizeof(buf), "\033[%dm", color);
+    return _appendRegionAnsi(array, x, y, width, height, buf);
+}
+
+int String2DBuilder_setColor8All(char*** array, int color) {
+    if (array == 0) return -1;
+
+    int width = getStringArrayWidth(array);
+    int height = getStringArrayHeight(array);
+    if (width <= 0 || height <= 0) return -1;
+
+    return String2DBuilder_setColor8(array, 0, 0, width, height, color);
+}
+
 #pragma endregion

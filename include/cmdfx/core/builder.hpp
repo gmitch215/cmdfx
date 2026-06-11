@@ -424,5 +424,55 @@ int multiGradientsBackgroundFull(
         array, numColors, colors, percentages, direction
     );
 }
+
+char*** createStringArrayFilledForeground(int width, int height, int rgb) {
+    return String2DBuilder_createFilledForeground(width, height, rgb);
+}
+char*** createStringArrayFilledBackground(int width, int height, int rgb) {
+    return String2DBuilder_createFilledBackground(width, height, rgb);
+}
+char*** createStringArrayFilledForeground256(int width, int height, int color) {
+    return String2DBuilder_createFilledForeground256(width, height, color);
+}
+char*** createStringArrayFilledBackground256(int width, int height, int color) {
+    return String2DBuilder_createFilledBackground256(width, height, color);
+}
+char*** createStringArrayFilledColor8(int width, int height, int color) {
+    return String2DBuilder_createFilledColor8(width, height, color);
+}
+int setForeground(char*** array, int x, int y, int width, int height, int rgb) {
+    return String2DBuilder_setForeground(array, x, y, width, height, rgb);
+}
+int setForegroundAll(char*** array, int rgb) {
+    return String2DBuilder_setForegroundAll(array, rgb);
+}
+int setBackground(char*** array, int x, int y, int width, int height, int rgb) {
+    return String2DBuilder_setBackground(array, x, y, width, height, rgb);
+}
+int setBackgroundAll(char*** array, int rgb) {
+    return String2DBuilder_setBackgroundAll(array, rgb);
+}
+int setForeground256(
+    char*** array, int x, int y, int width, int height, int color
+) {
+    return String2DBuilder_setForeground256(array, x, y, width, height, color);
+}
+int setForegroundAll256(char*** array, int color) {
+    return String2DBuilder_setForegroundAll256(array, color);
+}
+int setBackground256(
+    char*** array, int x, int y, int width, int height, int color
+) {
+    return String2DBuilder_setBackground256(array, x, y, width, height, color);
+}
+int setBackgroundAll256(char*** array, int color) {
+    return String2DBuilder_setBackgroundAll256(array, color);
+}
+int setColor8(char*** array, int x, int y, int width, int height, int color) {
+    return String2DBuilder_setColor8(array, x, y, width, height, color);
+}
+int setColor8All(char*** array, int color) {
+    return String2DBuilder_setColor8All(array, color);
+}
 }; // namespace Builder
 } // namespace CmdFX

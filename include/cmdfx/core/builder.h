@@ -1297,6 +1297,211 @@ int String2DBuilder_multiGradientsBackgroundFull(
     enum CmdFX_GradientDirection direction
 );
 
+// Utility Functions - Solid Color (String)
+
+/**
+ * @brief Creates a 2D String Array filled with a foreground RGB color.
+ *
+ * This is the solid-color counterpart to the gradient functions. Every cell
+ * is filled with the ANSI escape for the given 24-bit RGB foreground color,
+ * in the format `0xRRGGBB`. This is useful for creating a colored overlay for
+ * a scene or sprite without writing escape sequences by hand.
+ *
+ * @param width The width of the array.
+ * @param height The height of the array.
+ * @param rgb The RGB foreground color, as `0xRRGGBB`.
+ * @return The 2D String Array, or 0 if an error occurred.
+ */
+char*** String2DBuilder_createFilledForeground(int width, int height, int rgb);
+
+/**
+ * @brief Creates a 2D String Array filled with a background RGB color.
+ *
+ * Every cell is filled with the ANSI escape for the given 24-bit RGB
+ * background color, in the format `0xRRGGBB`.
+ *
+ * @param width The width of the array.
+ * @param height The height of the array.
+ * @param rgb The RGB background color, as `0xRRGGBB`.
+ * @return The 2D String Array, or 0 if an error occurred.
+ */
+char*** String2DBuilder_createFilledBackground(int width, int height, int rgb);
+
+/**
+ * @brief Creates a 2D String Array filled with a 256-color foreground.
+ *
+ * Every cell is filled with the ANSI escape for the given 256-color palette
+ * index (0 - 255), matching `Canvas_setForeground256`.
+ *
+ * @param width The width of the array.
+ * @param height The height of the array.
+ * @param color The 256-color palette index (0 - 255).
+ * @return The 2D String Array, or 0 if an error occurred.
+ */
+char*** String2DBuilder_createFilledForeground256(
+    int width, int height, int color
+);
+
+/**
+ * @brief Creates a 2D String Array filled with a 256-color background.
+ *
+ * Every cell is filled with the ANSI escape for the given 256-color palette
+ * index (0 - 255), matching `Canvas_setBackground256`.
+ *
+ * @param width The width of the array.
+ * @param height The height of the array.
+ * @param color The 256-color palette index (0 - 255).
+ * @return The 2D String Array, or 0 if an error occurred.
+ */
+char*** String2DBuilder_createFilledBackground256(
+    int width, int height, int color
+);
+
+/**
+ * @brief Creates a 2D String Array filled with an 8/16-color SGR code.
+ *
+ * Every cell is filled with the ANSI escape `\033[{color}m`, matching
+ * `Canvas_setColor8`. The code itself selects foreground or background: 30-37
+ * and 90-97 are foreground colors, 40-47 and 100-107 are background colors.
+ *
+ * @param width The width of the array.
+ * @param height The height of the array.
+ * @param color The SGR color code (30 - 107).
+ * @return The 2D String Array, or 0 if an error occurred.
+ */
+char*** String2DBuilder_createFilledColor8(int width, int height, int color);
+
+/**
+ * @brief Applies a foreground RGB color to a region of a 2D String Array.
+ *
+ * The color is composed onto each cell in the rectangle, so a foreground and
+ * a background color can be layered with separate calls. The array must
+ * already have known dimensions (created with a `Filled` function), and the
+ * region must fit within them.
+ *
+ * @param array The 2D String Array.
+ * @param x The top-left X position.
+ * @param y The top-left Y position.
+ * @param width The width of the region.
+ * @param height The height of the region.
+ * @param rgb The RGB foreground color, as `0xRRGGBB`.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int String2DBuilder_setForeground(
+    char*** array, int x, int y, int width, int height, int rgb
+);
+
+/**
+ * @brief Applies a foreground RGB color to the entire 2D String Array.
+ *
+ * @param array The 2D String Array.
+ * @param rgb The RGB foreground color, as `0xRRGGBB`.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int String2DBuilder_setForegroundAll(char*** array, int rgb);
+
+/**
+ * @brief Applies a background RGB color to a region of a 2D String Array.
+ *
+ * The color is composed onto each cell in the rectangle, so a foreground and
+ * a background color can be layered with separate calls.
+ *
+ * @param array The 2D String Array.
+ * @param x The top-left X position.
+ * @param y The top-left Y position.
+ * @param width The width of the region.
+ * @param height The height of the region.
+ * @param rgb The RGB background color, as `0xRRGGBB`.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int String2DBuilder_setBackground(
+    char*** array, int x, int y, int width, int height, int rgb
+);
+
+/**
+ * @brief Applies a background RGB color to the entire 2D String Array.
+ *
+ * @param array The 2D String Array.
+ * @param rgb The RGB background color, as `0xRRGGBB`.
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int String2DBuilder_setBackgroundAll(char*** array, int rgb);
+
+/**
+ * @brief Applies a 256-color foreground to a region of a 2D String Array.
+ *
+ * @param array The 2D String Array.
+ * @param x The top-left X position.
+ * @param y The top-left Y position.
+ * @param width The width of the region.
+ * @param height The height of the region.
+ * @param color The 256-color palette index (0 - 255).
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int String2DBuilder_setForeground256(
+    char*** array, int x, int y, int width, int height, int color
+);
+
+/**
+ * @brief Applies a 256-color foreground to the entire 2D String Array.
+ *
+ * @param array The 2D String Array.
+ * @param color The 256-color palette index (0 - 255).
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int String2DBuilder_setForegroundAll256(char*** array, int color);
+
+/**
+ * @brief Applies a 256-color background to a region of a 2D String Array.
+ *
+ * @param array The 2D String Array.
+ * @param x The top-left X position.
+ * @param y The top-left Y position.
+ * @param width The width of the region.
+ * @param height The height of the region.
+ * @param color The 256-color palette index (0 - 255).
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int String2DBuilder_setBackground256(
+    char*** array, int x, int y, int width, int height, int color
+);
+
+/**
+ * @brief Applies a 256-color background to the entire 2D String Array.
+ *
+ * @param array The 2D String Array.
+ * @param color The 256-color palette index (0 - 255).
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int String2DBuilder_setBackgroundAll256(char*** array, int color);
+
+/**
+ * @brief Applies an 8/16-color SGR code to a region of a 2D String Array.
+ *
+ * The code selects foreground or background: 30-37 and 90-97 are foreground
+ * colors, 40-47 and 100-107 are background colors. Matches `Canvas_setColor8`.
+ *
+ * @param array The 2D String Array.
+ * @param x The top-left X position.
+ * @param y The top-left Y position.
+ * @param width The width of the region.
+ * @param height The height of the region.
+ * @param color The SGR color code (30 - 107).
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int String2DBuilder_setColor8(
+    char*** array, int x, int y, int width, int height, int color
+);
+
+/**
+ * @brief Applies an 8/16-color SGR code to the entire 2D String Array.
+ *
+ * @param array The 2D String Array.
+ * @param color The SGR color code (30 - 107).
+ * @return 0 if successful, -1 if an error occurred.
+ */
+int String2DBuilder_setColor8All(char*** array, int color);
+
 #pragma endregion
 
 #ifdef __cplusplus
