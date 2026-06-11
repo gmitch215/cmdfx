@@ -148,12 +148,13 @@ void Scene_draw0(
             if (!Scene_isOnTopAt(scene, cx, cy)) continue;
 
             Canvas_setCursor(cx, cy);
-            CmdFX_curses_putCharHere(c);
 
-            if (scene->ansiData != 0) {
-                char* ansi = scene->ansiData[i][j];
-                if (ansi != 0) Canvas_setAnsiCurrent(ansi);
-            }
+            // apply the cell color before drawing so it lands on this char, not
+            // the next one, then reset so an uncolored cell stays default
+            char* ansi = scene->ansiData != 0 ? scene->ansiData[i][j] : 0;
+            if (ansi != 0) Canvas_setAnsiCurrent(ansi);
+            CmdFX_curses_putCharHere(c);
+            if (ansi != 0) Canvas_resetFormat();
         }
 
     // draw buttons on the scene
@@ -222,8 +223,10 @@ int Scene_draw(CmdFX_Scene* scene, int x, int y) {
 
     scene->x = x;
     scene->y = y;
-    Scene_draw0(scene, x, y, 0, 0, scene->width, scene->height);
+    // register in the drawn list first so Scene_draw0's on-top check sees this
+    // scene and actually paints it
     Scene_draw1(scene, x, y, 0, 0, scene->width, scene->height);
+    Scene_draw0(scene, x, y, 0, 0, scene->width, scene->height);
     return 0;
 }
 
@@ -237,8 +240,9 @@ int Scene_drawPortion(
 
     scene->x = x;
     scene->y = y;
-    Scene_draw0(scene, x, y, sx, sy, width, height);
+
     Scene_draw1(scene, x, y, sx, sy, width, height);
+    Scene_draw0(scene, x, y, sx, sy, width, height);
     return 0;
 }
 
