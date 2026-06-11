@@ -8,6 +8,7 @@
 #include "cmdfx/physics/engine.h"
 #include "cmdfx/physics/mass.h"
 #include "cmdfx/physics/motion.h"
+#include "common/core/curses_backend.h"
 
 // 0 - vx
 // 1 - vy
@@ -260,26 +261,27 @@ int Sprite_isAboutToCollide(CmdFX_Sprite* sprite1, CmdFX_Sprite* sprite2) {
         return 0; // not colliding + no motion = not about to collide
     }
 
+    // next-step displacement of each sprite
     double dx1 = motion1[0] + motion1[2];
     double dy1 = motion1[1] + motion1[3];
     double dx2 = motion2[0] + motion2[2];
     double dy2 = motion2[1] + motion2[3];
-
-    // expanded aabb overlap in either direction means an imminent collision
-    int forward = sprite1->x <= sprite2->x + sprite2->width + dx2 &&
-                  sprite1->x + sprite1->width + dx1 >= sprite2->x &&
-                  sprite1->y <= sprite2->y + sprite2->height + dy2 &&
-                  sprite1->y + sprite1->height + dy1 >= sprite2->y;
-    int backward = sprite2->x <= sprite1->x + sprite1->width + dx1 &&
-                   sprite2->x + sprite2->width + dx2 >= sprite1->x &&
-                   sprite2->y <= sprite1->y + sprite1->height + dy1 &&
-                   sprite2->y + sprite2->height + dy2 >= sprite1->y;
-
-    int result = forward || backward;
-
     free(motion1);
     free(motion2);
-    return result;
+
+    // sweep sprite1 against a stationary sprite2 using their relative motion;
+    // a collision is imminent only if sprite1's swept box over one step still
+    // overlaps sprite2, so diverging or merely passing paths never trigger
+    double rdx = dx1 - dx2;
+    double rdy = dy1 - dy2;
+
+    double minX = sprite1->x + (rdx < 0 ? rdx : 0);
+    double maxX = sprite1->x + sprite1->width + (rdx > 0 ? rdx : 0);
+    double minY = sprite1->y + (rdy < 0 ? rdy : 0);
+    double maxY = sprite1->y + sprite1->height + (rdy > 0 ? rdy : 0);
+
+    return minX <= sprite2->x + sprite2->width && maxX >= sprite2->x &&
+           minY <= sprite2->y + sprite2->height && maxY >= sprite2->y;
 }
 
 CmdFX_Sprite** Sprite_getAboutToCollideSprites(CmdFX_Sprite* sprite) {
@@ -381,6 +383,48 @@ void _checkLeftovers(CmdFX_Sprite* sprite) {
     }
 }
 
+// conservative advancement: clamp a world-space integer move so this sprite
+// stops flush against another non-static sprite instead of overshooting into
+// or tunneling through it; the elastic response then resolves on contact
+void _clampMoveToContact(CmdFX_Sprite* sprite, int* wdx, int* wdy) {
+    CmdFX_Sprite** sprites = Canvas_getDrawnSprites();
+    if (sprites == 0) return;
+
+    int count = Canvas_getDrawnSpritesCount();
+    for (int i = 0; i < count; i++) {
+        CmdFX_Sprite* o = sprites[i];
+        if (o == 0 || o == sprite) continue;
+        if (o->id == 0 || o->id == sprite->id) continue;
+        if (Sprite_isStatic(o)) continue;
+
+        // x axis, only while the rows currently overlap
+        if (*wdx != 0 && sprite->y < o->y + o->height &&
+            sprite->y + sprite->height > o->y) {
+            if (*wdx > 0 && o->x >= sprite->x + sprite->width) {
+                int gap = o->x - (sprite->x + sprite->width);
+                if (*wdx > gap) *wdx = gap;
+            }
+            else if (*wdx < 0 && o->x + o->width <= sprite->x) {
+                int gap = sprite->x - (o->x + o->width);
+                if (-*wdx > gap) *wdx = -gap;
+            }
+        }
+
+        // y axis, only while the columns currently overlap
+        if (*wdy != 0 && sprite->x < o->x + o->width &&
+            sprite->x + sprite->width > o->x) {
+            if (*wdy > 0 && o->y >= sprite->y + sprite->height) {
+                int gap = o->y - (sprite->y + sprite->height);
+                if (*wdy > gap) *wdy = gap;
+            }
+            else if (*wdy < 0 && o->y + o->height <= sprite->y) {
+                int gap = sprite->y - (o->y + o->height);
+                if (-*wdy > gap) *wdy = -gap;
+            }
+        }
+    }
+}
+
 void Engine_applyMotion(CmdFX_Sprite* sprite) {
     if (sprite == 0) return;
     if (sprite->id == 0) return;
@@ -463,26 +507,37 @@ void Engine_applyMotion(CmdFX_Sprite* sprite) {
     if (_motionDebugEnabled) {
         double mass = Sprite_getMass(sprite);
 
-        CmdFX_tryLockMutex(_CANVAS_MUTEX);
-
-        Canvas_setCursor(3, sprite->id + 1);
-        printf("\033[0m");
-        printf(
+        // a raw printf bypasses the curses backend and scrolls the screen into
+        // a flow of output, so format the line and stamp it through curses
+        char buf[192];
+        int len = snprintf(
+            buf, sizeof(buf),
             "sprite #%d | mass: %.2f | vx: %.2f, vy: %.2f, ax: %.2f, ay: "
-            "%.2f -- dx: %.2f, dy: "
-            "%.2f -- x: %d -> "
-            "%.2f, y: %d -> %.2f",
-            sprite->id, mass, motion[0], motion[1], motion[2], motion[3], dx,
-            dy, sprite->x, sprite->x + dx, sprite->y, sprite->y - dy
+            "%.2f -- dx: %.2f, dy: %.2f -- x: %d -> %.2f, y: %d -> %.2f",
+            sprite->id, mass, vx, vy, ax, ay, dx, dy, sprite->x, sprite->x + dx,
+            sprite->y, sprite->y - dy
         );
-        fflush(stdout);
-        Canvas_setCursor(0, 0);
+        if (len < 0) len = 0;
 
+        // pad so a shorter line overwrites the previous frame in place
+        while (len < 140 && len < (int) sizeof(buf) - 1) buf[len++] = ' ';
+        buf[len] = 0;
+
+        CmdFX_tryLockMutex(_CANVAS_MUTEX);
+        int row = sprite->id + 1;
+        CmdFX_curses_resetAttributes();
+        for (int i = 0; i < len; i++)
+            CmdFX_curses_putCharAt(3 + i, row, buf[i]);
+        CmdFX_curses_refresh();
         CmdFX_tryUnlockMutex(_CANVAS_MUTEX);
     }
 
-    // Move Sprite
-    Sprite_moveBy(sprite, dx0, -dy0); // reverse dy
+    // Move Sprite, clamped so it stops flush against another sprite rather
+    // than reversing a full tick early or tunneling through it
+    int wdx = dx0;
+    int wdy = -dy0; // world delta (y grows downward); reverse dy
+    _clampMoveToContact(sprite, &wdx, &wdy);
+    Sprite_moveBy(sprite, wdx, wdy);
 
     // atomically update motion state for next frame
     CmdFX_tryLockMutex(_SPRITE_MOTION_MUTEX);

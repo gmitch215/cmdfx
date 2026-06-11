@@ -238,20 +238,14 @@ CmdFX_Sprite** Engine_tick() {
         if (ground == 0 || sprite->y + sprite->height < ground)
             day -= forceOfGravity;
 
-        // Collision Forces
-        CmdFX_Sprite** colliding = Sprite_getAboutToCollideSprites(sprite);
+        CmdFX_Sprite** colliding = Sprite_getCollidingSprites(sprite);
         if (colliding != 0) {
             for (int j = 0; colliding[j] != 0; j++) {
                 CmdFX_Sprite* other = colliding[j];
                 if (Sprite_isStatic(other)) continue;
 
-                // Prevent double processing and ensure deterministic order
-                // Always process collision from lower ID sprite's perspective
                 if (sprite->id > other->id) continue;
 
-                // Lock both sprites to avoid concurrent updates while computing
-                // collision response. Lock in stable order to prevent
-                // deadlocks.
                 _lockSpritePair(sprite, other);
 
                 // m1u1 + m2u2 = m1v1 + m2v2

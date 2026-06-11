@@ -6,6 +6,10 @@
  * This is a simple demo program showcasing the collision detection and
  * resolution in the CmdFX Physics Engine.
  *
+ * Two blocks of different mass slide toward each other across a frictionless
+ * floor and bounce apart according to an elastic collision. The optional first
+ * argument scales the simulation speed.
+ *
  * @copyright Copyright (c) 2025
  *
  */
@@ -15,56 +19,60 @@
 #include <stdlib.h>
 
 int main(int argc, char** argv) {
-    char** data1 = Char2DBuilder_createFilled(5, 5, '#');
-    CmdFX_Sprite* sprite1 = Sprite_create(data1, 0, 0);
-    Engine_setCharacterMass('#', 1.0);
-
-    char** data2 = Char2DBuilder_createFilled(5, 5, '@');
-    CmdFX_Sprite* sprite2 = Sprite_create(data2, 0, 0);
-    Engine_setCharacterMass('@', 1.5);
-
     double speed = 1;
     if (argc > 1) {
-        speed = atof(argv[1]);
-        if (speed > 0) CmdFX_setTickSpeed((int) (CmdFX_getTickSpeed() * speed));
-    }
-    double friction = Engine_getDefaultFrictionCoefficient();
-    if (argc > 2) {
-        friction = atof(argv[2]);
-        if (friction >= 0) Engine_setDefaultFrictionCoefficient(friction);
+        double s = atof(argv[1]);
+        if (s > 0) speed = s;
     }
 
-    // Initialize threading first, before any drawing operations
     CmdFX_initThreadSafe();
 
     Canvas_clearScreen();
     Canvas_hideCursor();
+
+    int width = Canvas_getWidth();
+    int height = Canvas_getHeight();
+    if (width < 20 || height < 12) {
+        Canvas_showCursor();
+        printf("Terminal too small for the collision demo.\n");
+        return 1;
+    }
+
+    // pure horizontal collision: no gravity and no friction so the blocks
+    // coast toward each other and bounce instead of accelerating off-screen
+    Engine_setForceOfGravity(0);
+    Engine_setDefaultFrictionCoefficient(0);
+    CmdFX_setTickSpeed((int) (CmdFX_getTickSpeed() * speed));
+
+    // two equal-size blocks with different masses
+    CmdFX_Sprite* sprite1 =
+        Sprite_create(Char2DBuilder_createFilled(5, 5, '#'), 0, 0);
+    CmdFX_Sprite* sprite2 =
+        Sprite_create(Char2DBuilder_createFilled(5, 5, '@'), 0, 0);
+    Engine_setCharacterMass('#', 1.0);
+    Engine_setCharacterMass('@', 1.5);
+
+    // straddle the vertical middle and rest on a cosmetic floor line
+    int row = height / 2 - 2;
+    Canvas_hLine(1, row + 5, width, '-');
+
+    Sprite_draw(3, row, sprite1);
+    Sprite_draw(width - 5 - 2, row, sprite2);
+
+    Sprite_setForegroundAll(sprite1, 0x00BFFF);
+    Sprite_setForegroundAll(sprite2, 0xFF5555);
+
+    // gentle approaching velocities; small per-tick steps keep the collision
+    // visible instead of tunneling through each other
+    Sprite_setVelocityX(sprite1, 2.0);
+    Sprite_setVelocityX(sprite2, -2.0);
+
     Engine_enableMotionDebug();
-
-    // Draw static elements first
-    Canvas_hLine(0, Engine_getGroundY(), Canvas_getWidth(), '-');
-    Canvas_hLine(0, 1, Canvas_getWidth(), '-');
-
-    Sprite_draw(2, Canvas_getHeight() - sprite1->height - 1, sprite1);
-    Sprite_draw(
-        Canvas_getWidth() - sprite2->width - 2,
-        Canvas_getHeight() - sprite2->height - 1, sprite2
-    );
-
-    // Start physics engine after all initial drawing is done
     Engine_start();
 
-    CmdFX_Vector* velocity1 = Vector_create(3.0, 0);
-    CmdFX_Vector* velocity2 = Vector_create(-2.5, 0);
+    sleepMillis((unsigned long) (8000 / speed));
 
-    Sprite_addForceFor(sprite1, velocity1, 300 / speed);
-    Sprite_addForceFor(sprite2, velocity2, 300 / speed);
-    sleepMillis(10000 / speed);
-
-    // Cleanup in proper order: engine first, then threading, then sprites
     Engine_end();
-    free(velocity1);
-    free(velocity2);
     Sprite_free(sprite1);
     Sprite_free(sprite2);
     CmdFX_destroyThreadSafe();
