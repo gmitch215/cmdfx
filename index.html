@@ -25,7 +25,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;1.0.0</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;1.0.1</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -79,9 +79,11 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md__2home_2runner_2work_2cmdfx_2cmdfx_2README"></a> </p><div style="display: flex; align-items: center; flex-direction: column;" align="center"> <img src="https://cdn.gmitch215.xyz/cmdfx.png" alt="" align="center" style="align-self: center; max-width: 256px" width="30%" class="inline"/> <h1 style="text-align: center;"><a class="el" href="de/df4/namespaceCmdFX.html" title="Primary namespace for CmdFX.">CmdFX</a></h1>
 </div><div style="display: flex; align-items: center; flex-direction: column;" align="center"> </div><div style="display: flex; align-items: center; flex-direction: column;" align="center">A lightweight game engine for your terminal.</div><div style="display: flex; align-items: center; flex-direction: column;" align="center"> <div align="center"> <img src="https://img.shields.io/github/v/release/gmitch215/cmdfx" alt="" class="inline"/> <img src="https://img.shields.io/github/downloads/gmitch215/cmdfx/total" alt="" class="inline"/> <img src="https://img.shields.io/github/license/gmitch215/cmdfx" alt="" class="inline"/> <img src="https://img.shields.io/github/stars/gmitch215/cmdfx?style=flat" alt="" class="inline"/> <img src="https://img.shields.io/github/commit-activity/t/gmitch215/cmdfx?color=violet" alt="" class="inline"/> </div> </div><hr  />
+<p><img src="./assets/maze.png" alt="cmdfx maze sample" class="inline"/></p>
+<hr  />
 <p><b>cmdfx</b> is a lightweight game engine for your terminal, allowing you to create some pretty wild things. It is designed to be simple and easy to use, while still providing a powerful set of features.</p>
 <p>It is written in C and is available cross-platform. It is licensed under the MIT license.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
 🍎 Features</h2>
 <ul>
 <li><b>Cross-platform</b>: cmdfx is available on Windows, macOS, and Linux.</li>
@@ -90,7 +92,7 @@ $(function() {
 <li><b>Easy to use</b>: cmdfx is simple to use and easy to learn.</li>
 <li><b>Powerful</b>: cmdfx provides a powerful set of features for creating terminal-based games.</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
 📋 Highlighted Features</h3>
 <p>For a full method list, check out the <a href="https://gmitch215.github.io/cmdfx/">documentation</a>.</p>
 <ul>
@@ -139,13 +141,13 @@ $(function() {
 </ul>
 </li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
 📦 Installation</h2>
 <p>You can download the latest release of cmdfx from the <a href="https://github.com/gmitch215/cmdfx/releases">releases page</a>.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Install via Script</h3>
 <p>Use the cross-platform Bash installer to clone, build, and install cmdfx with CMake.</p>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
 Prerequisites</h4>
 <p>cmdfx renders through a curses library, so a curses development package is required:</p>
 <ul>
@@ -157,7 +159,7 @@ Prerequisites</h4>
 <div class="fragment"><div class="line">sudo apt-get update</div>
 <div class="line">sudo apt-get install -y libasound2-dev libncursesw5-dev</div>
 </div><!-- fragment --><p>If ALSA is not installed, sound support will not be built.</p>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
 Running the Installer</h4>
 <div class="fragment"><div class="line"># default install (includes kotlin/native, tests, docs, full clone)</div>
 <div class="line">curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash</div>
@@ -211,13 +213,13 @@ Running the Installer</h4>
 </ul>
 <div class="fragment"><div class="line">curl -fsSL https://raw.githubusercontent.com/gmitch215/cmdfx/master/install.sh | bash -s -- --no-tests --no-docs</div>
 </div><!-- fragment --><p>Run <span class="tt">./install.sh --help</span> for full options.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
 Install via Homebrew</h3>
 <p>A <span class="tt">homebrew/core</span> submission is in progress. Until it lands, install from this repository's tap:</p>
 <div class="fragment"><div class="line">brew tap gmitch215/cmdfx https://github.com/gmitch215/cmdfx</div>
 <div class="line">brew install gmitch215/cmdfx/cmdfx</div>
 </div><!-- fragment --><p>This builds cmdfx from source and pulls in <span class="tt">ncurses</span> (and <span class="tt">alsa-lib</span> on Linux). To build the latest <span class="tt">master</span> instead of the most recent release, append <span class="tt">--HEAD</span> to the install command.</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
 Use in CMake Projects</h3>
 <p>cmdfx installs a CMake package with the target <span class="tt">cmdfx::cmdfx</span>.</p>
 <div class="fragment"><div class="line">find_package(cmdfx REQUIRED)</div>
@@ -227,7 +229,7 @@ Use in CMake Projects</h3>
 <div class="fragment"><div class="line">cmake -S . -B build -DCMAKE_PREFIX_PATH=&quot;/usr/local&quot;   # macOS</div>
 <div class="line">cmake -S . -B build -DCMAKE_PREFIX_PATH=&quot;/usr&quot;         # Linux</div>
 <div class="line">cmake -S . -B build -DCMAKE_PREFIX_PATH=&quot;C:/Program Files/cmdfx&quot;  # Windows</div>
-</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
 GitHub Actions</h3>
 <p>Install cmdfx via the script, then build your project with CMake using the exported package.</p>
 <div class="fragment"><div class="line">name: Build with cmdfx</div>
@@ -265,7 +267,7 @@ GitHub Actions</h3>
 <div class="line">      - name: Build</div>
 <div class="line">        shell: bash</div>
 <div class="line">        run: cmake --build build</div>
-</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
 Kotlin/Native</h3>
 <p>If you are using Kotlin/Native, you can add cmdfx as a dependency in your <span class="tt">build.gradle.kts</span> file:</p>
 <div class="fragment"><div class="line">plugins {</div>
@@ -300,7 +302,7 @@ Kotlin/Native</h3>
 <div class="line">        }</div>
 <div class="line">    }</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
 🚀 Examples</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="d9/de4/cmdfx_8h.html">cmdfx.h</a>&gt;</span></div>
 <div class="line"> </div>
@@ -378,14 +380,14 @@ Kotlin/Native</h3>
 <div class="ttc" id="astructCmdFX__Event_html_ab39c464eb100ffb342a8d0b400befc03"><div class="ttname"><a href="dc/d5b/structCmdFX__Event.html#ab39c464eb100ffb342a8d0b400befc03">CmdFX_Event::data</a></div><div class="ttdeci">void * data</div><div class="ttdoc">A pointer to the data associated with the event.</div><div class="ttdef"><b>Definition</b> events.h:188</div></div>
 <div class="ttc" id="astructCmdFX__ResizeEvent_html"><div class="ttname"><a href="dc/d75/structCmdFX__ResizeEvent.html">CmdFX_ResizeEvent</a></div><div class="ttdoc">The payload for the CMDFX_EVENT_RESIZE event.</div><div class="ttdef"><b>Definition</b> events.h:44</div></div>
 </div><!-- fragment --><p>More examples can be found in the <a href="/samples">samples directory</a>.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
 🧪 Sanitizers</h2>
 <p>For development, cmdfx can be built and tested under sanitizers. Pass <span class="tt">-DSANITIZE_CMDFX=&lt;list&gt;</span> to CMake (e.g. <span class="tt">address,undefined</span> or <span class="tt">thread</span>), or use the helper scripts which configure, build, and run the test suite for you:</p>
 <div class="fragment"><div class="line">./asan.sh    # AddressSanitizer + UndefinedBehaviorSanitizer</div>
 <div class="line">./ubsan.sh   # UndefinedBehaviorSanitizer only</div>
 <div class="line">./tsan.sh    # ThreadSanitizer (physics engine lifecycle / race detection)</div>
 </div><!-- fragment --><p>ThreadSanitizer cannot be combined with AddressSanitizer, so it uses a separate build directory. These require a Clang or GCC toolchain.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
 📝 Contributing</h2>
 <p>If you would like to contribute to cmdfx, please see the <a class="el" href="d2/dfc/md__2home_2runner_2work_2cmdfx_2cmdfx_2CONTRIBUTING.html" title="Contributing">contributing guidelines</a>. All contributions are welcome! </p>
 </div></div><!-- PageDoc -->

@@ -25,7 +25,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="../../cmdfx_64.png"/></td>
   <td id="projectalign">
-   <div id="projectname">cmdfx<span id="projectnumber">&#160;1.0.0</span>
+   <div id="projectname">cmdfx<span id="projectnumber">&#160;1.0.1</span>
    </div>
    <div id="projectbrief">Lightweight game engine for your terminal</div>
   </td>
@@ -269,6 +269,36 @@ Functions</h2></td></tr>
 <tr class="memdesc:a65f8e86a85fb1041f580653c11573471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a foreground gradient in a 2D String Array.  <br /></td></tr>
 <tr class="memitem:a97c14717a1c4e7e4e72240b408881152" id="r_a97c14717a1c4e7e4e72240b408881152"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a97c14717a1c4e7e4e72240b408881152">String2DBuilder_multiGradientsBackgroundFull</a> (char ***array, int numColors, int *colors, double *percentages, enum <a class="el" href="#a183207b41c93e1d43060730ec7a1d7df">CmdFX_GradientDirection</a> direction)</td></tr>
 <tr class="memdesc:a97c14717a1c4e7e4e72240b408881152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a background gradient in a 2D String Array.  <br /></td></tr>
+<tr class="memitem:a1ada5b9724926d88340d6166c3ccf81b" id="r_a1ada5b9724926d88340d6166c3ccf81b"><td class="memItemLeft">char ***&#160;</td><td class="memItemRight"><a class="el" href="#a1ada5b9724926d88340d6166c3ccf81b">String2DBuilder_createFilledForeground</a> (int width, int height, int rgb)</td></tr>
+<tr class="memdesc:a1ada5b9724926d88340d6166c3ccf81b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 2D String Array filled with a foreground RGB color.  <br /></td></tr>
+<tr class="memitem:a6821483f34a17b16dbb247a680f5527b" id="r_a6821483f34a17b16dbb247a680f5527b"><td class="memItemLeft">char ***&#160;</td><td class="memItemRight"><a class="el" href="#a6821483f34a17b16dbb247a680f5527b">String2DBuilder_createFilledBackground</a> (int width, int height, int rgb)</td></tr>
+<tr class="memdesc:a6821483f34a17b16dbb247a680f5527b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 2D String Array filled with a background RGB color.  <br /></td></tr>
+<tr class="memitem:ac51278371ddfcfdf9d4b346a5b6fda1c" id="r_ac51278371ddfcfdf9d4b346a5b6fda1c"><td class="memItemLeft">char ***&#160;</td><td class="memItemRight"><a class="el" href="#ac51278371ddfcfdf9d4b346a5b6fda1c">String2DBuilder_createFilledForeground256</a> (int width, int height, int color)</td></tr>
+<tr class="memdesc:ac51278371ddfcfdf9d4b346a5b6fda1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 2D String Array filled with a 256-color foreground.  <br /></td></tr>
+<tr class="memitem:a9e4a593172e94e27aba5c64514cd22eb" id="r_a9e4a593172e94e27aba5c64514cd22eb"><td class="memItemLeft">char ***&#160;</td><td class="memItemRight"><a class="el" href="#a9e4a593172e94e27aba5c64514cd22eb">String2DBuilder_createFilledBackground256</a> (int width, int height, int color)</td></tr>
+<tr class="memdesc:a9e4a593172e94e27aba5c64514cd22eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 2D String Array filled with a 256-color background.  <br /></td></tr>
+<tr class="memitem:a0451e6323ba611ddc134180b144aaffb" id="r_a0451e6323ba611ddc134180b144aaffb"><td class="memItemLeft">char ***&#160;</td><td class="memItemRight"><a class="el" href="#a0451e6323ba611ddc134180b144aaffb">String2DBuilder_createFilledColor8</a> (int width, int height, int color)</td></tr>
+<tr class="memdesc:a0451e6323ba611ddc134180b144aaffb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 2D String Array filled with an 8/16-color SGR code.  <br /></td></tr>
+<tr class="memitem:a45aa17eb4f65a754a191a5e502d8a588" id="r_a45aa17eb4f65a754a191a5e502d8a588"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a45aa17eb4f65a754a191a5e502d8a588">String2DBuilder_setForeground</a> (char ***array, int x, int y, int width, int height, int rgb)</td></tr>
+<tr class="memdesc:a45aa17eb4f65a754a191a5e502d8a588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a foreground RGB color to a region of a 2D String Array.  <br /></td></tr>
+<tr class="memitem:aeaa60de0c65861f9952d4f8c1f64af95" id="r_aeaa60de0c65861f9952d4f8c1f64af95"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aeaa60de0c65861f9952d4f8c1f64af95">String2DBuilder_setForegroundAll</a> (char ***array, int rgb)</td></tr>
+<tr class="memdesc:aeaa60de0c65861f9952d4f8c1f64af95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a foreground RGB color to the entire 2D String Array.  <br /></td></tr>
+<tr class="memitem:a9a4d58ef3da83a1a20df97b99e5fa191" id="r_a9a4d58ef3da83a1a20df97b99e5fa191"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9a4d58ef3da83a1a20df97b99e5fa191">String2DBuilder_setBackground</a> (char ***array, int x, int y, int width, int height, int rgb)</td></tr>
+<tr class="memdesc:a9a4d58ef3da83a1a20df97b99e5fa191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a background RGB color to a region of a 2D String Array.  <br /></td></tr>
+<tr class="memitem:a866f0737c0c1b8a369fb81382f8a6fd2" id="r_a866f0737c0c1b8a369fb81382f8a6fd2"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a866f0737c0c1b8a369fb81382f8a6fd2">String2DBuilder_setBackgroundAll</a> (char ***array, int rgb)</td></tr>
+<tr class="memdesc:a866f0737c0c1b8a369fb81382f8a6fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a background RGB color to the entire 2D String Array.  <br /></td></tr>
+<tr class="memitem:a785370cf79520c3451321e56e451ebf8" id="r_a785370cf79520c3451321e56e451ebf8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a785370cf79520c3451321e56e451ebf8">String2DBuilder_setForeground256</a> (char ***array, int x, int y, int width, int height, int color)</td></tr>
+<tr class="memdesc:a785370cf79520c3451321e56e451ebf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a 256-color foreground to a region of a 2D String Array.  <br /></td></tr>
+<tr class="memitem:a09873794b4fd8dc1639e3819c6be13ed" id="r_a09873794b4fd8dc1639e3819c6be13ed"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a09873794b4fd8dc1639e3819c6be13ed">String2DBuilder_setForegroundAll256</a> (char ***array, int color)</td></tr>
+<tr class="memdesc:a09873794b4fd8dc1639e3819c6be13ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a 256-color foreground to the entire 2D String Array.  <br /></td></tr>
+<tr class="memitem:a0b3eb06e8e279f051c8581547cfc83de" id="r_a0b3eb06e8e279f051c8581547cfc83de"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0b3eb06e8e279f051c8581547cfc83de">String2DBuilder_setBackground256</a> (char ***array, int x, int y, int width, int height, int color)</td></tr>
+<tr class="memdesc:a0b3eb06e8e279f051c8581547cfc83de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a 256-color background to a region of a 2D String Array.  <br /></td></tr>
+<tr class="memitem:addac41e39d4b715ad8cb0039342d3a1a" id="r_addac41e39d4b715ad8cb0039342d3a1a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#addac41e39d4b715ad8cb0039342d3a1a">String2DBuilder_setBackgroundAll256</a> (char ***array, int color)</td></tr>
+<tr class="memdesc:addac41e39d4b715ad8cb0039342d3a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a 256-color background to the entire 2D String Array.  <br /></td></tr>
+<tr class="memitem:a495bcba7b4ecf7d37856243de03f766a" id="r_a495bcba7b4ecf7d37856243de03f766a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a495bcba7b4ecf7d37856243de03f766a">String2DBuilder_setColor8</a> (char ***array, int x, int y, int width, int height, int color)</td></tr>
+<tr class="memdesc:a495bcba7b4ecf7d37856243de03f766a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies an 8/16-color SGR code to a region of a 2D String Array.  <br /></td></tr>
+<tr class="memitem:a5898a3e38cd11b897b7d7de1c54b712d" id="r_a5898a3e38cd11b897b7d7de1c54b712d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5898a3e38cd11b897b7d7de1c54b712d">String2DBuilder_setColor8All</a> (char ***array, int color)</td></tr>
+<tr class="memdesc:a5898a3e38cd11b897b7d7de1c54b712d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies an 8/16-color SGR code to the entire 2D String Array.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Builder API for building 2D Character Arrays. </p>
@@ -2284,6 +2314,196 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6821483f34a17b16dbb247a680f5527b" name="a6821483f34a17b16dbb247a680f5527b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6821483f34a17b16dbb247a680f5527b">&#9670;&#160;</a></span>String2DBuilder_createFilledBackground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char *** String2DBuilder_createFilledBackground </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a 2D String Array filled with a background RGB color. </p>
+<p>Every cell is filled with the ANSI escape for the given 24-bit RGB background color, in the format <span class="tt">0xRRGGBB</span>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The width of the array. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the array. </td></tr>
+    <tr><td class="paramname">rgb</td><td>The RGB background color, as <span class="tt">0xRRGGBB</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The 2D String Array, or 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a9e4a593172e94e27aba5c64514cd22eb" name="a9e4a593172e94e27aba5c64514cd22eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e4a593172e94e27aba5c64514cd22eb">&#9670;&#160;</a></span>String2DBuilder_createFilledBackground256()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char *** String2DBuilder_createFilledBackground256 </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a 2D String Array filled with a 256-color background. </p>
+<p>Every cell is filled with the ANSI escape for the given 256-color palette index (0 - 255), matching <span class="tt"><a class="el" href="../../d4/dcf/canvas_8h.html#a786ecfc87a015c037080fa33a541524a" title="Sets the background color at the current cursor position using the built-in 256-color palette.">Canvas_setBackground256</a></span>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The width of the array. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the array. </td></tr>
+    <tr><td class="paramname">color</td><td>The 256-color palette index (0 - 255). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The 2D String Array, or 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a0451e6323ba611ddc134180b144aaffb" name="a0451e6323ba611ddc134180b144aaffb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0451e6323ba611ddc134180b144aaffb">&#9670;&#160;</a></span>String2DBuilder_createFilledColor8()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char *** String2DBuilder_createFilledColor8 </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a 2D String Array filled with an 8/16-color SGR code. </p>
+<p>Every cell is filled with the ANSI escape <span class="tt">\033[{color}m</span>, matching <span class="tt"><a class="el" href="../../d4/dcf/canvas_8h.html#a1f5d45070aad8c3a5745b76806b9dbca" title="Sets the color at the current cursor position using the built-in 8-bit color palette.">Canvas_setColor8</a></span>. The code itself selects foreground or background: 30-37 and 90-97 are foreground colors, 40-47 and 100-107 are background colors.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The width of the array. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the array. </td></tr>
+    <tr><td class="paramname">color</td><td>The SGR color code (30 - 107). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The 2D String Array, or 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a1ada5b9724926d88340d6166c3ccf81b" name="a1ada5b9724926d88340d6166c3ccf81b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ada5b9724926d88340d6166c3ccf81b">&#9670;&#160;</a></span>String2DBuilder_createFilledForeground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char *** String2DBuilder_createFilledForeground </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a 2D String Array filled with a foreground RGB color. </p>
+<p>This is the solid-color counterpart to the gradient functions. Every cell is filled with the ANSI escape for the given 24-bit RGB foreground color, in the format <span class="tt">0xRRGGBB</span>. This is useful for creating a colored overlay for a scene or sprite without writing escape sequences by hand.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The width of the array. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the array. </td></tr>
+    <tr><td class="paramname">rgb</td><td>The RGB foreground color, as <span class="tt">0xRRGGBB</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The 2D String Array, or 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="ac51278371ddfcfdf9d4b346a5b6fda1c" name="ac51278371ddfcfdf9d4b346a5b6fda1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac51278371ddfcfdf9d4b346a5b6fda1c">&#9670;&#160;</a></span>String2DBuilder_createFilledForeground256()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char *** String2DBuilder_createFilledForeground256 </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a 2D String Array filled with a 256-color foreground. </p>
+<p>Every cell is filled with the ANSI escape for the given 256-color palette index (0 - 255), matching <span class="tt"><a class="el" href="../../d4/dcf/canvas_8h.html#a5c75e3e92fa65413545d3cc045283529" title="Sets the foreground color at the current cursor position using the built-in 256-color palette.">Canvas_setForeground256</a></span>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The width of the array. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the array. </td></tr>
+    <tr><td class="paramname">color</td><td>The 256-color palette index (0 - 255). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The 2D String Array, or 0 if an error occurred. </dd></dl>
+
+</div>
+</div>
 <a id="a5531f3b532d690d5af630d8ba64873d3" name="a5531f3b532d690d5af630d8ba64873d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5531f3b532d690d5af630d8ba64873d3">&#9670;&#160;</a></span>String2DBuilder_ellipse()</h2>
 
@@ -3629,6 +3849,439 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
     <tr><td class="paramname">scale</td><td>The factor to scale the 2D String Array by. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a9a4d58ef3da83a1a20df97b99e5fa191" name="a9a4d58ef3da83a1a20df97b99e5fa191"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a4d58ef3da83a1a20df97b99e5fa191">&#9670;&#160;</a></span>String2DBuilder_setBackground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int String2DBuilder_setBackground </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies a background RGB color to a region of a 2D String Array. </p>
+<p>The color is composed onto each cell in the rectangle, so a foreground and a background color can be layered with separate calls.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The top-left X position. </td></tr>
+    <tr><td class="paramname">y</td><td>The top-left Y position. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the region. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the region. </td></tr>
+    <tr><td class="paramname">rgb</td><td>The RGB background color, as <span class="tt">0xRRGGBB</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a0b3eb06e8e279f051c8581547cfc83de" name="a0b3eb06e8e279f051c8581547cfc83de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b3eb06e8e279f051c8581547cfc83de">&#9670;&#160;</a></span>String2DBuilder_setBackground256()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int String2DBuilder_setBackground256 </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies a 256-color background to a region of a 2D String Array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The top-left X position. </td></tr>
+    <tr><td class="paramname">y</td><td>The top-left Y position. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the region. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the region. </td></tr>
+    <tr><td class="paramname">color</td><td>The 256-color palette index (0 - 255). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a866f0737c0c1b8a369fb81382f8a6fd2" name="a866f0737c0c1b8a369fb81382f8a6fd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a866f0737c0c1b8a369fb81382f8a6fd2">&#9670;&#160;</a></span>String2DBuilder_setBackgroundAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int String2DBuilder_setBackgroundAll </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies a background RGB color to the entire 2D String Array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">rgb</td><td>The RGB background color, as <span class="tt">0xRRGGBB</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="addac41e39d4b715ad8cb0039342d3a1a" name="addac41e39d4b715ad8cb0039342d3a1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addac41e39d4b715ad8cb0039342d3a1a">&#9670;&#160;</a></span>String2DBuilder_setBackgroundAll256()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int String2DBuilder_setBackgroundAll256 </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies a 256-color background to the entire 2D String Array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">color</td><td>The 256-color palette index (0 - 255). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a495bcba7b4ecf7d37856243de03f766a" name="a495bcba7b4ecf7d37856243de03f766a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a495bcba7b4ecf7d37856243de03f766a">&#9670;&#160;</a></span>String2DBuilder_setColor8()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int String2DBuilder_setColor8 </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies an 8/16-color SGR code to a region of a 2D String Array. </p>
+<p>The code selects foreground or background: 30-37 and 90-97 are foreground colors, 40-47 and 100-107 are background colors. Matches <span class="tt"><a class="el" href="../../d4/dcf/canvas_8h.html#a1f5d45070aad8c3a5745b76806b9dbca" title="Sets the color at the current cursor position using the built-in 8-bit color palette.">Canvas_setColor8</a></span>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The top-left X position. </td></tr>
+    <tr><td class="paramname">y</td><td>The top-left Y position. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the region. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the region. </td></tr>
+    <tr><td class="paramname">color</td><td>The SGR color code (30 - 107). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a5898a3e38cd11b897b7d7de1c54b712d" name="a5898a3e38cd11b897b7d7de1c54b712d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5898a3e38cd11b897b7d7de1c54b712d">&#9670;&#160;</a></span>String2DBuilder_setColor8All()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int String2DBuilder_setColor8All </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies an 8/16-color SGR code to the entire 2D String Array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">color</td><td>The SGR color code (30 - 107). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a45aa17eb4f65a754a191a5e502d8a588" name="a45aa17eb4f65a754a191a5e502d8a588"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45aa17eb4f65a754a191a5e502d8a588">&#9670;&#160;</a></span>String2DBuilder_setForeground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int String2DBuilder_setForeground </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies a foreground RGB color to a region of a 2D String Array. </p>
+<p>The color is composed onto each cell in the rectangle, so a foreground and a background color can be layered with separate calls. The array must already have known dimensions (created with a <span class="tt">Filled</span> function), and the region must fit within them.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The top-left X position. </td></tr>
+    <tr><td class="paramname">y</td><td>The top-left Y position. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the region. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the region. </td></tr>
+    <tr><td class="paramname">rgb</td><td>The RGB foreground color, as <span class="tt">0xRRGGBB</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a785370cf79520c3451321e56e451ebf8" name="a785370cf79520c3451321e56e451ebf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a785370cf79520c3451321e56e451ebf8">&#9670;&#160;</a></span>String2DBuilder_setForeground256()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int String2DBuilder_setForeground256 </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies a 256-color foreground to a region of a 2D String Array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">x</td><td>The top-left X position. </td></tr>
+    <tr><td class="paramname">y</td><td>The top-left Y position. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the region. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the region. </td></tr>
+    <tr><td class="paramname">color</td><td>The 256-color palette index (0 - 255). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="aeaa60de0c65861f9952d4f8c1f64af95" name="aeaa60de0c65861f9952d4f8c1f64af95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaa60de0c65861f9952d4f8c1f64af95">&#9670;&#160;</a></span>String2DBuilder_setForegroundAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int String2DBuilder_setForegroundAll </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rgb</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies a foreground RGB color to the entire 2D String Array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">rgb</td><td>The RGB foreground color, as <span class="tt">0xRRGGBB</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, -1 if an error occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a09873794b4fd8dc1639e3819c6be13ed" name="a09873794b4fd8dc1639e3819c6be13ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09873794b4fd8dc1639e3819c6be13ed">&#9670;&#160;</a></span>String2DBuilder_setForegroundAll256()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int String2DBuilder_setForegroundAll256 </td>
+          <td>(</td>
+          <td class="paramtype">char ***</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies a 256-color foreground to the entire 2D String Array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>The 2D String Array. </td></tr>
+    <tr><td class="paramname">color</td><td>The 256-color palette index (0 - 255). </td></tr>
   </table>
   </dd>
 </dl>
