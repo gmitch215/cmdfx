@@ -1,8 +1,8 @@
 class Cmdfx < Formula
   desc "Lightweight cross-platform 2D terminal game engine"
   homepage "https://github.com/gmitch215/cmdfx"
-  url "https://github.com/gmitch215/cmdfx/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "0000000000000000000000000000000000000000000000000000000000000000"
+  url "https://github.com/gmitch215/cmdfx/archive/refs/tags/v1.0.1.tar.gz"
+  sha256 "70f19def56a6286510f3cea7797384dedfc75c107fa679fc540ea4cbb6aecd75"
   license "MIT"
   head "https://github.com/gmitch215/cmdfx.git", branch: "master"
 
