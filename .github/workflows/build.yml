@@ -17,7 +17,7 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Install Clang Tools
         run: |
           pip install clang-tools
@@ -52,7 +52,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           submodules: "recursive"
       - uses: actions/setup-dotnet@v5
@@ -171,7 +171,7 @@ jobs:
         script: [asan.sh, ubsan.sh, tsan.sh]
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Install Dependencies
         run: |
           sudo apt-get update
@@ -190,7 +190,7 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Install Doxygen
         uses: ssciwr/doxygen-install@v2
       - name: Install Linux Dependencies
@@ -229,7 +229,7 @@ jobs:
       attestations: write
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           submodules: "recursive"
       - name: Setup Maven Settings
