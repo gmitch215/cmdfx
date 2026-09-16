@@ -38,7 +38,7 @@ jobs:
       - uses: actions/setup-dotnet@v5
         if: ${{ matrix.os == 'windows-2025' }}
         with:
-          dotnet-version: "9"
+          dotnet-version: "10"
       - name: Setup Global Dotnet Tool Cache
         if: ${{ matrix.os == 'windows-2025' }}
         uses: actions/cache@v5
