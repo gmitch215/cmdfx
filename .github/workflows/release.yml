@@ -75,7 +75,7 @@ jobs:
             ${{ runner.os }}-${{ runner.arch }}-konan
       - name: Setup Maven Settings
         if: ${{ matrix.os != 'ubuntu-24.04-arm' }}
-        uses: s4u/maven-settings-action@v4.0.0
+        uses: s4u/maven-settings-action@v4.1.0
         with:
           servers: '[{"id": "github", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}"}]'
       - name: Install Doxygen
